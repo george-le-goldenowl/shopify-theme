@@ -12,16 +12,22 @@
         </div>
     </div>
     <div class="top-banner-item__img">
-        <img src="././assets/images/slider01.png" alt="" class="d-none d-md-block">
-        <img src="././assets/images/slider01_sp.png" alt="" class="d-md-none">
+    	{{ 'slider01.png' | asset_url | image_tag: 
+    		loading: 'lazy',
+    		class: 'd-none d-md-block'
+    	}}
+    	{{ 'slider01_sp.png' | asset_url | image_tag: 
+    		loading: 'lazy',
+    		class: 'd-md-none'
+    	}}
     </div>
 </div>
-<div class="top-banner-item">
+<!-- <div class="top-banner-item">
     <div class="top-banner-item__img">
         <img src="././assets/images/slider02.png" alt="" class="d-none d-md-block">
         <img src="././assets/images/slider01_sp.png" alt="" class="d-md-none">
     </div>
-</div>
+</div> -->
 
 {% schema %}
 {
@@ -32,16 +38,6 @@
 		{
 			"type": "slide",
 			"name": "Homepage Slideshow"
-		}
-	],
-	"presets": [
-		{
-			"name": "Homepage Slideshow Presets",
-			"blocks": [
-				{
-					"type": "slide"
-				}
-			]
 		}
 	]
 }
