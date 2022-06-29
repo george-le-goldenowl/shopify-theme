@@ -29,12 +29,21 @@
 var homepage = {
 	elements: undefined,
     init: function() {
-    	this.elements = {
-    		slide: document.querySelector('.homepage-slide')
-    	};
+    	try {
+    		this.elements = {
+	    		slide: document.querySelector('.homepage-slide')
+	    	};
+	    	console.log(this.elements);
+	    	this.elements.slide.addEventListener('load', function() {
+	    		console.log(2);
+	    	});
 
-    	if (this.elements.slide.length) {
-    		this.fetchData(this); 
+	    	if (this.elements.slide.length) {
+	    		console.log(1);
+	    		this.fetchData(); 
+	    	}
+    	} catch (e) {
+    		console.log('errors:' + e);
     	}
     },
     fetchData: function() {
