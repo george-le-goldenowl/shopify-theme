@@ -12,22 +12,16 @@
         </div>
     </div>
     <div class="top-banner-item__img">
-    	{{ 'slider01.png' | asset_url | img_tag: 
-    		loading: 'lazy',
-    		class: 'd-none d-md-block'
-    	}}
-    	{{ 'slider01_sp.png' | asset_url | img_tag: 
-    		loading: 'lazy',
-    		class: 'd-md-none'
-    	}}
+    	<img src="{{ 'slider01.png' | asset_url }}" alt="" class="d-none d-md-block">
+		<img src="{{ 'slider01_sp.png' | asset_url }}" alt="" class="d-md-none">
     </div>
 </div>
-<!-- <div class="top-banner-item">
+<div class="top-banner-item">
     <div class="top-banner-item__img">
-        <img src="././assets/images/slider02.png" alt="" class="d-none d-md-block">
-        <img src="././assets/images/slider01_sp.png" alt="" class="d-md-none">
+        <img src="{{ 'slider01.png' | asset_url }}" alt="" class="d-none d-md-block">
+		<img src="{{ 'slider01_sp.png' | asset_url }}" alt="" class="d-md-none">
     </div>
-</div> -->
+</div>
 
 {% schema %}
 {
