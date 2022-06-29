@@ -1,16 +1,17 @@
 !(function($) {
     'use strict';
-    class LocalizationQuery {
-        constructor() {
-            this.elements = {
-                homeslide: $('#homepage-slide')
-            };
-            this.elements.homeslide.addEventListener('onload', this.fetchData.bind(this));
-        }
+    const tatoo = {
+    	elements: undefined,
+    	init: function() {
+    		this.elements = {
+    			homeslide: document.querySelector('.homepage-slide')
+    		};
 
-        fetchData() {
-            console.log(this)
-        }
-    }
-    new LocalizationQuery();
+    		this.elements.homeslide.addEventListener('onload', this.fetchData.bind(this));
+    	},
+    	fetchData: function() {
+    		console.log(this);
+    	}
+    };
+    tatoo.init();
 })(jQuery);
