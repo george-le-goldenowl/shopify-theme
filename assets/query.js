@@ -9,7 +9,9 @@
     			}
     		};
 
-    		this.elements.home.slide.on('load', this.fetchData.bind());
+    		document.addEventListener('DOMContentLoaded', function() {
+    			console.log(this.elements);
+    		});
     	},
     	fetchData: function() {
     		console.log(this);
