@@ -28,14 +28,6 @@
     </div>
 </section>
 
-<script>
-'use strict';
-document.addEventListener('load', () => {
-	const element = document.querySelector('.{{ section_class }}');
-	console.log(element);
-});
-</script>
-
 {% schema %}
 {
 	"name": "Homepage Slideshow",
@@ -43,7 +35,45 @@ document.addEventListener('load', () => {
 		{
 			"type": "slide",
 			"name": "Homepage Slideshow",
-			"limit": 1
+			"settings": [
+				// Title
+				{
+					"id": "slide_title",
+					"type": "text",
+					"label": "Title"
+				},
+				// Subtitle
+				{
+					"id": "slide_subtitle",
+					"type": "text",
+					"label": "Subtitle"
+				},
+				// Description
+				{
+					"id": "slide_description",
+					"type": "textarea",
+					"label": "Description"
+				},
+				// CTA
+				{
+					"id": "slide_cta",
+					"type": "url",
+					"label": "Read more"
+				},
+				// Thumbnail
+				{
+					// for Desktop
+					"id": "slide_thumbnail_desktop",
+					"type": "image_picker",
+					"label": "Desktop thumbnail"
+				},
+				{
+					// for Desktop
+					"id": "slide_thumbnail_mobile",
+					"type": "image_picker",
+					"label": "Mobile thumbnail"
+				}
+			]
 		}
 	]
 }
