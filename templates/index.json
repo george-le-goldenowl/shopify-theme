@@ -3,7 +3,7 @@
     "homepage_silde": {
       "type": "homepage-slide",
       "blocks": {
-        "slide": {
+        "homepage_silde_b1": {
           "type": "slide"
         }
       }
