@@ -23,23 +23,6 @@
     </div>
 </div>
 
-<script type="text/javascript">
-	class LocalizationHomeSlides extends HTMLElement {
-		constructor() {
-			super();
-			this.elements = {
-				slide: this.querySelector('#homepage-slide')
-			};
-			this.elements.slide.addEventListener('onload', this.fetchData.bind(this));
-		}
-
-		fetchData() {
-			console.log('abc');
-		}
-	}
-	new LocalizationHomeSlides();
-</script>
-
 {% schema %}
 {
 	"name": "Homepage Slideshow",
