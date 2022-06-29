@@ -8,7 +8,9 @@
     		};
 
     		// this.elements.homeslide.addEventListener('DOMContentLoaded', this.fetchData.bind(this));
-    		document.addEventListener('shopify:section:load', this.fetchData(event));
+    		document.addEventListener('shopify:section:load', function(event) {
+    			console.log(event);
+    		});
     	},
     	fetchData: function(e) {
     		console.log(e);
