@@ -9,15 +9,11 @@
                 <h3>CONTACT US</h3>
                 <table>
                     <tr>
-                        <td>
-                            <img src="././assets/images/phone.svg" alt="">
-                        </td>
+                        <td>{{ 'phone.svg' | asset_url | img_tag: shop.name }}</td>
                         <td>+1 4077 507 278<br>(9am to 5pm ET Mon - Fri)</td>
                     </tr>
                     <tr>
-                        <td>
-                            <img src="././assets/images/email.svg" alt="">
-                        </td>
+                        <td>{{ 'email.svg' | asset_url | img_tag }}</td>
                         <td>inknft@gmail.com</td>
                     </tr>
                 </table>
