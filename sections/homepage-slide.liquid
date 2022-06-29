@@ -30,18 +30,21 @@ var homepage = {
 	elements: undefined,
     init: function() {
     	try {
-    		this.elements = {
-	    		slide: document.querySelector('.homepage-slide')
-	    	};
+    		// this.elements = {
+	    	// 	slide: document.querySelector('.homepage-slide')
+	    	// };
 
-	    	document.addEventListener('DOMContentLoaded', function() {
-	    		console.log(this.elements);
+	    	// document.addEventListener('DOMContentLoaded', function() {
+	    	// 	console.log(this.elements);
+	    	// });
+
+	    	// if (this.elements.slide.length) {
+	    	// 	console.log(1);
+	    	// 	this.fetchData(); 
+	    	// }
+	    	$('.homepage-slide').on('load', function() {
+	    		console.log('abc');
 	    	});
-
-	    	if (this.elements.slide.length) {
-	    		console.log(1);
-	    		this.fetchData(); 
-	    	}
     	} catch (e) {
     		console.log('errors:' + e);
     	}
