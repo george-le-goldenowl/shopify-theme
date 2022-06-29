@@ -2,7 +2,7 @@
 <footer class="footer">
     <div class="container">
         <div class="footer-logo">
-            <img src="././assets/images/logo-footer.png" alt="">
+            {{ 'logo-footer.png' | asset_url | img_tag: shop.name }}
         </div>
         <div class="row">
             <div class="col-lg-3 col-6 orderft-1">
@@ -10,13 +10,13 @@
                 <table>
                     <tr>
                         <td>
-                            <img src="././assets/images/phone.svg" alt="">
+                            {{ 'phone.svg' | asset_url | img_tag }}
                         </td>
                         <td>+1 4077 507 278<br>(9am to 5pm ET Mon - Fri)</td>
                     </tr>
                     <tr>
                         <td>
-                            <img src="././assets/images/email.svg" alt="">
+                            {{ 'email.svg' | asset_url | img_tag }}
                         </td>
                         <td>inknft@gmail.com</td>
                     </tr>
@@ -47,18 +47,18 @@
             <div class="col-lg-4 col-6 orderft-2">
                 <h3>FOLLOW US</h3>
                 <div class="share">
-                    <a href="" target="_blank"><img src="././assets/images/facebook.svg" alt=""></a>
-                    <a href="" target="_blank"><img src="././assets/images/instagram.svg" alt=""></a>
-                    <a href="" target="_blank"><img src="././assets/images/tik-tok.svg" alt=""></a>
-                    <a href="" target="_blank"><img src="././assets/images/youtube.svg" alt=""></a>
+                    <a href="" target="_blank">{{ 'facebook.svg' | asset_url | img_tag }}</a>
+                    <a href="" target="_blank">{{ 'instagram.svg' | asset_url | img_tag }}</a>
+                    <a href="" target="_blank">{{ 'tik-tok.svg' | asset_url | img_tag }}</a>
+                    <a href="" target="_blank">{{ 'youtube.svg' | asset_url | img_tag }}</a>
                 </div>
                 <div class="d-sm-block d-none">
                     <h3>payment methods</h3>
                     <div class="paymen">
-                        <a href="" target="_blank"><img src="././assets/images/paymen_01.svg" alt=""></a>
-                        <a href="" target="_blank"><img src="././assets/images/paymen_02.svg" alt=""></a>
-                        <a href="" target="_blank"><img src="././assets/images/paymen_03.svg" alt=""></a>
-                        <a href="" target="_blank"><img src="././assets/images/paymen_04.svg" alt=""></a>
+                        <a href="" target="_blank">{{ 'paymen_01.svg' | asset_url | img_tag }}</a>
+                        <a href="" target="_blank">{{ 'paymen_02.svg' | asset_url | img_tag }}</a>
+                        <a href="" target="_blank">{{ 'paymen_03.svg' | asset_url | img_tag }}</a>
+                        <a href="" target="_blank">{{ 'paymen_04.svg' | asset_url | img_tag }}</a>
                     </div>
                 </div>
             </div>
@@ -66,10 +66,10 @@
         <div class="d-sm-none mt-30">
             <h3>payment methods</h3>
             <div class="paymen">
-                <a href="" target="_blank"><img src="././assets/images/paymen_01.svg" alt=""></a>
-                <a href="" target="_blank"><img src="././assets/images/paymen_02.svg" alt=""></a>
-                <a href="" target="_blank"><img src="././assets/images/paymen_03.svg" alt=""></a>
-                <a href="" target="_blank"><img src="././assets/images/paymen_04.svg" alt=""></a>
+                <a href="" target="_blank">{{ 'paymen_01.svg' | asset_url | img_tag }}</a>
+                <a href="" target="_blank">{{ 'paymen_02.svg' | asset_url | img_tag }}</a>
+                <a href="" target="_blank">{{ 'paymen_03.svg' | asset_url | img_tag }}</a>
+                <a href="" target="_blank">{{ 'paymen_04.svg' | asset_url | img_tag }}</a>
             </div>
         </div>
     </div>
@@ -79,226 +79,3 @@
         </div>
     </div>
 </footer>
-{% schema %}
-{
-"name": "t:sections.footer.name",
-"blocks": [
-{
-"type": "link_list",
-"name": "t:sections.footer.blocks.link_list.name",
-"settings": [
-{
-"type": "text",
-"id": "heading",
-"default": "Quick links",
-"label": "t:sections.footer.blocks.link_list.settings.heading.label"
-},
-{
-"type": "link_list",
-"id": "menu",
-"default": "footer",
-"label": "t:sections.footer.blocks.link_list.settings.menu.label",
-"info": "t:sections.footer.blocks.link_list.settings.menu.info"
-}
-]
-},
-{
-"type": "text",
-"name": "t:sections.footer.blocks.text.name",
-"settings": [
-{
-"type": "text",
-"id": "heading",
-"default": "Heading",
-"label": "t:sections.footer.blocks.text.settings.heading.label"
-},
-{
-"type": "richtext",
-"id": "subtext",
-"default": "<p>Share contact information, store details, and brand content with your customers.</p>",
-"label": "t:sections.footer.blocks.text.settings.subtext.label"
-}
-]
-},
-{
-"type": "image",
-"name": "Image",
-"settings": [
-{
-"type": "image_picker",
-"id": "image",
-"label": "Image"
-},
-{
-"type": "range",
-"id": "image_width",
-"min": 50,
-"max": 200,
-"step": 5,
-"unit": "px",
-"label": "Image width",
-"default": 100
-},
-{
-"type": "select",
-"id": "alignment",
-"label": "Image alignment on large screen",
-"options": [
-{
-"value": "",
-"label": "Left"
-},
-{
-"value": "center",
-"label": "Center"
-},
-{
-"value": "right",
-"label": "Right"
-}
-],
-"default": "center"
-}
-]
-}
-],
-"settings": [
-{
-"type": "select",
-"id": "color_scheme",
-"options": [
-{
-"value": "accent-1",
-"label": "t:sections.all.colors.accent_1.label"
-},
-{
-"value": "accent-2",
-"label": "t:sections.all.colors.accent_2.label"
-},
-{
-"value": "background-1",
-"label": "t:sections.all.colors.background_1.label"
-},
-{
-"value": "background-2",
-"label": "t:sections.all.colors.background_2.label"
-},
-{
-"value": "inverse",
-"label": "t:sections.all.colors.inverse.label"
-}
-],
-"default": "background-1",
-"label": "t:sections.all.colors.label"
-},
-{
-"type": "header",
-"content": "t:sections.footer.settings.header__1.content",
-"info": "t:sections.footer.settings.header__1.info"
-},
-{
-"type": "checkbox",
-"id": "newsletter_enable",
-"default": true,
-"label": "t:sections.footer.settings.newsletter_enable.label"
-},
-{
-"type": "text",
-"id": "newsletter_heading",
-"default": "Subscribe to our emails",
-"label": "t:sections.footer.settings.newsletter_heading.label"
-},
-{
-"type": "header",
-"content": "t:sections.footer.settings.header__2.content",
-"info": "t:sections.footer.settings.header__2.info"
-},
-{
-"type": "checkbox",
-"id": "show_social",
-"default": false,
-"label": "t:sections.footer.settings.show_social.label"
-},
-{
-"type": "header",
-"content": "t:sections.footer.settings.header__3.content",
-"info": "t:sections.footer.settings.header__4.info"
-},
-{
-"type": "checkbox",
-"id": "enable_country_selector",
-"default": true,
-"label": "t:sections.footer.settings.enable_country_selector.label"
-},
-{
-"type": "header",
-"content": "t:sections.footer.settings.header__5.content",
-"info": "t:sections.footer.settings.header__6.info"
-},
-{
-"type": "checkbox",
-"id": "enable_language_selector",
-"default": true,
-"label": "t:sections.footer.settings.enable_language_selector.label"
-},
-{
-"type": "header",
-"content": "t:sections.footer.settings.header__7.content"
-},
-{
-"type": "checkbox",
-"id": "payment_enable",
-"default": true,
-"label": "t:sections.footer.settings.payment_enable.label"
-},
-{
-"type": "header",
-"content": "t:sections.all.spacing"
-},
-{
-"type": "range",
-"id": "margin_top",
-"min": 0,
-"max": 100,
-"step": 4,
-"unit": "px",
-"label": "t:sections.footer.settings.margin_top.label",
-"default": 0
-},
-{
-"type": "header",
-"content": "t:sections.all.padding.section_padding_heading"
-},
-{
-"type": "range",
-"id": "padding_top",
-"min": 0,
-"max": 100,
-"step": 4,
-"unit": "px",
-"label": "t:sections.all.padding.padding_top",
-"default": 36
-},
-{
-"type": "range",
-"id": "padding_bottom",
-"min": 0,
-"max": 100,
-"step": 4,
-"unit": "px",
-"label": "t:sections.all.padding.padding_bottom",
-"default": 36
-}
-],
-"default": {
-"blocks": [
-{
-"type": "link_list"
-},
-{
-"type": "text"
-}
-]
-}
-}
-{% endschema %}
