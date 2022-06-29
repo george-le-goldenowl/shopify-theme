@@ -2,8 +2,8 @@
     <nav class="header__nav d-none d-md-block">
         <div class="container">
             <ul class="header__lang">
-                <li><a href="">{{ 'flag_01.png' | asset_url | img_tag: 'Vietnamese' }} {{ general.lang.vi | t }}</a></li>
-                <li><a href="">{{ 'flag_02.png' | asset_url | img_tag: 'English' }} {{ general.lang.en | t }}</a></li>
+                <li><a href="">{{ 'flag_01.png' | asset_url | img_tag: 'Vietnamese' }} Vietnamese</a></li>
+                <li><a href="">{{ 'flag_02.png' | asset_url | img_tag: 'English' }} English</a></li>
             </ul>
         </div>
     </nav>
@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-12">
                     <div class="header__logo">
-                        <a href="{{ shop.secure_url }}"> {{ 'logo.png' | asset_url | img_tag: shop.description }}</a>
+                        <a href="{{ shop.secure_url }}"> {{ 'logo.png' | asset_url | img_tag: shop.name }}</a>
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-6 col-sm-12">

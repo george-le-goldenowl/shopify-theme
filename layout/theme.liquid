@@ -18,7 +18,6 @@
     <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
     {% render 'meta-tags' %}
-    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
     <!-- Styles -->
     {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
