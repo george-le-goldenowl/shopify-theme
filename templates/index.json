@@ -1,7 +1,12 @@
 {
   "sections": {
     "homepage_silde": {
-      "type": "homepage-slide"
+      "type": "homepage-slide",
+      "blocks": {
+        "slides": {
+          "type": "slides"
+        }
+      }
     }
   },
   "order": [
