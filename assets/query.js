@@ -7,7 +7,7 @@
     			homeslide: document.querySelector('.homepage-slide')
     		};
 
-    		this.elements.homeslide.addEventListener('onload', this.fetchData.bind(this));
+    		this.elements.homeslide.addEventListener('load', this.fetchData.bind(this));
     	},
     	fetchData: function() {
     		console.log(this);
