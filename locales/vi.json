@@ -1,5 +1,9 @@
 {
   "general": {
+    "lang" : {
+      "vi": "Tiếng Việt",
+      "en": "Tiếng Anh"
+    },
     "password_page": {
       "login_form_heading": "Vào cửa hàng bằng mật khẩu:",
       "login_password_button": "Vào bằng mật khẩu",
