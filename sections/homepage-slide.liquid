@@ -33,13 +33,9 @@ var homepage = {
     		this.elements = {
 	    		slide: document.querySelector('.homepage-slide')
 	    	};
-	    	console.log(this.elements);
-	    	this.elements.slide.addEventListener('load', function() {
-	    		console.log(2);
-	    	});
 
-	    	this.elements.slide.addEventListener('DOMContentLoaded', function() {
-	    		console.log(3);
+	    	document.addEventListener('DOMContentLoaded', function() {
+	    		console.log(this.elements);
 	    	});
 
 	    	if (this.elements.slide.length) {
