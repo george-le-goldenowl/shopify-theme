@@ -26,9 +26,22 @@
 </section>
 
 <script>
-	document.addEventListener("shopify:section:load", function(event) {
-	    alert('abc');
-	});
+var homepage = {
+	elements: undefined,
+    init: function() {
+    	this.elements = {
+    		slide: document.querySelector('.homepage-slide')
+    	};
+
+    	if (this.elements.slide.length) {
+    		this.fetchData.bind(this);
+    	}
+    },
+    fetchData: function() {
+    	console.log(this);
+    }
+};
+homepage.init();
 </script>
 
 {% schema %}
