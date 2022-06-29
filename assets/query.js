@@ -1,6 +1,6 @@
 !(function($) {
     'use strict';
-    class LocalizationQuery() {
+    class LocalizationQuery {
         constructor() {
             this.elements = {
                 homeslide: $('#homepage-slide')
