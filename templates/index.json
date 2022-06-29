@@ -3,8 +3,8 @@
     "homepage_silde": {
       "type": "homepage-slide",
       "blocks": {
-        "slides": {
-          "type": "slides"
+        "slide": {
+          "type": "slide"
         }
       }
     }
