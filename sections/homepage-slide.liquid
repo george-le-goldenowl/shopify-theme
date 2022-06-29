@@ -1,4 +1,7 @@
-<section class="top-banner js-slider-top homepage-slide">
+{% liquid
+	assign section_class = 'homepage-slide'
+%}
+<section class="top-banner js-slider-top {{ section_class }}">
     <div class="top-banner-item">
         <div class="d-flex align-items-center container">
             <div class="top-banner-item__info">
@@ -24,6 +27,14 @@
         </div>
     </div>
 </section>
+
+<script>
+'use strict';
+document.addEventListener('DOMContentLoaded', () => {
+	const element = document.querySelector('{{ section_class }}');
+	console.log(element);
+});
+</script>
 
 {% schema %}
 {

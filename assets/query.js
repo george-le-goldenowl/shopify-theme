@@ -1,15 +1,15 @@
 !(function($) {
     'use strict';
     const tatoo = {
-        elements: undefined,
+        query: undefined,
         init: function() {
             document.addEventListener('DOMContentLoaded', function() {
-                this.elements = {
+                this.query = {
                     home: {
-                        slide: document.querySelector('.homepage-slide')
+                        endpoint: ''
                     }
                 };
-                console.log(this.elements);
+
             });
         },
         fetchData: function() {
