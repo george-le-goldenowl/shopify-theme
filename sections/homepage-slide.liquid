@@ -12,11 +12,11 @@
         </div>
     </div>
     <div class="top-banner-item__img">
-    	{{ 'slider01.png' | asset_url | image_tag: 
+    	{{ 'slider01.png' | asset_url | img_tag: 
     		loading: 'lazy',
     		class: 'd-none d-md-block'
     	}}
-    	{{ 'slider01_sp.png' | asset_url | image_tag: 
+    	{{ 'slider01_sp.png' | asset_url | img_tag: 
     		loading: 'lazy',
     		class: 'd-md-none'
     	}}
@@ -37,7 +37,8 @@
 	"blocks": [
 		{
 			"type": "slide",
-			"name": "Homepage Slideshow"
+			"name": "Homepage Slideshow",
+			"limit": 1
 		}
 	]
 }
