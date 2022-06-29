@@ -1,33 +1,39 @@
-<div class="top-banner-item">
-    <div class="d-flex align-items-center container">
-        <div class="top-banner-item__info">
-            <h3>Professional Tattoo Artist</h3>
-            <h4>INKNFT</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </p>
-            <div class="top-banner-item__btn btn-link">
-                <a href="">Read more</a>
+<section class="top-banner js-slider-top homepage-slide">
+    <div class="top-banner-item">
+        <div class="d-flex align-items-center container">
+            <div class="top-banner-item__info">
+                <h3>Professional Tattoo Artist</h3>
+                <h4>INKNFT</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                    labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </p>
+                <div class="top-banner-item__btn btn-link">
+                    <a href="">Read more</a>
+                </div>
             </div>
         </div>
+        <div class="top-banner-item__img">
+            <img src="{{ 'slider01.png' | asset_url }}" alt="" class="d-none d-md-block">
+            <img src="{{ 'slider01_sp.png' | asset_url }}" alt="" class="d-md-none">
+        </div>
     </div>
-    <div class="top-banner-item__img">
-    	<img src="{{ 'slider01.png' | asset_url }}" alt="" class="d-none d-md-block">
-		<img src="{{ 'slider01_sp.png' | asset_url }}" alt="" class="d-md-none">
+    <div class="top-banner-item">
+        <div class="top-banner-item__img">
+            <img src="{{ 'slider01.png' | asset_url }}" alt="" class="d-none d-md-block">
+            <img src="{{ 'slider01_sp.png' | asset_url }}" alt="" class="d-md-none">
+        </div>
     </div>
-</div>
-<div class="top-banner-item">
-    <div class="top-banner-item__img">
-        <img src="{{ 'slider01.png' | asset_url }}" alt="" class="d-none d-md-block">
-		<img src="{{ 'slider01_sp.png' | asset_url }}" alt="" class="d-md-none">
-    </div>
-</div>
+</section>
+
+<script type="text/javascript">
+	document.addEventListener("shopify:section:load", function(event) {
+	    console.log(event);
+	});
+</script>
 
 {% schema %}
 {
 	"name": "Homepage Slideshow",
-	"tag": "section",
-	"class": "top-banner js-slider-top homepage-slide",
 	"blocks": [
 		{
 			"type": "slide",
