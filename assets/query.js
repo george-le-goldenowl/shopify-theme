@@ -5,7 +5,7 @@
     	init: function() {
     		this.elements = {
     			home: {
-    				slide: $('.homepage-slide')
+    				slide: $(document.body).find('.homepage-slide')
     			}
     		};
 
