@@ -1,4 +1,4 @@
-<div class="top-banner-item">
+<div id="homepage-slide" class="top-banner-item">
     <div class="d-flex align-items-center container">
         <div class="top-banner-item__info">
             <h3>Professional Tattoo Artist</h3>
@@ -22,6 +22,22 @@
 		<img src="{{ 'slider01_sp.png' | asset_url }}" alt="" class="d-md-none">
     </div>
 </div>
+
+{% javascript %}
+	class LocalizationHomeSlides extends HTMLElement {
+		constructor() {
+			super();
+			this.elements = {
+				slide: this.querySelector('#homepage-slide')
+			};
+			this.elements.slide.addEventListener('onload', this.fetchData.bind(this));
+		}
+
+		fetchData() {
+			console.log('abc');
+		}
+	}
+{% endjavascript %}
 
 {% schema %}
 {
