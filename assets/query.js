@@ -4,16 +4,15 @@
     	elements: undefined,
     	init: function() {
     		this.elements = {
-    			homeslide: document.querySelector('.homepage-slide')
+    			home: {
+    				slide: $('.homepage-slide')
+    			}
     		};
 
-    		// this.elements.homeslide.addEventListener('DOMContentLoaded', this.fetchData.bind(this));
-    		document.addEventListener('shopify:section:load', function(event) {
-    			console.log(event);
-    		});
+    		this.elements.home.slide.on('load', this.fetchData.bind());
     	},
-    	fetchData: function(e) {
-    		console.log(e);
+    	fetchData: function() {
+    		console.log(this);
     	}
     };
     tatoo.init();
