@@ -20,7 +20,7 @@
       "type": "homepage-gallery",
       "blocks": {
         "gallery": {
-          "type": "gallery"
+          "type": "gallery" 
         }
       }
     }
