@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="section-content-child gallery">
+        <h2 class="ttl-01">Our Gallery</h2>
+        <div class="top-gallery clearfix">
+            <div class="top-gallery__item left effect-hover">
+                <a href="">
+                    <div class="top-gallery__item__img">
+                        <img src="././assets/images/gallery_01.png" alt="">
+                    </div>
+                </a>
+            </div>
+            <div class="top-gallery__item right effect-hover">
+                <a href="">
+                    <div class="top-gallery__item__img">
+                        <img src="././assets/images/gallery_03.png" alt="">
+                    </div>
+                </a>
+            </div>
+            <div class="top-gallery__item left effect-hover">
+                <a href="">
+                    <div class="top-gallery__item__img">
+                        <img src="././assets/images/gallery_02.png" alt="">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+	"name": "Homepage Gallery",
+	"tag": "section",
+	"class": "section-content",
+	"blocks": [
+		{
+			"type": "gallery",
+			"name": "Gallery",
+			"limit": 3,
+			"settings": [
+				{
+					"id": "image",
+					"type": "image_picker",
+					"label": "Gallery Image",
+				},
+				{
+					"id": "cta",
+					"type": "url",
+					"label": "CTA"
+				},
+				{
+					"id": "position",
+					"type": "select",
+					"label": "Position",
+					"default": "left",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					]
+				}
+			]
+		}
+	]
+}
+{% endschema %}

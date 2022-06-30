@@ -15,10 +15,19 @@
           "type": "categories"
         }
       }
+    },
+    "homepage_gallery": {
+      "type": "homepage-gallery",
+      "blocks": {
+        "gallery": {
+          "type": "gallery"
+        }
+      }
     }
   },
   "order": [
     "homepage_silde",
-    "homepage_categories"
+    "homepage_categories",
+    "homepage_gallery"
   ]
 }
