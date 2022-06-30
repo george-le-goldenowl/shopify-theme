@@ -1,75 +1,89 @@
-{% liquid
-	assign section_class = 'homepage-slide'
-%}
-<section class="top-banner js-slider-top {{ section_class }}">
+{% comment %}
+assign shortkey for block ids
+- a1: slide_title
+- a2: slide_subtitle
+- a3: slide_description
+- a4: slide_cta
+- a5: slide_thumbnail_desktop
+- a6: slide_thumbnail_mobile
+{% endcomment %}
+{%- if section.blocks != empty -%}
+<section class="top-banner js-slider-top">
+    {%- for b in section.blocks -%}
+    {%- if b.settings.a5 != blank -%}
     <div class="top-banner-item">
         <div class="d-flex align-items-center container">
             <div class="top-banner-item__info">
-                <h3>Professional Tattoo Artist</h3>
-                <h4>INKNFT</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                    labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </p>
+                <h3>{{ b.settings.a1 | escape }}</h3>
+                <h4>{{ b.settings.a2 | escape }}</h4>
+                <p>{{ b.settings.a3 | escape }}</p>
+                {% if b.settings.a4 != blank %}
                 <div class="top-banner-item__btn btn-link">
-                    <a href="">Read more</a>
+                    {{ 'Read more' | link_to: b.settings.a4 }}
                 </div>
+                {% endif %}
             </div>
         </div>
         <div class="top-banner-item__img">
-            <img src="{{ 'slider01.png' | asset_url }}" alt="" class="d-none d-md-block">
-            <img src="{{ 'slider01_sp.png' | asset_url }}" alt="" class="d-md-none">
+        	<!-- Display thumbnail for desktop -->
+            {{ b.settings.a5
+            | image_url: width: 1500, crop: 'center'
+            | image_tag: loading: 'lazy', class: 'd-none d-md-block'
+            }}
+            <!-- Display thumbnail for mobile -->
+            {{ b.settings.a6
+            | image_url: width: 1500, crop: 'center'
+            | image_tag: loading: 'lazy', class: 'd-md-none'
+            }}
         </div>
     </div>
-    <div class="top-banner-item">
-        <div class="top-banner-item__img">
-            <img src="{{ 'slider01.png' | asset_url }}" alt="" class="d-none d-md-block">
-            <img src="{{ 'slider01_sp.png' | asset_url }}" alt="" class="d-md-none">
-        </div>
-    </div>
+    {%- endif -%}
+    {%- endfor -%}
 </section>
+{%- endif -%}
 
 {% schema %}
 {
-	"name": "Homepage Slideshow",
+	"name": "Slideshow Section",
 	"blocks": [
 		{
 			"type": "slide",
-			"name": "Homepage Slideshow",
+			"name": "Slideshow",
 			"settings": [
 				// Title
 				{
-					"id": "slide_title",
+					"id": "a1",
 					"type": "text",
 					"label": "Title"
 				},
 				// Subtitle
 				{
-					"id": "slide_subtitle",
+					"id": "a2",
 					"type": "text",
 					"label": "Subtitle"
 				},
 				// Description
 				{
-					"id": "slide_description",
+					"id": "a3",
 					"type": "textarea",
 					"label": "Description"
 				},
 				// CTA
 				{
-					"id": "slide_cta",
+					"id": "a4",
 					"type": "url",
 					"label": "Read more"
 				},
 				// Thumbnail
 				{
 					// for Desktop
-					"id": "slide_thumbnail_desktop",
+					"id": "a5",
 					"type": "image_picker",
 					"label": "Desktop thumbnail"
 				},
 				{
 					// for Desktop
-					"id": "slide_thumbnail_mobile",
+					"id": "a6",
 					"type": "image_picker",
 					"label": "Mobile thumbnail"
 				}

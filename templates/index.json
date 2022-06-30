@@ -7,9 +7,13 @@
           "type": "slide"
         }
       }
+    },
+    "homepage_categories": {
+      "type": "homepage-categories"
     }
   },
   "order": [
-    "homepage_silde"
+    "homepage_silde",
+    "homepage_categories"
   ]
 }
