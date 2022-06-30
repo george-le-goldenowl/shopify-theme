@@ -1,31 +1,25 @@
+{% if section.blocks != empty %}
 <div class="container">
     <div class="section-content-child gallery">
         <h2 class="ttl-01">Our Gallery</h2>
         <div class="top-gallery clearfix">
-            <div class="top-gallery__item left effect-hover">
-                <a href="">
+            {% for block in section.blocks %}
+            {% assign index = forloop.index | modulo: 2 %}
+            <div class="top-gallery__item {% if index == 0 %}right{% else %}left{% endif %} effect-hover">
+                <a href="{{ block.settings.cta }}">
                     <div class="top-gallery__item__img">
-                        <img src="././assets/images/gallery_01.png" alt="">
+                        {{ block.settings.image
+                        | image_url: width: 600, crop: 'center'
+                        | image_tag: loading: 'lazy', alt: block.settings.image.alt
+                        }}
                     </div>
                 </a>
             </div>
-            <div class="top-gallery__item right effect-hover">
-                <a href="">
-                    <div class="top-gallery__item__img">
-                        <img src="././assets/images/gallery_03.png" alt="">
-                    </div>
-                </a>
-            </div>
-            <div class="top-gallery__item left effect-hover">
-                <a href="">
-                    <div class="top-gallery__item__img">
-                        <img src="././assets/images/gallery_02.png" alt="">
-                    </div>
-                </a>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
+{% endif %}
 
 {% schema %}
 {
@@ -47,22 +41,6 @@
 					"id": "cta",
 					"type": "url",
 					"label": "CTA"
-				},
-				{
-					"id": "position",
-					"type": "select",
-					"label": "Position",
-					"default": "left",
-					"options": [
-						{
-							"value": "left",
-							"label": "Left"
-						},
-						{
-							"value": "right",
-							"label": "Right"
-						}
-					]
 				}
 			]
 		}

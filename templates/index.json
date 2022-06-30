@@ -23,11 +23,15 @@
           "type": "gallery" 
         }
       }
+    },
+    "homepage_products": {
+      "type": "homepage-products"
     }
   },
   "order": [
     "homepage_silde",
     "homepage_categories",
-    "homepage_gallery"
+    "homepage_gallery",
+    "homepage_products"
   ]
 }
