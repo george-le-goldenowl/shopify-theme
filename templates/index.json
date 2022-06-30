@@ -9,7 +9,12 @@
       }
     },
     "homepage_categories": {
-      "type": "homepage-categories"
+      "type": "homepage-categories",
+      "blocks": {
+        "categories": {
+          "type": "categories"
+        }
+      }
     }
   },
   "order": [
