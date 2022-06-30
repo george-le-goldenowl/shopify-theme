@@ -1,78 +1,38 @@
+{% if section.blocks != empty %}
 <div class="container">
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'categories' %}
     <div class="section-content-child">
         <h2 class="ttl-01">Shop by category</h2>
         <div class="top-shop">
             <div class="row">
+                {% for collection in block.settings.featured_categories %}
                 <div class="col-6 col-md-4 col-lg-2">
                     <div class="top-shop__item">
-                        <div class="top-shop__item__img">
-                            <a href=""><img src="././assets/images/dummy01.png" alt=""> </a>
-                        </div>
-                        <p><a href="">Body jewelry</a></p>
+                        {% if collection.image != blank %}
+                            <div class="top-shop__item__img">
+                                {{ collection.image
+                                | image_url: width: 150, crop: 'center'
+                                | image_tag: loading: 'lazy', alt: collection.image.alt
+                                | link_to: collection.url
+                                }}
+                            </div>    
+                        {% endif %}
+                        <p>{{ collection.title | escape | remove: "[CATEGORY]" | link_to: collection.url }}</p>
                         <div class="top-shop__item__btn btn-link">
-                            <a href="">View all</a>
+                            {{ 'View all' | link_to: collection.url }}
                         </div>
                     </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="top-shop__item">
-                        <div class="top-shop__item__img">
-                            <a href=""><img src="././assets/images/dummy01.png" alt=""> </a>
-                        </div>
-                        <p><a href="">Piercing</a></p>
-                        <div class="top-shop__item__btn btn-link">
-                            <a href="">View all</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="top-shop__item">
-                        <div class="top-shop__item__img">
-                            <a href=""><img src="././assets/images/dummy01.png" alt=""> </a>
-                        </div>
-                        <p><a href="">Tatoo</a></p>
-                        <div class="top-shop__item__btn btn-link">
-                            <a href="">View all</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="top-shop__item">
-                        <div class="top-shop__item__img">
-                            <a href=""><img src="././assets/images/dummy01.png" alt=""> </a>
-                        </div>
-                        <p><a href="">Permanent makeup</a></p>
-                        <div class="top-shop__item__btn btn-link">
-                            <a href="">View all</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="top-shop__item">
-                        <div class="top-shop__item__img">
-                            <a href=""><img src="././assets/images/dummy01.png" alt=""> </a>
-                        </div>
-                        <p><a href="">Studio</a></p>
-                        <div class="top-shop__item__btn btn-link">
-                            <a href="">View all</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="top-shop__item">
-                        <div class="top-shop__item__img">
-                            <a href=""><img src="././assets/images/dummy01.png" alt=""> </a>
-                        </div>
-                        <p><a href="">Medical</a></p>
-                        <div class="top-shop__item__btn btn-link">
-                            <a href="">View all</a>
-                        </div>
-                    </div>
-                </div>
+                </div>    
+                {% endfor %}
             </div>
         </div>
     </div>
+    {% endcase %}
+    {% endfor %}
 </div>
+{% endif %}
 
 {% schema %}
 {
@@ -88,7 +48,8 @@
                 {
                     "id": "featured_categories",
                     "type": "collection_list",
-                    "label": "List categories"
+                    "label": "List categories",
+                    "limit": 6
                 }
             ]
         }
