@@ -10,20 +10,20 @@
                     <div class="top-shop__item">
                         {% assign thumbnail = category.image %}
                         {% if thumbnail %}
-                            <div class="top-shop__item__img">
-                                {{ thumbnail
-                                | image_url: width: 150, crop: 'center'
-                                | image_tag: loading: 'lazy', alt: thumbnail.alt
-                                | link_to: category.url
-                                }}
-                            </div>    
+                        <div class="top-shop__item__img">
+                            {{ thumbnail
+                            | image_url: width: 150, crop: 'center'
+                            | image_tag: loading: 'lazy', alt: thumbnail.alt
+                            | link_to: category.url
+                            }}
+                        </div>
                         {% endif %}
                         <p>{{ category.title | escape | remove: "[CATEGORY]" | link_to: category.url }}</p>
                         <div class="top-shop__item__btn btn-link">
                             {{ 'View all' | link_to: category.url }}
                         </div>
                     </div>
-                </div>    
+                </div>
                 {% endfor %}
             </div>
         </div>

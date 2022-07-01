@@ -1,30 +1,32 @@
 {% assign products = section.settings.featured_products %}
 {% if products != blank %}
-<div class="section-content-child product">
-    <h2 class="ttl-01">New Product</h2>
-    <div class="top-product js-slider-pro">
-        {% for product in products %}
-        <div class="top-product__item">
-            <a href="{{ product.url }}">
-                {% assign thumbnail = product.featured_image %}
-                {% if thumbnail %}
-                <div class="top-product__item__img">
-                    {{ thumbnail
-                    | image_url: width: 300, crop: 'center'
-                    | image_tag: loading: 'lazy', alt: thumbnail.alt
-                    }}
+<div class="container">
+    <div class="section-content-child product">
+        <h2 class="ttl-01">New Product</h2>
+        <div class="top-product js-slider-pro">
+            {% for product in products %}
+            <div class="top-product__item">
+                <a href="{{ product.url }}">
+                    {% assign thumbnail = product.featured_image %}
+                    {% if thumbnail %}
+                    <div class="top-product__item__img">
+                        {{ thumbnail
+                        | image_url: width: 300, crop: 'center'
+                        | image_tag: loading: 'lazy', alt: thumbnail.alt
+                        }}
+                    </div>
+                    {% endif %}
+                    <p class="ttl">{{ product.title | escape }}</p>
+                    <p class="price">{{ product.price | money }}</p>
+                </a>
+                <div class="product-nav">
+                    <a href=""><i class="icon-cart-01"></i></a>
+                    <a href=""><i class="icon-compare"></i></a>
+                    <a href=""><i class="icon-like"></i></a>
                 </div>
-                {% endif %}
-                <p class="ttl">{{ product.title | escape }}</p>
-                <p class="price">{{ product.price | money }}</p>
-            </a>
-            <div class="product-nav">
-                <a href=""><i class="icon-cart-01"></i></a>
-                <a href=""><i class="icon-compare"></i></a>
-                <a href=""><i class="icon-like"></i></a>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endif %}

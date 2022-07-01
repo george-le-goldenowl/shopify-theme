@@ -1,32 +1,32 @@
 {% if section.blocks != blank %}
-  <div class="container">
-  <div class="section-content-child">
-    <h2 class="ttl-01">blog</h2>
-    <div class="top-blog">
-      <div class="row">
-      {% for block in section.blocks %}
-        {% liquid 
-          assign blog = block.settings.blog 
-          assign image = block.settings.featured_image
-        %}
-        <div class="col-md-4">
-            <div class="top-blog__item effect-hover">
-                <a href="{{ blog.url }}">
-                    <div class="top-blog__item__img">
-                        {% liquid
-                          if image != blank 
-                            echo image |image_url: width: 400, crop: 'center' | image_tag: loading: 'lazy', alt: image.alt
-                          endif
-                        %}
-                        <span>{{ blog.title | escape }}</span>
+<div class="container">
+    <div class="section-content-child">
+        <h2 class="ttl-01">blog</h2>
+        <div class="top-blog">
+            <div class="row">
+                {% for block in section.blocks %}
+                {% liquid
+                assign blog = block.settings.blog
+                assign image = block.settings.featured_image
+                %}
+                <div class="col-md-4">
+                    <div class="top-blog__item effect-hover">
+                        <a href="{{ blog.url }}">
+                            <div class="top-blog__item__img">
+                                {% liquid
+                                if image != blank
+                                echo image |image_url: width: 400, crop: 'center' | image_tag: loading: 'lazy', alt: image.alt
+                                endif
+                                %}
+                                <span>{{ blog.title | escape }}</span>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                </div>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
-      </div>
     </div>
-  </div>
     <div class="container">
 {% endif %}
 
