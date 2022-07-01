@@ -38,6 +38,11 @@
       "type": "homepage-brands",
       "settings": {
       }
+    },
+    "homepage_blogs": {
+      "type": "homepage-blogs",
+      "settings": {
+      }
     }
   },
   "order": [
@@ -45,6 +50,7 @@
     "homepage_categories",
     "homepage_gallery",
     "homepage_products",
-    "homepage_brands"
+    "homepage_brands",
+    "homepage_blogs"
   ]
 }
