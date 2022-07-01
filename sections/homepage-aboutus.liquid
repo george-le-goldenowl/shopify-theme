@@ -1,0 +1,73 @@
+{% assign content = section.settings %}
+{% if content != blank %}
+<div class="container">
+    <div class="section-content-child">
+        <div class="top-about">
+            <div class="row align-items-center">
+                <div class="col-md-6 ">
+                    <h2 class="ttl-01">{{ content.title }}</h2>
+                    {{ content.paraphrase }}
+                    {% if content.cta != blank %}
+                    <div class="top-about__btn btn-link">
+                        {{ 'View all' | link_to: content.cta }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    {% liquid
+                    assign dt = content.desktop_thumbnail
+                    assign mt = content.mobile_thumbnail
+                    if dt != blank
+                    echo dt | image_url: width: 600, crop: 'center' | image_tag: loading: 'lazy', alt: dt.alt, class: 'd-none d-md-block'
+                    endif
+                    if mt != blank
+                    echo mt | image_url: width: 400, crop: 'center' | image_tag: loading: 'lazy', alt: mt.alt, class: 'd-md-none'
+                    endif
+                    %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "About us",
+    "tag": "section",
+    "class": "section-content",
+    "settings": [
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title"
+      },
+      {
+        "id": "paraphrase",
+        "type": "richtext",
+        "label": "Paraphrase"
+      },
+      {
+        "id": "cta",
+        "type": "url",
+        "label": "CTA"
+      },
+      {
+        "id": "desktop_thumbnail",
+        "type": "image_picker",
+        "label": "Desktop thumbnail"
+      },
+      {
+        "id": "mobile_thumbnail",
+        "type": "image_picker",
+        "label": "Mobile thumbnail"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

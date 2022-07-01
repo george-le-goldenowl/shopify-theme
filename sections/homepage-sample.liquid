@@ -1,0 +1,49 @@
+{% if section.settings != blank %}
+{% assign background = section.settings.image %}
+<section class="top-collection d-sm-block d-none" style="background: url({{ background | img_url }});">
+    <div class="container">
+        <h3>{{ section.settings.title | escape }}</h3>
+        {{ section.settings.paraphrase }}
+        {% assign cta = section.settings.cta %}
+        {% if cta != blank %}
+        <div class="btn-link">
+            {{ 'View all' | link_to: cta }}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Sample Collection",
+    "settings": [
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title"
+      },
+      {
+        "id": "paraphrase",
+        "type": "richtext",
+        "label": "Paraphrase"
+      },
+      {
+        "id": "cta",
+        "type": "url",
+        "label": "CTA"
+      },
+      {
+        "id": "image",
+        "type": "image_picker",
+        "label": "Background Image"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

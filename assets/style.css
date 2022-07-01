@@ -1417,7 +1417,6 @@ a {
 }
 
 .top-collection {
-  background: url(../assets/bg.png);
   color: #fff;
   padding: 100px 0;
   background-size: cover;
@@ -1546,7 +1545,6 @@ a {
 }
 
 .top-newsletter {
-  background: url(../assets/bg_newsleter.png);
   color: #fff;
   padding: 30px 0 75px 0;
   background-size: cover;

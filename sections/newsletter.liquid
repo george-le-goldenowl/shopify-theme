@@ -1,0 +1,49 @@
+{% if section.settings != blank %}
+{% assign background = section.settings.image %}
+<section class="top-newsletter" style="background: url({{ background | img_url }});">
+    <div class="container">
+        <h2 class="ttl-01">{{ section.settings.title | escape }}</h2>
+        {{ section.settings.paraphrase }}
+        <div class="form-newsleter d-flex align-items-center">
+            <div class="col-md-9">
+                <div class="form-group ">
+                    <input type="text" class="form-control" placeholder="Enter your email address...">
+                    <span class="email"></span>
+                </div>
+            </div>
+            <div class="btn-link col-md-3">
+                <a class="btn btn-search" href="">Send me</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title"
+      },
+      {
+        "id": "paraphrase",
+        "type": "richtext",
+        "label": "Paraphrase"
+      },
+      {
+        "id": "image",
+        "type": "image_picker",
+        "label": "Background Image"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
