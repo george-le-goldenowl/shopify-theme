@@ -8,9 +8,6 @@
     "homepage_categories": {
       "type": "homepage-categories",
       "settings": {
-        "featured_categories": [
-
-        ]
       }
     },
     "homepage_gallery": {
@@ -21,35 +18,20 @@
     "homepage_products": {
       "type": "homepage-products",
       "settings": {
-        "featured_products": [
-
-        ]
       }
     },
     "homepage_brands": {
       "type": "homepage-brands",
       "settings": {
-        "featured_brands": [
-
-        ]
       }
     },
     "homepage_blogs": {
       "type": "homepage-blogs",
-      "blocks": {
-        "abd7edcb-0c49-4dea-9e5e-79997f3ec318": {
-          "type": "blogs",
-          "settings": {
-            "featured_image": "shopify:\/\/shop_images\/autumn-walk-hand-in-hand.jpg",
-            "blog": "news"
-          }
-        }
-      },
-      "block_order": [
-        "abd7edcb-0c49-4dea-9e5e-79997f3ec318"
-      ],
       "settings": {
       }
+    },
+    "homepage_richtext": {
+      "type": "homepage_aboutus"
     }
   },
   "order": [
@@ -58,6 +40,7 @@
     "homepage_gallery",
     "homepage_products",
     "homepage_brands",
-    "homepage_blogs"
+    "homepage_blogs",
+    "homepage_richtext"
   ]
 }
