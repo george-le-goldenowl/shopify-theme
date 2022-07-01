@@ -14,10 +14,9 @@
                     <div class="top-blog__item__img">
                         {% liquid
                           if image != blank 
-                            echo image  
+                            echo image |image_url: width: 400, crop: 'center' | image_tag: loading: 'lazy', alt: image.alt
                           endif
                         %}
-                        <img src="././assets/images/blog_01.png" alt="">
                         <span>{{ blog.title | escape }}</span>
                     </div>
                 </a>
