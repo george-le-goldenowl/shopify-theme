@@ -41,6 +41,13 @@
     },
     "homepage_blogs": {
       "type": "homepage-blogs",
+      "blocks": {
+        "blogs": {
+          "type": "blogs",
+          "settings": {
+          }
+        }
+      },
       "settings": {
       }
     }

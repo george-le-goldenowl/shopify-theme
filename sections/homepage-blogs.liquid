@@ -3,11 +3,18 @@
     "name": "Blog",
     "tag": "section",
     "class": "section-content",
-    "settings": [
+    "blocks": [
       {
-          "id": "article",
-          "type": "blog",
-          "label": "Blogs"
+        "type": "blogs",
+        "name": "Blogs post",
+        "limit": 3,
+        "settings": [
+          {
+            "id": "blog",
+            "type": "blog",
+            "label": "Blog post"
+          }
+        ]
       }
     ]
   }
