@@ -4,12 +4,13 @@
     <div class="top-blog">
       <div class="row">
       {% for block in section.blocks %}
+        {% assign blog = block.settings.blog %}
         <div class="col-md-4">
             <div class="top-blog__item effect-hover">
-                <a href="">
+                <a href="{{ blog.url }}">
                     <div class="top-blog__item__img">
                         <img src="././assets/images/blog_01.png" alt="">
-                        <span>Tattoo meaning</span>
+                        <span>{{ blog.title | escape }}</span>
                     </div>
                 </a>
             </div>
@@ -31,6 +32,11 @@
         "name": "Blog post",
         "limit": 3,
         "settings": [
+          {
+            "id": "featured_image",
+            "type": "image_picker",
+            "label": "Featured Image"
+          },
           {
             "id": "blog",
             "type": "blog",
