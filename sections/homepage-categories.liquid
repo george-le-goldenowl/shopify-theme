@@ -1,27 +1,26 @@
-{% if section.blocks != empty %}
+{% assign categories = section.settings.featured_categories %}
+{% if categories != blank %}
 <div class="container">
-    {% for block in section.blocks %}
-    {% case block.type %}
-    {% when 'categories' %}
     <div class="section-content-child">
         <h2 class="ttl-01">Shop by category</h2>
         <div class="top-shop">
             <div class="row">
-                {% for collection in block.settings.featured_categories %}
+                {% for category in categories %}
                 <div class="col-6 col-md-4 col-lg-2">
                     <div class="top-shop__item">
-                        {% if collection.image != blank %}
+                        {% assign thumbnail = category.image %}
+                        {% if thumbnail %}
                             <div class="top-shop__item__img">
-                                {{ collection.image
+                                {{ thumbnail
                                 | image_url: width: 150, crop: 'center'
-                                | image_tag: loading: 'lazy', alt: collection.image.alt
-                                | link_to: collection.url
+                                | image_tag: loading: 'lazy', alt: thumbnail.alt
+                                | link_to: category.url
                                 }}
                             </div>    
                         {% endif %}
-                        <p>{{ collection.title | escape | remove: "[CATEGORY]" | link_to: collection.url }}</p>
+                        <p>{{ category.title | escape | remove: "[CATEGORY]" | link_to: category.url }}</p>
                         <div class="top-shop__item__btn btn-link">
-                            {{ 'View all' | link_to: collection.url }}
+                            {{ 'View all' | link_to: category.url }}
                         </div>
                     </div>
                 </div>    
@@ -29,8 +28,6 @@
             </div>
         </div>
     </div>
-    {% endcase %}
-    {% endfor %}
 </div>
 {% endif %}
 
