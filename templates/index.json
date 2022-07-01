@@ -1,28 +1,59 @@
 {
   "sections": {
     "homepage_silde": {
-      "type": "homepage-slide"
+      "type": "homepage-slide",
+      "settings": {
+      }
     },
     "homepage_categories": {
-      "type": "homepage-categories"
+      "type": "homepage-categories",
+      "settings": {
+        "featured_categories": [
+
+        ]
+      }
     },
     "homepage_gallery": {
-      "type": "homepage-gallery"
+      "type": "homepage-gallery",
+      "settings": {
+      }
     },
     "homepage_products": {
-      "type": "homepage-products"
+      "type": "homepage-products",
+      "settings": {
+        "featured_products": [
+
+        ]
+      }
     },
     "homepage_brands": {
-      "type": "homepage-brands"
+      "type": "homepage-brands",
+      "settings": {
+        "featured_brands": [
+
+        ]
+      }
     },
     "homepage_blogs": {
-      "type": "homepage-blogs"
+      "type": "homepage-blogs",
+      "settings": {
+      }
     },
     "homepage_richtext": {
-      "type": "homepage-aboutus"
+      "type": "homepage-aboutus",
+      "settings": {
+        "title": "",
+        "paraphrase": "",
+        "cta": ""
+      }
     },
     "homepage_sample": {
-      "type": "homepage-sample"
+      "type": "homepage-sample",
+      "settings": {
+        "title": "",
+        "paraphrase": "",
+        "cta": ""
+      }
     }
   },
   "order": [
