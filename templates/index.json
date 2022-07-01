@@ -26,12 +26,16 @@
     },
     "homepage_products": {
       "type": "homepage-products"
+    },
+    "homepage_brands": {
+      "type": "homepage-brands"
     }
   },
   "order": [
     "homepage_silde",
     "homepage_categories",
     "homepage_gallery",
-    "homepage_products"
+    "homepage_products",
+    "homepage_brands"
   ]
 }
