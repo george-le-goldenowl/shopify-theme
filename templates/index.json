@@ -2,52 +2,58 @@
   "sections": {
     "homepage_silde": {
       "type": "homepage-slide",
-      "blocks": {
-        "homepage_silde_b1": {
-          "type": "slide",
-          "settings": {
-          }
-        }
-      },
       "settings": {
       }
     },
     "homepage_categories": {
       "type": "homepage-categories",
       "settings": {
+        "featured_categories": [
+
+        ]
       }
     },
     "homepage_gallery": {
       "type": "homepage-gallery",
-      "blocks": {
-        "gallery": {
-          "type": "gallery",
-          "settings": {
-          }
-        }
-      },
       "settings": {
       }
     },
     "homepage_products": {
       "type": "homepage-products",
       "settings": {
+        "featured_products": [
+
+        ]
       }
     },
     "homepage_brands": {
       "type": "homepage-brands",
       "settings": {
+        "featured_brands": [
+
+        ]
       }
     },
     "homepage_blogs": {
       "type": "homepage-blogs",
       "blocks": {
-        "blogs": {
+        "abd7edcb-0c49-4dea-9e5e-79997f3ec318": {
           "type": "blogs",
           "settings": {
+            "blog": ""
+          }
+        },
+        "6cf72a6b-fd8c-44dc-a706-332e5e926b54": {
+          "type": "blogs",
+          "settings": {
+            "blog": "new-blogs-post"
           }
         }
       },
+      "block_order": [
+        "abd7edcb-0c49-4dea-9e5e-79997f3ec318",
+        "6cf72a6b-fd8c-44dc-a706-332e5e926b54"
+      ],
       "settings": {
       }
     }
