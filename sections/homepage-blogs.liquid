@@ -4,11 +4,19 @@
     <div class="top-blog">
       <div class="row">
       {% for block in section.blocks %}
-        {% assign blog = block.settings.blog %}
+        {% liquid 
+          assign blog = block.settings.blog 
+          assign image = block.settings.featured_image
+        %}
         <div class="col-md-4">
             <div class="top-blog__item effect-hover">
                 <a href="{{ blog.url }}">
                     <div class="top-blog__item__img">
+                        {% liquid
+                          if image != blank 
+                            echo image  
+                          endif
+                        %}
                         <img src="././assets/images/blog_01.png" alt="">
                         <span>{{ blog.title | escape }}</span>
                     </div>
