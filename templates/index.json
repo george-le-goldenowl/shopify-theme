@@ -4,31 +4,47 @@
       "type": "homepage-slide",
       "blocks": {
         "homepage_silde_b1": {
-          "type": "slide"
+          "type": "slide",
+          "settings": {
+          }
         }
+      },
+      "settings": {
       }
     },
     "homepage_categories": {
       "type": "homepage-categories",
       "blocks": {
         "categories": {
-          "type": "categories"
+          "type": "categories",
+          "settings": {
+          }
         }
+      },
+      "settings": {
       }
     },
     "homepage_gallery": {
       "type": "homepage-gallery",
       "blocks": {
         "gallery": {
-          "type": "gallery" 
+          "type": "gallery",
+          "settings": {
+          }
         }
+      },
+      "settings": {
       }
     },
     "homepage_products": {
-      "type": "homepage-products"
+      "type": "homepage-products",
+      "settings": {
+      }
     },
     "homepage_brands": {
-      "type": "homepage-brands"
+      "type": "homepage-brands",
+      "settings": {
+      }
     }
   },
   "order": [
