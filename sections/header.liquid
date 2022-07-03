@@ -38,10 +38,16 @@
                             <i class="icon-phone"></i>
                             <a href="" tel="">+1 4077 507 278 </a>
                         </li>
+                        {% if shop.customer_accounts_enabled %}
                         <li>
-                            <i class="icon-user"></i>
-                            <a href="">Login</a>
+                            {% if customer %}
+                                <!-- TODO: insert user avater -->
+                            {% else %}
+                                <i class="icon-user"></i>
+                                {{ 'Login' | link_to: routes.account_login_url }}
+                            {% endif %}
                         </li>
+                        {% endif %}
                         <li>
                             <i class="icon-card"></i>
                         </li>
