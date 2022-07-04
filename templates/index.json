@@ -3,19 +3,20 @@
     "homepage_silde": {
       "type": "homepage-slide",
       "blocks": {
-        "bb3af6e9-f0f7-4df9-8411-c1525e3f9b4e": {
+        "f417b0e0-0edd-43d7-9ab1-012d0c052e59": {
           "type": "slide",
           "settings": {
-            "title": "test",
-            "subtitle": "test",
-            "paraphrase": "<p>desc<\/p>",
-            "cta": "",
-            "desktop_thumbnail": "shopify:\/\/shop_images\/autumn-walk-hand-in-hand.jpg"
+            "title": "Professional Tattoo Artist",
+            "subtitle": "INKNFT",
+            "paraphrase": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <\/p>",
+            "cta": "shopify:\/\/pages\/contact",
+            "desktop_thumbnail": "shopify:\/\/shop_images\/slider01.png",
+            "mobile_thumbnail": "shopify:\/\/shop_images\/slider01_sp.png"
           }
         }
       },
       "block_order": [
-        "bb3af6e9-f0f7-4df9-8411-c1525e3f9b4e"
+        "f417b0e0-0edd-43d7-9ab1-012d0c052e59"
       ],
       "settings": {
       }
