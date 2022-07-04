@@ -1,6 +1,6 @@
 {% if section.settings != blank %}
 {% assign background = section.settings.image %}
-<section class="top-collection d-sm-block d-none" style="background: url({{ background | image_url: width: 1200, crop: 'center'| image_tag: loading: 'lazy', alt: background.alt }});">
+<section class="top-collection d-sm-block d-none" style="background: url({{ background | image_url: width: 1200, crop: 'center' }});">
     <div class="container">
         <h3>{{ section.settings.title | escape }}</h3>
         {{ section.settings.paraphrase }}
