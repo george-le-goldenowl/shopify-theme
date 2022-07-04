@@ -101,6 +101,34 @@
     },
     "homepage_blogs": {
       "type": "homepage-blogs",
+      "blocks": {
+        "b3309bb3-fe03-4402-a642-daf723125bf0": {
+          "type": "blogs",
+          "settings": {
+            "featured_image": "shopify:\/\/shop_images\/blog_01.png",
+            "blog": "tatoo-meaning"
+          }
+        },
+        "705b11d3-1bad-4b34-95ee-501eb2232eea": {
+          "type": "blogs",
+          "settings": {
+            "featured_image": "shopify:\/\/shop_images\/blog_02.png",
+            "blog": "tatoo-blog-title-02"
+          }
+        },
+        "6fb68862-5a42-4199-a16c-61f0d59aef08": {
+          "type": "blogs",
+          "settings": {
+            "featured_image": "shopify:\/\/shop_images\/blog_03.png",
+            "blog": "tatoo-blog-title-03"
+          }
+        }
+      },
+      "block_order": [
+        "b3309bb3-fe03-4402-a642-daf723125bf0",
+        "705b11d3-1bad-4b34-95ee-501eb2232eea",
+        "6fb68862-5a42-4199-a16c-61f0d59aef08"
+      ],
       "settings": {
       }
     },
