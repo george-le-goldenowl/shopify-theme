@@ -2,6 +2,21 @@
   "sections": {
     "homepage_silde": {
       "type": "homepage-slide",
+      "blocks": {
+        "bb3af6e9-f0f7-4df9-8411-c1525e3f9b4e": {
+          "type": "slide",
+          "settings": {
+            "title": "test",
+            "subtitle": "test",
+            "paraphrase": "<p>desc<\/p>",
+            "cta": "",
+            "desktop_thumbnail": "shopify:\/\/shop_images\/autumn-walk-hand-in-hand.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "bb3af6e9-f0f7-4df9-8411-c1525e3f9b4e"
+      ],
       "settings": {
       }
     },
