@@ -13,10 +13,21 @@
             "desktop_thumbnail": "shopify:\/\/shop_images\/slider01.png",
             "mobile_thumbnail": "shopify:\/\/shop_images\/slider01_sp.png"
           }
+        },
+        "d1c066fb-2b8c-4fde-ab07-862b24e70947": {
+          "type": "slide",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "paraphrase": "",
+            "cta": "",
+            "desktop_thumbnail": "shopify:\/\/shop_images\/slider02.png"
+          }
         }
       },
       "block_order": [
-        "f417b0e0-0edd-43d7-9ab1-012d0c052e59"
+        "f417b0e0-0edd-43d7-9ab1-012d0c052e59",
+        "d1c066fb-2b8c-4fde-ab07-862b24e70947"
       ],
       "settings": {
       }
