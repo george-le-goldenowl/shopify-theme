@@ -47,6 +47,18 @@
     },
     "homepage_gallery": {
       "type": "homepage-gallery",
+      "blocks": {
+        "b40e7829-41e3-4032-9a76-1e0697fe74af": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/gallery_01.png",
+            "cta": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "b40e7829-41e3-4032-9a76-1e0697fe74af"
+      ],
       "settings": {
       }
     },
