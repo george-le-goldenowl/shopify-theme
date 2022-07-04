@@ -82,7 +82,7 @@
       "type": "homepage-products",
       "settings": {
         "featured_products": [
-
+          "example-t-shirt"
         ]
       }
     },
