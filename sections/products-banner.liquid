@@ -6,9 +6,9 @@
   | image_tag: loading: 'lazy', class: 'd-none d-md-block', alt: banner.alt 
 }}
 {% liquid
-  assign mobile = section.settings.desktop_thumbnail 
+  assign mobile = section.settings.mobile_thumbnail
   if mobile != blank
-    echo mobile | image_url: width: 1700, crop: 'center' | image_tag: loading: 'lazy', class: 'd-md-none', alt: mobile.alt 
+    echo mobile | image_url: width: 400, crop: 'center' | image_tag: loading: 'lazy', class: 'd-md-none', alt: mobile.alt 
   endif
 %}
 <div class="child-banner__info">
