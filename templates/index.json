@@ -3,17 +3,163 @@
     "homepage_silde": {
       "type": "homepage-slide",
       "blocks": {
-        "homepage_silde_b1": {
-          "type": "slide"
+        "f417b0e0-0edd-43d7-9ab1-012d0c052e59": {
+          "type": "slide",
+          "settings": {
+            "title": "Professional Tattoo Artist",
+            "subtitle": "INKNFT",
+            "paraphrase": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <\/p>",
+            "cta": "shopify:\/\/pages\/contact",
+            "desktop_thumbnail": "shopify:\/\/shop_images\/slider01.png",
+            "mobile_thumbnail": "shopify:\/\/shop_images\/slider01_sp.png"
+          }
+        },
+        "d1c066fb-2b8c-4fde-ab07-862b24e70947": {
+          "type": "slide",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "paraphrase": "",
+            "cta": "",
+            "desktop_thumbnail": "shopify:\/\/shop_images\/slider02.png"
+          }
         }
+      },
+      "block_order": [
+        "f417b0e0-0edd-43d7-9ab1-012d0c052e59",
+        "d1c066fb-2b8c-4fde-ab07-862b24e70947"
+      ],
+      "settings": {
       }
     },
     "homepage_categories": {
-      "type": "homepage-categories"
+      "type": "homepage-categories",
+      "settings": {
+        "featured_categories": [
+          "categorybody-jewelry",
+          "categorypiercing",
+          "categorytatoo",
+          "categorystudio",
+          "categorypermanent-makeup",
+          "categorymedical"
+        ]
+      }
+    },
+    "homepage_gallery": {
+      "type": "homepage-gallery",
+      "blocks": {
+        "b40e7829-41e3-4032-9a76-1e0697fe74af": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/gallery_01.png",
+            "cta": "shopify:\/\/collections\/all"
+          }
+        },
+        "d51ebfd3-6355-4fb7-a6ad-3ef4eeae5f7e": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/gallery_03.png",
+            "cta": "shopify:\/\/collections\/all"
+          }
+        },
+        "f8837888-f52e-4d33-b825-326c290d5978": {
+          "type": "gallery",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/gallery_02.png",
+            "cta": "shopify:\/\/collections\/all"
+          }
+        }
+      },
+      "block_order": [
+        "b40e7829-41e3-4032-9a76-1e0697fe74af",
+        "d51ebfd3-6355-4fb7-a6ad-3ef4eeae5f7e",
+        "f8837888-f52e-4d33-b825-326c290d5978"
+      ],
+      "settings": {
+      }
+    },
+    "homepage_products": {
+      "type": "homepage-products",
+      "settings": {
+        "featured_products": [
+          "example-t-shirt"
+        ]
+      }
+    },
+    "homepage_brands": {
+      "type": "homepage-brands",
+      "settings": {
+        "featured_brands": [
+          "brandbrand_01",
+          "brandbrand_02",
+          "brandbrand_03",
+          "brandbrand_04",
+          "brandbrand_05",
+          "brandbrand_06"
+        ]
+      }
+    },
+    "homepage_blogs": {
+      "type": "homepage-blogs",
+      "blocks": {
+        "b3309bb3-fe03-4402-a642-daf723125bf0": {
+          "type": "blogs",
+          "settings": {
+            "featured_image": "shopify:\/\/shop_images\/blog_01.png",
+            "blog": "tatoo-meaning"
+          }
+        },
+        "705b11d3-1bad-4b34-95ee-501eb2232eea": {
+          "type": "blogs",
+          "settings": {
+            "featured_image": "shopify:\/\/shop_images\/blog_02.png",
+            "blog": "tatoo-blog-title-02"
+          }
+        },
+        "6fb68862-5a42-4199-a16c-61f0d59aef08": {
+          "type": "blogs",
+          "settings": {
+            "featured_image": "shopify:\/\/shop_images\/blog_03.png",
+            "blog": "tatoo-blog-title-03"
+          }
+        }
+      },
+      "block_order": [
+        "b3309bb3-fe03-4402-a642-daf723125bf0",
+        "705b11d3-1bad-4b34-95ee-501eb2232eea",
+        "6fb68862-5a42-4199-a16c-61f0d59aef08"
+      ],
+      "settings": {
+      }
+    },
+    "homepage_richtext": {
+      "type": "homepage-aboutus",
+      "settings": {
+        "title": "About us",
+        "paraphrase": "<p>Founded in 1999, PainfulPleasures began with the goal to provide the widest variety of tattoo supplies, piercing supplies, and body jewelry in the world. Since then, the PainfulPleasures brand and vision have expanded and come to fruition.<\/p><p>We keep pace with this exciting, ever-evolving industry by offering an unmatched selection of products, from body jewelry and studio equipment to state-of-the-art tattoo and piercing supplies. Browse our site for products from popular brands like Cheyenne, FK Irons, Inkjecta, World Famous Inks, Dynamic, A Pound of Flesh, Recovery, Precision, and Peak. If you have a vision, we have the supplies to make it happen.<\/p>",
+        "cta": "shopify:\/\/collections\/all",
+        "desktop_thumbnail": "shopify:\/\/shop_images\/about_img.png",
+        "mobile_thumbnail": "shopify:\/\/shop_images\/about_img_01.png"
+      }
+    },
+    "homepage_sample": {
+      "type": "homepage-sample",
+      "settings": {
+        "title": "basic Collection",
+        "paraphrase": "<p>Here to bring your life style to the next level<\/p>",
+        "cta": "shopify:\/\/collections\/all",
+        "image": "shopify:\/\/shop_images\/bg.png"
+      }
     }
   },
   "order": [
     "homepage_silde",
-    "homepage_categories"
+    "homepage_categories",
+    "homepage_gallery",
+    "homepage_products",
+    "homepage_brands",
+    "homepage_blogs",
+    "homepage_richtext",
+    "homepage_sample"
   ]
 }
