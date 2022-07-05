@@ -7,12 +7,15 @@
             {% assign index = forloop.index | modulo: 2 %}
             <div class="top-gallery__item {% if index == 0 %}right{% else %}left{% endif %} effect-hover">
                 <a href="{{ block.settings.cta }}">
+                    {% assign image = block.settings.image %}
+                    {% if image %}
                     <div class="top-gallery__item__img">
-                        {{ block.settings.image
+                        {{ image
                         | image_url: width: 600, crop: 'center'
-                        | image_tag: loading: 'lazy', alt: block.settings.image.alt
+                        | image_tag: loading: 'lazy', alt: image.alt
                         }}
                     </div>
+                    {% endif %}
                 </a>
             </div>
             {% endfor %}
