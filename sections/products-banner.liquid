@@ -1,7 +1,39 @@
+<img src="./assets/images/banner-child.png" alt="" class="d-none d-md-block">
+<img src="./assets/images/banner-child-sp.png" alt="" class="d-md-none">
+<div class="child-banner__info">
+    <div>
+        <h2>Shop</h2>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
+            </ol>
+        </nav>
+    </div>
+</div>
 {% schema %}
   {
-    "name": "Section name",
-    "settings": []
+    "name": "Page Products Banner",
+    "tag": "section",
+    "class": "child-banner",
+    "settings": [
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Shop"
+      },
+      {
+        "id": "desktop_thumbnail",
+        "type": "image_picker",
+        "label": "Desktop thumbnail"
+      },
+      {
+        "id": "mobile_thumbnail",
+        "type": "image_picker",
+        "label": "Mobile thumbnail"
+      }
+    ]
   }
 {% endschema %}
 
