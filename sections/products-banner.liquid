@@ -5,7 +5,12 @@
   | image_url: width: 1700, crop: 'center'
   | image_tag: loading: 'lazy', class: 'd-none d-md-block', alt: banner.alt 
 }}
-<img src="./assets/images/banner-child-sp.png" alt="" class="d-md-none">
+{% liquid
+  assign mobile = section.settings.desktop_thumbnail 
+  if mobile != blank
+    echo mobile | image_url: width: 400, crop: 'center' | image_tag: loading: 'lazy', class: 'd-md-none', alt: mobile.alt 
+  endif
+%}
 <div class="child-banner__info">
     <div>
         <h2>Shop</h2>
