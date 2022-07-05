@@ -3,6 +3,9 @@
     "listProduct_banner": {
       "type": "products-banner",
       "settings": {
+        "title": "Shop",
+        "desktop_thumbnail": "shopify:\/\/shop_images\/banner-child.png",
+        "mobile_thumbnail": "shopify:\/\/shop_images\/banner-child.png"
       }
     }
   },
