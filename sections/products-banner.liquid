@@ -1,5 +1,10 @@
 {% assign banner = section.settings.desktop_thumbnail %}
-<img src="./assets/images/banner-child.png" alt="" class="d-none d-md-block">
+{% if banner != blank %}
+{{
+  banner
+  | image_url: width: 1700, crop: 'center'
+  | image_tag: loading: 'lazy', class: 'd-none d-md-block', alt: banner.alt 
+}}
 <img src="./assets/images/banner-child-sp.png" alt="" class="d-md-none">
 <div class="child-banner__info">
     <div>
@@ -12,6 +17,7 @@
         </nav>
     </div>
 </div>
+{% endif %}
 {% schema %}
   {
     "name": "Page Products Banner",
