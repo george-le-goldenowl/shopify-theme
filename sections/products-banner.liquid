@@ -8,11 +8,11 @@
 <img src="./assets/images/banner-child-sp.png" alt="" class="d-md-none">
 <div class="child-banner__info">
     <div>
-        <h2>{{ section.name }}</h2>
+        <h2>Shop</h2>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">{{ 'Home'| link_to: shop.url }}</li>
-                <li class="breadcrumb-item active" aria-current="page">{{ section.settings.title }}</li>
+                <li class="breadcrumb-item active" aria-current="page">Library</li>
             </ol>
         </nav>
     </div>
@@ -20,7 +20,7 @@
 {% endif %}
 {% schema %}
   {
-    "name": "Shop",
+    "name": "Page Products Banner",
     "tag": "section",
     "class": "child-banner",
     "settings": [
