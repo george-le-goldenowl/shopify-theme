@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "listProduct_banner": {
+      "type": "products-banner",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "listProduct_banner"
+  ]
+}
