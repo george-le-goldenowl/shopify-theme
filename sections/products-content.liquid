@@ -6,8 +6,8 @@
                 Filter
             </h3>
             <!-- Filters -->
-            {% assign categories = linklists['categories'] %}
-            {% unless categories != empty %}
+            {% assign categories = linklists['categories'].links %}
+            {% unless categories == empty %}
             <ul class="fillter-menu">
                 <li class="has-child">
                     <a href="" class="js-menu-child">Category</a>
