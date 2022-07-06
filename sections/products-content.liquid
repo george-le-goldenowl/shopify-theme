@@ -19,10 +19,13 @@
                       <a href="" class="js-menu-child">{{ name }}</a>
                         <div class="has-child-sub">
                             {% for child in childs %}
-                              {% assign cname = child.title | remove: '[CATEGORY]' %}
+                              {% liquid
+                                assign cname = child.title | remove: '[CATEGORY]'
+                                assign handle = child.handle
+                              %}
                               <div class="custom-control custom-radio">
-                                  <input type="radio" id="customRadio1" name="{{ child.handle }}" class="custom-control-input">
-                                  <label class="custom-control-label" for="customRadio1">{{ cname }}</label>
+                                  <input type="radio" id="{{ handle }}" name="{{ handle }}" class="custom-control-input">
+                                  <label class="custom-control-label" for="{{ handle }}">{{ cname }}</label>
                               </div>
                             {% endfor %}
                         </div>
