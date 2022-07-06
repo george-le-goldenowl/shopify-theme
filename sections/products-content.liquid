@@ -10,6 +10,7 @@
             {% if categories != empty %}
             <ul class="fillter-menu">
                 {% for category in categories %}
+                {{ category.levels }}
                 <li class="has-child">
                     <a href="" class="js-menu-child">{{ category.title | remove: '[CATEGORY]' }}</a>
                     <div class="has-child-sub">
