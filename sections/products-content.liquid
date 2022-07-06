@@ -7,7 +7,7 @@
             </h3>
             <!-- Filters -->
             {% assign categories = linklists['categories'].links %}
-            {% unless categories == empty %}
+            {% if categories != empty %}
             <ul class="fillter-menu">
                 <li class="has-child">
                     <a href="" class="js-menu-child">Category</a>
@@ -52,7 +52,7 @@
             </ul>
             {% else %}
             No filter categories!
-            {% endunless %}
+            {% endif %}
         </div>
         <div class="col-lg-9 order-ft-01">
             <div class="row product-action">
