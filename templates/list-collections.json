@@ -7,9 +7,15 @@
         "desktop_thumbnail": "shopify:\/\/shop_images\/banner-child.png",
         "mobile_thumbnail": "shopify:\/\/shop_images\/banner-child-sp_4a93fb4d-713a-410a-8195-001132ef5c9d.png"
       }
+    },
+    "listProduct_content": {
+      "type": "products-content",
+      "settings": {
+      }
     }
   },
   "order": [
-    "listProduct_banner"
+    "listProduct_banner",
+    "listProduct_content"
   ]
 }
