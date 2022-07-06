@@ -91,7 +91,7 @@
                 </div>
             </div>
             <div class="top-product product-list">
-              {% assign products = collections['all'].products %}
+              {% assign products = all_products['all'] %}
               {% if products != empty %}
                 <div class="row">
                   {% for p in products %}
