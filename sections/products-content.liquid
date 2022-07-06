@@ -11,7 +11,7 @@
             <ul class="fillter-menu">
                 {% for category in categories %}
                 <li class="has-child">
-                    <a href="" class="js-menu-child">{{ category.title }}</a>
+                    <a href="" class="js-menu-child">{{ category.title | remove: '[CATEGORY]' }}</a>
                     <div class="has-child-sub">
                         <div class="custom-control custom-radio">
                             <input type="radio" id="customRadio1" name="customRadio"
