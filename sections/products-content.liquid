@@ -91,10 +91,10 @@
                 </div>
             </div>
             <div class="top-product product-list">
-              {{ all_products }}
-              {% if all_products %}
+              {% assign products = collections['all'].products %}
+              {% if products != empty %}
                 <div class="row">
-                  {% for p in all_products %}
+                  {% for p in products %}
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <div class="top-product__item">
                             <a href="">
