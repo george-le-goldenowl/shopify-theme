@@ -10,24 +10,28 @@
             {% if categories != empty %}
             <ul class="fillter-menu">
                 {% for category in categories %}
-                {% assign lv = category.levels %}
-                <li {% if lv > 0 %} class="has-child" {% endif %}>
-                    <a href="" class="js-menu-child">{{ category.title | remove: '[CATEGORY]' }}</a>
-                    <div class="has-child-sub">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="customRadio"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio1">Body piercing
-                                instrusments</label>
+                  {% assign lv = category.levels %}
+                  {% if lv > 0 %}
+                    <li class="has-child">
+                      <a href="" class="js-menu-child">{{ category.title | remove: '[CATEGORY]' }}</a>
+                        <div class="has-child-sub">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio1" name="customRadio"
+                                    class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio1">Body piercing
+                                    instrusments</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio2" name="customRadio"
+                                    class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio2">Dermal punch & Dermal
+                                    piercing tools</label>
+                            </div>
                         </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" name="customRadio"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio2">Dermal punch & Dermal
-                                piercing tools</label>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                  {% else %}
+                    <li><a href="">{{ category.title | remove: '[CATEGORY]' }}</a></li>
+                  {% endif %}
                 {% endfor %}
             </ul>
             {% else %}
