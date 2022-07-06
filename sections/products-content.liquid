@@ -7,7 +7,7 @@
             </h3>
             <!-- Filters -->
             {% assign categories = linklists['categories'] %}
-            {{ categories }}
+            {{ categories | json }}
             <ul class="fillter-menu">
                 <li class="has-child ">
                     <a href="" class="js-menu-child">Category</a>
