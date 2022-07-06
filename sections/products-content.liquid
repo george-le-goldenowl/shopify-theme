@@ -125,7 +125,12 @@
             </div>
         </div>
     </div>
-  </div>
+</div>
+<script>
+  var cartContents = fetch('/collections/categoryskincare/products.json')
+  .then(response => response.json())
+  .then(data => { console.log(data) });
+</script>
 {% schema %}
   {
     "name": "List Products",
