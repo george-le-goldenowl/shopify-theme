@@ -9,8 +9,9 @@
             {% assign categories = linklists['categories'].links %}
             {% if categories != empty %}
             <ul class="fillter-menu">
+                {% for category in categories %}
                 <li class="has-child">
-                    <a href="" class="js-menu-child">Category</a>
+                    <a href="" class="js-menu-child">{{ category.title }}</a>
                     <div class="has-child-sub">
                         <div class="custom-control custom-radio">
                             <input type="radio" id="customRadio1" name="customRadio"
@@ -26,29 +27,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="has-child">
-                    <a href="" class="js-menu-child">Color</a>
-                    <div class="has-child-sub">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio3" name="customRadio2"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio3">AB</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio4" name="customRadio2"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio4">Aqua</label>
-                        </div>
-                    </div>
-                </li>
-                <li><a href="">Threading</a></li>
-                <li><a href="">Material</a></li>
-                <li><a href="">Gauge</a></li>
-                <li><a href="">Price</a></li>
-                <li><a href="">Brand</a></li>
-                <li><a href="">Length</a></li>
-                <li><a href="">Ink Color</a></li>
-                <li><a href="">Rating</a></li>
+                {% endfor %}
             </ul>
             {% else %}
             No filter categories!
