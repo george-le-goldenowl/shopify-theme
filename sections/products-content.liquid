@@ -1,13 +1,13 @@
 <div class="container">
     <div class="row">
+        <!-- Filters -->
+        {% assign categories = linklists['categories'] %}
+        {% unless categories != empty %}
         <div class="col-lg-3 order-ft-02">
             <h3 class="ttl-02">
                 <i class="icon-filter"></i>
                 Filter
             </h3>
-            <!-- Filters -->
-            {% assign categories = linklists['categories'] %}
-            {% unless categories != empty %}
             <ul class="fillter-menu">
                 <li class="has-child ">
                     <a href="" class="js-menu-child">Category</a>
@@ -50,8 +50,8 @@
                 <li><a href="">Ink Color</a></li>
                 <li><a href="">Rating</a></li>
             </ul>
-            {% endunless %}
         </div>
+        {% endunless %}
         <div class="col-lg-9 order-ft-01">
             <div class="row product-action">
                 <div class="col-md-4 col-6 order-ft-02">
