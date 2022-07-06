@@ -21,7 +21,7 @@
                             {% for child in childs %}
                               {% assign cname = child.title | remove: '[CATEGORY]' %}
                               <div class="custom-control custom-radio">
-                                  <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                  <input type="radio" id="customRadio1" name="{{ child.handle }}" class="custom-control-input">
                                   <label class="custom-control-label" for="customRadio1">{{ cname }}</label>
                               </div>
                             {% endfor %}
