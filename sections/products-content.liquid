@@ -7,7 +7,7 @@
             </h3>
             <!-- Filters -->
             {% assign categories = linklists['categories'] %}
-            {{ categories | json }}
+            {% if categories != blank %}
             <ul class="fillter-menu">
                 <li class="has-child ">
                     <a href="" class="js-menu-child">Category</a>
@@ -50,6 +50,7 @@
                 <li><a href="">Ink Color</a></li>
                 <li><a href="">Rating</a></li>
             </ul>
+            {% endif %}
         </div>
         <div class="col-lg-9 order-ft-01">
             <div class="row product-action">
