@@ -10,32 +10,30 @@
             {% if categories != empty %}
             <ul class="fillter-menu">
                 {% for category in categories %}
-                  {% assign lv = category.levels %}
-                  {% if lv > 0 %}
+                  {% liquid
+                    assign name = category.title | remove: '[CATEGORY]'
+                    assign childs = category.links 
+                  %}
+                  {% if childs != empty %}
                     <li class="has-child">
-                      <a href="" class="js-menu-child">{{ category.title | remove: '[CATEGORY]' }}</a>
+                      <a href="" class="js-menu-child">{{ name }}</a>
                         <div class="has-child-sub">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio1" name="customRadio"
-                                    class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio1">Body piercing
-                                    instrusments</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio2" name="customRadio"
-                                    class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio2">Dermal punch & Dermal
-                                    piercing tools</label>
-                            </div>
+                            {% for child in childs %}
+                              {% assign cname = child.title | remove: '[CATEGORY]' %}
+                              <div class="custom-control custom-radio">
+                                  <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                  <label class="custom-control-label" for="customRadio1">{{ cname }}</label>
+                              </div>
+                            {% endfor %}
                         </div>
                     </li>
                   {% else %}
-                    <li><a href="">{{ category.title | remove: '[CATEGORY]' }}</a></li>
+                    <li><a href="">{{ name }}</a></li>
                   {% endif %}
                 {% endfor %}
             </ul>
             {% else %}
-            No filter categories!
+              No filter categories!
             {% endif %}
         </div>
         <div class="col-lg-9 order-ft-01">
