@@ -97,10 +97,16 @@
                   {% for p in products %}
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <div class="top-product__item">
-                            <a href="">
+                            <a href="{{ p.url }}">
+                                {% assign img = p.featured_image %}
+                                {% if img != blank %}
                                 <div class="top-product__item__img">
-                                    <img src="./assets/images/dummy5.png" alt="">
+                                  {{ img 
+                                  | image_url: width: 200, crop: 'center' 
+                                  | image_tag: loading: 'lazy', alt: img.alt
+                                  }}
                                 </div>
+                                {% endif %}
                                 <p class="ttl">Glove box holder for</p>
                                 <p class="price">$15.95</p>
                             </a>
