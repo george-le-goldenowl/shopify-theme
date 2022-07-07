@@ -139,7 +139,7 @@ function renderResults(data) {
             var result = {
                 url: `/products/${e.handle}`,
                 img: e.images[0],
-                price: '{{ shop.currency }}'
+                price: '{{ shop.money_with_currency_format }}'
             };
             var html = `
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
