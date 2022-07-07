@@ -194,8 +194,8 @@ element.category &&
         e.addEventListener('click', e => {
             e.preventDefault();
             e.target.classList.add('active');
-            
-            element.callAjax(e);
+            element.filter.category = e.target.getAttribute('href');
+            // element.callAjax(e);
         });
     });
 element
