@@ -14,7 +14,7 @@
                     assign name = category.title | remove: '[CATEGORY]'
                     assign childs = category.links 
                   %}
-                  {{ category.object | json }}
+                  {{ category.object.collection | json }}
                   {% if childs != empty %}
                     <li class="has-child">
                       <a href="" class="js-menu-child">{{ name }}</a>
