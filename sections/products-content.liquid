@@ -132,11 +132,13 @@ function renderResults(data) {
     var container = element.target.querySelector('.row');
         container.innerHTML = '';
     if (data.products) {
+        var currency_symbol = '{{ shop.money_format }}';
+            currency_symbol.replace(/{|}/g, '');
         data.products.forEach(e => {
             var result = {
                 url: `/products/${e.handle}`,
                 img: e.images[0],
-                price: '{{ shop.money_format }}'.replace('{{amount}}', e.variants[0].price)
+                price: currency_symbol + e.variants[0].price
             };
             var html = `
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
