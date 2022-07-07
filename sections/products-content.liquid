@@ -174,19 +174,6 @@ element.filter = {
     page: 1
 };
 element.target = document.querySelector('.product-list');
-element.callAjax = function(e) {
-    var target = e.target,
-        handle = target.getAttribute('href') || undefined;
-
-    if (handle != undefined) {
-        fetch('/collections/' + handle + '/products.json')
-            .then(res => res.json())
-            .then(data => { 
-                // removeLoadingScreen(element.target);
-                renderResults(data);
-            });
-    }
-};
 element.category = document.querySelectorAll('ul.fillter-menu a');
 
 // action
@@ -217,7 +204,12 @@ element
   
 // event
 document.addEventListener('fetch', () => {
-  console.log(element);
+  var category = element.filter.category || 'all';
+  fetch('/collections/' + category + '/products.json')
+    .then(res => res.json())
+    .then(data => { 
+        renderResults(data);
+    });
 });
 </script>
 {% schema %}
