@@ -136,11 +136,11 @@ function renderResults(data) {
         data.products.forEach(e => {
             console.log(e);
             timer += 500;
-            var currency = '{{ shop.money_format }}';
+            var currency = '{{ currency.symbol }}';
             var result = {
                 url: `/products/${e.handle}`,
                 img: e.images[0],
-                price: currency.replace(`{{amount}}`, 123)
+                price: currency + e.variants[0].price
             };
             var html = `
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
