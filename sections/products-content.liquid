@@ -187,7 +187,7 @@ element.category &&
     element.category.forEach(e => {
         e.addEventListener('click', e => {
             e.preventDefault();
-            e.classList.add('active');
+            e.target.classList.add('active');
             element.callAjax(e);
         });
     });
