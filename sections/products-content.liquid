@@ -136,7 +136,7 @@ function renderResults(data) {
         data.products.forEach(e => {
             console.log(e);
             timer += 500;
-            var currency = '{{ cart.currency.symbol }}';
+            var currency = '{{ shop.currency }}';
           console.log(currency);
             var result = {
                 url: `/products/${e.handle}`,
