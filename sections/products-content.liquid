@@ -219,19 +219,18 @@ document.addEventListener('fetch', () => {
       totals = element.filter.totals,
       perPage = element.filter.perPage,
       page = element.filter.page;
-
   var pageNum = Math.round(totals/perPage);
-  if (pageNum > 1) {
-    // show pagination
-    renderPagination(pageNum);
-  } else {
-    element.pagination.innerHTML = '';
-  }
-  
+
   fetch('/collections/' + category + '/products.json' + '?limit=' + perPage + '&page=' + page)
     .then(res => res.json())
     .then(data => { 
-        renderResults(data);
+      if (pageNum > 1) {
+        // show pagination
+        renderPagination(pageNum);
+      } else {
+        element.pagination.innerHTML = '';
+      }
+      renderResults(data);
     });
 });
 </script>
