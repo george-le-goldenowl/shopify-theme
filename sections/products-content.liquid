@@ -177,16 +177,16 @@ element.target = document.querySelector('.product-list');
 element.category = document.querySelectorAll('ul.fillter-menu a');
 
 // action
-element.category &&
-    element.category.forEach(e => {
-        e.addEventListener('click', e => {
-          e.preventDefault();
-          e.target.classList.add('active');
-          element.filter.category = e.target.getAttribute('href');
+element
+  .category.forEach(e => {
+    e.addEventListener('click', e => {
+      e.preventDefault();
+      e.target.classList.add('active');
+      element.filter.category = e.target.getAttribute('href');
 
-          document.dispatchEvent(event);
-        });
+      document.dispatchEvent(event);
     });
+  });
 element
   .page
   .nextElementSibling
@@ -206,7 +206,7 @@ element
 // event
 document.addEventListener('fetch', () => {
   var category = element.filter.category || 'all';
-  fetch('/collections/' + category + '/products.json')
+  fetch('/collections/' + category + '/products.json' + '?limit=' + element.filter.perPage + '&page=' + element.filter.page)
     .then(res => res.json())
     .then(data => { 
         renderResults(data);
