@@ -164,7 +164,8 @@ function renderResults(data) {
         });
     }
 }
-
+function renderPagination(pageNum) {}
+  
 var element = {};
 var event = new Event('fetch');
 element.page = document.querySelector('#numberProductsShow');
@@ -211,9 +212,11 @@ document.addEventListener('fetch', () => {
       totals = element.filter.totals,
       perPage = element.filter.perPage,
       page = element.filter.page;
-  
-  if (Math.round(totals/perPage) > 1) {
+
+  var pageNum = Math.round(totals/perPage);
+  if (pageNum > 1) {
     // show pagination
+    renderPagination(pageNum);
   } else {
     element.pagination.innerHTML = '';
   }
