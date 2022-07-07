@@ -132,7 +132,8 @@ function renderResults(data) {
     var container = element.target.querySelector('.row');
         container.innerHTML = '';
     if (data.products) {
-        var currency_symbol = '{{ 123 | money }}';
+        var price = e.variants[0].price;
+        var currency_symbol = `{{ price | money }}`;
             console.log(currency_symbol);
         data.products.forEach(e => {
             var result = {
