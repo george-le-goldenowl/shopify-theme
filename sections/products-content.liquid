@@ -180,10 +180,11 @@ element.category = document.querySelectorAll('ul.fillter-menu a');
 element.category &&
     element.category.forEach(e => {
         e.addEventListener('click', e => {
-            e.preventDefault();
-            e.target.classList.add('active');
-            element.filter.category = e.target.getAttribute('href');
-            // element.callAjax(e);
+          e.preventDefault();
+          e.target.classList.add('active');
+          element.filter.category = e.target.getAttribute('href');
+
+          document.dispatchEvent(event);
         });
     });
 element
