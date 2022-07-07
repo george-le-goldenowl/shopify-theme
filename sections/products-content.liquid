@@ -136,11 +136,11 @@ function renderResults(data) {
         data.products.forEach(e => {
             console.log(e);
             timer += 500;
-            var price = e.variants[0].price;
+            var currency = '{{ shop.money_format }}';
             var result = {
                 url: `/products/${e.handle}`,
                 img: e.images[0],
-                price: '{{ shop.money_format }}'
+                price: currency.replace("{{amount}}", e.variants[0].price)
             };
             var html = `
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -150,7 +150,7 @@ function renderResults(data) {
                             <img src="${result.img.src}" alt="${e.title}">
                         </div>
                         <p class="ttl">${e.title}</p>
-                        <p class="price">${result.price}</p>
+                        <p class="price">${}</p>
                     </a>
                     <div class="product-nav">
                         <a href=""><i class="icon-cart-01"></i></a>
