@@ -168,6 +168,7 @@ function renderPagination(pageNum) {
   var html = '',
       current = element.filter.page,
       activePre = 1 == parseInt(current) ? 'pointer-events: none;' : '',
+    console.log(activePre);
       activeNext = pageNum == current ? 'pointer-events: none;' : '';
   html += `
   <li class="page-item">
