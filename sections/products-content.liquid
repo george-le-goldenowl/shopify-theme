@@ -133,11 +133,10 @@ function renderResults(data) {
         container.innerHTML = '';
     if (data.products) {
         data.products.forEach(e => {
-            var price = e.variants[0].price;
             var result = {
                 url: `/products/${e.handle}`,
                 img: e.images[0],
-                price: Shopify.formatMoney(price)
+                price: Shopify.formatMoney(e.variants[0].price)
             };
             var html = `
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
