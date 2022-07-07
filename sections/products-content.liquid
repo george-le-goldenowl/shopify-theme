@@ -132,9 +132,7 @@ function renderResults(data) {
     var container = element.target.querySelector('.row');
         container.innerHTML = '';
     if (data.products) {
-        var timer = 500;
         data.products.forEach(e => {
-            timer += 500;
             var result = {
                 url: `/products/${e.handle}`,
                 img: e.images[0],
@@ -159,9 +157,7 @@ function renderResults(data) {
             </div>
             `;
             // render
-            container.style.transition='opacity 1s';
             container.insertAdjacentHTML( 'beforeend', html );
-            container.style.opacity=1, 2000;
         });
     }
 }
