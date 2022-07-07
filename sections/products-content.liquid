@@ -198,12 +198,18 @@ element.category &&
             element.callAjax(e);
         });
     });
-element.page.nextElementSibling.querySelectorAll('a').forEach(e => {
-  e.addEventListener('click', e => {
-    e.preventDefault();
-    console.log(e.target.innerHTML);
+element
+  .page
+  .nextElementSibling
+  .querySelectorAll('a')
+  .forEach(e => {
+    e.addEventListener('click', e => {
+      e.preventDefault();
+      var per = e.target.innerHTML;
+      element.perPage = per;
+      element.page.innerHTML = per;
+    });
   });
-});
 </script>
 {% schema %}
   {
