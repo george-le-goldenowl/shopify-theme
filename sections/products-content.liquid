@@ -176,6 +176,7 @@ element.filter = {
 };
 element.target = document.querySelector('.product-list');
 element.category = document.querySelectorAll('ul.fillter-menu a');
+element.pagination = document.querySelector('.pagination');
 
 // action
 element
@@ -207,11 +208,16 @@ element
 // event
 document.addEventListener('fetch', () => {
   var category = element.filter.category || 'all',
+      totals = element.filter.totals,
       perPage = element.filter.perPage,
       page = element.filter.page;
-  // if (Math.round(total_items/perPage) > 1) {
-    console.log(Math.round(element.filter.totals/perPage));
-  // }
+  
+  if (Math.round(totals/perPage) > 1) {
+    // show pagination
+  } else {
+    element.pagination.innerHTML = '';
+  }
+  
   fetch('/collections/' + category + '/products.json' + '?limit=' + perPage + '&page=' + page)
     .then(res => res.json())
     .then(data => { 
