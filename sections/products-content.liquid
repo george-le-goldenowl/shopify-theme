@@ -12,12 +12,12 @@
                 {% for category in categories %}
                   {% liquid
                     assign name = category.title | remove: '[CATEGORY]'
-                    assign childs = category.links 
+                    assign childs = category.links
+                    assign totalPost = category.object.products_count
                   %}
-                  {{ category.object.products_count | json }}
                   {% if childs != empty %}
                     <li class="has-child">
-                      <a href="" class="js-menu-child">{{ name }}</a>
+                      <a href="" class="js-menu-child" data-totalPost="{{ totalPost }}">{{ name }}</a>
                         <div class="has-child-sub">
                             {% for child in childs %}
                               {% liquid
@@ -32,7 +32,7 @@
                         </div>
                     </li>
                   {% else %}
-                    <li><a href="{{ category.handle }}">{{ name }}</a></li>
+                    <li><a href="{{ category.handle }}" data-totalPost="{{ totalPost }}">{{ name }}</a></li>
                   {% endif %}
                 {% endfor %}
             </ul>
