@@ -184,7 +184,7 @@ element
       e.preventDefault();
       e.target.classList.add('active');
       element.filter.category = e.target.getAttribute('href');
-
+      element.filter.totals = e.target.dataset.totalPost;
       document.dispatchEvent(event);
     });
   });
@@ -206,7 +206,6 @@ element
   
 // event
 document.addEventListener('fetch', () => {
-  
   var category = element.filter.category || 'all',
       perPage = element.filter.perPage,
       page = element.filter.page;
