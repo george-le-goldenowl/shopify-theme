@@ -168,8 +168,8 @@ function renderPagination(pageNum) {
   var html = '',
       current = element.filter.page,
       activePre = 1 == parseInt(current) ? 'pointer-events: none;' : '',
-    console.log(activePre);
       activeNext = pageNum == current ? 'pointer-events: none;' : '';
+  console.log(activePre);
   html += `
   <li class="page-item">
       <a class="page-link" style="{{ activePre }}" href="#" aria-label="Previous">
