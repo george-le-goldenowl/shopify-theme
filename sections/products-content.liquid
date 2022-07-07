@@ -160,11 +160,18 @@ function renderResults(data) {
             </div>
             `;
             // render
-            container.insertAdjacentHTML( 'beforeend', html );
+            container.insertAdjacentHTML('beforeend', html);
         });
     }
 }
-function renderPagination(pageNum) {}
+function renderPagination(pageNum) {
+  var html = '';
+  for (var i = 1; i <= pageNum; i++) {
+      var active = i == element.filter.page ? 'active' : '';
+      html += `<li class="page-item ${active}"><a class="page-link" href="#">${i}</a></li>`;
+  }
+  element.pagination.insertAdjacentHTML('beforeend', html);
+}
   
 var element = {};
 var event = new Event('fetch');
