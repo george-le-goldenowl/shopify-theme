@@ -166,6 +166,7 @@ function renderResults(data) {
 }
 
 var element = {};
+var event = new Event('fetch');
 element.page = document.querySelector('#numberProductsShow');
 element.filter = {
     category: undefined,
@@ -208,8 +209,16 @@ element
       var per = e.target.innerHTML;
       element.filter.perPage = per;
       element.page.innerHTML = per;
+
+      // dispatch
+      document.dispatchEvent(event);
     });
   });
+  
+// event
+document.addEventListener('fetch', () => {
+  console.log(element);
+});
 </script>
 {% schema %}
   {
