@@ -209,8 +209,8 @@ document.addEventListener('fetch', () => {
   var category = element.filter.category || 'all',
       perPage = element.filter.perPage,
       page = element.filter.page;
-  // if (Math.round(total_items/perPage)) {
-    
+  // if (Math.round(total_items/perPage) > 1) {
+    console.log(Math.round(element.filter.totals/perPage));
   // }
   fetch('/collections/' + category + '/products.json' + '?limit=' + perPage + '&page=' + page)
     .then(res => res.json())
