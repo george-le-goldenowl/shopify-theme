@@ -128,80 +128,9 @@
 </div>
 <script type="text/javascript">
 'use strict';
-function addLoadingScreen(target) {
-    target.style.opacity = '0.5';
-}
-
-function removeLoadingScreen(target) {
-    target.style.opacity = '1';
-}
-
-function renderResults(data) {
-    var container = element.target.find('.row');
-        container.html('');
-    if (data.products) {
-        var timer = 500;
-        data.products.forEach(e => {
-            console.log(e);
-            timer += 500;
-            var result = {
-                url: `/products/${e.handle}`,
-                img: e.images[0],
-                price: '{{currency.symbol}}'
-            };
-            var html = `
-            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                <div class="top-product__item">
-                    <a href="${result.url}">
-                        <div class="top-product__item__img lazy">
-                            <img src="${result.img.src}" alt="${e.title}">
-                        </div>
-                        <p class="ttl">${e.title}</p>
-                        <p class="price">${result.price}</p>
-                    </a>
-                    <div class="product-nav">
-                        <a href=""><i class="icon-cart-01"></i></a>
-                        <a href=""><i class="icon-compare"></i></a>
-                        <a href=""><i class="icon-like"></i></a>
-                    </div>
-                </div>
-            </div>
-            `;
-            // render
-            jQuery(html).appendTo(container).hide().fadeIn(timer);
-        });
-    }
-}
-
-var element = {};
-element.filter = {
-
-};
-element.target = $('.product-list');
-element.category = document.querySelectorAll('ul.fillter-menu a');
-element.callAjax = function(e) {
-    var target = e.target,
-        handle = target.getAttribute('href') || undefined;
-
-    if (handle != undefined) {
-        fetch('/collections/' + handle + '/products.json')
-            .then(res => res.json())
-            .then(data => { 
-                // removeLoadingScreen(element.target);
-                renderResults(data);
-            });
-    }
-};
-
-element.category &&
-    element.category.forEach(e => {
-        e.addEventListener('click', e => {
-            e.preventDefault();
-
-            // addLoadingScreen(element.target);
-            element.callAjax(e);
-        });
-    });
+!(function($) {
+  
+})(jQuery);
 </script>
 {% schema %}
   {
