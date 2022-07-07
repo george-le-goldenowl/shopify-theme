@@ -134,14 +134,11 @@ function renderResults(data) {
     if (data.products) {
         var timer = 500;
         data.products.forEach(e => {
-            console.log(e);
             timer += 500;
-            var currency = '{{ shop.currency }}';
-          console.log(currency);
             var result = {
                 url: `/products/${e.handle}`,
                 img: e.images[0],
-                price: currency + e.variants[0].price
+                price: '{{ shop.currency }}' + e.variants[0].price
             };
             var html = `
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
@@ -162,7 +159,9 @@ function renderResults(data) {
             </div>
             `;
             // render
+            container.style.transition='opacity 1s';
             container.insertAdjacentHTML( 'beforeend', html );
+            container.style.opacity=1, 2000;
         });
     }
 }
