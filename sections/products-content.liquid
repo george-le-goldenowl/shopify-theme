@@ -136,6 +136,7 @@ function renderResults(data) {
         data.products.forEach(e => {
             console.log(e);
             timer += 500;
+            var price = e.variants[0].price;
             var result = {
                 url: `/products/${e.handle}`,
                 img: e.images[0],
