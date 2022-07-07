@@ -13,6 +13,7 @@
                   {% liquid
                     assign name = category.title | remove: '[CATEGORY]'
                     assign childs = category.links 
+                    echo category.products_count
                   %}
                   {% if childs != empty %}
                     <li class="has-child">
