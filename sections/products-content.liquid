@@ -198,7 +198,11 @@ element.category &&
             element.callAjax(e);
         });
     });
-console.log(element.page.nextElementSibling.querySelector('a'));
+element.page.nextElementSibling.querySelectorAll('a').forEach(e => {
+  e.addEventListener('click', e => {
+    e.preventDefault();
+  });
+});
 </script>
 {% schema %}
   {
