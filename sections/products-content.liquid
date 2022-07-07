@@ -166,8 +166,11 @@ function renderResults(data) {
 }
 
 var element = {};
+element.page = document.querySelector('#numberProductsShow');
 element.filter = {
-    category: undefined
+    category: undefined,
+    perPage: 10,
+    page: 1
 };
 element.target = document.querySelector('.product-list');
 element.callAjax = function(e) {
@@ -184,14 +187,20 @@ element.callAjax = function(e) {
     }
 };
 element.category = document.querySelectorAll('ul.fillter-menu a');
+
+// action
 element.category &&
     element.category.forEach(e => {
         e.addEventListener('click', e => {
             e.preventDefault();
             e.target.classList.add('active');
+            
             element.callAjax(e);
         });
     });
+element.page.nextElementSibling.querySelector('a').forEach(e => {
+  console.log(e);
+});
 </script>
 {% schema %}
   {
