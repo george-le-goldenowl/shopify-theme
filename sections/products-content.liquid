@@ -137,6 +137,7 @@ function renderResults(data) {
             console.log(e);
             timer += 500;
             var currency = '{{ currency.symbol }}';
+          console.log(currency);
             var result = {
                 url: `/products/${e.handle}`,
                 img: e.images[0],
