@@ -54,6 +54,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Sort -->
                 <div class="col-md-4 order-ft-01">
                     <div class="product-dropdown">
                         <span class="product-dropdown-label">Sort by</span>
@@ -68,6 +69,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Paginate -->
                 <div class="col-md-4 col-6 order-ft-03">
                     <ul class="pagination">
                         <li class="page-item">
@@ -164,7 +166,7 @@ function renderResults(data) {
 
 var element = {};
 element.filter = {
-
+    category: undefined
 };
 element.target = document.querySelector('.product-list');
 element.callAjax = function(e) {
@@ -185,8 +187,7 @@ element.category &&
     element.category.forEach(e => {
         e.addEventListener('click', e => {
             e.preventDefault();
-
-            // addLoadingScreen(element.target);
+            e.classList.add('active');
             element.callAjax(e);
         });
     });
@@ -199,6 +200,3 @@ element.category &&
     "settings": []
   }
 {% endschema %}
-
-{% stylesheet %}
-{% endstylesheet %}

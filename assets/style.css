@@ -1671,7 +1671,8 @@ a {
   transition: all 0.3s ease;
   position: relative;
 }
-.fillter-menu li a:hover {
+.fillter-menu li a:hover,
+.fillter-menu li a.active {
   color: #00A8E8;
   text-decoration: none;
 }
