@@ -206,7 +206,7 @@ element
     e.addEventListener('click', e => {
       e.preventDefault();
       var per = e.target.innerHTML;
-      element.perPage = per;
+      element.filter.perPage = per;
       element.page.innerHTML = per;
     });
   });
