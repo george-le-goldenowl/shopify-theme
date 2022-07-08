@@ -182,11 +182,6 @@ function sortBy(data) {
   var result = data.products;
   switch (element.filter.sort) {
     case 'name':
-        result.sort(function(a,b) {
-          var x = a.name.toLowerCase();
-          var y = b.name.toLowerCase();
-          return x < y ? -1 : x > y ? 1 : 0;
-        });
         result.sort((a, b) => {
           var x = a.title.toLowerCase(),
               y = b.title.toLowerCase();
@@ -257,9 +252,10 @@ element
   .forEach(e => {
     e.addEventListener('click', e => {
       e.preventDefault();
-      var type = e.target.innerHTML.toLowerCase();
-      element.filter.sort = type;
-
+      var type = e.target.innerHTML;
+      element.filter.sort = type.toLowerCase();
+      element.sort.innerHTML = type;
+      
       // dispatch
       document.dispatchEvent(event);
     });
