@@ -12,10 +12,16 @@
       "type": "products-content",
       "settings": {
       }
+    },
+    "listProduct_featured": {
+      "type": "products-featured",
+      "settings": {
+      }
     }
   },
   "order": [
     "listProduct_banner",
-    "listProduct_content"
+    "listProduct_content",
+    "listProduct_featured"
   ]
 }
