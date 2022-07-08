@@ -223,7 +223,7 @@ element
   }); 
 
 // loaded
-document.addEventListener('load', () => {
+window.addEventListener('load', () => {
   var pageNum = Math.round(element.filter.totals/element.filter.perPage);
   renderPagination(pageNum);
 });
