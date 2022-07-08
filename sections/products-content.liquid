@@ -235,11 +235,10 @@ document.addEventListener('fetch', () => {
   fetch('/collections/' + category + '/products.json' + '?limit=' + perPage + '&page=' + page)
     .then(res => res.json())
     .then(data => { 
+      element.pagination.innerHTML = '';
       if (pageNum > 1) {
         // show pagination
         renderPagination(pageNum);
-      } else {
-        element.pagination.innerHTML = '';
       }
       renderResults(data);
     });
