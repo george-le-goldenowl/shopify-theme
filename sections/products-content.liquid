@@ -184,7 +184,11 @@ function renderPagination(pageNum) {
   element.pagination.insertAdjacentHTML('beforeend', html);
 }
 function getPagination(e) {
-  console.log(e);
+  var page = e.innerHTML;
+  element.filter.page = page;
+
+  // dispatch
+  document.dispatchEvent(event);
 }
   
 var element = {};
@@ -208,6 +212,8 @@ element
       e.target.classList.add('active');
       element.filter.category = e.target.getAttribute('href');
       element.filter.totals = e.target.dataset.totalPost;
+
+      // dispatch
       document.dispatchEvent(event);
     });
   });
