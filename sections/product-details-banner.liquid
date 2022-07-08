@@ -1,4 +1,9 @@
-<img src="./assets/images/banner-child.png" alt="" class="d-none d-md-block">
+{% liquid 
+  assign banner = section.settings.desktop_thumbnail
+  if banner != blank
+    echo banner | image_url: width: 1700, crop: 'center' | image_tag: loading: 'lazy', class: 'd-none d-md-block', alt: banner.alt 
+  endif
+%}
 <img src="./assets/images/banner-child-sp.png" alt="" class="d-md-none">
 <div class="child-banner__info">
     <div>
