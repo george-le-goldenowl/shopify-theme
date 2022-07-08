@@ -10,8 +10,12 @@
         <h2>{{ section.settings.title }}</h2>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">{{ 'Home'| link_to: shop.url }}</a></li>
+              {% if product.collections != empty %}
                 <li class="breadcrumb-item active" aria-current="page">Library</li>
+              {% else %}
+                <li class="breadcrumb-item active" aria-current="page">{{ product.title | escape }}</li>
+              {% endif %}
             </ol>
         </nav>
     </div>
