@@ -16,6 +16,13 @@
     "listProduct_featured": {
       "type": "products-featured",
       "settings": {
+        "products_featured": [
+          "white-ceramic-pot",
+          "white-bed-clothes",
+          "vanilla-candle",
+          "pink-armchair",
+          "knitted-throw-pillows"
+        ]
       }
     }
   },
