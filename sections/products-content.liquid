@@ -151,11 +151,13 @@ function renderPagination(pageNum) {
   var html = '',
       current = parseInt(element.filter.page),
       activePre = 1 == current ? 'pointer-events: none;' : '',
-      activeNext = pageNum == current ? 'pointer-events: none;' : '',
-      currentActive = parseInt(element.pagination.querySelector('.active > a').innerHTML || 1);
+      activeNext = pageNum == current ? 'pointer-events: none;' : '';
+  
+  var currentActive = element.pagination.querySelector('.active > a');
+  var currentActiveValue = currentActive != undefined ? parseInt(currentActive.innerHTML) : 1;
   html += `
   <li class="page-item">
-      <a class="page-link" style="${activePre}" href="javascript:void(0)" onclick="getPagination(${currentActive - 1})" aria-label="Previous">
+      <a class="page-link" style="${activePre}" href="javascript:void(0)" onclick="getPagination(${currentActiveValue - 1})" aria-label="Previous">
           <span aria-hidden="true"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
           <span class="sr-only">Previous</span>
       </a>
@@ -166,7 +168,7 @@ function renderPagination(pageNum) {
   }
   html += `
   <li class="page-item">
-      <a class="page-link" style="${activeNext}" href="javascript:void(0)" onclick="getPagination(${currentActive + 1})" aria-label="Next">
+      <a class="page-link" style="${activeNext}" href="javascript:void(0)" onclick="getPagination(${currentActiveValue + 1})" aria-label="Next">
           <span aria-hidden="true"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
           <span class="sr-only">Next</span>
       </a>
