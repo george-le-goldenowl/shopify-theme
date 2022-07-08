@@ -3,7 +3,9 @@
     "product_details_banner": {
       "type": "product-details-banner",
       "settings": {
-        "title": "Shop"
+        "title": "Product Details",
+        "desktop_thumbnail": "shopify:\/\/shop_images\/banner-child_8079b502-a93f-4882-b2e6-c26ac4bd1a43.png",
+        "mobile_thumbnail": "shopify:\/\/shop_images\/banner-child-sp_4a93fb4d-713a-410a-8195-001132ef5c9d.png"
       }
     },
     "product_details": {
