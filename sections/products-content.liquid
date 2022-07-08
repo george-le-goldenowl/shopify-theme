@@ -240,7 +240,6 @@ document.addEventListener('fetch', () => {
     .then(res => res.json())
     .then(data => { 
       // set default value
-      element.filter.page = 1;
       element.pagination.innerHTML = '';
       
       if (pageNum > 1) {
