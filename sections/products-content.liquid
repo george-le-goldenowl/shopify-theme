@@ -178,6 +178,26 @@ function getPagination(page) {
   // dispatch
   document.dispatchEvent(event);
 }
+// function sortBy(data) {
+//   var result = data.slice(0);
+//   switch (element.filter.sort) {
+//     case 'name':
+//         result.sort(function(a,b) {
+//           var x = a.name.toLowerCase();
+//           var y = b.name.toLowerCase();
+//           return x < y ? -1 : x > y ? 1 : 0;
+//         });
+//         break;
+//     case 'price':
+//         // statements_1
+//         break;
+//     default:
+//         // do nothing
+//         break;
+//   }
+
+//   return result;
+// }
   
 var element = {};
 var event = new Event('fetch');
@@ -263,8 +283,9 @@ document.addEventListener('fetch', () => {
         renderPagination(pageNum);
       }
       
-      var result = sortBy(data);
-      renderResults(result);
+      // var result = sortBy(data);
+      console.log(data);
+      renderResults(data);
     });
 });
 </script>
