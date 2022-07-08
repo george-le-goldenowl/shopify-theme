@@ -3,9 +3,7 @@
     "listProduct_banner": {
       "type": "products-banner",
       "settings": {
-        "title": "Library",
-        "desktop_thumbnail": "shopify:\/\/shop_images\/banner-child.png",
-        "mobile_thumbnail": "shopify:\/\/shop_images\/banner-child-sp_4a93fb4d-713a-410a-8195-001132ef5c9d.png"
+        "title": "Library"
       }
     },
     "listProduct_content": {
@@ -17,11 +15,10 @@
       "type": "products-featured",
       "settings": {
         "products_featured": [
-          "white-ceramic-pot",
-          "white-bed-clothes",
-          "vanilla-candle",
-          "pink-armchair",
-          "knitted-throw-pillows"
+          "bangle-bracelet-with-feathers",
+          "bangle-bracelet",
+          "leather-anchor",
+          "boho-earrings"
         ]
       }
     }
