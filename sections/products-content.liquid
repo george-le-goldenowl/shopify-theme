@@ -223,6 +223,19 @@ element
       document.dispatchEvent(event);
     });
   });
+element
+  .pagination
+  .querySelectorAll('a')
+  .forEach(e => {
+    e.addEventListener('click', e => {
+      e.preventDefault();
+      var page = e.target.innerHTML;
+      element.filter.page = page;
+
+      // dispatch
+      document.dispatchEvent(event);
+    });
+  });
   
 // event
 document.addEventListener('fetch', () => {
