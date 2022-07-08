@@ -12,8 +12,9 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">{{ 'Home'| link_to: shop.url }}</a></li>
               {% if product.collections != empty %}
-                <li class="breadcrumb-item active" aria-current="page">Library</li>
-                
+                {% for collection in product.collections %}
+                  <li class="breadcrumb-item"><a href="#">{{ collection.title | escape }}</a></li>
+                {% endfor %}
               {% endif %}
               <li class="breadcrumb-item active" aria-current="page">{{ product.title | escape }}</li>
             </ol>
