@@ -1675,6 +1675,7 @@ a {
 .fillter-menu li a.active {
   color: #00A8E8;
   text-decoration: none;
+  pointer-events: none;
 }
 .fillter-menu li a:after {
   position: absolute;
