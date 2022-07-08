@@ -165,7 +165,7 @@ function renderPagination(pageNum) {
   }
   html += `
   <li class="page-item">
-      <a class="page-link" style="${activeNext}" href="javascript:void(0)" onclick="getPagination(1)" aria-label="Next">
+      <a class="page-link" style="${activeNext}" href="javascript:void(0)" onclick="getPagination(parseInt(this.closest('.pagination').querySelector('.active > a').innerHTML) + 1)" aria-label="Next">
           <span aria-hidden="true"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
           <span class="sr-only">Next</span>
       </a>
