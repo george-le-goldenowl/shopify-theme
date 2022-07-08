@@ -5,7 +5,8 @@
         <h2>Shop</h2>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                {{ product.collections | json }}
+                <li class="breadcrumb-item"><a href="#">{{ section.settings.title }}</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Library</li>
             </ol>
         </nav>
