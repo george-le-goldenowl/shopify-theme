@@ -233,8 +233,11 @@ document.addEventListener('fetch', () => {
   var category = element.filter.category || 'all',
       totals = element.filter.totals,
       perPage = element.filter.perPage,
-      page = element.filter.page;
-  var pageNum = Math.round(totals/perPage);
+      pageNum = Math.round(totals/perPage);
+  
+  // refresh page
+  element.filter.page = 1;
+  var page = element.filter.page;
 
   fetch('/collections/' + category + '/products.json' + '?limit=' + perPage + '&page=' + page)
     .then(res => res.json())
