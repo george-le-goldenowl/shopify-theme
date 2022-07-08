@@ -231,6 +231,11 @@ element
   .forEach(e => {
     e.addEventListener('click', e => {
       e.preventDefault();
+      var type = e.target.innerHTML.toLowerCase();
+      element.filter.sort = type;
+
+      // dispatch
+      document.dispatchEvent(event);
     });
   });
   
