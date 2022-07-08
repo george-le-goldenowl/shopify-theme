@@ -182,11 +182,13 @@ function getPagination(page) {
 var element = {};
 var event = new Event('fetch');
 element.page = document.querySelector('#numberProductsShow');
+element.sort = document.querySelector('#sorting');
 element.filter = {
     category: undefined,
     totals: '{{ collections['all'].products_count }}',
     perPage: 10,
-    page: 1
+    page: 1,
+    sort: 'relevance'
 };
 element.target = document.querySelector('.product-list');
 element.category = document.querySelectorAll('ul.fillter-menu a');
@@ -222,7 +224,16 @@ element
       document.dispatchEvent(event);
     });
   }); 
-
+element
+  .sort
+  .nextElementSibling
+  .querySelectorAll('a')
+  .forEach(e => {
+    e.addEventListener('click', e => {
+      e.preventDefault();
+    });
+  });
+  
 // loaded
 window.addEventListener('load', () => {
   var pageNum = Math.round(element.filter.totals/element.filter.perPage);
@@ -246,7 +257,9 @@ document.addEventListener('fetch', () => {
       if (pageNum > 1) {
         renderPagination(pageNum);
       }
-      renderResults(data);
+      
+      var result = sortBy(data);
+      renderResults(result);
     });
 });
 </script>
