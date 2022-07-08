@@ -1675,6 +1675,8 @@ a {
 .fillter-menu li a.active {
   color: #00A8E8;
   text-decoration: none;
+}
+.fillter-menu li a.active {
   pointer-events: none;
 }
 .fillter-menu li a:after {
