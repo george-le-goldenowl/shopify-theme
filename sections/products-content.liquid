@@ -178,10 +178,14 @@ function renderPagination(pageNum) {
       </a>
   </li>`;
   for (var i = 1; i <= pageNum; i++) {
-      var active = i == element.filter.page ? 'active' : '';
-      html += `<li class="page-item ${active}"><a class="page-link" href="#">${i}</a></li>`;
+      var active = i == current ? 'active' : '';
+      html += `<li class="page-item ${active}"><a class="page-link" href="#" onclick="getPagination(this)">${i}</a></li>`;
   }
   element.pagination.insertAdjacentHTML('beforeend', html);
+}
+function getPagination(e) {
+  e.preventDefault();
+  console.log(e);
 }
   
 var element = {};
@@ -222,20 +226,7 @@ element
       // dispatch
       document.dispatchEvent(event);
     });
-  });
-element
-  .pagination
-  .querySelectorAll('a')
-  .forEach(e => {
-    e.addEventListener('click', e => {
-      e.preventDefault();
-      var page = e.target.innerHTML;
-      element.filter.page = page;
-
-      // dispatch
-      document.dispatchEvent(event);
-    });
-  });
+  }); 
   
 // event
 document.addEventListener('fetch', () => {
