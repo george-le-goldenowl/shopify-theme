@@ -179,7 +179,7 @@ function renderPagination(pageNum) {
   </li>`;
   for (var i = 1; i <= pageNum; i++) {
       var active = i == current ? 'active' : '';
-      html += `<li class="page-item ${active}"><a class="page-link" href="#" onclick="getPagination(this)">${i}</a></li>`;
+      html += `<li class="page-item ${active}"><a class="page-link" href="javascript:void(0)" onclick="getPagination(this)">${i}</a></li>`;
   }
   element.pagination.insertAdjacentHTML('beforeend', html);
 }
