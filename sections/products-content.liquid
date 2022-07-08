@@ -152,7 +152,7 @@ function renderPagination(pageNum) {
       current = parseInt(element.filter.page),
       activePre = 1 == current ? 'pointer-events: none;' : '',
       activeNext = pageNum == current ? 'pointer-events: none;' : '',
-      currentActive = parseInt(element.pagination.querySelector('.active > a').innerHTML);
+      currentActive = parseInt(element.pagination.querySelector('.active > a').innerHTML || 1);
   html += `
   <li class="page-item">
       <a class="page-link" style="${activePre}" href="javascript:void(0)" onclick="getPagination(${currentActive - 1})" aria-label="Previous">
