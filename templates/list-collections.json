@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "listProduct_banner": {
+      "type": "products-banner",
+      "settings": {
+        "title": "Library",
+        "desktop_thumbnail": "shopify:\/\/shop_images\/banner-child.png",
+        "mobile_thumbnail": "shopify:\/\/shop_images\/banner-child-sp_4a93fb4d-713a-410a-8195-001132ef5c9d.png"
+      }
+    },
+    "listProduct_content": {
+      "type": "products-content",
+      "settings": {
+      }
+    },
+    "listProduct_featured": {
+      "type": "products-featured",
+      "settings": {
+        "products_featured": [
+          "white-ceramic-pot",
+          "white-bed-clothes",
+          "vanilla-candle",
+          "pink-armchair",
+          "knitted-throw-pillows"
+        ]
+      }
+    }
+  },
+  "order": [
+    "listProduct_banner",
+    "listProduct_content",
+    "listProduct_featured"
+  ]
+}

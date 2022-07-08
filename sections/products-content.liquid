@@ -1,0 +1,321 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 order-ft-02">
+            <h3 class="ttl-02">
+                <i class="icon-filter"></i>
+                Filter
+            </h3>
+            <!-- Filters -->
+            {% assign categories = linklists['categories'].links %}
+            {% if categories != empty %}
+            <ul class="fillter-menu">
+                {% for category in categories %}
+                  {% liquid
+                    assign name = category.title | remove: '[CATEGORY]'
+                    assign childs = category.links
+                    assign totalPost = category.object.products_count
+                  %}
+                  {% if childs != empty %}
+                    <li class="has-child">
+                      <a href="{{ category.handle }}" class="js-menu-child" data-total-post="{{ totalPost }}">{{ name }}</a>
+                        <div class="has-child-sub">
+                            {% for child in childs %}
+                              {% liquid
+                                assign cname = child.title | remove: '[CATEGORY]'
+                                assign handle = child.handle
+                              %}
+                              <div class="custom-control custom-radio">
+                                  <input type="radio" id="{{ handle }}" class="custom-control-input" value="{{ handle }}" onclick="getSubCategory(this.value)">
+                                  <label class="custom-control-label" for="{{ handle }}">{{ cname }}</label>
+                              </div>
+                            {% endfor %}
+                        </div>
+                    </li>
+                  {% else %}
+                    <li><a href="{{ category.handle }}" data-total-post="{{ totalPost }}">{{ name }}</a></li>
+                  {% endif %}
+                {% endfor %}
+            </ul>
+            {% else %}
+              No filter categories!
+            {% endif %}
+        </div>
+        <div class="col-lg-9 order-ft-01">
+            <div class="row product-action">
+                <div class="col-md-4 col-6 order-ft-02">
+                    <div class="product-dropdown">
+                        <span class="product-dropdown-label">Show per page</span>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" type="button" id="numberProductsShow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">10</button>
+                            <div class="dropdown-menu" aria-labelledby="numberProductsShow">
+                                <a class="dropdown-item" href="#">5</a>
+                                <a class="dropdown-item" href="#">10</a>
+                                <a class="dropdown-item" href="#">20</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sort -->
+                <div class="col-md-4 order-ft-01">
+                    <div class="product-dropdown">
+                        <span class="product-dropdown-label">Sort by</span>
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" type="button" id="sorting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relevance</button>
+                            <div class="dropdown-menu" aria-labelledby="sorting">
+                              <a class="dropdown-item" href="#">Relevance</a>
+                              <a class="dropdown-item" href="#">Name</a>
+                              <a class="dropdown-item" href="#">Price</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Paginate -->
+                <div class="col-md-4 col-6 order-ft-03">
+                    <ul class="pagination"></ul>
+                </div>
+            </div>
+            <div class="top-product product-list">
+              {% assign products = collections['all'].products %}
+              {% if products != empty %}
+                <div class="row">
+                  {% for p in products %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="top-product__item">
+                            <a href="{{ p.url }}">
+                                {% assign img = p.featured_image %}
+                                {% if img != blank %}
+                                <div class="top-product__item__img">
+                                  {{ img 
+                                  | image_url: width: 200, crop: 'center' 
+                                  | image_tag: loading: 'lazy', alt: img.alt
+                                  }}
+                                </div>
+                                {% endif %}
+                                <p class="ttl">{{ p.title | escape }}</p>
+                                <p class="price">{{ p.price | money }}</p>
+                            </a>
+                            <div class="product-nav">
+                                <a href=""><i class="icon-cart-01"></i></a>
+                                <a href=""><i class="icon-compare"></i></a>
+                                <a href=""><i class="icon-like"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% else %}
+                No products found!
+              {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+'use strict';
+function renderResults(data) {
+    var container = element.target.querySelector('.row');
+        container.innerHTML = '';
+    if (data.products) {
+        data.products.forEach(e => {
+            var result = {
+                url: `/products/${e.handle}`,
+                img: e.images[0],
+                price: Shopify.formatMoney(e.variants[0].price)
+            };
+            var html = `
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="top-product__item">
+                    <a href="${result.url}">
+                        <div class="top-product__item__img lazy">
+                            <img src="${result.img.src}" alt="${e.title}">
+                        </div>
+                        <p class="ttl">${e.title}</p>
+                        <p class="price">${result.price}</p>
+                    </a>
+                    <div class="product-nav">
+                        <a href=""><i class="icon-cart-01"></i></a>
+                        <a href=""><i class="icon-compare"></i></a>
+                        <a href=""><i class="icon-like"></i></a>
+                    </div>
+                </div>
+            </div>
+            `;
+            // render
+            container.insertAdjacentHTML('beforeend', html);
+        });
+    }
+}
+function renderPagination(pageNum) {
+  var html = '',
+      current = parseInt(element.filter.page),
+      activePre = 1 == current ? 'pointer-events: none;' : '',
+      activeNext = pageNum == current ? 'pointer-events: none;' : '';
+  html += `
+  <li class="page-item">
+      <a class="page-link" style="${activePre}" href="javascript:void(0)" onclick="getPagination(parseInt(this.closest('.pagination').querySelector('.active > a').innerHTML) - 1)" aria-label="Previous">
+          <span aria-hidden="true"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+          <span class="sr-only">Previous</span>
+      </a>
+  </li>`;
+  for (var i = 1; i <= pageNum; i++) {
+      var active = i == current ? 'active' : '';
+      html += `<li class="page-item ${active}"><a class="page-link" href="javascript:void(0)" onclick="getPagination(this.innerHTML)">${i}</a></li>`;
+  }
+  html += `
+  <li class="page-item">
+      <a class="page-link" style="${activeNext}" href="javascript:void(0)" onclick="getPagination(parseInt(this.closest('.pagination').querySelector('.active > a').innerHTML) + 1)" aria-label="Next">
+          <span aria-hidden="true"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+          <span class="sr-only">Next</span>
+      </a>
+  </li>
+  `;
+  element.pagination.insertAdjacentHTML('beforeend', html);
+}
+function getPagination(page) {
+  element.filter.page = page;
+
+  // dispatch
+  document.dispatchEvent(event);
+}
+function getSubCategory(cate) {
+  element.filter.category = cate;
+
+  // dispatch
+  document.dispatchEvent(event);
+}
+function sortBy(data) {
+  var result = data.products;
+  switch (element.filter.sort) {
+    case 'name':
+        result.sort((a, b) => {
+          var x = a.title.toLowerCase(),
+              y = b.title.toLowerCase();
+          return x < y ? -1 : x > y ? 1 : 0;
+        });
+        break;
+    case 'price':
+        result.sort((a, b) => {
+          var x = parseFloat(a.variants[0].price),
+              y = parseFloat(b.variants[0].price);
+          return x - y;
+        });
+        break;
+    default:
+        // do nothing
+        break;
+  }
+  
+  data.products = result;
+  return data;
+}
+  
+var element = {};
+var event = new Event('fetch');
+element.page = document.querySelector('#numberProductsShow');
+element.sort = document.querySelector('#sorting');
+element.filter = {
+    category: undefined,
+    totals: '{{ collections['all'].products_count }}',
+    perPage: 10,
+    page: 1,
+    sort: 'relevance'
+};
+element.target = document.querySelector('.product-list');
+element.category = document.querySelectorAll('ul.fillter-menu a');
+element.pagination = document.querySelector('.pagination');
+
+// action
+element
+  .category.forEach(e => {
+    e.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('ul.fillter-menu .active')
+        && document.querySelectorAll('ul.fillter-menu .active').forEach(e => {
+          e.classList.remove('active');
+        });
+      document.querySelectorAll('input[type=radio]')
+        && document.querySelectorAll('input[type=radio]')
+                   .forEach(e => {
+                     e.checked = false;
+                   });
+      e.target.classList.add('active');
+      if (e.target.classList.contains('js-menu-child')) {
+        e.target.nextElementSibling.classList.add('active');
+      }
+      element.filter.category = e.target.getAttribute('href');
+      element.filter.totals = e.target.dataset.totalPost;
+      element.filter.page = 1;
+      
+      // dispatch
+      document.dispatchEvent(event);
+    });
+  });
+element
+  .page
+  .nextElementSibling
+  .querySelectorAll('a')
+  .forEach(e => {
+    e.addEventListener('click', e => {
+      e.preventDefault();
+      var per = e.target.innerHTML;
+      element.filter.page = 1;
+      element.filter.perPage = per;
+      element.page.innerHTML = per;
+
+      // dispatch
+      document.dispatchEvent(event);
+    });
+  }); 
+element
+  .sort
+  .nextElementSibling
+  .querySelectorAll('a')
+  .forEach(e => {
+    e.addEventListener('click', e => {
+      e.preventDefault();
+      var type = e.target.innerHTML;
+      element.filter.sort = type.toLowerCase();
+      element.sort.innerHTML = type;
+      
+      // dispatch
+      document.dispatchEvent(event);
+    });
+  });
+  
+// loaded
+window.addEventListener('load', () => {
+  var pageNum = Math.round(element.filter.totals/element.filter.perPage);
+  renderPagination(pageNum);
+});
+  
+// event
+document.addEventListener('fetch', () => {
+  var category = element.filter.category || 'all',
+      totals = element.filter.totals,
+      page = element.filter.page,
+      perPage = element.filter.perPage,
+      pageNum = Math.round(totals/perPage);
+  
+  fetch('/collections/' + category + '/products.json' + '?limit=' + perPage + '&page=' + page)
+    .then(res => res.json())
+    .then(data => { 
+      // set default value
+      element.pagination.innerHTML = '';
+      
+      if (pageNum > 1) {
+        renderPagination(pageNum);
+      }
+      
+      var result = sortBy(data);
+      renderResults(result);
+    });
+});
+</script>
+{% schema %}
+  {
+    "name": "List Products",
+    "tag": "section",
+    "class": "section-content",
+    "settings": []
+  }
+{% endschema %}

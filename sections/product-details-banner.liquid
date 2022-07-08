@@ -1,0 +1,48 @@
+{% liquid 
+  assign banner = section.settings.desktop_thumbnail
+  if banner != blank
+    echo banner | image_url: width: 1700, crop: 'center' | image_tag: loading: 'lazy', class: 'd-none d-md-block', alt: banner.alt 
+  endif
+%}
+<img src="./assets/images/banner-child-sp.png" alt="" class="d-md-none">
+<div class="child-banner__info">
+    <div>
+        <h2>{{ section.settings.title }}</h2>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">{{ 'Home'| link_to: shop.url }}</a></li>
+              {% if product.collections != empty %}
+                {% for collection in product.collections %}
+                  <li class="breadcrumb-item"><a href="#">{{ collection.title | remove: '[CATEGORY]' }}</a></li>
+                {% endfor %}
+              {% endif %}
+              <li class="breadcrumb-item active" aria-current="page">{{ product.title | escape }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": "Product Details Banner",
+    "tag": "section",
+    "class": "child-banner",
+    "settings": [
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Shop"
+      },
+      {
+        "id": "desktop_thumbnail",
+        "type": "image_picker",
+        "label": "Desktop thumbnail"
+      },
+      {
+        "id": "mobile_thumbnail",
+        "type": "image_picker",
+        "label": "Mobile thumbnail"
+      }
+    ]
+  }
+{% endschema %}

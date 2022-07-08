@@ -1,0 +1,50 @@
+{% assign banner = section.settings.desktop_thumbnail %}
+{% if banner != blank %}
+{{
+  banner
+  | image_url: width: 1700, crop: 'center'
+  | image_tag: loading: 'lazy', class: 'd-none d-md-block', alt: banner.alt 
+}}
+{% liquid
+  assign mobile = section.settings.mobile_thumbnail
+  if mobile != blank
+    echo mobile | image_url: width: 400, crop: 'center' | image_tag: loading: 'lazy', class: 'd-md-none', alt: mobile.alt 
+  endif
+%}
+<div class="child-banner__info">
+    <div>
+        <h2>Shop</h2>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">{{ 'Home'| link_to: shop.url }}</li>
+                <li class="breadcrumb-item active" aria-current="page">Collections</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Page Products Banner",
+    "tag": "section",
+    "class": "child-banner",
+    "settings": [
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Title",
+        "default": "Shop"
+      },
+      {
+        "id": "desktop_thumbnail",
+        "type": "image_picker",
+        "label": "Desktop thumbnail"
+      },
+      {
+        "id": "mobile_thumbnail",
+        "type": "image_picker",
+        "label": "Mobile thumbnail"
+      }
+    ]
+  }
+{% endschema %}
