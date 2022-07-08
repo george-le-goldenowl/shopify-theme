@@ -1,25 +1,27 @@
 {% assign prodcuts = section.settings.products_featured %}
 {% if prodcuts != blank %}
-<div class="container">
-  <h2 class="ttl-01">New Product</h2>
-  <div class="top-product js-slider-pro">
-    {% for product in products %}
-      <div class="top-product__item">
-          <a href="{{ product.url }}">
-            {% assign thumbnail = product.featured_image %}
-            {% if thumbnail != blank %}
-              <div class="top-product__item__img">
-                {{ thumbnail
-                | image_url: width: 300, crop: 'center'
-                | image_tag: loading: 'lazy', alt: thumbnail.alt
-                }}
-              </div>
-            {% endif %}
-              <p class="ttl">{{ product.title | escape }}</p>
-              <p class="price">{{ product.price | money }}</p>
-          </a>
-      </div>
-    {% endfor %}
+<div class="section-content-child">
+  <div class="container">
+    <h2 class="ttl-01">New Product</h2>
+    <div class="top-product js-slider-pro">
+      {% for product in products %}
+        <div class="top-product__item">
+            <a href="{{ product.url }}">
+              {% assign thumbnail = product.featured_image %}
+              {% if thumbnail != blank %}
+                <div class="top-product__item__img">
+                  {{ thumbnail
+                  | image_url: width: 300, crop: 'center'
+                  | image_tag: loading: 'lazy', alt: thumbnail.alt
+                  }}
+                </div>
+              {% endif %}
+                <p class="ttl">{{ product.title | escape }}</p>
+                <p class="price">{{ product.price | money }}</p>
+            </a>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 </div>
 {% endif %}
@@ -27,7 +29,7 @@
   {
     "name": "New Products",
     "tag": "section",
-    "class": "section-content-child",
+    "class": "section-content",
     "settings": [
       {
         "id": "products_featured",
