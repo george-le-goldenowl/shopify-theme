@@ -189,7 +189,11 @@ function sortBy(data) {
         });
         break;
     case 'price':
-        // statements_1
+        result.sort((a, b) => {
+          var x = parseFloat(a.variants[0].price),
+              y = parseFloat(b.variants[0].price);
+          return x - y;
+        });
         break;
     default:
         // do nothing
