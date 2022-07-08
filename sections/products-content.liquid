@@ -84,7 +84,7 @@
                             <a href="{{ p.url }}">
                                 {% assign img = p.featured_image %}
                                 {% if img != blank %}
-                                <div class="top-product__item__img">
+                                <div class="top-product__item__img" style="max-height: 134px;">
                                   {{ img 
                                   | image_url: width: 200, crop: 'center' 
                                   | image_tag: loading: 'lazy', alt: img.alt
@@ -126,7 +126,7 @@ function renderResults(data) {
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                 <div class="top-product__item">
                     <a href="${result.url}">
-                        <div class="top-product__item__img lazy">
+                        <div class="top-product__item__img lazy" style="max-height: 134px;">
                             <img src="${result.img.src}" alt="${e.title}">
                         </div>
                         <p class="ttl">${e.title}</p>
