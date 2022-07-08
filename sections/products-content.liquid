@@ -17,7 +17,7 @@
                   %}
                   {% if childs != empty %}
                     <li class="has-child">
-                      <a href="" class="js-menu-child" data-total-post="{{ totalPost }}">{{ name }}</a>
+                      <a href="{{ category.handle }}" class="js-menu-child" data-total-post="{{ totalPost }}">{{ name }}</a>
                         <div class="has-child-sub">
                             {% for child in childs %}
                               {% liquid
@@ -25,7 +25,7 @@
                                 assign handle = child.handle
                               %}
                               <div class="custom-control custom-radio">
-                                  <input type="radio" id="{{ handle }}" name="{{ handle }}" class="custom-control-input">
+                                  <input type="radio" id="{{ handle }}" class="custom-control-input" value="{{ handle }}" onclick="getSubCategory(this.value)">
                                   <label class="custom-control-label" for="{{ handle }}">{{ cname }}</label>
                               </div>
                             {% endfor %}
@@ -178,6 +178,12 @@ function getPagination(page) {
   // dispatch
   document.dispatchEvent(event);
 }
+function getSubCategory(cate) {
+  element.filter.category = cate;
+
+  // dispatch
+  document.dispatchEvent(event);
+}
 function sortBy(data) {
   var result = data.products;
   switch (element.filter.sort) {
@@ -224,7 +230,19 @@ element
   .category.forEach(e => {
     e.addEventListener('click', e => {
       e.preventDefault();
+      document.querySelectorAll('ul.fillter-menu .active')
+        && document.querySelectorAll('ul.fillter-menu .active').forEach(e => {
+          e.classList.remove('active');
+        });
+      document.querySelectorAll('input[type=radio]')
+        && document.querySelectorAll('input[type=radio]')
+                   .forEach(e => {
+                     e.checked = false;
+                   });
       e.target.classList.add('active');
+      if (e.target.classList.contains('js-menu-child')) {
+        e.target.nextElementSibling.classList.add('active');
+      }
       element.filter.category = e.target.getAttribute('href');
       element.filter.totals = e.target.dataset.totalPost;
       element.filter.page = 1;
@@ -241,8 +259,8 @@ element
     e.addEventListener('click', e => {
       e.preventDefault();
       var per = e.target.innerHTML;
-      element.filter.perPage = per;
       element.filter.page = 1;
+      element.filter.perPage = per;
       element.page.innerHTML = per;
 
       // dispatch
