@@ -6,10 +6,12 @@
     if collections != empty
         for collection in collections
             if collection.title contains '[BRAND]'
-                assign brands = brands | append: collection.title
+                assign brands = brands | append: collection.title | append: ','
             endif
         endfor
     endif
+
+    assign brands = brands | split: ','
 %}
 <div class="container">
     <div class="row">
