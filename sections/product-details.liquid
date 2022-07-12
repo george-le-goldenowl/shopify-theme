@@ -1,17 +1,16 @@
 {% liquid
     assign collections_image = product.images
     assign collections = product.collections
-    assign brands = ''
+    assign brands = '' | split: ''
 
     if collections != empty
         for collection in collections
             if collection.title contains '[BRAND]'
-                assign brands = brands | append: collection.title | append: ', '
+                assign brands = brands | append: collection.title
             endif
         endfor
     endif
 
-    assign brands = brands | split: ','
     echo brands | json
 %}
 <div class="container">
