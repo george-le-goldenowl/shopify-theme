@@ -26,7 +26,7 @@
                                 assign totals = child.object.products_count
                               %}
                               <div class="custom-control custom-radio">
-                                  <input type="radio" id="{{ handle }}" class="custom-control-input" value="{{ handle }}" data-total-post="{{ totals }}" onclick="getSubCategory(this.value)">
+                                  <input type="radio" id="{{ handle }}" class="custom-control-input" value="{{ handle }}" data-total-post="{{ totals }}" onclick="getSubCategory(this)">
                                   <label class="custom-control-label" for="{{ handle }}">{{ cname }}</label>
                               </div>
                             {% endfor %}
@@ -178,8 +178,9 @@ function getPagination(page) {
   // dispatch
   document.dispatchEvent(event);
 }
-function getSubCategory(cate) {
-  element.filter.category = cate;
+function getSubCategory(e) {
+  element.filter.category = e.value;
+  element.filter.totals = e.dataset.totalPost;
 
   // dispatch
   document.dispatchEvent(event);
