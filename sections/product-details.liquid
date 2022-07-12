@@ -1,5 +1,4 @@
 {% liquid
-    assign featured_image = product.featured_image 
     assign collections_image = product.images
 %}
 <div class="container">
@@ -7,16 +6,6 @@
         <div class="col-sm-6">
             <div class="product-detail">
                 <div class="js-product-detail">
-                    <!-- featured image -->
-                    {% if featured_image != blank %}
-                    <div class="product-detail-item">
-                    {{ featured_image
-                    | image_url: width: 500, crop: 'center'
-                    | image_tag: loading: 'lazy', alt: featured_image.alt 
-                    }}
-                    </div>    
-                    {% endif %}
-                    
                     <!-- collections image -->
                     {% if collections_image != empty %}
                         {% for image in collections_image %}
@@ -30,18 +19,6 @@
                     {% endif %}
                 </div>
                 <div class="js-product-detail-nav thumb-nav">
-                    <!-- featured image -->
-                    {% if featured_image != blank %}
-                    <div>
-                        <div class="thumb-nav-item">
-                            {{ featured_image
-                            | image_url: width: 150, crop: 'center'
-                            | image_tag: loading: 'lazy', alt: featured_image.alt 
-                            }}
-                        </div>
-                    </div>
-                    {% endif %}
-                    
                     <!-- collections image -->
                     {% if collections_image != empty %}
                         {% for image in collections_image %}
