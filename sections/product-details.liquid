@@ -11,7 +11,8 @@
         endfor
     endif
 
-    echo brands | remove: '[BRAND]'
+    assign brands = brands | split: ','
+    echo brands | json
 %}
 <div class="container">
     <div class="row">
