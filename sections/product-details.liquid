@@ -6,7 +6,7 @@
     if collections != empty
         for collection in collections
             if collection.title contains '[BRAND]'
-                assign brands = brands | append: collection.title | append: ','
+                assign brands = brands | append: collection.title | split: ','
             endif
         endfor
     endif
