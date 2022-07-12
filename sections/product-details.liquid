@@ -1,7 +1,7 @@
 {% liquid
     assign collections_image = product.images
-  assign original_product = product.variants[0]
-    echo original_product | json
+    assign brands = product.collections | where: "title", "[BRAND]"
+    echo brands | json
 %}
 <div class="container">
     <div class="row">
