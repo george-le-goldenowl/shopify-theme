@@ -181,6 +181,7 @@ function getPagination(page) {
 function getSubCategory(e) {
   element.filter.category = e.value;
   element.filter.totals = e.dataset.totalPost;
+  element.filter.page = 1;
 
   // dispatch
   document.dispatchEvent(event);
