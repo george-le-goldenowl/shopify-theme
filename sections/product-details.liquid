@@ -1,6 +1,6 @@
 {% liquid
     assign collections_image = product.images
-    assign brands = product.collections | where: "[BRAND]"
+    assign brands = product | where: "collections", "[BRAND]"
     echo brands | json
 %}
 <div class="container">
