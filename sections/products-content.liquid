@@ -23,9 +23,10 @@
                               {% liquid
                                 assign cname = child.title | remove: '[CATEGORY]'
                                 assign handle = child.handle
+                                assign totals = child.object.products_count
                               %}
                               <div class="custom-control custom-radio">
-                                  <input type="radio" id="{{ handle }}" class="custom-control-input" value="{{ handle }}" onclick="getSubCategory(this.value)">
+                                  <input type="radio" id="{{ handle }}" class="custom-control-input" value="{{ handle }}" data-total-post="{{ totals }}" onclick="getSubCategory(this.value)">
                                   <label class="custom-control-label" for="{{ handle }}">{{ cname }}</label>
                               </div>
                             {% endfor %}
