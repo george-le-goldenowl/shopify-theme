@@ -1,7 +1,7 @@
 {% liquid
     assign collections_image = product.images
     assign collections = product.collections
-    assign brands = '' | split: ''
+    assign brands = ''
 
     if collections != empty
         for collection in collections
