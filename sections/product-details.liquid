@@ -1,4 +1,7 @@
-{% assign featured_image = product.featured_image %}
+{% liquid
+    assign featured_image = product.featured_image 
+    assign collections_image = product.images
+%}
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
@@ -14,15 +17,17 @@
                     </div>    
                     {% endif %}
                     
-                    <div class="product-detail-item">
-                        <img src="./assets/images/dummy04.png" alt="">
-                    </div>
-                    <div class="product-detail-item">
-                        <img src="./assets/images/dummy04.png" alt="">
-                    </div>
-                    <div class="product-detail-item">
-                        <img src="./assets/images/dummy04.png" alt="">
-                    </div>
+                    <!-- collections image -->
+                    {% if collections_image != empty %}
+                        {% for image in collections_image %}
+                            <div class="product-detail-item">
+                                {{ image
+                                | image_url: width: 500, crop: 'center'
+                                | image_tag: loading: 'lazy', alt: image.alt 
+                                }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="js-product-detail-nav thumb-nav">
                     <!-- featured image -->
@@ -36,21 +41,20 @@
                         </div>
                     </div>
                     {% endif %}
-                    <div>
-                        <div class="thumb-nav-item">
-                            <img src="./assets/images/dummy04.png" alt="">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="thumb-nav-item">
-                            <img src="./assets/images/dummy04.png" alt="">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="thumb-nav-item">
-                            <img src="./assets/images/dummy04.png" alt="">
-                        </div>
-                    </div>
+                    
+                    <!-- collections image -->
+                    {% if collections_image != empty %}
+                        {% for image in collections_image %}
+                            <div>
+                                <div class="thumb-nav-item">
+                                    {{ image
+                                    | image_url: width: 150, crop: 'center'
+                                    | image_tag: loading: 'lazy', alt: image.alt 
+                                    }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
