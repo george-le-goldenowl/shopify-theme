@@ -294,7 +294,7 @@ document.addEventListener('fetch', () => {
       totals = element.filter.totals,
       page = element.filter.page,
       perPage = element.filter.perPage,
-      pageNum = Math.round(totals/perPage);
+      pageNum = totals/perPage;
   
   fetch('/collections/' + category + '/products.json' + '?limit=' + perPage + '&page=' + page)
     .then(res => res.json())
