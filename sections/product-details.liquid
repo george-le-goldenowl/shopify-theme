@@ -26,11 +26,16 @@
                 </div>
                 <div class="js-product-detail-nav thumb-nav">
                     <!-- featured image -->
+                    {% if featured_image != blank %}
                     <div>
                         <div class="thumb-nav-item">
-                            <img src="./assets/images/dummy04.png" alt="">
+                            {{ featured_image
+                            | image_url: width: 150, crop: 'center'
+                            | image_tag: loading: 'lazy', alt: featured_image.alt 
+                            }}
                         </div>
                     </div>
+                    {% endif %}
                     <div>
                         <div class="thumb-nav-item">
                             <img src="./assets/images/dummy04.png" alt="">
