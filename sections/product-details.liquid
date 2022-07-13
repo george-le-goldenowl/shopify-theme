@@ -137,7 +137,7 @@ element.addBtn.addEventListener('click', e => {
         console.log(xhr);
     };
     xhr.open("POST", "/cart/add.js");
-    xhr.setRequestHeader('dataType', 'json');
+    xhr.setRequestHeader('data-type', 'json');
     xhr.send(data);
 });
 </script>
