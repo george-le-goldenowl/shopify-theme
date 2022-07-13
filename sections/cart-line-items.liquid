@@ -33,17 +33,17 @@
                                     </div>
                                 </td>
                                 <td class="col3">
-                                    <div><p>$9.27</p></div>
+                                    <div><p>{{ item.price | money }}</p></div>
                                     <div class="btn-link-gray">
                                         <a href=""><i class="fa fa-pencil"></i>Edit Product</a>
                                     </div>
                                 </td>
                                 <td class="col4">
-                                    <input type="text" class="qty" value="1">
+                                    <input type="text" class="qty" value="{{ item.quantity }}">
                                 </td>
                                 <td class="col5">
                                     <div>
-                                        <p>$9.27</p>
+                                        <p>{{ item.price | money }}</p>
                                         <div class="btn-link-gray">
                                             <a href=""><i class="fa fa-trash"></i>Delete Product</a>
                                         </div>
