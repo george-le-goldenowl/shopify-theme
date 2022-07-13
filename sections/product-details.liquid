@@ -133,13 +133,12 @@ element.addBtn.addEventListener('click', e => {
         "quantity": element.qty.value
     };
     var xhr = new XMLHttpRequest();
-    console.log(serialize(data));
-    // xhr.onreadystatechange = () => {
-        // console.log(xhr);
-    // };
-    // xhr.open("POST", "/cart/add.js");
-    // xhr.setRequestHeader('data-type', 'json');
-    // xhr.send(data);
+    xhr.onreadystatechange = () => {
+        console.log(xhr);
+    };
+    xhr.open("POST", "/cart/add.js");
+    xhr.dataType('json');
+    xhr.send(serialize(data));
 });
 </script>
 {% schema %}
