@@ -146,8 +146,7 @@ element.addBtn.addEventListener('click', e => {
         "id": e.target.dataset.variantId,
         "quantity": element.qty.value
     };
-    var res = addItem(data.id, data.quantity);
-  console.log(res);
+    addItem(data.id, data.quantity).then(res => {console.log(res)});
 });
 </script>
 {% schema %}
