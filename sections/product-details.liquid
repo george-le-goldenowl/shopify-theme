@@ -1,6 +1,7 @@
 {% liquid
     assign collections_image = product.images
     assign collections = product.collections
+    assign variant_product = product.variants[0]
     assign brands = ''
 
     if collections != empty
@@ -67,7 +68,7 @@
                 </div> -->
             </div>
             <div class="product-detail__info">
-                <div class="txt-sku">SKU UR287-ANOD</div>
+                <div class="txt-sku">SKU: {{ variant_product.sku }}</div>
                 <div class="des">
                     {% if brands != blank %}
                         <p><span class="name">Brand: </span>{{ brands | join: ', ' | remove: '[BRAND]' }}</p>
