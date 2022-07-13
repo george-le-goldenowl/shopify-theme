@@ -146,7 +146,7 @@ async function removeItem(data) {
 }
 function onDelete(e) {
     // add loading
-    var id = e.target.dataset.id;
+    var id = e.dataset.id;
     e.parentElement.innerHTML = '<div class="fa fa-spinner fa-spin"></div>';
 
     removeItem({id: id}).then(res => {
