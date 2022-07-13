@@ -128,7 +128,6 @@ element.addBtn.addEventListener('click', e => {
     xhr.onreadystatechange = () => {
         console.log(xhr);
     };
-    xhr.setRequestHeader('dataType', 'json');
     xhr.open("POST", "/cart/add.js");
     xhr.send(data);
 });
