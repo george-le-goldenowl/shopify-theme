@@ -116,6 +116,14 @@
 </div>
 <script type="text/javascript">
 'use strict';
+serialize = function(obj) {
+    var str = [];
+    for (var p in obj)
+        if (obj.hasOwnProperty(p)) {
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        }
+    return str.join("&");
+}
 var element = {};
 element.qty = document.querySelector('input[name=quantity]');
 element.addBtn = document.querySelector('#addToCart');
@@ -129,7 +137,7 @@ element.addBtn.addEventListener('click', e => {
         console.log(xhr);
     };
     xhr.open("POST", "/cart/add.js");
-    xhr.send(data);
+    xhr.send(serialize(data));
 });
 </script>
 {% schema %}
