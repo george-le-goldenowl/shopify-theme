@@ -114,6 +114,19 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+'use strict';
+var element = {};
+element.qty = document.querySelector('input[name=quantity]');
+element.addBtn = document.querySelector('#addToCart');
+element.addBtn.addEventListener('click', e => {
+    var data = {
+        "id": e.target.dataset.variantId,
+        "quantity": element.qty.value
+    };
+    console.log(data);
+});
+</script>
 {% schema %}
   {
     "name": "Product Details",
