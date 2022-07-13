@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "line_items": {
+      "type": "cart-line-items",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "line_items"
+  ]
+}
