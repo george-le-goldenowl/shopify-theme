@@ -151,7 +151,7 @@ function onDelete(e) {
 
     removeItem({id: id}).then(res => {
         if (res.status == 200) {
-            document.querySelector(`tr[data-line-id=${id}]`).remove();
+            document.querySelector(`tr[data-line-id="${id}"]`).remove();
         }    
     });
 }
