@@ -128,19 +128,17 @@ var element = {};
 element.qty = document.querySelector('input[name=quantity]');
 element.addBtn = document.querySelector('#addToCart');
 element.addBtn.addEventListener('click', e => {
-    var data = [];
-    data.push(
-        {
-            "id": e.target.dataset.variantId,
-            "quantity": element.qty.value
-        }
-    );
+    var data = {
+        "id": e.target.dataset.variantId,
+        "quantity": element.qty.value
+    };
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         console.log(xhr);
     };
     xhr.open("POST", "/cart/add.js");
-    xhr.send(serialize(data));
+    xhr.setRequestHeader('dataType', 'json');
+    xhr.send(data);
 });
 </script>
 {% schema %}
