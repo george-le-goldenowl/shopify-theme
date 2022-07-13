@@ -17,7 +17,7 @@
                         </thead>
                         <tbody>
                           {% for item in cart.items %}
-                            <tr>
+                            <tr data-line-id="{{ item.id }}">
                                 <td class="col1">
                                   {% if item.image != blank %}
                                     <div class="cart-img">{{ item.image | image_url: width: 100, crop: 'center' | image_tag: loading: 'lazy', alt: item.image.alt }}</div>
