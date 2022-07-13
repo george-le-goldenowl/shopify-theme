@@ -129,6 +129,33 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+'use strict';
+async function removeItem(data) {
+    return await fetch("/cart/change.json", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            ...data,
+            quantity: 0
+        })
+    });
+}
+function onDelete(e) {
+    // add loading
+    var id = e.target.dataset.id;
+    e.parentElement.innerHTML = '<div class="fa fa-spinner fa-spin"></div>';
+
+    removeItem({id: id}).then(res => {
+        if (res.status == 200) {
+            document.querySelector(`tr[data-line-id=${id}]`).remove();
+        }    
+    });
+}
+</script>
 {% schema %}
   {
     "name": "Cart Page",
