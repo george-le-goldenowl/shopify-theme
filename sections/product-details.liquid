@@ -128,10 +128,13 @@ var element = {};
 element.qty = document.querySelector('input[name=quantity]');
 element.addBtn = document.querySelector('#addToCart');
 element.addBtn.addEventListener('click', e => {
-    var data = {
-        "id": e.target.dataset.variantId,
-        "quantity": element.qty.value
-    };
+    var data = [];
+    data.push(
+        {
+            "id": e.target.dataset.variantId,
+            "quantity": element.qty.value
+        }
+    );
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         console.log(xhr);
