@@ -125,7 +125,7 @@ function serialize(obj) {
     return str.join("&");
 }
 async function addItem(variantId, quantity) {
-    const result = await fetch("/cart/add.json", {
+    return await fetch("/cart/add.json", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
