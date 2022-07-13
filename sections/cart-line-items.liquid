@@ -45,7 +45,7 @@
                                     <div>
                                         <p>{{ item.line_price | money }}</p>
                                         <div class="btn-link-gray">
-                                            <a href=""><i class="fa fa-trash"></i>Delete Product</a>
+                                            <a href="javascript:void(0)" onclick="onDelete(this)" data-id="{{ item.id }}"><i class="fa fa-trash"></i>Delete Product</a>
                                         </div>
                                     </div>
                                 </td>
