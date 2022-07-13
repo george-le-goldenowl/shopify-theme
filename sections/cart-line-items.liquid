@@ -19,13 +19,15 @@
                           {% for item in cart.items %}
                             <tr>
                                 <td class="col1">
-                                    <div class="cart-img"><img src="./assets/images/dummy5.png" alt=""></div>
+                                  {% if item.image != blank %}
+                                    <div class="cart-img">{{ item.image | image_url: width: 100, crop: 'center' | image_tag: loading: 'lazy', alt: item.image.alt }}</div>
+                                  {% endif %}
                                 </td>
                                 <td class="col2">
-                                    <a href="" class="ttl">{{ item.title }}</a>
+                                    <a href="{{ item.url }}" class="ttl">{{ item.title }}</a>
                                     <p><span>Lenght:</span>7mm</p>
                                     <p><span>Titanium Color:</span>Yellow - 60-63 Volt</p>
-                                    <p><small>SKU UR287-ANOD</small></p>
+                                    <p><small>SKU {{ item.sku | default: 'N/A' }}</small></p>
                                     <div class="like btn-link-gray">
                                         <a href=""><i class="fa fa-heart-o"></i>Move to Shoppong List</a>
                                     </div>
