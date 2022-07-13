@@ -115,15 +115,7 @@
     </div>
 </div>
 <script type="text/javascript">
-  'use strict';
-function serialize(obj) {
-    var str = [];
-    for (var p in obj)
-        if (obj.hasOwnProperty(p)) {
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        }
-    return str.join("&");
-}
+'use strict';
 async function addItem(variantId, quantity) {
     return await fetch("/cart/add.json", {
         method: "POST",
