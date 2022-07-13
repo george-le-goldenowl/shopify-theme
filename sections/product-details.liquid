@@ -68,7 +68,7 @@
                 </div> -->
             </div>
             <div class="product-detail__info">
-                <div class="txt-sku">SKU: {{ variant_product.sku }}</div>
+                <div class="txt-sku">SKU: {{ variant_product.sku | default: 'N/A' }}</div>
                 <div class="des">
                     {% if brands != blank %}
                         <p><span class="name">Brand: </span>{{ brands | join: ', ' | remove: '[BRAND]' }}</p>
