@@ -125,9 +125,9 @@ element.addBtn.addEventListener('click', e => {
         "quantity": element.qty.value
     };
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange(res => {
-        console.log(res);
-    });
+    xhr.onreadystatechange = () => {
+        console.log(xhr);
+    };
     xhr.setRequestHeader('dataType', 'json');
     xhr.open("POST", "/cart/add.js");
     xhr.send(data);
