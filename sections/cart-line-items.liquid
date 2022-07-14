@@ -198,7 +198,7 @@ function genProvinces(e) {
     element.postal.focus();
   }
 }
-function getShippingRates(e) {
+async function getShippingRates(e) {
   var data = {
     zip: e.value,
     country: element.countries.value
