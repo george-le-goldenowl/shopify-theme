@@ -209,7 +209,8 @@ function getShippingRates(e) {
 
   if (data.country) {
     // element.postal.disabled = true;
-    console.log(getPrepareShipping(data).getBody());
+    let result = await getPrepareShipping(data);
+    console.log(result);
   }
 }
 function selectedProvinces() {
