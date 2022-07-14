@@ -160,7 +160,7 @@ async function getPrepareShipping(data) {
         })
     });
 
-    return result;
+    return {result, result.json()};
 }
 function onDelete(e) {
     // add loading
@@ -211,7 +211,6 @@ async function getShippingRates(e) {
     // element.postal.disabled = true;
     let result = await getPrepareShipping(data);
     console.log(result);
-    console.log(result.json());
   }
 }
 function selectedProvinces() {
