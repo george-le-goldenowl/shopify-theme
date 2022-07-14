@@ -82,7 +82,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Zip/Postal Code</label>
-                            <input type="text" name="shipping-postal" class="form-control form-control-line" value="">
+                            <input type="text" name="shipping-postal" class="form-control form-control-line" value="" onblur="getShippingRates(this)">
                             <p><small>Fill in your name and address information to see available shipping options</small></p>
                         </div>
                     </div>
@@ -183,6 +183,16 @@ function genProvinces(e) {
     }
     element.postal.focus();
   }
+}
+function getShippingRates(e) {
+  var data = {
+    postal: e.value,
+    country: element.countries.value
+  };
+  if (element.province) {
+    data.province = element.province.value;
+  }
+  console.log(data);
 }
 function selectedProvinces() {
   element.postal.focus();
