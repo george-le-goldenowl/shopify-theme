@@ -83,7 +83,7 @@
                         <div class="form-group">
                             <label for="">Zip/Postal Code</label>
                             <input type="text" name="shipping-postal" class="form-control form-control-line" value="" onblur="getShippingRates(this)">
-                            <p><small>Fill in your name and address information to see available shipping options</small></p>
+                            <p class="shipping-note"><small>Fill in your name and address information to see available shipping options</small></p>
                         </div>
                     </div>
                     <hr>
@@ -135,6 +135,7 @@ var element = {};
 element.countries = document.querySelector('select[name=shipping-country]');
 element.province = document.querySelector('select[name=shipping-province]');
 element.postal = document.querySelector('input[name=shipping-postal]');
+element.note = document.querySelector('p.shipping-note');
 async function removeItem(data) {
     return await fetch("/cart/change.json", {
         method: "POST",
@@ -161,7 +162,7 @@ async function getPrepareShipping(data) {
     });
 
     var resultJson = await result.json(); 
-    return {resultJson: resultJson, result: result.status};
+    return {resultJson: resultJson, result: result};
 }
 function onDelete(e) {
     // add loading
@@ -184,38 +185,51 @@ function genCountries() {
     }
 }
 function genProvinces(e) {
-  var provinces = Countries[e.value].provinces;
-  if (provinces) {
-    var province = '<div class="form-group"><select name="shipping-province" class="custom-select" onchange="selectedProvinces(this)">';
-    provinces.forEach(e => {
-      province += `<option value="${e}">${e}</option>`;
-    });
-    province += '</select></div>';
-    element.countries.parentElement.insertAdjacentHTML('afterend', province);
-  } else {
-    if (element.province) {
-      element.province.remove();
+    var provinces = Countries[e.value].provinces;
+    if (provinces) {
+        var province = '<div class="form-group"><select name="shipping-province" class="custom-select" onchange="selectedProvinces(this)">';
+        provinces.forEach(e => {
+            province += `<option value="${e}">${e}</option>`;
+        });
+        province += '</select></div>';
+        element.countries.parentElement.insertAdjacentHTML('afterend', province);
+    } else {
+        if (element.province) {
+            element.province.remove();
+        }
+        element.postal.focus();
     }
-    element.postal.focus();
-  }
 }
 async function getShippingRates(e) {
-  var data = {
-    zip: e.value,
-    country: element.countries.value
-  };
+    var data = {
+        zip: e.value,
+        country: element.countries.value
+    };
 
-  document.querySelector('select[name=shipping-province]') &&
-    (data.province = document.querySelector('select[name=shipping-province]').value);
+    document.querySelector('select[name=shipping-province]') &&
+        (data.province = document.querySelector('select[name=shipping-province]').value);
 
-  if (data.country) {
-    // element.postal.disabled = true;
-    let result = await getPrepareShipping(data);
-    console.log(result);
-  }
+    if (data.country) {
+        element.postal.disabled = true;
+        element.note.querySelector('small').innerText = '';
+        element.note.insertAdjacentHTML('afterend', '<div class="fa fa-spinner fa-spin"></div>');
+        let res = await getPrepareShipping(data);
+        
+        switch (res.result.status) {
+            case 422:
+                element.note.querySelector('small').style.color = 'red';
+                element.note.querySelector('small').innerText = res.resultJson.zip.join(', ');
+                break;
+            default:
+                // statements_def
+                break;
+        }
+
+        element.note.nextSibling.remove();
+    }
 }
 function selectedProvinces() {
-  element.postal.focus();
+    element.postal.focus();
 }
 window.addEventListener('load', () => {
     genCountries();
