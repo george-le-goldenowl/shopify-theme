@@ -191,7 +191,7 @@ function getShippingRates(e) {
   };
 
   document.querySelector('select[name=shipping-province]') &&
-    data.province = document.querySelector('select[name=shipping-province]').value;
+    (data.province = document.querySelector('select[name=shipping-province]').value);
   
   console.log(data);
 }
