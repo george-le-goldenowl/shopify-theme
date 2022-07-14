@@ -170,12 +170,12 @@ function genCountries() {
 function genProvinces(e) {
   var provinces = Countries[e.value].provinces;
   if (provinces) {
-    var province = '<select name="shipping-province" class="custom-select" onchange="selectedProvinces(this)">';
+    var province = '<div class="form-group"><select name="shipping-province" class="custom-select" onchange="selectedProvinces(this)">';
     provinces.forEach(e => {
       province += `<option value="${e}">${e}</option>`;
     });
-    province += '</select>';
-    element.countries.parentNode.after(province);
+    province += '</select></div>';
+    element.countries.parentNode.insertBefore(province, element.countries.parentNode.nextSibling);
   } else {
     element.postal.focus();
   }
