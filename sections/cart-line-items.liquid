@@ -191,8 +191,23 @@ function getShippingRates(e) {
   };
 
   document.querySelector('select[name=shipping-province]') &&
-    (data.province = document.querySelector('select[name=shipping-province]').value),
-    (element.postal.disabled = true);
+    (data.province = document.querySelector('select[name=shipping-province]').value);
+
+  if (data.country) {
+    element.postal.disabled = true;
+    fetch("/cart/prepare_shipping_rates", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+      },
+      body: {
+        shipping_address: data
+      }
+    }).then(e => {
+      console.log(e);
+    });
+  }
   
   console.log(data);
 }
