@@ -240,7 +240,7 @@ async function getShippingRates(e) {
                     methods.shipping_rates.forEach(e => {
                         method += `${e.name}: ${Shopify.formatMoney(e.price)} <br/>`;
                     });
-                    element.note.querySelector('small').innerText = method;
+                    element.note.querySelector('small').innerHTML = method;
                 }
                 break;
             default:
