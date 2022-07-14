@@ -175,7 +175,7 @@ function genProvinces(e) {
       province += `<option value="${e}">${e}</option>`;
     });
     province += '</select>';
-    element.countries.next(province);
+    element.countries.after(province);
   } else {
     element.postal.focus();
   }
