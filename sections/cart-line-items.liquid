@@ -176,6 +176,7 @@ function genProvinces(e) {
       province += `<option value="${e}">${e}</option>`;
     });
     province += '</select></div>';
+    element.province = document.querySelector('select[name=shipping-province]');
     element.countries.parentElement.insertAdjacentHTML('afterend', province);
   } else {
     if (element.province) {
