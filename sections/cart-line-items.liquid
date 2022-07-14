@@ -161,7 +161,7 @@ async function getPrepareShipping(data) {
     });
 
     var resultJson = await result.json(); 
-    return {resultJson: resultJson, result: result};
+    return {resultJson: resultJson, result: result.status};
 }
 function onDelete(e) {
     // add loading
