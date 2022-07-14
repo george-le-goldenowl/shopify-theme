@@ -234,7 +234,7 @@ async function getShippingRates(e) {
                 element.note.querySelector('small').innerText = res.resultJson.zip.join(', ');
                 break;
             case 202:
-                let methods = await getPrepareShipping();
+                let methods = await getSyncShippingRate();
                 console.log(methods);
                 break;
             default:
