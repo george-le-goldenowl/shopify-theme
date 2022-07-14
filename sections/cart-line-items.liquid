@@ -235,7 +235,13 @@ async function getShippingRates(e) {
                 break;
             case 202:
                 let methods = await getSyncShippingRate();
-                console.log(methods);
+                if (methods.shipping_rates) {
+                    var method = '';
+                    methods.shipping_rates.forEach(e => {
+                        method += `${e.name}: ${Shopify.formatMoney(e.price)} <br/>`;
+                    });
+                    element.note.querySelector('small').innerText = method;
+                }
                 break;
             default:
                 // statements_def
