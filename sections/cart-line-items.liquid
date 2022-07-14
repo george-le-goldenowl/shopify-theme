@@ -164,6 +164,18 @@ async function getPrepareShipping(data) {
     var resultJson = await result.json(); 
     return {resultJson: resultJson, result: result};
 }
+async function getSyncShippingRate() {
+    const result = await fetch("/cart/async_shipping_rates", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    });
+
+    var resultJson = await result.json();
+    return resultJson;
+}
 function onDelete(e) {
     // add loading
     var id = e.dataset.id;
@@ -213,12 +225,17 @@ async function getShippingRates(e) {
         element.postal.disabled = true;
         element.note.insertAdjacentHTML('afterend', '<div class="fa fa-spinner fa-spin"></div>');
         element.note.querySelector('small').innerText = '';
+        element.note.querySelector('small').style.color = '';
         let res = await getPrepareShipping(data);
         
-        switch (res.result.status) {
+        await switch (res.result.status) {
             case 422:
                 element.note.querySelector('small').style.color = 'red';
                 element.note.querySelector('small').innerText = res.resultJson.zip.join(', ');
+                break;
+            case 202:
+                let methods = await getPrepareShipping();
+                console.log(methods);
                 break;
             default:
                 // statements_def
