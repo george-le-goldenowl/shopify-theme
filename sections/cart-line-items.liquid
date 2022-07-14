@@ -133,6 +133,7 @@
 'use strict';
 var element = {};
 element.countries = document.querySelector('select[name=shipping-country]');
+element.province = document.querySelector('select[name=shipping-province]');
 element.postal = document.querySelector('input[name=shipping-postal]');
 async function removeItem(data) {
     return await fetch("/cart/change.json", {
@@ -177,6 +178,9 @@ function genProvinces(e) {
     province += '</select></div>';
     element.countries.parentElement.insertAdjacentHTML('afterend', province);
   } else {
+    if (element.province) {
+      element.province.remove();
+    }
     element.postal.focus();
   }
 }
