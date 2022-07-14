@@ -156,6 +156,18 @@ function onDelete(e) {
         }    
     });
 }
+function genCountries() {
+    if (typeof Countries != undefined) {
+        var options = '';
+        Object.keys(Countries).forEach(key => {
+            options += `<option value="${key}">${key}</option>`;
+        });
+        element.countries.insertAdjacentHTML('beforeend', options);
+    }
+}
+window.addEventListener('load', () => {
+    genCountries();
+});
 </script>
 {% schema %}
   {
