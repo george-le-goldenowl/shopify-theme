@@ -133,7 +133,7 @@
 <script type="text/javascript">
 'use strict';
 var element = {};
-element.countries = document.querySelector('select.shipping-country');
+element.countries = document.querySelector('select[name=shipping-country]');
 async function removeItem(data) {
     return await fetch("/cart/change.json", {
         method: "POST",
