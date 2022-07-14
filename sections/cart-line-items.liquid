@@ -206,8 +206,8 @@ function genProvinces(e) {
         province += '</select></div>';
         element.countries.parentElement.insertAdjacentHTML('afterend', province);
     } else {
-        if (element.province) {
-            element.province.remove();
+        if (document.querySelector('select[name=shipping-province]')) {
+            document.querySelector('select[name=shipping-province]').remove();
         }
         element.postal.focus();
     }
@@ -238,7 +238,7 @@ async function getShippingRates(e) {
                 if (methods.shipping_rates) {
                     var method = '';
                     methods.shipping_rates.forEach(e => {
-                        method += `${e.name}: ${Shopify.formatMoney(e.price)} <br/>`;
+                        method += `${e.name}: ${Shopify.formatMoney(e.price)}<br/>`;
                     });
                     element.note.querySelector('small').innerHTML = method;
                 }
