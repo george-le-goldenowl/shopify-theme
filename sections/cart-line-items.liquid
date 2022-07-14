@@ -161,7 +161,7 @@ async function getPrepareShipping(data) {
     });
 
     var resultJson = await result.json(); 
-    return {reJ: resultJson};
+    return {resultJson: resultJson, result: result};
 }
 function onDelete(e) {
     // add loading
@@ -199,7 +199,7 @@ function genProvinces(e) {
     element.postal.focus();
   }
 }
-async function getShippingRates(e) {
+function getShippingRates(e) {
   var data = {
     zip: e.value,
     country: element.countries.value
@@ -210,7 +210,7 @@ async function getShippingRates(e) {
 
   if (data.country) {
     // element.postal.disabled = true;
-    let result = await getPrepareShipping(data);
+    let result = getPrepareShipping(data);
     console.log(result);
   }
 }
