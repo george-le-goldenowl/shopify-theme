@@ -76,7 +76,7 @@
                         <p>Enter your destination to get a shipping estimate.</p>
                         <div class="form-group">
                             <label for="">Country</label>
-                            <select name="shipping-country" class="custom-select">
+                            <select name="shipping-country" class="custom-select" onselect="genProvinces(this)">
                                 <option value="" selected>Select Countries</option>
                             </select>
                         </div>
@@ -165,6 +165,9 @@ function genCountries() {
         });
         element.countries.insertAdjacentHTML('beforeend', options);
     }
+}
+function genProvinces(e) {
+  console.log(e.value);
 }
 window.addEventListener('load', () => {
     genCountries();
