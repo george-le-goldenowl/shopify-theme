@@ -82,7 +82,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Zip/Postal Code</label>
-                            <input type="text" class="form-control form-control-line" value="">
+                            <input type="text" name="shipping-postal" class="form-control form-control-line" value="">
                             <p><small>Fill in your name and address information to see available shipping options</small></p>
                         </div>
                     </div>
@@ -133,6 +133,7 @@
 'use strict';
 var element = {};
 element.countries = document.querySelector('select[name=shipping-country]');
+element.postal = document.querySelector('input[name=shipping-postal]');
 async function removeItem(data) {
     return await fetch("/cart/change.json", {
         method: "POST",
@@ -167,7 +168,19 @@ function genCountries() {
     }
 }
 function genProvinces(e) {
-  console.log(e.value);
+  var provinces = Countries[e].provinces;
+  if (provinces) {
+    var province = '<select name="shipping-province" class="custom-select" onchange="selectedProvinces(this)">';
+    provinces.forEach(e => {
+      province += `<option value="${e}">${e}</option>`;
+    });
+    province += '</select>';
+  } else {
+    element.postal.focus();
+  }
+}
+function selectedProvinces() {
+  element.postal.focus();
 }
 window.addEventListener('load', () => {
     genCountries();
