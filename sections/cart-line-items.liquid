@@ -228,7 +228,7 @@ async function getShippingRates(e) {
         element.note.querySelector('small').style.color = '';
         let res = await getPrepareShipping(data);
         
-        await switch (res.result.status) {
+        switch (res.result.status) {
             case 422:
                 element.note.querySelector('small').style.color = 'red';
                 element.note.querySelector('small').innerText = res.resultJson.zip.join(', ');
