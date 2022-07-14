@@ -176,7 +176,6 @@ function genProvinces(e) {
       province += `<option value="${e}">${e}</option>`;
     });
     province += '</select></div>';
-    element.province = document.querySelector('select[name=shipping-province]');
     element.countries.parentElement.insertAdjacentHTML('afterend', province);
   } else {
     if (element.province) {
@@ -190,9 +189,10 @@ function getShippingRates(e) {
     postal: e.value,
     country: element.countries.value
   };
-  if (element.province) {
-    data.province = element.province.value;
-  }
+
+  document.querySelector('select[name=shipping-province]') &&
+    data.province = document.querySelector('select[name=shipping-province]').value;
+  
   console.log(data);
 }
 function selectedProvinces() {
