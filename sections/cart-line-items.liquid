@@ -160,7 +160,8 @@ async function getPrepareShipping(data) {
         })
     });
 
-    return {reJ: result.json()};
+    var resultJson = result.json();
+    return {reJ: resultJson};
 }
 function onDelete(e) {
     // add loading
