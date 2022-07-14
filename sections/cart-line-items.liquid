@@ -209,7 +209,7 @@ function getShippingRates(e) {
     (data.province = document.querySelector('select[name=shipping-province]').value);
 
   if (data.country) {
-    element.postal.disabled = true;
+    // element.postal.disabled = true;
     getPrepareShipping(data).then(res => {
         console.log(res.body);
     });
