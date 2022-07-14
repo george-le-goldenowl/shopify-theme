@@ -201,9 +201,9 @@ function getShippingRates(e) {
           "Content-Type": "application/json",
           "Accept": "application/json"
       },
-      body: {
+      body: JSON.stringify({
         shipping_address: data
-      }
+      })
     }).then(e => {
       console.log(e);
     });
