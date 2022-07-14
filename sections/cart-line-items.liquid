@@ -160,7 +160,7 @@ async function getPrepareShipping(data) {
         })
     });
 
-    var resultJson = result.json();
+    var resultJson = await result.json(); 
     return {reJ: resultJson};
 }
 function onDelete(e) {
