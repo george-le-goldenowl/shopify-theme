@@ -199,7 +199,7 @@ function genProvinces(e) {
     element.postal.focus();
   }
 }
-function getShippingRates(e) {
+async function getShippingRates(e) {
   var data = {
     zip: e.value,
     country: element.countries.value
@@ -210,7 +210,7 @@ function getShippingRates(e) {
 
   if (data.country) {
     // element.postal.disabled = true;
-    let result = getPrepareShipping(data);
+    let result = await getPrepareShipping(data);
     console.log(result);
   }
 }
