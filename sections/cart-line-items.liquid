@@ -148,6 +148,21 @@ async function removeItem(data) {
         })
     });
 }
+async function getPrepareShipping(data) {
+    var result = 
+    await fetch("/cart/prepare_shipping_rates", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            shipping_address: data
+        })
+    });
+
+    return result;
+}
 function onDelete(e) {
     // add loading
     var id = e.dataset.id;
@@ -195,21 +210,10 @@ function getShippingRates(e) {
 
   if (data.country) {
     element.postal.disabled = true;
-    fetch("/cart/prepare_shipping_rates", {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        shipping_address: data
-      })
-    }).then(e => {
-      console.log(e.json());
+    getPrepareShipping(data).then(res => {
+        console.log(res.json());
     });
   }
-  
-  console.log(data);
 }
 function selectedProvinces() {
   element.postal.focus();
