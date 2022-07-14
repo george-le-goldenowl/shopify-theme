@@ -211,11 +211,11 @@ async function getShippingRates(e) {
 
     if (data.country) {
         element.postal.disabled = true;
-        element.note.querySelector('small').innerText = '';
         element.note.insertAdjacentHTML('afterend', '<div class="fa fa-spinner fa-spin"></div>');
+        element.note.querySelector('small').innerText = '';
         let res = await getPrepareShipping(data);
         
-        switch (res.result.status) {
+        await switch (res.result.status) {
             case 422:
                 element.note.querySelector('small').style.color = 'red';
                 element.note.querySelector('small').innerText = res.resultJson.zip.join(', ');
@@ -225,6 +225,7 @@ async function getShippingRates(e) {
                 break;
         }
 
+        element.postal.disabled = false;
         element.note.nextSibling.remove();
     }
 }
