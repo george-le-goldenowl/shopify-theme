@@ -18,7 +18,7 @@
                     assign dt = content.desktop_thumbnail
                     assign mt = content.mobile_thumbnail
                     if dt != blank
-                    echo dt | image_url: width: 600, crop: 'center' | image_tag: loading: 'lazy', alt: dt.alt, class: 'd-none d-md-block'
+                    echo dt | image_url: width: 550, crop: 'center' | image_tag: loading: 'lazy', alt: dt.alt, class: 'd-none d-md-block'
                     endif
                     if mt != blank
                     echo mt | image_url: width: 400, crop: 'center' | image_tag: loading: 'lazy', alt: mt.alt, class: 'd-md-none'
