@@ -40,7 +40,8 @@
         "b40e7829-41e3-4032-9a76-1e0697fe74af": {
           "type": "gallery",
           "settings": {
-            "cta": "shopify:\/\/collections\/all"
+            "image": "shopify:\/\/shop_images\/image_42.png",
+            "cta": "shopify:\/\/pages\/contact"
           }
         },
         "d51ebfd3-6355-4fb7-a6ad-3ef4eeae5f7e": {
