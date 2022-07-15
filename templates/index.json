@@ -137,9 +137,10 @@
     "homepage_sample": {
       "type": "homepage-sample",
       "settings": {
-        "title": "basic Collection",
+        "title": "Basic Collection",
         "paraphrase": "<p>Here to bring your life style to the next level<\/p>",
-        "cta": "shopify:\/\/collections\/all"
+        "cta": "shopify:\/\/pages\/contact",
+        "image": "shopify:\/\/shop_images\/image_33.png"
       }
     }
   },
