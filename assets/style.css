@@ -891,6 +891,8 @@ a {
 
 .section-content {
   background: #f5f6fa;
+}
+.section-content-first {
   padding-top: 6.25rem;
 }
 @media (max-width: 767.98px) {
