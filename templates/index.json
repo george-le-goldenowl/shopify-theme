@@ -13,21 +13,10 @@
             "desktop_thumbnail": "shopify:\/\/shop_images\/slider01.png",
             "mobile_thumbnail": "shopify:\/\/shop_images\/slider01_sp.png"
           }
-        },
-        "d1c066fb-2b8c-4fde-ab07-862b24e70947": {
-          "type": "slide",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "paraphrase": "",
-            "cta": "",
-            "desktop_thumbnail": "shopify:\/\/shop_images\/slider02.png"
-          }
         }
       },
       "block_order": [
-        "f417b0e0-0edd-43d7-9ab1-012d0c052e59",
-        "d1c066fb-2b8c-4fde-ab07-862b24e70947"
+        "f417b0e0-0edd-43d7-9ab1-012d0c052e59"
       ],
       "settings": {
       }
@@ -51,21 +40,18 @@
         "b40e7829-41e3-4032-9a76-1e0697fe74af": {
           "type": "gallery",
           "settings": {
-            "image": "shopify:\/\/shop_images\/gallery_01.png",
             "cta": "shopify:\/\/collections\/all"
           }
         },
         "d51ebfd3-6355-4fb7-a6ad-3ef4eeae5f7e": {
           "type": "gallery",
           "settings": {
-            "image": "shopify:\/\/shop_images\/gallery_03.png",
             "cta": "shopify:\/\/collections\/all"
           }
         },
         "f8837888-f52e-4d33-b825-326c290d5978": {
           "type": "gallery",
           "settings": {
-            "image": "shopify:\/\/shop_images\/gallery_02.png",
             "cta": "shopify:\/\/collections\/all"
           }
         }
@@ -105,21 +91,18 @@
         "b3309bb3-fe03-4402-a642-daf723125bf0": {
           "type": "blogs",
           "settings": {
-            "featured_image": "shopify:\/\/shop_images\/blog_01.png",
             "blog": "tatoo-meaning"
           }
         },
         "705b11d3-1bad-4b34-95ee-501eb2232eea": {
           "type": "blogs",
           "settings": {
-            "featured_image": "shopify:\/\/shop_images\/blog_02.png",
             "blog": "tatoo-blog-title-02"
           }
         },
         "6fb68862-5a42-4199-a16c-61f0d59aef08": {
           "type": "blogs",
           "settings": {
-            "featured_image": "shopify:\/\/shop_images\/blog_03.png",
             "blog": "tatoo-blog-title-03"
           }
         }
@@ -147,8 +130,7 @@
       "settings": {
         "title": "basic Collection",
         "paraphrase": "<p>Here to bring your life style to the next level<\/p>",
-        "cta": "shopify:\/\/collections\/all",
-        "image": "shopify:\/\/shop_images\/bg.png"
+        "cta": "shopify:\/\/collections\/all"
       }
     }
   },
