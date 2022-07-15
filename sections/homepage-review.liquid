@@ -2,15 +2,14 @@
 <div class="container">
     <h2 class="ttl-01">Product review</h2>
     {% for block in section.blocks %}
+    {% assign product = block.settings.product %}
     <div class="product-review js-review">
         <div>
             <div class="product-review__item">
                 <div class="d-flex">
                     <div class="product-review__img">
-                        <div>
-                            <img src="./assets/images/dummy03.png" alt="">
-                        </div>
-                        {% assign product = block.settings.product %}
+                        {% assign image = product.featured_image %}
+                        <div> {{ image | image_url: width: 175, crop: 'center' | image_tag: loading: 'lazy', alt: image.alt }} </div>
                         {{ product.title | link_to: product.url }}
                         <div class="rating">
                             <span class="fa fa-star checked"></span>
