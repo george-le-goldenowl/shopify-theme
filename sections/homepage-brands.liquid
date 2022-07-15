@@ -10,7 +10,7 @@
                     <div class="top-featured__img">
                         {{ brand.image
                         | image_url: width: 163, crop: 'center'
-                        | image_tag: loading: 'lazy', alt: brand.image.alt
+                        | image_tag: loading: 'lazy', alt: brand.title
                         }}
                     </div>
                 </div>
