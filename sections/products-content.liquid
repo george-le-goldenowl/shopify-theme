@@ -17,7 +17,7 @@
                   %}
                   {% if childs != empty %}
                     <li class="has-child">
-                      <a href="{{ category.handle }}" class="js-menu-child" data-total-post="{{ totalPost }}">{{ name }}</a>
+                      <a href="{{ category.handle | remove: 'category' }}" class="js-menu-child" data-total-post="{{ totalPost }}">{{ name }}</a>
                         <div class="has-child-sub">
                             {% for child in childs %}
                               {% liquid
