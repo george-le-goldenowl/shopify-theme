@@ -76,6 +76,7 @@
                     {% assign options = product.options_with_values %}
                     {% if options != empty %}
                       {% for option in options %}
+                        {{ option | json }}
                         <p>
                           <span class="name">{{ option.name }}: </span>
                           {{ option.value }}
