@@ -25,12 +25,7 @@
       "type": "homepage-categories",
       "settings": {
         "featured_categories": [
-          "categorybody-jewelry",
-          "categorypiercing",
-          "categorytatoo",
-          "categorystudio",
-          "categorypermanent-makeup",
-          "categorymedical"
+          "body-jewelry"
         ]
       }
     },
