@@ -155,10 +155,21 @@
             "author": "David P.",
             "rate": 3
           }
+        },
+        "b5a8b8bc-dc18-4cd1-84d0-65f216dec594": {
+          "type": "reviews",
+          "settings": {
+            "product": "mayo-stand-with-mobile-base",
+            "title": "Best choice",
+            "content": "<p>There are no words to describe this product<\/p>",
+            "author": "George",
+            "rate": 5
+          }
         }
       },
       "block_order": [
-        "5099fb25-1ff2-447a-a55d-ae3faafc6275"
+        "5099fb25-1ff2-447a-a55d-ae3faafc6275",
+        "b5a8b8bc-dc18-4cd1-84d0-65f216dec594"
       ],
       "settings": {
       }
