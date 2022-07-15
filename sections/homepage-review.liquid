@@ -12,11 +12,11 @@
                         <div> {{ image | image_url: width: 175, crop: 'center' | image_tag: loading: 'lazy', alt: image.alt }} </div>
                         {{ product.title | link_to: product.url }}
                         <div class="rating">
+                          {% assign rate = 1 %}
+                          {% unless rate == block.settings.rate %}
+                            {% assign rate = rate | plus: 1 %}
                             <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
+                          {% endunless %}
                         </div>
                     </div>
                     <div class="product-review__info">
