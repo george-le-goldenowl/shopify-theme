@@ -19,9 +19,9 @@
                             }}
                         </div>
                         {% endif %}
-                        <p>{{ category.title | escape | remove: "[CATEGORY]" | link_to: category.url }}</p>
+                        <p>{{ category.title | escape | remove: "[CATEGORY]" | link_to: link }}</p>
                         <div class="top-shop__item__btn btn-link">
-                            {{ 'View all' | link_to: category.url }}
+                            {{ 'View all' | link_to: link }}
                         </div>
                     </div>
                 </div>
