@@ -76,7 +76,10 @@
                     {% assign options = product.options_with_values %}
                     {% if options != empty %}
                       {% for option in options %}
-                        <p><span class="name">{{ option.name }}: </span>{{ option.value }}</p>
+                        <p>
+                          <span class="name">{{ option.name }}: </span>
+                          {{ option.value }}
+                        </p>
                       {% endfor %}
                     {% endif %}
                 </div>
