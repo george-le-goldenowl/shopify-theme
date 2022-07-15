@@ -97,7 +97,8 @@
         "b3309bb3-fe03-4402-a642-daf723125bf0": {
           "type": "blogs",
           "settings": {
-            "blog": "tatoo-meaning"
+            "featured_image": "shopify:\/\/shop_images\/blog_01.png",
+            "blog": "news"
           }
         },
         "705b11d3-1bad-4b34-95ee-501eb2232eea": {
