@@ -6,6 +6,7 @@
         <div class="top-shop">
             <div class="row">
                 {% for category in categories %}
+                {% assign link = '/collections#' | append: category.handle | remove: 'category' %}
                 <div class="col-6 col-md-4 col-lg-2">
                     <div class="top-shop__item">
                         {% assign thumbnail = category.image %}
@@ -14,7 +15,7 @@
                             {{ thumbnail
                             | image_url: width: 150, crop: 'center'
                             | image_tag: loading: 'lazy', alt: thumbnail.alt
-                            | link_to: 'collections#' | append: category.handle | remove: 'category'
+                            | link_to: link
                             }}
                         </div>
                         {% endif %}
