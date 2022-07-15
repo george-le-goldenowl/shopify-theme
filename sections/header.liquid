@@ -61,24 +61,14 @@
                         <li class="nav-item nav-item-main">
                             <a class="nav-link" href="javascript:void(0)">Retail / <span>Wholesale</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Body jewelry</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Piercing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Tatoo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Permanent makeup </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Medical</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Studio</a>
-                        </li>
+                        {% assign menu = linklists['categories'].links %}
+                        {% if menu != empty %}
+                          {% for m in menu %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">{{ m.title | remove: '[CATEGORY]' }}</a>
+                            </li>
+                          {% endfor %}
+                        {% endif %}
                     </ul>
                     <div class="header__quicklink">
                         <ul>
