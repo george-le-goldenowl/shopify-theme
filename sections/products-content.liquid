@@ -95,11 +95,12 @@
                                 <p class="ttl">{{ p.title | escape }}</p>
                                 <p class="price">{{ p.price | money }}</p>
                             </a>
-                            <div class="product-nav">
+                            <!-- TODO -->
+                            <!-- <div class="product-nav">
                                 <a href=""><i class="icon-cart-01"></i></a>
                                 <a href=""><i class="icon-compare"></i></a>
                                 <a href=""><i class="icon-like"></i></a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                   {% endfor %}
@@ -133,11 +134,6 @@ function renderResults(data) {
                         <p class="ttl">${e.title}</p>
                         <p class="price">${result.price}</p>
                     </a>
-                    <div class="product-nav">
-                        <a href=""><i class="icon-cart-01"></i></a>
-                        <a href=""><i class="icon-compare"></i></a>
-                        <a href=""><i class="icon-like"></i></a>
-                    </div>
                 </div>
             </div>
             `;
