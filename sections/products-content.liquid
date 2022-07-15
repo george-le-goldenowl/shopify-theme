@@ -284,8 +284,9 @@ element
 // loaded
 window.addEventListener('load', () => {
   if (window.location.hash) {
-    element.filter.category = window.location.hash.substring(1);
-    element.filter.totals = document.querySelector(`a[href=${a}]`).dataset.totalPost;
+    var hash = window.location.hash.substring(1);
+    element.filter.category = hash;
+    element.filter.totals = document.querySelector(`a[href=${hash}]`).dataset.totalPost;
     document.dispatchEvent(event);
   } else {
     var pageNum = Math.round(element.filter.totals/element.filter.perPage);
