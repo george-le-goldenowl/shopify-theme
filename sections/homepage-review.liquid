@@ -12,7 +12,7 @@
                         <div> {{ image | image_url: width: 175, crop: 'center' | image_tag: loading: 'lazy', alt: image.alt }} </div>
                         {{ product.title | link_to: product.url }}
                         <div class="rating">
-                          {% for i in block.settings.rate %}
+                          {% for i in (1..block.settings.rate) %}
                             <span class="fa fa-star checked"></span>
                           {% endfor %}
                         </div>
