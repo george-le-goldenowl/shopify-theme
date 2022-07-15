@@ -213,7 +213,7 @@ var event = new Event('fetch');
 element.page = document.querySelector('#numberProductsShow');
 element.sort = document.querySelector('#sorting');
 element.filter = {
-    category: window.location.hash.substring(1) || undefined,
+    category: undefined,
     totals: '{{ collections['all'].products_count }}',
     perPage: 10,
     page: 1,
@@ -284,6 +284,8 @@ element
 // loaded
 window.addEventListener('load', () => {
   if (window.location.hash) {
+    element.filter.category = window.location.hash.substring(1);
+    element.filter.totals = document.querySelector(`a[href=${a}]`).dataset.totalPost;
     document.dispatchEvent(event);
   } else {
     var pageNum = Math.round(element.filter.totals/element.filter.perPage);
