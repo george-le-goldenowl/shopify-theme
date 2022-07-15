@@ -82,7 +82,12 @@
       "type": "homepage-brands",
       "settings": {
         "featured_brands": [
-
+          "brandeternal-ink",
+          "branddynamic",
+          "brandtatoo-ink",
+          "brandfkirons",
+          "brandcheyenne",
+          "brandkwadron"
         ]
       }
     },
