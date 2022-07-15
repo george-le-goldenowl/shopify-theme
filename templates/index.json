@@ -142,6 +142,11 @@
         "cta": "shopify:\/\/pages\/contact",
         "image": "shopify:\/\/shop_images\/image_33.png"
       }
+    },
+    "homepage_review": {
+      "type": "homepage-review",
+      "settings": {
+      }
     }
   },
   "order": [
@@ -152,6 +157,7 @@
     "homepage_brands",
     "homepage_blogs",
     "homepage_richtext",
-    "homepage_sample"
+    "homepage_sample",
+    "homepage_review"
   ]
 }
