@@ -9,9 +9,8 @@
                 <div class="col-6 col-md-4 col-lg-2">
                     <div class="top-featured__img">
                         {{ brand.image
-                        | image_url: width: 200, crop: 'center'
+                        | image_url: width: 163, crop: 'center'
                         | image_tag: loading: 'lazy', alt: brand.image.alt
-                        | link_to: brand.url
                         }}
                     </div>
                 </div>
