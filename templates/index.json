@@ -104,6 +104,7 @@
         "705b11d3-1bad-4b34-95ee-501eb2232eea": {
           "type": "blogs",
           "settings": {
+            "featured_image": "shopify:\/\/shop_images\/blog_02.png",
             "blog": "tatoo-blog-title-02"
           }
         },
