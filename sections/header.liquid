@@ -65,7 +65,7 @@
                         {% if menu != empty %}
                           {% for m in menu %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ '/collections#' | append: m.handle }}">{{ m.title | remove: '[CATEGORY]' }}</a>
+                                <a class="nav-link" href="{{ '/collections#' | append: m.handle | remove: 'category' }}">{{ m.title | remove: '[CATEGORY]' }}</a>
                             </li>
                           {% endfor %}
                         {% endif %}
