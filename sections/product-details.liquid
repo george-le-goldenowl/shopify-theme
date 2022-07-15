@@ -73,7 +73,7 @@
                     {% if brands != blank %}
                         <p><span class="name">Brand: </span>{{ brands | join: ', ' | remove: '[BRAND]' }}</p>
                     {% endif %}
-                    {{ product | json }}
+                    {{ product.options_with_values | json }}
                     {% assign options = product.options_with_values %}
                     {% if options != empty %}
                       {% for option in options %}
