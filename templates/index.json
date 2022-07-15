@@ -145,6 +145,21 @@
     },
     "homepage_review": {
       "type": "homepage-review",
+      "blocks": {
+        "5099fb25-1ff2-447a-a55d-ae3faafc6275": {
+          "type": "reviews",
+          "settings": {
+            "product": "opus-blue-disposable-nitrile-gloves-box-of-100",
+            "title": "Buttery smooth",
+            "content": "<p>I use these everyday and they work great. I love the internal screwing that allows them to stay in place.<\/p>",
+            "author": "David P.",
+            "rate": 5
+          }
+        }
+      },
+      "block_order": [
+        "5099fb25-1ff2-447a-a55d-ae3faafc6275"
+      ],
       "settings": {
       }
     }
