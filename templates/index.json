@@ -47,7 +47,8 @@
         "d51ebfd3-6355-4fb7-a6ad-3ef4eeae5f7e": {
           "type": "gallery",
           "settings": {
-            "cta": "shopify:\/\/collections\/all"
+            "image": "shopify:\/\/shop_images\/image_45.png",
+            "cta": "shopify:\/\/pages\/contact"
           }
         },
         "f8837888-f52e-4d33-b825-326c290d5978": {
