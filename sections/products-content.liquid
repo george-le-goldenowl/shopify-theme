@@ -33,7 +33,7 @@
                         </div>
                     </li>
                   {% else %}
-                    <li><a href="{{ category.handle }}" data-total-post="{{ totalPost }}">{{ name }}</a></li>
+                    <li><a href="{{ category.handle | remove: 'category' }}" data-total-post="{{ totalPost }}">{{ name }}</a></li>
                   {% endif %}
                 {% endfor %}
             </ul>
