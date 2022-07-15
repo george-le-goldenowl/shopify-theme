@@ -14,7 +14,7 @@
                             {{ thumbnail
                             | image_url: width: 150, crop: 'center'
                             | image_tag: loading: 'lazy', alt: thumbnail.alt
-                            | link_to: category.url
+                            | link_to: 'collections#' | append: category.handle | remove: 'category'
                             }}
                         </div>
                         {% endif %}
