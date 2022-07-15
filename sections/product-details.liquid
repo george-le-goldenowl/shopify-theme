@@ -73,16 +73,6 @@
                     {% if brands != blank %}
                         <p><span class="name">Brand: </span>{{ brands | join: ', ' | remove: '[BRAND]' }}</p>
                     {% endif %}
-                    {% assign options = product.options_with_values %}
-                    {% if options != empty %}
-                      {% for option in options %}
-                        {{ option | json }}
-                        <p>
-                          <span class="name">{{ option.name }}: </span>
-                          {{ option.value }}
-                        </p>
-                      {% endfor %}
-                    {% endif %}
                 </div>
                 <div class="price">{{ product.price | money }}</div>
             </div>
