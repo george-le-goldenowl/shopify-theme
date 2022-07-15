@@ -82,12 +82,7 @@
       "type": "homepage-brands",
       "settings": {
         "featured_brands": [
-          "brandbrand_01",
-          "brandbrand_02",
-          "brandbrand_03",
-          "brandbrand_04",
-          "brandbrand_05",
-          "brandbrand_06"
+
         ]
       }
     },
