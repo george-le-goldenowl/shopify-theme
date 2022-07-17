@@ -90,15 +90,15 @@
 
 @font-face {
   font-family: "SFProText";
-  src: url(".SFProText-Regular.eot");
-  src: url(".SFProText-Regular.eot?#iefix") format("embedded-opentype"), url(".SFProText-Regular.svg#SFProText-Regular") format("svg"), url(".SFProText-Regular.ttf") format("truetype"), url(".SFProText-Regular.woff") format("woff"), url(".SFProText-Regular.woff2") format("woff2");
+  src: url("./SFProText-Regular.eot");
+  src: url("./SFProText-Regular.eot?#iefix") format("embedded-opentype"), url("./SFProText-Regular.svg#SFProText-Regular") format("svg"), url("./SFProText-Regular.ttf") format("truetype"), url("./SFProText-Regular.woff") format("woff"), url("./SFProText-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "SFProDisplay";
-  src: url(".SFProDisplay-Regular.eot");
-  src: url(".SFProDisplay-Regular.eot?#iefix") format("embedded-opentype"), url(".SFProDisplay-Regular.svg#SFProDisplay-Regular") format("svg"), url(".SFProDisplay-Regular.ttf") format("truetype"), url(".SFProDisplay-Regular.woff") format("woff"), url(".SFProDisplay-Regular.woff2") format("woff2");
+  src: url("./SFProDisplay-Regular.eot");
+  src: url("./SFProDisplay-Regular.eot?#iefix") format("embedded-opentype"), url("./SFProDisplay-Regular.svg#SFProDisplay-Regular") format("svg"), url("./SFProDisplay-Regular.ttf") format("truetype"), url("./SFProDisplay-Regular.woff") format("woff"), url("./SFProDisplay-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
