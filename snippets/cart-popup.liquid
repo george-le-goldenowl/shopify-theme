@@ -63,6 +63,14 @@
 </div>
 <div class="cart-bg"></div>
 <script type="text/javascript">
+function openCart() {
+  cart.target.classList.add('is-show');
+  cart.screen.classList.add('is-show');
+}
+function closeCart() {
+  cart.target.classList.remove('is-show');
+  cart.screen.classList.remove('is-show');
+}
 var cart = {
   target: document.querySelector('#cart')
 };
@@ -71,11 +79,9 @@ cart.screen = document.querySelector('.cart-bg');
 cart.closes = document.querySelector('.js-close-card');
 cart.list.addEventListener('click', e => {
   e.preventDefault();
-  cart.target.classList.add('is-show');
-  cart.screen.classList.add('is-show');
+  openCart();
 });
 cart.closes.addEventListener('click', () => {
-  cart.target.classList.remove('is-show');
-  cart.screen.classList.remove('is-show');
+  closeCart();
 });
 </script>
