@@ -66,6 +66,8 @@ var cart = {};
 cart.list = document.querySelector('.js-cart');
 cart.screen = document.querySelector('.cart-bg');
 cart.list.addEventListener('click', e => {
+  e.preventDefault();
+  
   var id = e.dataset.nav;
   console.log(id);
 });
