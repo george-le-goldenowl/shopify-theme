@@ -42,6 +42,7 @@
             if cart.item_count > 0
               echo 'View and Edit Cart' | link_to: '/cart'
             else
+              render 'icon-cart-empty'
               echo 'Continuing shopping' | link_to: '/collections'
             endif
           %}
