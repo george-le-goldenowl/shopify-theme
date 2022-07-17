@@ -3,7 +3,7 @@
     <div class="cart-fixed__wrap">
         {% if cart.item_count > 0 %}
         <p class="text-center"><strong>Total {{ cart.total_price | money }}</strong></p>
-        <div class="btn-payment"><a href="/checkouts"><i class="fa fa-lock"></i>Proceed to Payment</a></div>
+        <div class="btn-payment"><a href="/checkout"><i class="fa fa-lock"></i>Proceed to Payment</a></div>
         <p class="text-center">{{ cart.item_count }} Products in cart</p>
         {% for item in cart.items %}
         <div class="shipping__item">
@@ -18,7 +18,7 @@
                 <div class="col-sm-6">
                     <a href="" class="ttl">{{ item.title }}</a>
                     <div class="btn-view">
-                        {{ 'View Detail' | link_to: item.url }}
+						<a href="">View Detail</a>
                     </div>
                     <div class="view-more">
                         <p><strong>Lenght:</strong>7mm</p>
