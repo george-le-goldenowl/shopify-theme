@@ -1,4 +1,4 @@
-<div class="cart-fixed">
+<div class="cart-fixed" id="cart">
     <div class="js-close-card"></div>
     <div class="cart-fixed__wrap">
         <p class="text-center"><strong>Total $22.47</strong></p>
@@ -68,7 +68,8 @@ cart.screen = document.querySelector('.cart-bg');
 cart.list.addEventListener('click', e => {
   e.preventDefault();
   
-  var id = e.dataset.nav;
-  console.log(id);
+  var id = e.target.parentElement.dataset.nav;
+  document.querySelector(`#${id}`).classList.add('is-show');
+  cart.screen.classList.add('is-show');
 });
 </script>
