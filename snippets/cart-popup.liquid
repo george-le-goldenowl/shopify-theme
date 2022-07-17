@@ -61,3 +61,12 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+var cart = {};
+cart.list = document.querySelector('.js-cart');
+cart.screen = document.querySelector('.cart-bg');
+cart.list.addEventListener('click', e => {
+  var id = e.dataset.nav;
+  console.log(id);
+});
+</script>
