@@ -66,11 +66,16 @@
 var cart = {};
 cart.list = document.querySelector('.js-cart');
 cart.screen = document.querySelector('.cart-bg');
+cart.closes = document.querySelector('.js-close-card');
 cart.list.addEventListener('click', e => {
   e.preventDefault();
   
   var id = e.target.parentElement.dataset.nav;
   document.querySelector(`#${id}`).classList.add('is-show');
   cart.screen.classList.add('is-show');
+});
+cart.closes.addEventListener('click', () => {
+  cart.list.classList.remove('is-show');
+  cart.screen.classList.remove('is-show');
 });
 </script>
