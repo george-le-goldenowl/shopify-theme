@@ -9,8 +9,11 @@
         <div class="shipping__item">
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="cart-img"><img src="../../assets/images/dummy5.png" alt="">
-                    </div>
+                    {% if item.image != blank %}
+                      <div class="cart-img">{{ item.image | image_url: width: 143, crop: 'center' | image_tag: loading: 'lazy', alt: item.title  }}</div>
+                    {% else %}
+                      {% render 'icon-unavailable' %}
+                    {% endif %}
                 </div>
                 <div class="col-sm-6">
                     <a href="" class="ttl">{{ item.title }}</a>
@@ -24,7 +27,7 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <p class="price">$9.27</p>
+                    <p class="price">{{ item.price | money }}</p>
                     <div class="btn-link-gray">
                         <a href=""><i class="fa fa-pencil"></i></a>
                         <a href=""><i class="fa fa-trash"></i></a>
