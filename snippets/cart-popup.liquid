@@ -57,7 +57,13 @@
             </div>
         </div>
         <div class="btn-link-text text-center">
-            <a href="">View and Edit Cart</a>
+          {% liquid
+            if cart.item_count > 0
+              echo 'View and Edit Cart' | link_to: '/cart'
+            else
+              echo 'Continuing shopping' | link_to: '/collections'
+            endif
+          %}
         </div>
     </div>
 </div>
