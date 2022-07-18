@@ -1,8 +1,8 @@
 <div class="cart-fixed" id="cart">
     <div class="js-close-card"></div>
     <div class="cart-fixed__wrap">
-        {% if cart.item_count > 0 %}
-            <div class="cart-popup-wrap">
+        <div class="cart-popup-wrap">
+            {% if cart.item_count > 0 %}
                 <p class="text-center"><strong>Total <span class="cart-total-price">{{ cart.total_price | money }}</span></strong></p>
                 <div class="btn-payment"><a href="/checkout"><i class="fa fa-lock"></i>Proceed to Payment</a></div>
                 <p class="text-center"><span class="cart-count">{{ cart.item_count }}</span> Products in cart</p>
@@ -38,9 +38,9 @@
                         </div>
                     {% endfor %}
                 </div>
-            </div>
-        {% endif %}
-        <div class="btn-link-text text-center">
+            {% endif %}
+        </div>
+        <div class="btn-link-text text-center cart-btn">
             {% liquid
             if cart.item_count > 0
                 echo 'View and Edit Cart' | link_to: '/cart'
@@ -80,7 +80,7 @@ async function addItem(variantId, quantity) {
         })
     })
 }
-async function refreshCart() {
+async function getItem() {
     return await fetch("/cart.json");
 }
 function addToCart(e) {
@@ -92,10 +92,11 @@ function addToCart(e) {
         quantity: document.querySelector('input[name=quantity]').value || 1
     };
     addItem(data.id, data.quantity).then(res => {
-        refreshCart().then(r => {
-            if r.status === 200
-                console.log(r);
-        });
+        getItem()
+            .then(res => res.json())
+            .then(data => {
+                refreshCart();
+            });
         parent.innerHTML = '';
         parent.appendChild(_e);
         openCart();
@@ -107,6 +108,11 @@ function onDelete(e){
     removeItem({id: id}).then(res => {
         if (res.status == 200) {
             document.querySelector(`div[data-line-id="${id}"]`).remove();
+            getItem()
+                .then(res => res.json())
+                .then(data => {
+                    refreshCart();
+                });
         }    
     });
 }
@@ -118,12 +124,22 @@ function closeCart() {
     cart.target.classList.remove('is-show');
     cart.screen.classList.remove('is-show');
 }
+function refreshCart(data) {
+    if (parseInt(data.item_count) <= 0) {
+        cart.action.innerHTML = `{% render 'icon-cart-empty' %}{{ 'Continuing shopping' | link_to: '/collections' }}`;
+        cart.items.innerHTML = '';
+    } else {
+        cart.action.innerHTML = `{{ 'View and Edit Cart' | link_to: '/cart' }}`;
+    }
+}
 var cart = {
     target: document.querySelector('#cart')
 };
 cart.list = document.querySelector('.js-cart');
+cart.items = document.querySelector('.cart-popup-wrap');
 cart.screen = document.querySelector('.cart-bg');
 cart.closes = document.querySelector('.js-close-card');
+cart.action = document.querySelector('.cart-btn');
 cart.viewmore = document.querySelectorAll('.btn-view a');
 cart.list.addEventListener('click', e => {
     e.preventDefault();
