@@ -26,7 +26,7 @@
                             <div class="col-sm-6">
                                 <a href="{{ item.url }}" class="ttl">{{ item.title }}</a>
                                 <div class="btn-view">
-            						<a href="#">View Detail</a>
+            						<a href="javascript:void(0)" onclick="toggleDetail(this)">View Detail</a>
                                 </div>
                                 <div class="view-more">
                                     <p><strong>Lenght:</strong>7mm</p>
@@ -149,7 +149,7 @@ function refreshCart(data) {
                     <div class="col-sm-6">
                         <a href="${e.url}" class="ttl">${e.title}</a>
                         <div class="btn-view">
-                            <a href="">View Detail</a>
+                            <a href="javascript:void(0)" onclick="toggleDetail(this)">View Detail</a>
                         </div>
                         <div class="view-more">
                             <p><strong>Lenght:</strong>7mm</p>
@@ -173,6 +173,16 @@ function refreshCart(data) {
         document.querySelector('.cart-count').innerText = data.item_count;
     }
 }
+function toggleDetail(e) {
+    e.classList.toggle('is-active');
+    var next = e.parentElement.nextElementSibling;
+
+    if (next.style.display === '' || next.style.display === 'none') {
+        next.style.display = "block";
+    } else {
+        next.style.display = 'none';
+    }
+}
 var cart = {
     target: document.querySelector('#cart')
 };
@@ -181,23 +191,11 @@ cart.items = document.querySelector('.cart-popup-items');
 cart.screen = document.querySelector('.cart-bg');
 cart.closes = document.querySelector('.js-close-card');
 cart.action = document.querySelector('.cart-btn');
-cart.viewmore = document.querySelectorAll('.btn-view a');
 cart.list.addEventListener('click', e => {
     e.preventDefault();
     openCart();
 });
 cart.closes.addEventListener('click', () => {
     closeCart();
-});
-cart.viewmore.forEach(e => {
-    e.addEventListener('click', e => {
-        e.target.classList.toggle('is-active');
-        var next = e.target.parentElement.nextElementSibling;
-        if (next.style.display === '' || next.style.display === 'none') {
-            next.style.display = "block";
-        } else {
-            next.style.display = 'none';
-        }
-    });
 });
 </script>
