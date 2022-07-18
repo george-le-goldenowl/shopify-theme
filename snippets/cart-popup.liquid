@@ -2,7 +2,7 @@
     <div class="js-close-card"></div>
     <div class="cart-fixed__wrap">
         {%liquid
-          if cart.item_count < 0
+          if cart.item_count <= 0
             assign hidden = 'd-none'
           else
             assign hidden = ''
@@ -169,6 +169,9 @@ function refreshCart(data) {
             `;
         });
         cart.items.innerHTML = result;
+        document.querySelector('.cart-popup-wrap').classList.remove('d-none');
+        document.querySelector('.cart-total-price').innerText = Shopify.formatMoney(data.total_price);
+        document.querySelector('.cart-count').innerText = data.item_count;
     }
 }
 var cart = {
