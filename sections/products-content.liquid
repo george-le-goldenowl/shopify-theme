@@ -282,14 +282,13 @@ document.addEventListener('fetch', () => {
       page = element.filter.page,
       perPage = element.filter.perPage,
       pageNum = Math.ceil(totals/perPage);
-  
+  element.target.classList.add('no-item');
+  element.target.innerHTML = `{% render 'icon-tatoo' %}`;
   fetch('/collections/' + category + '/products.json' + '?limit=' + perPage + '&page=' + page)
     .then(res => res.json())
     .then(data => { 
       // set default value
       element.pagination.innerHTML = '';
-      element.target.classList.add('no-item');
-      element.target.innerHTML = `{% render 'icon-tatoo' %}`;
       
       if (pageNum > 1) {
         renderPagination(pageNum);
