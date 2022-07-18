@@ -1086,6 +1086,9 @@ a {
 
 .section-content {
   background: #f5f6fa;
+}
+.section-content-first {
+  background: #f5f6fa;
   padding-top: 6.25rem;
 }
 @media (max-width: 767.98px) {
@@ -1441,6 +1444,12 @@ a {
   margin-left: -10px;
   margin-right: -10px;
   padding-bottom: 19px;
+  height: 100%;
+}
+.top-product.no-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media (max-width: 767.98px) {
   .top-product {
