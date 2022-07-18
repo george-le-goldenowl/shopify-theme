@@ -156,6 +156,12 @@ function getSubCategory(e) {
   // dispatch
   document.dispatchEvent(event);
 }
+function getPostbyHash(e) {
+    var hash = e.getAttribute('href').split('#')[1];
+    element.filter.category = hash;
+
+    document.dispatchEvent(event);
+}
 function sortBy(data) {
   var result = data.products;
   switch (element.filter.sort) {
