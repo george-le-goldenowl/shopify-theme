@@ -95,7 +95,8 @@ function addToCart(e) {
         getItem()
             .then(res => res.json())
             .then(data => {
-                refreshCart();
+                console.log(data);
+                refreshCart(data);
             });
         parent.innerHTML = '';
         parent.appendChild(_e);
@@ -111,7 +112,7 @@ function onDelete(e){
             getItem()
                 .then(res => res.json())
                 .then(data => {
-                    refreshCart();
+                    refreshCart(data);
                 });
         }    
     });
