@@ -264,7 +264,7 @@ window.addEventListener('load', async () => {
 
     var pageNum = Math.round(element.filter.totals/element.filter.perPage);
 
-    // await document.dispatchEvent(event);
+    await document.dispatchEvent(event);
     renderPagination(pageNum);
 });
   
