@@ -77,16 +77,16 @@ async function addItem(variantId, quantity) {
     })
 }
 function addToCart(e) {
-    var _e = e.cloneNode(!0);
-    e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
+    var _e = e.cloneNode(!0),
+        parent = e.parentElement;
+    parent.innerHTML = `{% render 'icon-loading' %}`;
     var data = {
         id: e.dataset.variantId,
         quantity: document.querySelector('input[name=quantity]').value || 1
     };
     addItem(data.id, data.quantity).then(res => {
-        console.log(e);
-      
-        e.parentElement.innerHTML = _e;
+        console.log(res);
+        parent.innerHTML = _e;
     });
 }
 function onDelete(e){
