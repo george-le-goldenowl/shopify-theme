@@ -65,7 +65,7 @@ async function removeItem(data) {
 }
 function onDelete(){
     var id = e.dataset.id;
-    e.parentElement.innerHTML = '{% render 'icon-loading' %}';
+    e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
     removeItem({id: id}).then(res => {
         if (res.status == 200) {
             document.querySelector(`div[data-line-id="${id}"]`).remove();
