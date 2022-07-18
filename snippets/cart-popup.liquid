@@ -79,6 +79,7 @@ async function addItem(variantId, quantity) {
 function addToCart(e) {
     var _e = e.cloneNode(!0),
         parent = e.parentElement;
+        console.log(_e);
     parent.innerHTML = `{% render 'icon-loading' %}`;
     var data = {
         id: e.dataset.variantId,
