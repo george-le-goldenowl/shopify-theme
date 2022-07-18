@@ -91,28 +91,32 @@ function renderResults(data) {
     if (data.products) {
         var html = '<div class="row">';
         data.products.forEach(e => {
-            console.log(e);
-            // var price = Shopify.formatMoney(e.variants[0].price);
-            // html += `
-            // <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-            //     <div class="top-product__item">
-            //         <a href="${e.url}">
-            //             <div class="top-product__item__img lazy" style="max-height: 134px;">
-            //                 <img src="${e.image}" alt="${e.title}">
-            //             </div>
-            //             <p class="ttl">${e.title}</p>
-            //             <p class="price">${price}</p>
-            //         </a>
-            //         <div class="product-nav">
-            //             <a href="javascript:void(0)" onclick="addToCart(this)" data-variant-id="${e.id}"><i class="icon-cart-01"></i></a>
-            //         </div>
-            //     </div>
-            // </div>
-            // `;
+            var url = `/products/${e.handle}`,
+                title = e.title,
+                image = e.images[0].src,
+                price = Shopify.formatMoney(e.variants[0].price);
+            html += `
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="top-product__item">
+                    <a href="${url}">
+                        <div class="top-product__item__img lazy" style="max-height: 134px;">
+                            <img src="${image}" alt="${title}">
+                        </div>
+                        <p class="ttl">${title}</p>
+                        <p class="price">${price}</p>
+                    </a>
+                    <div class="product-nav">
+                        <a href="javascript:void(0)" onclick="addToCart(this)" data-variant-id="${e.id}"><i class="icon-cart-01"></i></a>
+                    </div>
+                </div>
+            </div>
+            `;
             // render
             // container.insertAdjacentHTML('beforeend', html);
         });
         html += '</div>';
+        element.target.classList.remove('no-item');
+        element.target.innerHTML = html;
     }
 }
 function renderPagination(pageNum) {
@@ -281,6 +285,8 @@ document.addEventListener('fetch', () => {
     .then(data => { 
       // set default value
       element.pagination.innerHTML = '';
+      element.target.classList.add('no-item');
+      element.target.innerHTML = `{% render 'icon-tatoo' %}`;
       
       if (pageNum > 1) {
         renderPagination(pageNum);
