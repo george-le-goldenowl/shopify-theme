@@ -18,7 +18,7 @@
                 <div class="col-sm-6">
                     <a href="" class="ttl">{{ item.title }}</a>
                     <div class="btn-view">
-						<a href="">View Detail</a>
+						<a href="#" class="btn-view-more">View Detail</a>
                     </div>
                     <div class="view-more">
                         <p><strong>Lenght:</strong>7mm</p>
@@ -64,6 +64,7 @@ var cart = {
 cart.list = document.querySelector('.js-cart');
 cart.screen = document.querySelector('.cart-bg');
 cart.closes = document.querySelector('.js-close-card');
+
 cart.list.addEventListener('click', e => {
   e.preventDefault();
   openCart();
