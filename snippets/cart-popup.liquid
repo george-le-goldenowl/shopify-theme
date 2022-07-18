@@ -84,7 +84,8 @@ function addToCart(e) {
         quantity: document.querySelector('input[name=quantity]').value || 1
     };
     addItem(data.id, data.quantity).then(res => {
-        console.log(res);
+        console.log(e);
+      
         e.parentElement.innerHTML = _e;
     });
 }
