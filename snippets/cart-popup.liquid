@@ -100,12 +100,11 @@ function addToCart(e) {
         getItem()
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 refreshCart(data);
+                parent.innerHTML = '';
+                parent.appendChild(_e);
+                openCart();
             });
-        parent.innerHTML = '';
-        parent.appendChild(_e);
-        openCart();
     });
 }
 function onDelete(e){
