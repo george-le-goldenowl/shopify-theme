@@ -85,7 +85,7 @@
                     <a href="javascript:void(0)" class="qty-up" onclick="minusQty(this)"><i class="fa fa-angle-down"></i></a>
                 </div>
                 <div class="btn-link">
-                    <a href="javascript:void(0)" id="addToCart" data-variant-id="{{ variant_product.id }}">Add to card</a>
+                    <a href="javascript:void(0)" data-variant-id="{{ variant_product.id }}" onclick="addToCart(this)">Add to card</a>
                 </div>
                 <!-- <div class="d-flex">
                   <a aria-label="Add To Wishlist" class="action-btn"><i class="fa fa-heart-o"></i></a>
@@ -117,36 +117,20 @@
 </div>
 <script type="text/javascript">
 'use strict';
-async function addItem(variantId, quantity) {
-    return await fetch("/cart/add.json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-            id: variantId,
-            quantity: quantity
-        })
-    })
+function minusQty(e) {
+    var qty = e.previousElementSibling,
+        val = qty.value;
+    if (parseInt(val) - 1 >= qty.min) {
+        qty.value = parseInt(val) - 1;
+    }
 }
 function plusQty(e) {
-    var qty = e.target.nextElementSibling,
+    var qty = e.nextElementSibling,
         val = qty.value;
-    if (parseInt(val) + 1 < qty.max) {
+    if (parseInt(val) + 1 <= qty.max) {
         qty.value = parseInt(val) + 1;
     }
 }
-var element = {};
-element.qty = document.querySelector('input[name=quantity]');
-element.addBtn = document.querySelector('#addToCart');
-element.addBtn.addEventListener('click', e => {
-    var data = {
-        "id": e.target.dataset.variantId,
-        "quantity": element.qty.value
-    };
-    addItem(data.id, data.quantity).then(res => {console.log(res)});
-});
 </script>
 {% schema %}
   {

@@ -63,6 +63,31 @@ async function removeItem(data) {
         })
     });
 }
+async function addItem(variantId, quantity) {
+    return await fetch("/cart/add.json", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            id: variantId,
+            quantity: quantity
+        })
+    })
+}
+function addToCart(e) {
+    var _e = e.cloneNode(!0);
+    e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
+    var data = {
+        id: dataset.variantId,
+        quantity: document.querySelector('input[name=quantity]').value || 1
+    };
+    addItem(data.id, data.quantity).then(res => {
+        console.log(res);
+        e.parentElement.innerHTML = _e;
+    });
+}
 function onDelete(e){
     var id = e.dataset.id;
     e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
