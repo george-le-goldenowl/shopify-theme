@@ -86,8 +86,6 @@
 <script type="text/javascript">
 'use strict';
 function renderResults(data) {
-    var container = element.target.querySelector('.row');
-        container.innerHTML = '';
     if (data.products) {
         var html = '<div class="row">';
         data.products.forEach(e => {
@@ -111,8 +109,6 @@ function renderResults(data) {
                 </div>
             </div>
             `;
-            // render
-            // container.insertAdjacentHTML('beforeend', html);
         });
         html += '</div>';
         element.target.classList.remove('no-item');
