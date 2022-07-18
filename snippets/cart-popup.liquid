@@ -131,13 +131,46 @@ function refreshCart(data) {
         cart.items.innerHTML = '';
     } else {
         cart.action.innerHTML = `{{ 'View and Edit Cart' | link_to: '/cart' }}`;
+        var result = ``;
+        data.items.forEach(e => {
+            var price = Shopify.formatMoney(e.price);
+            result += `
+            <div class="shipping__item">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="cart-img">
+                            <img src="${e.image}" alt="${e.title}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="${e.url}" class="ttl">${e.title}</a>
+                        <div class="btn-view">
+                            <a href="">View Detail</a>
+                        </div>
+                        <div class="view-more">
+                            <p><strong>Lenght:</strong>7mm</p>
+                            <p><strong>Titanium Color:</strong>Yellow - 60-63 Volt</p>
+                            <p class="qtybox"><strong>Quantity:</strong><input type="text" class="qty" value="${e.quantity}"></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <p class="price">${price}</p>
+                        <div class="btn-link-gray">
+                            <a href="javascript:void(0)" onclick="onDelete(this)" data-id="${e.id}"><i class="fa fa-trash"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;
+        });
+        cart.items.innerHTML = result;
     }
 }
 var cart = {
     target: document.querySelector('#cart')
 };
 cart.list = document.querySelector('.js-cart');
-cart.items = document.querySelector('.cart-popup-wrap');
+cart.items = document.querySelector('.cart-popup-items');
 cart.screen = document.querySelector('.cart-bg');
 cart.closes = document.querySelector('.js-close-card');
 cart.action = document.querySelector('.cart-btn');
