@@ -87,8 +87,7 @@ function addToCart(e) {
     addItem(data.id, data.quantity).then(res => {
         parent.innerHTML = '';
         parent.appendChild(_e);
-
-        
+        openCart();
     });
 }
 function onDelete(e){
