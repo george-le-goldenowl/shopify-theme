@@ -76,10 +76,7 @@
                 </div>
             </div>
 
-            <div class="top-product product-list no-item">
-                {% render 'icon-tatoo' %}
-                <div class="row"></div>
-            </div>
+            <div class="top-product product-list"></div>
         </div>
     </div>
 </div>
@@ -289,7 +286,7 @@ document.addEventListener('fetch', () => {
     .then(data => { 
       // set default value
       element.pagination.innerHTML = '';
-      
+
       if (pageNum > 1) {
         renderPagination(pageNum);
       }
