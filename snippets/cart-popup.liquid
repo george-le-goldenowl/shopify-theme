@@ -63,7 +63,7 @@ async function removeItem(data) {
         })
     });
 }
-function onDelete(){
+function onDelete(e){
     var id = e.dataset.id;
     e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
     removeItem({id: id}).then(res => {
