@@ -63,11 +63,18 @@
                             <a class="nav-link" href="javascript:void(0)">Retail / <span>Wholesale</span></a>
                         </li>
                         <!-- TODO -->
-                        {% assign menu = linklists['categories'].links %}
+                        {% 
+                            assign menu = linklists['categories'].links 
+                            if template == 'collections'
+                                assign action = 'onclick="getPostbyHash(this)"'
+                            else
+                                assign action = ''
+                            endif
+                        %}
                         {% if menu != empty %}
                           {% for m in menu %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ '/collections#' | append: m.handle | remove: 'category' }}">{{ m.title | remove: '[CATEGORY]' }}</a>
+                                <a class="nav-link" href="{{ '/collections#' | append: m.handle | remove: 'category' }}" {{ action }}>{{ m.title | remove: '[CATEGORY]' }}</a>
                             </li>
                           {% endfor %}
                         {% endif %}
