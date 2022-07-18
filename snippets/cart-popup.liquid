@@ -1,44 +1,49 @@
 <div class="cart-fixed" id="cart">
     <div class="js-close-card"></div>
     <div class="cart-fixed__wrap">
-        <div class="cart-popup-wrap">
-            {% if cart.item_count > 0 %}
-                <p class="text-center"><strong>Total <span class="cart-total-price">{{ cart.total_price | money }}</span></strong></p>
-                <div class="btn-payment"><a href="/checkout"><i class="fa fa-lock"></i>Proceed to Payment</a></div>
-                <p class="text-center"><span class="cart-count">{{ cart.item_count }}</span> Products in cart</p>
-                <div class="cart-popup-items">
-                    {% for item in cart.items %}
-                        <div class="shipping__item" data-line-id="{{ item.id }}">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    {% if item.image != blank %}
-                                      <div class="cart-img">{{ item.image | image_url: width: 143, crop: 'center' | image_tag: loading: 'lazy', alt: item.title  }}</div>
-                                    {% else %}
-                                      {% render 'icon-unavailable' %}
-                                    {% endif %}
+        {%liquid
+          if cart.item_count < 0
+            assign hidden = 'd-none'
+          else
+            assign hidden = ''
+          endif
+        %}
+        <div class="cart-popup-wrap {{ hidden }}">
+            <p class="text-center"><strong>Total <span class="cart-total-price">{{ cart.total_price | money }}</span></strong></p>
+            <div class="btn-payment"><a href="/checkout"><i class="fa fa-lock"></i>Proceed to Payment</a></div>
+            <p class="text-center"><span class="cart-count">{{ cart.item_count }}</span> Products in cart</p>
+            <div class="cart-popup-items">
+                {% for item in cart.items %}
+                    <div class="shipping__item" data-line-id="{{ item.id }}">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {% if item.image != blank %}
+                                  <div class="cart-img">{{ item.image | image_url: width: 143, crop: 'center' | image_tag: loading: 'lazy', alt: item.title  }}</div>
+                                {% else %}
+                                  {% render 'icon-unavailable' %}
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="{{ item.url }}" class="ttl">{{ item.title }}</a>
+                                <div class="btn-view">
+            						<a href="#">View Detail</a>
                                 </div>
-                                <div class="col-sm-6">
-                                    <a href="{{ item.url }}" class="ttl">{{ item.title }}</a>
-                                    <div class="btn-view">
-                						<a href="#">View Detail</a>
-                                    </div>
-                                    <div class="view-more">
-                                        <p><strong>Lenght:</strong>7mm</p>
-                                        <p><strong>Titanium Color:</strong>Yellow - 60-63 Volt</p>
-                                        <p class="qtybox"><strong>Quantity:</strong><input type="text" class="qty" value="{{ item.quantity }}"></p>
-                                    </div>
+                                <div class="view-more">
+                                    <p><strong>Lenght:</strong>7mm</p>
+                                    <p><strong>Titanium Color:</strong>Yellow - 60-63 Volt</p>
+                                    <p class="qtybox"><strong>Quantity:</strong><input type="text" class="qty" value="{{ item.quantity }}"></p>
                                 </div>
-                                <div class="col-sm-2">
-                                    <p class="price">{{ item.price | money }}</p>
-                                    <div class="btn-link-gray">
-                                        <a href="javascript:void(0)" onclick="onDelete(this)" data-id="{{ item.id }}"><i class="fa fa-trash"></i></a>
-                                    </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="price">{{ item.price | money }}</p>
+                                <div class="btn-link-gray">
+                                    <a href="javascript:void(0)" onclick="onDelete(this)" data-id="{{ item.id }}"><i class="fa fa-trash"></i></a>
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="btn-link-text text-center cart-btn">
             {% liquid
