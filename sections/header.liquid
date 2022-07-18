@@ -63,6 +63,7 @@
                             <a class="nav-link" href="javascript:void(0)">Retail / <span>Wholesale</span></a>
                         </li>
                         <!-- TODO -->
+                        {{ template }}
                         {%liquid
                             assign menu = linklists['categories'].links 
                             if template == 'collections'
