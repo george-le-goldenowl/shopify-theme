@@ -63,10 +63,10 @@
                             <a class="nav-link" href="javascript:void(0)">Retail / <span>Wholesale</span></a>
                         </li>
                         <!-- TODO -->
-                        {% 
+                        {%liquid
                             assign menu = linklists['categories'].links 
                             if template == 'collections'
-                                assign action = 'onclick="getPostbyHash(this)"'
+                                assign action = "onclick='getPostbyHash(this)'"
                             else
                                 assign action = ''
                             endif
