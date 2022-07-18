@@ -73,8 +73,8 @@ cart.closes.addEventListener('click', () => {
   closeCart();
 });
 cart.viewmore.forEach(e => {
-    e.addEventListener('click', () => {
-        this.classList.toggle('is-active');
+    e.addEventListener('click', e => {
+        e.classList.toggle('is-active');
     });
 });
 </script>
