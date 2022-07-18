@@ -95,7 +95,7 @@ function addToCart(e) {
     parent.innerHTML = `{% render 'icon-loading' %}`;
     var data = {
         id: e.dataset.variantId,
-        quantity: document.querySelector('input[name=quantity]').value || 1
+        quantity: document.querySelector('input[name=quantity]') ? document.querySelector('input[name=quantity]').value : 1
     };
     addItem(data.id, data.quantity).then(res => {
         getItem()

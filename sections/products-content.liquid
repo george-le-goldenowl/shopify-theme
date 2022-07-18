@@ -77,7 +77,7 @@
             </div>
 
             <div class="top-product product-list">
-                <div class="row"></div>
+                <div class="row">{% render 'icon-tatoo' %}</div>
             </div>
         </div>
     </div>
@@ -180,7 +180,7 @@ function sortBy(data) {
   data.products = result;
   return data;
 }
-  
+
 var element = {};
 var event = new Event('fetch');
 element.page = document.querySelector('#numberProductsShow');
