@@ -113,7 +113,6 @@ function onDelete(e){
     e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
     removeItem({id: id}).then(res => {
         if (res.status == 200) {
-            document.querySelector(`div[data-line-id="${id}"]`).remove();
             getItem()
                 .then(res => res.json())
                 .then(data => {
@@ -134,6 +133,7 @@ function refreshCart(data) {
     if (parseInt(data.item_count) <= 0) {
         cart.action.innerHTML = `{% render 'icon-cart-empty' %}{{ 'Continuing shopping' | link_to: '/collections' }}`;
         cart.items.innerHTML = '';
+        document.querySelector('.cart-popup-wrap').classList.add('d-none');
     } else {
         cart.action.innerHTML = `{{ 'View and Edit Cart' | link_to: '/cart' }}`;
         var result = ``;
