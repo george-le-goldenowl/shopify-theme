@@ -75,6 +75,12 @@ cart.closes.addEventListener('click', () => {
 cart.viewmore.forEach(e => {
     e.addEventListener('click', e => {
         e.classList.toggle('is-active');
+        var next = e.target.parentElement.nextElementSibling;
+        if (next.style.display == 'none') {
+            next.style.display = "block";
+        } else {
+            next.style.display == 'none'
+        }
     });
 });
 </script>
