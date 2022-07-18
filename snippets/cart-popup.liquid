@@ -1,3 +1,4 @@
+{% if template != 'cart' %}
 <div class="cart-fixed" id="cart">
     <div class="js-close-card"></div>
     <div class="cart-fixed__wrap">
@@ -184,13 +185,13 @@ function toggleDetail(e) {
     }
 }
 var cart = {
-    target: document.querySelector('#cart')
+    list: document.querySelector('.js-cart'),
+    items: document.querySelector('.cart-popup-items'),
+    target: document.querySelector('#cart'),
+    screen: document.querySelector('.cart-bg'),
+    closes: document.querySelector('.js-close-card'),
+    action: document.querySelector('.cart-btn')
 };
-cart.list = document.querySelector('.js-cart');
-cart.items = document.querySelector('.cart-popup-items');
-cart.screen = document.querySelector('.cart-bg');
-cart.closes = document.querySelector('.js-close-card');
-cart.action = document.querySelector('.cart-btn');
 cart.list.addEventListener('click', e => {
     e.preventDefault();
     openCart();
@@ -199,3 +200,4 @@ cart.closes.addEventListener('click', () => {
     closeCart();
 });
 </script>
+{% endif %}
