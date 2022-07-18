@@ -76,6 +76,7 @@ cart.viewmore.forEach(e => {
     e.addEventListener('click', e => {
         e.target.classList.toggle('is-active');
         var next = e.target.parentElement.nextElementSibling;
+          console.log(next.style);
         if (next.style.display == 'none') {
             next.style.display = "block";
         } else {
