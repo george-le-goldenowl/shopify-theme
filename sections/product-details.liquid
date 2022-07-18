@@ -1,7 +1,7 @@
 {% liquid
     assign collections_image = product.images
     assign collections = product.collections
-    assign variant_product = product.variants[0]
+    assign variant_product = product.first_available_variant
     assign brands = ''
 
     if collections != empty
@@ -14,6 +14,7 @@
 
     assign brands = brands | split: ','
 %}
+
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
@@ -76,11 +77,12 @@
                 </div>
                 <div class="price">{{ product.price | money }}</div>
             </div>
+            {% assign maxQty = variant_product.inventory_quantity | default: 1 %}
             <div class="product-detail__cart d-flex">
                 <div class="detail-qty">
-                    <a href="#" class="qty-down"><i class="fa fa-angle-up"></i></a>
-                    <input type="text" name="quantity" class="qty-val" value="1" min="1">
-                    <a href="#" class="qty-up"><i class="fa fa-angle-down"></i></a>
+                    <a href="javascript:void(0)" class="qty-down" onclick="minusQty(this)"><i class="fa fa-angle-up"></i></a>
+                    <input type="text" name="quantity" class="qty-val" value="1" min="1" max="{{ maxQty }}">
+                    <a href="javascript:void(0)" class="qty-up" onclick="plusQty(this)"><i class="fa fa-angle-down"></i></a>
                 </div>
                 <div class="btn-link">
                     <a href="javascript:void(0)" id="addToCart" data-variant-id="{{ variant_product.id }}">Add to card</a>
@@ -128,7 +130,13 @@ async function addItem(variantId, quantity) {
         })
     })
 }
-  
+function plusQty(e) {
+    var qty = e.target.previousElementSibling,
+        val = qty.value;
+    if (parseInt(val) + 1 < qty.max) {
+        qty.value = parseInt(val) + 1;
+    }
+}
 var element = {};
 element.qty = document.querySelector('input[name=quantity]');
 element.addBtn = document.querySelector('#addToCart');
