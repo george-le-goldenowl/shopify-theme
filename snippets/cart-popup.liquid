@@ -86,7 +86,7 @@ function addToCart(e) {
     };
     addItem(data.id, data.quantity).then(res => {
         console.log(res);
-        parent.parent.innerHTML = '';
+        parent.innerHTML = '';
         parent.appendChild(_e);
     });
 }
