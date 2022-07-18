@@ -80,7 +80,7 @@ function addToCart(e) {
     var _e = e.cloneNode(!0);
     e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
     var data = {
-        id: dataset.variantId,
+        id: e.dataset.variantId,
         quantity: document.querySelector('input[name=quantity]').value || 1
     };
     addItem(data.id, data.quantity).then(res => {
