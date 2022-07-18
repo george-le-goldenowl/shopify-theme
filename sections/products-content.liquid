@@ -76,8 +76,9 @@
                 </div>
             </div>
 
-            <div class="top-product product-list">
-                <div class="row">{% render 'icon-tatoo' %}</div>
+            <div class="top-product product-list no-item">
+                {% render 'icon-tatoo' %}
+                <div class="row"></div>
             </div>
         </div>
     </div>
@@ -88,31 +89,30 @@ function renderResults(data) {
     var container = element.target.querySelector('.row');
         container.innerHTML = '';
     if (data.products) {
+        var html = '<div class="row">';
         data.products.forEach(e => {
-            var result = {
-                url: `/products/${e.handle}`,
-                img: e.images[0],
-                price: Shopify.formatMoney(e.variants[0].price)
-            };
-            var html = `
-            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                <div class="top-product__item">
-                    <a href="${result.url}">
-                        <div class="top-product__item__img lazy" style="max-height: 134px;">
-                            <img src="${result.img.src}" alt="${e.title}">
-                        </div>
-                        <p class="ttl">${e.title}</p>
-                        <p class="price">${result.price}</p>
-                    </a>
-                    <div class="product-nav">
-                        <a href="javascript:void(0)" onclick="addToCart(this)" data-variant-id="${e.id}"><i class="icon-cart-01"></i></a>
-                    </div>
-                </div>
-            </div>
-            `;
+            console.log(e);
+            // var price = Shopify.formatMoney(e.variants[0].price);
+            // html += `
+            // <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+            //     <div class="top-product__item">
+            //         <a href="${e.url}">
+            //             <div class="top-product__item__img lazy" style="max-height: 134px;">
+            //                 <img src="${e.image}" alt="${e.title}">
+            //             </div>
+            //             <p class="ttl">${e.title}</p>
+            //             <p class="price">${price}</p>
+            //         </a>
+            //         <div class="product-nav">
+            //             <a href="javascript:void(0)" onclick="addToCart(this)" data-variant-id="${e.id}"><i class="icon-cart-01"></i></a>
+            //         </div>
+            //     </div>
+            // </div>
+            // `;
             // render
-            container.insertAdjacentHTML('beforeend', html);
+            // container.insertAdjacentHTML('beforeend', html);
         });
+        html += '</div>';
     }
 }
 function renderPagination(pageNum) {
@@ -264,7 +264,7 @@ window.addEventListener('load', async () => {
 
     var pageNum = Math.round(element.filter.totals/element.filter.perPage);
 
-    await document.dispatchEvent(event);
+    // await document.dispatchEvent(event);
     renderPagination(pageNum);
 });
   
