@@ -65,7 +65,7 @@
                         <!-- TODO -->
                         {%liquid
                             assign menu = linklists['categories'].links 
-                            if template == 'collections'
+                            if template == 'collection'
                                 assign action = "onclick='getPostbyHash(this)'"
                             else
                                 assign action = ''
