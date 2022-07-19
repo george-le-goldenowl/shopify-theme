@@ -11,25 +11,25 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">First name<span class="txt-error">*</span></label>
-                                        <input type="text" class="form-control form-control-line" data-required="true">
+                                        <input type="text" name="firstName" class="form-control form-control-line" data-required="true">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Last Name<span class="txt-error">*</span></label>
-                                        <input type="text" class="form-control form-control-line" data-required="true">
+                                        <input type="text" name="lastName" class="form-control form-control-line" data-required="true">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <input type="checkbox" name="newsletter" class="custom-control-input" id="customCheck1">
                                     <label class="custom-control-label" for="customCheck1"> Sign Up for Newsletter</label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="">Type of Customer<span class="txt-error">*</span></label>
-                                <select name="customer-type" id="myselection" class="form-control form-control-line" data-required="true">
+                                <select name="customerType" id="myselection" class="form-control form-control-line" data-required="true">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                 </select>
@@ -37,16 +37,16 @@
                             <div id="forpartner" class="forpartner">
                                 <div class="form-group">
                                     <label for="">Sample<span class="txt-error">*</span></label>
-                                    <input type="text" value="" class="form-control form-control-line">
+                                    <input type="text" class="form-control form-control-line">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Sample<span class="txt-error">*</span></label>
-                                    <input type="text" value="" class="form-control form-control-line">
+                                    <input type="text" class="form-control form-control-line">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                    <input type="checkbox" name="assistance" class="custom-control-input" id="customCheck2">
                                     <label class="custom-control-label" for="customCheck2"> Allow remote shopping assistance</label>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                         <div class="shipping__form">
                             <div class="form-group">
                                 <label for="">Email<span class="txt-error">*</span></label>
-                                <input type="text" class="form-control form-control-line" data-required="true">
+                                <input type="email" name="email" class="form-control form-control-line" data-required="true">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password<span class="txt-error">*</span></label>
@@ -63,7 +63,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="confirmPassword">Confirm Password <span class="txt-error">*</span></label>
-                                <input type="password" name="password-confirm" id="confirmPassword" class="form-control form-control-line" data-required="true">
+                                <input type="password" name="passwordConfirm" id="confirmPassword" class="form-control form-control-line" data-required="true">
                             </div>
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
@@ -112,18 +112,39 @@ function onShow(e) {
     }
 }
 function verifyRequired() {
+    var isErr = false;
     requiredFields.forEach(e => {
         if (!e.value) {
             e.classList.add('requiredErr');
-            throw 'RequiredErr';
+            isErr = true;
         } else {
             e.classList.remove('requiredErr');
         }
     });
+
+    if (isErr) {
+        throw 'RequiredErr';
+    }
+}
+function verifyPassword() {
+    if (passwordFields[0].value !== passwordFields[1].value) {
+        throw 'PasswordNotCompare';
+    }
+}
+function verifyEmail(field) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(field.value)) {
+        field.classList.remove('requiredErr');
+    } else {
+        field.classList.add('requiredErr');
+        throw 'EmailErr';
+    }
 }
 async function onSubmit(e) {
     try {
         await verifyRequired();
+        await verifyPassword();
+        await verifyEmail(requiredFields[2]);
+        // registerForm.submit();
     } catch(e) {
         // statements
         console.log(e);
