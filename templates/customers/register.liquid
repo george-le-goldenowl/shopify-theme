@@ -99,6 +99,7 @@
 var registerForm = document.querySelector('#create_customer'),
     passwordFields = document.querySelectorAll('input[name=password], input[name=password-confirm]'),
     requiredFields = registerForm.querySelectorAll('input[data-required=true]');
+
 function onShow(e) {
     if (e.checked) {
         passwordFields.forEach(e => {
@@ -110,11 +111,22 @@ function onShow(e) {
         })
     }
 }
-function onSubmit(e) {
-  requiredFields.forEach(e => {
-    if (!e.value) {
-        e.classList.add('requiredErr');
+function verifyRequired() {
+    requiredFields.forEach(e => {
+        if (!e.value) {
+            e.classList.add('requiredErr');
+            throw 'RequiredErr';
+        } else {
+            e.classList.remove('requiredErr');
+        }
+    });
+}
+async function onSubmit(e) {
+    try {
+        await verifyRequired();
+    } catch(e) {
+        // statements
+        console.log(e);
     }
-  });
 }
 </script>
