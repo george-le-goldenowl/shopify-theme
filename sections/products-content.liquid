@@ -89,7 +89,7 @@ function renderResults(data) {
             var id = e.variants[0].id,
                 url = `/products/${e.handle}`,
                 title = e.title,
-                image = e.images[0].src,
+                image = e.images[0] ? e.images[0].src : '',
                 price = Shopify.formatMoney(e.variants[0].price);
             html += `
             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
