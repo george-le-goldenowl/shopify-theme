@@ -87,10 +87,10 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="shopping__ttl collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <div class="shopping__ttl collapsed" data-toggle="collapse" data-target="#extraFees" aria-expanded="true" aria-controls="extraFees">
                         Additional Options<i class="fa fa-angle-down" aria-hidden="true"></i>
                     </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingOne">
+                    <div id="extraFees" class="collapse" aria-labelledby="headingOne">
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="customCheck1">
@@ -111,17 +111,9 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="form-group">
-                        <label for="">Apply Discount Code</label>
-                        <input type="text"  class="form-control form-control-line" value="" placeholder="Enter discount code">
-                    </div>
-                    <div class="form-group-btn btn-payment">
-                        <button type="submit" class="btn-yellow">Apply Discount</button>
-                    </div>
-                    <hr>
                     <div class="d-flex shopping-content__sum">
                         <span>Order Total</span>
-                        <span>$22.47</span>
+                        <span>{{ cart.total_price | money }}$22.47</span>
                     </div>
                 </div>
             </div>
