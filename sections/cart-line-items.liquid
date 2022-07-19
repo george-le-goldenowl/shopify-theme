@@ -88,30 +88,21 @@
                     </div>
                     <hr>
                     {% assign extraFees = all_products['additional-options'] %}
-                    {{ extraFees | json }}
-                    <div class="shopping__ttl collapsed" data-toggle="collapse" data-target="#extraFees" aria-expanded="true" aria-controls="extraFees">
-                        Additional Options<i class="fa fa-angle-down" aria-hidden="true"></i>
-                    </div>
-                    <div id="extraFees" class="collapse" aria-labelledby="headingOne">
-                        <div class="form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1"><span>$2.00</span>Insurance</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                <label class="custom-control-label" for="customCheck2"><span>$2.00</span>Insurance</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                <label class="custom-control-label" for="customCheck3"><span>$2.00</span>Insurance</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck4">
-                                <label class="custom-control-label" for="customCheck4"><span>$2.00</span>Insurance</label>
-                            </div>
-                        </div>
-                    </div>
+                    {% if extraFees != empty %}
+                      <div class="shopping__ttl collapsed" data-toggle="collapse" data-target="#extraFees" aria-expanded="true" aria-controls="extraFees">
+                          Additional Options<i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </div>
+                      <div id="extraFees" class="collapse" aria-labelledby="headingOne">
+                          <div class="form-group">
+                              {% for fee in extraFees.variants %}
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1"><span>{{ fee.price | money }}</span>{{ fee.title }}</label>
+                                </div>
+                              {% endfor %}
+                          </div>
+                      </div>
+                    {% endif %}
                     <hr>
                     <div class="d-flex shopping-content__sum">
                         <span>Order Total</span>
