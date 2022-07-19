@@ -90,20 +90,31 @@
         </div>
     </div>
 </section>
+<style type="text/css">
+.requiredErr {
+    border-color: red;
+}
+</style>
 <script type="text/javascript">
-var passwordFields = document.querySelectorAll('input[name=password], input[name=password-confirm]');
+var registerForm = document.querySelector('#create_customer'),
+    passwordFields = document.querySelectorAll('input[name=password], input[name=password-confirm]'),
+    requiredFields = registerForm.querySelectorAll('input[data-required=true]');
 function onShow(e) {
-  if (e.checked) {
-    passwordFields.forEach(e => {
-        e.type = 'text';
-    })
-  } else {
-    passwordFields.forEach(e => {
-        e.type = 'password';
-    })
-  }
+    if (e.checked) {
+        passwordFields.forEach(e => {
+            e.type = 'text';
+        })
+    } else {
+        passwordFields.forEach(e => {
+            e.type = 'password';
+        })
+    }
 }
 function onSubmit(e) {
-  
+  requiredFields.forEach(e => {
+    if (!e.value) {
+        e.classList.add('requiredErr');
+    }
+  });
 }
 </script>
