@@ -97,7 +97,7 @@
 </style>
 <script type="text/javascript">
 var registerForm = document.querySelector('#create_customer'),
-    passwordFields = document.querySelectorAll('input[name=password], input[name=password-confirm]'),
+    passwordFields = document.querySelectorAll('input[name=password], input[name=passwordConfirm]'),
     requiredFields = registerForm.querySelectorAll('input[data-required=true]');
 
 function onShow(e) {
@@ -128,7 +128,10 @@ function verifyRequired() {
 }
 function verifyPassword() {
     if (passwordFields[0].value !== passwordFields[1].value) {
+        passwordFields[1].classList.add('requiredErr');
         throw 'PasswordNotCompare';
+    } else {
+        passwordFields[1].classList.remove('requiredErr');
     }
 }
 function verifyEmail(field) {
@@ -144,6 +147,7 @@ async function onSubmit(e) {
         await verifyRequired();
         await verifyPassword();
         await verifyEmail(requiredFields[2]);
+        console.log(registerForm.serialize());
         // registerForm.submit();
     } catch(e) {
         // statements
