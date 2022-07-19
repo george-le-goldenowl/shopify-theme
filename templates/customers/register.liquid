@@ -11,13 +11,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">First name<span class="txt-error">*</span></label>
-                                        <input type="text" class="form-control form-control-line" required>
+                                        <input type="text" class="form-control form-control-line" data-required="true">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Last Name<span class="txt-error">*</span></label>
-                                        <input type="text" class="form-control form-control-line">
+                                        <input type="text" class="form-control form-control-line" data-required="true">
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +29,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Type of Customer<span class="txt-error">*</span></label>
-                                <select name="" id="myselection" class="form-control form-control-line">
+                                <select name="customer-type" id="myselection" class="form-control form-control-line" data-required="true">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                 </select>
@@ -55,19 +55,19 @@
                         <div class="shipping__form">
                             <div class="form-group">
                                 <label for="">Email<span class="txt-error">*</span></label>
-                                <input type="text" value="" class="form-control form-control-line">
+                                <input type="text" class="form-control form-control-line" data-required="true">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password<span class="txt-error">*</span></label>
-                                <input type="password" name="password" id="password" class="form-control form-control-line">
+                                <input type="password" name="password" id="password" class="form-control form-control-line" data-required="true">
                             </div>
                             <div class="form-group">
                                 <label for="confirmPassword">Confirm Password <span class="txt-error">*</span></label>
-                                <input type="password" name="password-confirm" id="confirmPassword" class="form-control form-control-line">
+                                <input type="password" name="password-confirm" id="confirmPassword" class="form-control form-control-line" data-required="true">
                             </div>
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="show-password" onclick="onShow(this)">
+                                    <input type="checkbox" class="custom-control-input" id="show-password" onclick="onShow(this)" data-required="true">
                                     <label class="custom-control-label" for="show-password"> Show Password</label>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                         <div class="shipping__btn row">
                             <div class="col-sm-6">
                                 <div class="shipping__btn">
-                                    <div class="btn-payment"><a href="">Create an Account</a></div>
+                                    <div class="btn-payment"><a href="javascript:void(0)" onclick="onSubmit(this)">Create an Account</a></div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -102,5 +102,8 @@ function onShow(e) {
         e.type = 'password';
     })
   }
+}
+function onSubmit(e) {
+  
 }
 </script>
