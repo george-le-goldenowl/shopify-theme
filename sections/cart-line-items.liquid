@@ -87,6 +87,8 @@
                         </div>
                     </div>
                     <hr>
+                    {% assign extraFees = products['additional-options'] %}
+                    {{ extraFees | json }}
                     <div class="shopping__ttl collapsed" data-toggle="collapse" data-target="#extraFees" aria-expanded="true" aria-controls="extraFees">
                         Additional Options<i class="fa fa-angle-down" aria-hidden="true"></i>
                     </div>
