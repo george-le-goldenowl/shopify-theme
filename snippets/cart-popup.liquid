@@ -21,7 +21,7 @@
                                 {% if item.image != blank %}
                                   <div class="cart-img">{{ item.image | image_url: width: 143, crop: 'center' | image_tag: loading: 'lazy', alt: item.title  }}</div>
                                 {% else %}
-                                  {% render 'icon-padlock' %}
+                                  {% render 'icon-success' %}
                                 {% endif %}
                             </div>
                             <div class="col-sm-6">
