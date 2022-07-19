@@ -160,7 +160,7 @@ function getPostbyHash(e) {
     document.dispatchEvent(event);
 }
 function ignoreExtraFees(data) {
-  Array.from(data.products).filter(e => {
+  Array.from(data).filter(e => {
     return e.handle !== 'additional-options';
   });  
 }
