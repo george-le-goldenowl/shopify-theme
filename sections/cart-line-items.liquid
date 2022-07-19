@@ -96,8 +96,8 @@
                           <div class="form-group">
                               {% for fee in extraFees.variants %}
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1" onclick="toggleExtra(this)" data-id="{{ fee.id }}">
-                                    <label class="custom-control-label" for="customCheck1"><span>{{ fee.price | money }}</span>{{ fee.title }}</label>
+                                    <input type="checkbox" class="custom-control-input" id="{{ fee.handle }}" onclick="toggleExtra(this)" data-id="{{ fee.id }}">
+                                    <label class="custom-control-label" for="{{ fee.handle }}"><span>{{ fee.price | money }}</span>{{ fee.title }}</label>
                                 </div>
                               {% endfor %}
                           </div>
