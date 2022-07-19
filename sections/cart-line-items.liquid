@@ -1,3 +1,17 @@
+{% liquid
+    assign cartItems = ''
+    assign extraItems = ''
+    if cart.item_count > 0
+        for item in cart.items
+            if item.gift_card == true
+                assign extraItems = extraItems | append: item.id | append: ','
+            else 
+                assign cartItems = cartItems | append: item | append: ','
+            endif
+        endfor
+    endif
+%}
+{{ cartItems | json }}
 <div class="container">
     <div class="row">
         <div class="col-lg-8">
@@ -163,7 +177,7 @@ async function getSyncShippingRate() {
 }
 function toggleExtra(e) {
     var id = e.dataset.id;
-    
+
     if (e.checked) {
         addItem(id, 1);
     } else {
