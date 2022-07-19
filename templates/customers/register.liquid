@@ -58,17 +58,17 @@
                                 <input type="text" value="" class="form-control form-control-line">
                             </div>
                             <div class="form-group">
-                                <label for="">Password<span class="txt-error">*</span></label>
-                                <input type="password" class="form-control form-control-line">
+                                <label for="password">Password<span class="txt-error">*</span></label>
+                                <input type="password" name="password" id="password" class="form-control form-control-line">
                             </div>
                             <div class="form-group">
-                                <label for="">Confirm Password <span class="txt-error">*</span></label>
-                                <input type="password" class="form-control form-control-line">
+                                <label for="confirmPassword">Confirm Password <span class="txt-error">*</span></label>
+                                <input type="password" name="password-confirm" id="confirmPassword" class="form-control form-control-line">
                             </div>
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                    <label class="custom-control-label" for="customCheck3"> Show Password</label>
+                                    <input type="checkbox" class="custom-control-input" id="show-password" onclick="onShow(this)">
+                                    <label class="custom-control-label" for="show-password"> Show Password</label>
                                 </div>
                             </div>
                         </div>
@@ -90,3 +90,13 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+
+function onShow(e) {
+  if (e.checked) {
+    
+  } else {
+    
+  }
+}
+</script>
