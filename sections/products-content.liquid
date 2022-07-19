@@ -83,7 +83,6 @@
 <script type="text/javascript">
 'use strict';
 function renderResults(data) {
-  console.log(data);
     if (data.products) {
         var html = '<div class="row">';
         data.products.forEach(e => {
@@ -160,8 +159,13 @@ function getPostbyHash(e) {
 
     document.dispatchEvent(event);
 }
+function ignoreExtraFees(data) {
+  Array.from(data.products).filter(e => {
+    return e.handle !== 'additional-options';
+  });  
+}
 function sortBy(data) {
-  var result = data.products;
+  var result = ignoreExtraFees(data.products);
   switch (element.filter.sort) {
     case 'name':
         result.sort((a, b) => {
