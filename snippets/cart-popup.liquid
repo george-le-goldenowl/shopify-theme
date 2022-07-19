@@ -73,19 +73,6 @@ async function removeItem(data) {
         })
     });
 }
-async function addItem(variantId, quantity) {
-    return await fetch("/cart/add.json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-            id: variantId,
-            quantity: quantity
-        })
-    })
-}
 async function getItem() {
     return await fetch("/cart.json");
 }
@@ -201,3 +188,18 @@ cart.closes.addEventListener('click', () => {
 });
 </script>
 {% endif %}
+<script type="text/javascript">
+async function addItem(variantId, quantity) {
+    return await fetch("/cart/add.json", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            id: variantId,
+            quantity: quantity
+        })
+    })
+}
+</script>

@@ -161,6 +161,15 @@ async function getSyncShippingRate() {
     var resultJson = await result.json();
     return resultJson;
 }
+function toggleExtra(e) {
+    var id = e.dataset.id;
+    
+    if (e.checked) {
+        addItem(id, 1);
+    } else {
+        removeItem({id: id});
+    }
+}
 function onDelete(e) {
     // add loading
     var id = e.dataset.id;
