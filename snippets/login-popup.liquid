@@ -1,5 +1,5 @@
 <div class="cart-fixed" id="login">
-	<div class="js-close-card"></div>
+	<div class="js-close-card" onclick="closeLoginPopup(this)"></div>
 	<div class="cart-fixed__wrap">
 		
 		<div class="form-login">
@@ -22,10 +22,16 @@
 	</div>
 </div>
 <script type="text/javascript">
+var Element = {
+  login: document.querySelector('#login'),
+  bg: document.querySelector('.cart-bg')
+};
 function showLoginPopup(e) {
-  var login = document.querySelector('#login'),
-      bg = document.querySelector('.cart-bg');
-  login.classList.add('is-show');
-  bg.classList.add('is-show');
+  Element.login.classList.add('is-show');
+  Element.bg.classList.add('is-show');
+}
+function closeLoginPopup(e) {
+  Element.login.classList.remove('is-show');
+  Element.bg.classList.remove('is-show');
 }
 </script>
