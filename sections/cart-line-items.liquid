@@ -1,17 +1,4 @@
-{% liquid
-    assign cartItems = ''
-    assign extraItems = ''
-    if cart.item_count > 0
-        for item in cart.items
-            if item.gift_card == true
-                assign extraItems = extraItems | append: item.id | append: ','
-            else 
-                assign cartItems = cartItems | append: item | append: ','
-            endif
-        endfor
-    endif
-%}
-{{ cartItems | json }}
+{% assign extraItems = '' %}
 <div class="container">
     <div class="row">
         <div class="col-lg-8">
@@ -31,6 +18,12 @@
                         </thead>
                         <tbody>
                           {% for item in cart.items %}
+                            {% liquid
+                              if item.gift_card == true
+                                assign extraItems = extraItems | append: item.id | append: ','
+                                continue
+                              endif
+                            %}
                             <tr data-line-id="{{ item.id }}">
                                 <td class="col1">
                                   {% if item.image != blank %}
@@ -46,10 +39,6 @@
                                       {% endfor %}
                                     {% endif %}
                                     <p><small>SKU {{ item.sku | default: 'N/A' }}</small></p>
-                                    <!-- TODO -->
-                                    <div class="like btn-link-gray">
-                                        <a href=""><i class="fa fa-heart-o"></i>Move to Shoppong List</a>
-                                    </div>
                                 </td>
                                 <td class="col3">
                                     <div><p>{{ item.price | money }}</p></div>
@@ -80,13 +69,13 @@
         </div>
         <div class="col-lg-4">
             <div class="shopping-list">
-                <div class="btn-payment"><a href=""><i class="fa fa-lock"></i>Proceed to Payment</a></div>
+                <div class="btn-payment"><a href="/checkout"><i class="fa fa-lock"></i>Proceed to Payment</a></div>
                 <div class="shopping-content" id="accordion">
                     <h3>Summary</h3>
-                    <div class="shopping__ttl collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <div class="shopping__ttl collapsed" data-toggle="collapse" data-target="#shipping-calculator" aria-expanded="true" aria-controls="shipping-calculator">
                         Estimate Shipping and Tax<i class="fa fa-angle-down" aria-hidden="true"></i>
                     </div>
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div id="shipping-calculator" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                         <p>Enter your destination to get a shipping estimate.</p>
                         <div class="form-group">
                             <label for="">Country</label>
@@ -108,9 +97,18 @@
                       </div>
                       <div id="extraFees" class="collapse" aria-labelledby="headingOne">
                           <div class="form-group">
+                              {% assign selectedExtra = extraItems | split: ',' %}
                               {% for fee in extraFees.variants %}
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="{{ fee.id }}" onclick="toggleExtra(this)" data-id="{{ fee.id }}">
+                                    {% liquid
+                                      assign idToString = fee.id | append: ''
+                                      if selectedExtra contains idToString
+                                        assign checked = 'checked'
+                                      else
+                                        assign checked = ''
+                                      endif
+                                    %}
+                                    <input type="checkbox" class="custom-control-input" id="{{ fee.id }}" onclick="toggleExtra(this)" data-id="{{ fee.id }}" {{ checked }}>
                                     <label class="custom-control-label" for="{{ fee.id }}"><span>{{ fee.price | money }}</span>{{ fee.title }}</label>
                                 </div>
                               {% endfor %}
@@ -187,7 +185,7 @@ function toggleExtra(e) {
 function onDelete(e) {
     // add loading
     var id = e.dataset.id;
-    e.parentElement.innerHTML = '<div class="fa fa-spinner fa-spin"></div>';
+    e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
 
     removeItem({id: id}).then(res => {
         if (res.status == 200) {
