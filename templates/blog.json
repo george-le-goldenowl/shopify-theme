@@ -4,9 +4,15 @@
       "type": "blogs-banner",
       "settings": {
       }
+    },
+    "blogs_feature_articles": {
+      "type": "blogs-articles",
+      "settings": {
+      }
     }
   },
   "order": [
-    "blogs_banner"
+    "blogs_banner",
+    "blogs_feature_articles"
   ]
 }
