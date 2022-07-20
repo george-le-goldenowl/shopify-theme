@@ -11,13 +11,15 @@
             <div class="col-lg-8">
                 <div class="wrap-blog-list">
                     {% if blog.articles_count > 0 %}
-                        {% paginate blog.articles by 1 %}
+                        {% paginate blog.articles by 5 %}
                             {% for article in blog.articles %}
                                 <div class="blog__item">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="blog__item__img">
-                                                <a href="{{ article.url }}"><img src="./assets/images/dummy6.png" alt=""></a>
+                                                <a href="{{ article.url }}">
+                                                    {{ article.image | image_url: width: 270, crop: 'center' | image_tag: loading: 'lazy', alt: article.title }}
+                                                </a>
                                             </div>
                                         </div>    
                                         <div class="col-md-7">
@@ -118,7 +120,7 @@
 <script type="text/javascript">
 var pagination = {
     page: getPage(),
-    perPage: 1,
+    perPage: 5,
     totalPage: `{{ blog.articles_count }}`
 };
 function getPage() {
@@ -183,6 +185,12 @@ window.addEventListener('load', async () => {
 {% schema %}
   {
     "name": "Articles",
-    "settings": []
+    "settings": [
+      {
+        "id": "feature_articles",
+        "type": "article",
+        "label": "Feature Articles"
+      }
+    ]
   }
 {% endschema %}
