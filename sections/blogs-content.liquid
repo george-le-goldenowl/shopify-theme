@@ -137,7 +137,7 @@ function renderPagination(pages) {
         </li>`;
 
         for (var i = 1; i <= pages; i++) {
-            active = i == paginate.page ? 'active' : '';
+            active = i == pagination.page ? 'active' : '';
             paginate += `<li class="page-item ${active}"><a class="page-link" href="javascript:void(0)">${i}</a></li>`;
         }
 
