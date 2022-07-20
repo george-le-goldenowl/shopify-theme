@@ -3,11 +3,13 @@
     "blogs_banner": {
       "type": "blogs-banner",
       "settings": {
+        "banner": "shopify:\/\/shop_images\/image_72.png"
       }
     },
     "blogs_feature": {
       "type": "blogs-feature",
       "settings": {
+        "feature_blogs": ""
       }
     },
     "blogs_content": {
