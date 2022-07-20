@@ -74,7 +74,7 @@
                         </div>
                         <div class="shipping__btn row">
                             <div class="col-sm-6">
-                                <div class="shipping__btn">
+                                <div class="shipping__btn btn-submit">
                                     <div class="btn-payment"><a href="javascript:void(0)" onclick="onSubmit(this)">Create an Account</a></div>
                                 </div>
                             </div>
@@ -132,31 +132,59 @@ function verifyRequired() {
     }
 }
 function verifyPassword() {
+    if (passwordFields[0].value.length < 8) {
+        passwordFields[0].classList.add('requiredErr');
+        if (passwordFields[0].nextElementSibling == null) {
+            passwordFields[0].insertAdjacentHTML('afterend', '<sub style="color: red;">password at least 8 characters</sub>');
+        }
+        throw 'pwdAtLeast';
+    } else {
+        passwordFields[0].classList.remove('requiredErr');
+        if (passwordFields[0].nextElementSibling) {
+            passwordFields[0].nextElementSibling.remove();
+        }
+    }
+
     if (passwordFields[0].value !== passwordFields[1].value) {
         passwordFields[1].classList.add('requiredErr');
+        if (passwordFields[1].nextElementSibling == null) {
+            passwordFields[1].insertAdjacentHTML('afterend', '<sub style="color: red;">password and confirm password does not match</sub>');
+        }
         throw 'PasswordNotCompare';
     } else {
-        passwordFields[1].classList.remove('requiredErr');
+        passwordFields[1].classList.remove('requiredErr');    
+        if (passwordFields[1].nextElementSibling) {
+            passwordFields[1].nextElementSibling.remove();
+        }
     }
 }
 function verifyEmail(field) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(field.value)) {
         field.classList.remove('requiredErr');
+        if (field.nextElementSibling) {
+            field.nextElementSibling.remove();
+        }
     } else {
         field.classList.add('requiredErr');
+        if (field.nextElementSibling == null) {
+            field.insertAdjacentHTML('afterend', '<sub style="color: red;">invalid email</sub>');
+        }
         throw 'EmailErr';
     }
 }
+var wrapSubmitBtn = document.querySelector('.btn-submit');
 async function onSubmit(e) {
+    var _e = e.cloneNode(!0);
     try {
+        wrapSubmitBtn.innerHTML = `{% render 'icon-loading' %}`;
         await verifyRequired();
         await verifyPassword();
         await verifyEmail(requiredFields[2]);
         console.log(registerForm.serialize());
         // registerForm.submit();
     } catch(e) {
-        // statements
         console.log(e);
+        wrapSubmitBtn.innerHTML = _e;
     }
 }
 </script>
