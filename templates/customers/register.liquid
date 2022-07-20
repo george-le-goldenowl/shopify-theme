@@ -197,7 +197,11 @@ async function onSubmit(e) {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            if (data.err) {
+                var field = document.querySelector(`input[name=${data.field}]`);
+                field.classList.add('requiredErr');
+                field.insertAdjacentHTML('afterend', `<sub style="color: red;">${data.message}</sub>`);
+            }
         });
     } catch(e) {
         console.log(e);
