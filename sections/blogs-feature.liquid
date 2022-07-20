@@ -5,7 +5,12 @@
         {% assign blog = block.settings.blog %}
         <li>
             <a href="{{ blog.url }}">
-                <img src="./assets/images/blog-item-01.png" alt="">
+                {% liquid
+                  assign thumbnail = block.settings.thumbnail
+                  if thumbnail != blank
+                    echo thumbnail | image_url: width: 283, crop: 'center' | image_tag: loading: 'lazy', alt: blog.title
+                  endif
+                %}
                 <p>{{ blog.title }}</p>
             </a>
         </li>
@@ -26,6 +31,11 @@
             "id": "blog",
             "type": "blog",
             "label": "Select blog"
+          },
+          {
+            "id": "thumbnail",
+            "type": "image_picker",
+            "label": "Thumbnail"
           }
         ]
       }
