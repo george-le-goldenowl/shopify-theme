@@ -271,7 +271,7 @@ window.addEventListener('load', async () => {
         element.filter.totals = document.querySelector(`a[href=${hash}]`).dataset.totalPost;
     }
 
-    var pageNum = Math.round(element.filter.totals/element.filter.perPage);
+    var pageNum = Math.ceil(element.filter.totals/element.filter.perPage);
 
     await document.dispatchEvent(event);
     renderPagination(pageNum);
