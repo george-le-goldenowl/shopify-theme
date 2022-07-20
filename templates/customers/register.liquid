@@ -180,15 +180,20 @@ async function onSubmit(e) {
         await verifyRequired();
         await verifyPassword();
         await verifyEmail(requiredFields[2]);
+
+        var formData = new FormData(registerForm),
+            formDataObject = {};
+        formData.forEach(function(value, key){
+            formDataObject[key] = value;
+        });
+        
         fetch(window.server.host + `/wp-json/action/customer-register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify({
-                new FormData(registerForm);
-            })
+            body: JSON.stringify(formDataObject)
         })
         .then(res => res.json())
         .then(data => {
