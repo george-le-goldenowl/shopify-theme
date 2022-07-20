@@ -180,7 +180,7 @@ async function onSubmit(e) {
         await verifyRequired();
         await verifyPassword();
         await verifyEmail(requiredFields[2]);
-        fetch(window.server.host+`/wp-json/action/customer-register`, {
+        fetch(window.server.host + `/wp-json/action/customer-register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -189,10 +189,15 @@ async function onSubmit(e) {
             body: JSON.stringify({
                 new FormData(registerForm);
             })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
         });
     } catch(e) {
         console.log(e);
-        wrapSubmitBtn.after(_e);
+        wrapSubmitBtn.innerHTML = '';
+        wrapSubmitBtn.appendChild(_e);
     }
 }
 </script>
