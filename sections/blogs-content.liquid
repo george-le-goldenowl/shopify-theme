@@ -11,34 +11,37 @@
             <div class="col-lg-8">
                 <div class="wrap-blog-list">
                     {% if blog.articles_count > 0 %}
-                        {% for article in blog.articles %}
-                            <div class="blog__item">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="blog__item__img">
-                                            <a href="{{ article.url }}"><img src="./assets/images/dummy6.png" alt=""></a>
-                                        </div>
-                                    </div>    
-                                    <div class="col-md-7">
-                                        <div class="blog__item__info">
-                                            <div class="cate">{{ blog.title }}</div>
-                                            <a href="{{ article.url }}" class="ttl">{{ article.title }}</a>
-                                            <div class="row author">
-                                                <div class="col-5">
-                                                    <i class="fa fa-user-o"></i>by {{ article.author }}
-                                                </div>
-                                                <div class="col-5"> <i class="fa fa-calendar-check-o"></i>{{ article.published_at }}</div>
-                                                <div class="col-2"> <i class="fa fa-comment-o"></i></div>
+                        {% paginate blog.articles by 1 %}
+                            {% for article in blog.articles %}
+                                <div class="blog__item">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="blog__item__img">
+                                                <a href="{{ article.url }}"><img src="./assets/images/dummy6.png" alt=""></a>
                                             </div>
-                                            {{ article.excerpt }}
-                                            <div class="btn-more">
-                                                <a href="{{ article.url }}">Read more</a>
+                                        </div>    
+                                        <div class="col-md-7">
+                                            <div class="blog__item__info">
+                                                <div class="cate">{{ blog.title }}</div>
+                                                <a href="{{ article.url }}" class="ttl">{{ article.title }}</a>
+                                                <div class="row author">
+                                                    <div class="col-5">
+                                                        <i class="fa fa-user-o"></i>by {{ article.author }}
+                                                    </div>
+                                                    <div class="col-5"> <i class="fa fa-calendar-check-o"></i>{{ article.published_at }}</div>
+                                                    <div class="col-2"> <i class="fa fa-comment-o"></i></div>
+                                                </div>
+                                                {{ article.excerpt }}
+                                                <div class="btn-more">
+                                                    <a href="{{ article.url }}">Read more</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>    
-                        {% endfor %}
+                                </div>    
+                            {% endfor %}
+                            {{ paginate | default_pagination: next: '>', previous: '<' }} 
+                        {% endpaginate %}
                     {% else %}
                         No blog found!
                     {% endif %}
@@ -162,7 +165,6 @@ function renderPagination(pages) {
 window.addEventListener('load', async () => {
     // paginate
     pages = Math.ceil(parseInt(pagination.totalPage)/pagination.perPage);
-    console.log(pages);
     renderPagination(pages);
 });
 </script>
