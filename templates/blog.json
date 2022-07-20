@@ -5,6 +5,16 @@
       "settings": {
       }
     },
+    "blogs_feature": {
+      "type": "blogs-feature",
+      "settings": {
+      }
+    },
+    "blogs_content": {
+      "type": "blogs-content",
+      "settings": {
+      }
+    },
     "blogs_feature_articles": {
       "type": "blogs-articles",
       "settings": {
@@ -13,6 +23,8 @@
   },
   "order": [
     "blogs_banner",
+    "blogs_feature",
+    "blogs_content",
     "blogs_feature_articles"
   ]
 }
