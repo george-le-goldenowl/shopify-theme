@@ -202,7 +202,9 @@ async function onSubmit(e) {
                 field.classList.add('requiredErr');
                 field.insertAdjacentHTML('afterend', `<sub style="color: red;">${data.message}</sub>`);
 
-                throw data.EmailExistsErr;
+                console.log(data.code);
+                wrapSubmitBtn.innerHTML = '';
+                wrapSubmitBtn.appendChild(_e);
             }
         });
     } catch(e) {
