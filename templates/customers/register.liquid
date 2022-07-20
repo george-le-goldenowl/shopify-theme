@@ -174,17 +174,16 @@ function verifyEmail(field) {
 }
 var wrapSubmitBtn = document.querySelector('.btn-submit');
 async function onSubmit(e) {
-    var _e = e.cloneNode(!0);
+    var _e = e.parentElement.cloneNode(!0);
     try {
         wrapSubmitBtn.innerHTML = `{% render 'icon-loading' %}`;
         await verifyRequired();
         await verifyPassword();
         await verifyEmail(requiredFields[2]);
-        console.log(registerForm.serialize());
-        // registerForm.submit();
+        // fetch();
     } catch(e) {
         console.log(e);
-        wrapSubmitBtn.innerHTML = _e;
+        wrapSubmitBtn.after(_e);
     }
 }
 </script>
