@@ -1,35 +1,33 @@
+{% if section.blocks != blank %}
 <div class="container">
     <ul class="blog__nav">
+      {% for block in section.blocks %}
+        {% assign blog = block.settings.blog %}
         <li>
-            <a href=""><img src="./assets/images/blog-item-01.png" alt="">
-                <p>Tattoo artists</p>
+            <a href="{{ blog.url }}">
+                <img src="./assets/images/blog-item-01.png" alt="">
+                <p>{{ blog.title }}</p>
             </a>
         </li>
-        <li>
-            <a href=""><img src="./assets/images/blog-item-02.png" alt="">
-                <p>Body piercers</p>
-            </a>
-        </li>
-        <li>
-            <a href=""><img src="./assets/images/blog-item-03.png" alt="">
-                <p>PMU artists</p>
-            </a>
-        </li>
-        <li>
-            <a href=""><img src="./assets/images/blog-item-04.png" alt="">
-                <p>Clients</p>
-            </a>
-        </li>
+      {% endfor %}
     </ul>
 </div>
+{% endif %}
 {% schema %}
   {
     "name": "Feature Blogs",
-    "settings": [
+    "blocks": [
       {
-        "id": "feature_blogs",
-        "type": "blog",
-        "label": "Feature Blogs"
+        "type": "blogs",
+        "name": "Feature Blgos",
+        "limit": 4,
+        "settings": [
+          {
+            "id": "blog",
+            "type": "blog",
+            "label": "Select blog"
+          }
+        ]
       }
     ]
   }
