@@ -201,6 +201,8 @@ async function onSubmit(e) {
                 var field = document.querySelector(`input[name=${data.field}]`);
                 field.classList.add('requiredErr');
                 field.insertAdjacentHTML('afterend', `<sub style="color: red;">${data.message}</sub>`);
+
+                throw data.EmailExistsErr;
             }
         });
     } catch(e) {
