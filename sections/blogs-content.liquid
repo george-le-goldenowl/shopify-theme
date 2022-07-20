@@ -40,7 +40,6 @@
                                     </div>
                                 </div>    
                             {% endfor %}
-                            {{ paginate | default_pagination: next: '>', previous: '<' }} 
                         {% endpaginate %}
                     {% else %}
                         No blog found!
@@ -118,10 +117,21 @@
 </div>
 <script type="text/javascript">
 var pagination = {
-    page: 1,
+    page: getPage(),
     perPage: 1,
     totalPage: `{{ blog.articles_count }}`
 };
+function getPage() {
+    var queryString = window.location.search;
+
+    if (queryString) {
+        var urlParams = new URLSearchParams(queryString);
+
+        return urlParams.get('page');
+    }
+
+    return 1;
+}
 function renderPagination(pages) {
     try {
         if (pages <= 1) {
