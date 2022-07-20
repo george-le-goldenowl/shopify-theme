@@ -141,7 +141,7 @@ function renderPagination(pages) {
 
         // previous
         var active = pagination.page == 1 ? 'style="pointer-events: none;"' : '',
-            previousPage = paginate.page - 1;
+            previousPage = pagination.page - 1;
         paginate += `
         <li class="page-item">
             <a class="page-link" ${active} href="{{ blog.url }}?page=${previousPage}" aria-label="Previous">
@@ -157,7 +157,7 @@ function renderPagination(pages) {
 
         // next
         active = pagination.page == pages ? 'style="pointer-events: none;"' : '';
-        var nextPage = paginate.page + 1;
+        var nextPage = pagination.page + 1;
         paginate += `
         <li class="page-item">
             <a class="page-link" ${active} href="{{ blog.url }}?page=${nextPage}" aria-label="Next">
