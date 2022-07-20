@@ -8,8 +8,43 @@
     },
     "blogs_feature": {
       "type": "blogs-feature",
+      "blocks": {
+        "1e59263c-c2ef-4f28-b69a-9c1e0948a386": {
+          "type": "blogs",
+          "settings": {
+            "blog": "tattoo-artists",
+            "thumbnail": "shopify:\/\/shop_images\/image_86.png"
+          }
+        },
+        "7739791f-8425-4b76-bd55-f51378314edd": {
+          "type": "blogs",
+          "settings": {
+            "blog": "body-piercers",
+            "thumbnail": "shopify:\/\/shop_images\/image_87.png"
+          }
+        },
+        "5fb7fcca-a689-49d8-8046-d5f0878a2631": {
+          "type": "blogs",
+          "settings": {
+            "blog": "pmu-artists",
+            "thumbnail": "shopify:\/\/shop_images\/applying-procedure-pink-pigment-permanent-tattoo-o-2022-03-03-11-15-58-utc_1.png"
+          }
+        },
+        "5cff688c-746f-4c9b-bdf0-6ca8c5978542": {
+          "type": "blogs",
+          "settings": {
+            "blog": "clients",
+            "thumbnail": "shopify:\/\/shop_images\/image_88.png"
+          }
+        }
+      },
+      "block_order": [
+        "1e59263c-c2ef-4f28-b69a-9c1e0948a386",
+        "7739791f-8425-4b76-bd55-f51378314edd",
+        "5fb7fcca-a689-49d8-8046-d5f0878a2631",
+        "5cff688c-746f-4c9b-bdf0-6ca8c5978542"
+      ],
       "settings": {
-        "feature_blogs": ""
       }
     },
     "blogs_content": {
