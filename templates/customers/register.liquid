@@ -186,8 +186,8 @@ async function onSubmit(e) {
         formData.forEach(function(value, key){
             formDataObject[key] = value;
         });
-        
-        fetch(window.server.host + `/wp-json/action/customer-register`, {
+
+        fetch(window.server.host + `/wp-json/tatoo/action/customer-register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
