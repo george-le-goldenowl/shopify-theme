@@ -1,6 +1,6 @@
 <div class="container">
     <div class="blog__content">
-        <h2 class="blog__ttl">{{ blog.title }} post</h2>
+        <h2 class="blog__ttl">{{ blog.title }}</h2>
         <div class="blog__search">
             <form>
                 <input type="text" class="form-control form-control-line" placeholder="Search Blog">
@@ -9,145 +9,39 @@
         </div>
         <div class="row">
             <div class="col-lg-8">
-                <div class="blog__item">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="blog__item__img">
-                                <a href=""><img src="./assets/images/dummy6.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="blog__item__info">
-                                <div class="cate">Tattoo artists post</div>
-                                <a href="" class="ttl">The Best Wireless Tattoo Machines in 2022</a>
-                                <div class="row author">
-                                    <div class="col-5">
-                                        <i class="fa fa-user-o"></i>by Danny Tress
+                <div class="wrap-blog-list">
+                    {% if blog.articles_count > 0 %}
+                        {% for article in blog.articles %}
+                            <div class="blog__item">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="blog__item__img">
+                                            <a href=""><img src="./assets/images/dummy6.png" alt=""></a>
+                                        </div>
                                     </div>
-                                    <div class="col-5"> <i class="fa fa-calendar-check-o"></i>June 24, 2022
+                                    <div class="col-md-7">
+                                        <div class="blog__item__info">
+                                            <div class="cate">{{ blog.title }}</div>
+                                            <a href="" class="ttl">{{ article.title }}</a>
+                                            <div class="row author">
+                                                <div class="col-5">
+                                                    <i class="fa fa-user-o"></i>by {{ article.author }}
+                                                </div>
+                                                <div class="col-5"> <i class="fa fa-calendar-check-o"></i>{{ article.published_at }}</div>
+                                                <div class="col-2"> <i class="fa fa-comment-o"></i></div>
+                                            </div>
+                                            {{ article.excerpt }}
+                                            <div class="btn-more">
+                                                <a href="{{ article.url }}">Read more</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-2"> <i class="fa fa-comment-o"></i></div>
                                 </div>
-                                <p>Wireless tattoo machines have taken the industry by storm. Here is a list of
-                                    the best wireless tattoo machines of 2022 so far!</p>
-                                <div class="btn-more">
-                                    <a href="">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog__item">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="blog__item__img">
-                                <a href=""><img src="./assets/images/dummy6.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="blog__item__info">
-                                <div class="cate">Tattoo artists post</div>
-                                <a href="" class="ttl">The Best Wireless Tattoo Machines in 2022</a>
-                                <div class="row author">
-                                    <div class="col-5">
-                                        <i class="fa fa-user-o"></i>by Danny Tress
-                                    </div>
-                                    <div class="col-5"> <i class="fa fa-calendar-check-o"></i>June 24, 2022
-                                    </div>
-                                    <div class="col-2"> <i class="fa fa-comment-o"></i></div>
-                                </div>
-                                <p>Wireless tattoo machines have taken the industry by storm. Here is a list of
-                                    the best wireless tattoo machines of 2022 so far!</p>
-                                <div class="btn-more">
-                                    <a href="">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog__item">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="blog__item__img">
-                                <a href=""><img src="./assets/images/dummy6.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="blog__item__info">
-                                <div class="cate">Tattoo artists post</div>
-                                <a href="" class="ttl">The Best Wireless Tattoo Machines in 2022</a>
-                                <div class="row author">
-                                    <div class="col-5">
-                                        <i class="fa fa-user-o"></i>by Danny Tress
-                                    </div>
-                                    <div class="col-5"> <i class="fa fa-calendar-check-o"></i>June 24, 2022
-                                    </div>
-                                    <div class="col-2"> <i class="fa fa-comment-o"></i></div>
-                                </div>
-                                <p>Wireless tattoo machines have taken the industry by storm. Here is a list of
-                                    the best wireless tattoo machines of 2022 so far!</p>
-                                <div class="btn-more">
-                                    <a href="">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog__item">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="blog__item__img">
-                                <a href=""><img src="./assets/images/dummy6.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="blog__item__info">
-                                <div class="cate">Tattoo artists post</div>
-                                <a href="" class="ttl">The Best Wireless Tattoo Machines in 2022</a>
-                                <div class="row author">
-                                    <div class="col-5">
-                                        <i class="fa fa-user-o"></i>by Danny Tress
-                                    </div>
-                                    <div class="col-5"> <i class="fa fa-calendar-check-o"></i>June 24, 2022
-                                    </div>
-                                    <div class="col-2"> <i class="fa fa-comment-o"></i></div>
-                                </div>
-                                <p>Wireless tattoo machines have taken the industry by storm. Here is a list of
-                                    the best wireless tattoo machines of 2022 so far!</p>
-                                <div class="btn-more">
-                                    <a href="">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog__item">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="blog__item__img">
-                                <a href=""><img src="./assets/images/dummy6.png" alt=""></a>
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="blog__item__info">
-                                <div class="cate">Tattoo artists post</div>
-                                <a href="" class="ttl">The Best Wireless Tattoo Machines in 2022</a>
-                                <div class="row author">
-                                    <div class="col-5">
-                                        <i class="fa fa-user-o"></i>by Danny Tress
-                                    </div>
-                                    <div class="col-5"> <i class="fa fa-calendar-check-o"></i>June 24, 2022
-                                    </div>
-                                    <div class="col-2"> <i class="fa fa-comment-o"></i></div>
-                                </div>
-                                <p>Wireless tattoo machines have taken the industry by storm. Here is a list of
-                                    the best wireless tattoo machines of 2022 so far!</p>
-                                <div class="btn-more">
-                                    <a href="">Read more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            </div>    
+                        {% endfor %}
+                    {% else %}
+                        No blog found!
+                    {% endif %}
                 </div>
                 <ul class="pagination">
                     <li class="page-item">
@@ -238,8 +132,6 @@
 {% schema %}
   {
     "name": "Articles",
-    "settings": [
-
-    ]
+    "settings": []
   }
 {% endschema %}
