@@ -193,7 +193,7 @@ async function onSubmit(e) {
         Register.WrapSubmitButton.innerHTML = `{% render 'icon-loading' %}`;
         await verifyRequired();
         await verifyPassword();
-        await verifyEmail(Register.Required[2]);
+        await verifyEmail(Register.Form.querySelector('input[name=email]'));
 
         var formData = new FormData(Register.Form),
             formDataObject = {};
