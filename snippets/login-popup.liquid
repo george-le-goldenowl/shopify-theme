@@ -1,37 +1,40 @@
 <div class="cart-fixed" id="login">
-	<div class="js-close-card" onclick="closeLoginPopup(this)"></div>
-	<div class="cart-fixed__wrap">
-		
-		<div class="form-login">
-			<p class="text-center"><strong>Customer Login</strong></p>
-			<p class="text-center">For Registered Customers:</p>
-			<div class="form-group">
-				<input type="text" class="form-control form-control-line" value="" placeholder="Email">
-			</div>
-			<div class="form-group">
-				<input type="text" class="form-control form-control-line" value="" placeholder="Password">
-			</div>
-			<div class="form-group text-center btn-payment">
-				<button type="submit" class="btn-yellow">Sign In</button>
-			</div>
-			<div class="text-center">
-				<a href="">Forgot your password?</a>
-			</div>
-			<p class="text-center">New Customer? {{ 'Create an account' | link_to: routes.account_register_url }}</p>
-		</div>
-	</div>
+    <div class="js-close-card" onclick="closeLoginPopup(this)"></div>
+    <div class="cart-fixed__wrap">
+        <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8">
+            <div class="form-login">
+                <p class="text-center"><strong>Customer Login</strong></p>
+                <p class="text-center">For Registered Customers:</p>
+                <input type="hidden" name="form_type" value="customer_login">
+                <div class="form-group">
+                    <input type="email" class="form-control form-control-line" name="customer[email]" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control form-control-line" name="customer[password]" placeholder="Password" required>
+                </div>
+                <div class="form-group text-center btn-payment">
+                    <button type="submit" class="btn-yellow">Sign In</button>
+                </div>
+                <div class="text-center">
+                    <a href="">Forgot your password?</a>
+                </div>
+                <p class="text-center">New Customer? {{ 'Create an account' | link_to: routes.account_register_url }}</p>
+            </div>
+        </form>
+    </div>
 </div>
 <script type="text/javascript">
-var Element = {
-  login: document.querySelector('#login'),
-  bg: document.querySelector('.cart-bg')
+var loginForm = {
+  	login: document.querySelector('#login'),
+  	form: document.querySelector('#customer_login'),
+  	bg: document.querySelector('.cart-bg')
 };
 function showLoginPopup(e) {
-  Element.login.classList.add('is-show');
-  Element.bg.classList.add('is-show');
+  	loginForm.login.classList.add('is-show');
+  	loginForm.bg.classList.add('is-show');
 }
 function closeLoginPopup(e) {
-  Element.login.classList.remove('is-show');
-  Element.bg.classList.remove('is-show');
+  	loginForm.login.classList.remove('is-show');
+  	loginForm.bg.classList.remove('is-show');
 }
 </script>

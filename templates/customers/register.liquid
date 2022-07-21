@@ -187,7 +187,7 @@ async function onSubmit(e) {
             formDataObject[key] = value;
         });
 
-        fetch(window.server.host + `/wp-json/tatoo/action/customer-register`, {
+        await fetch(window.server.host + `/wp-json/tatoo/action/customer-register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -198,13 +198,16 @@ async function onSubmit(e) {
         .then(res => res.json())
         .then(data => {
             if (data.err) {
-                var field = document.querySelector(`input[name=${data.field}]`);
-                field.classList.add('requiredErr');
-                field.insertAdjacentHTML('afterend', `<sub style="color: red;">${data.message}</sub>`);
-
-                console.log(data.code);
-                wrapSubmitBtn.innerHTML = '';
-                wrapSubmitBtn.appendChild(_e);
+                if (data.field) {
+                    var field = document.querySelector(`input[name=${data.field}]`);
+                    field.classList.add('requiredErr');
+                    field.insertAdjacentHTML('afterend', `<sub style="color: red;">${data.message}</sub>`);    
+                }
+                throw data.code;
+            } else {
+                if ('retail' == data.payload.customerType) {
+                    console.log(data);
+                }
             }
         });
     } catch(e) {
