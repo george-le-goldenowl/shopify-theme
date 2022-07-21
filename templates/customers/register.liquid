@@ -109,13 +109,11 @@ Register.WholesaleDetails = Register.Form.querySelector('#forpartner');
 Register.WrapSubmitButton = Register.Form.querySelector('.btn-submit');
 
 function openWholesale(e) {
-    var required = Register.Required;
-    
     if (e.value == 'wholesale') {
         Register.Required = Register.Form.querySelectorAll('input[data-required=true], input[name=businessLicense], input[name=tax]');
         Register.WholesaleDetails.style.display = 'block'
     } else {
-        Register.Required = required;
+        Register.Required = Register.Form.querySelectorAll('input[data-required=true]');
         Register.WholesaleDetails.style.display = 'none';
     }
 }
