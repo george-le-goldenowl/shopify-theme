@@ -14,7 +14,7 @@
                     <input type="password" class="form-control form-control-line" name="customer[password]" placeholder="Password" data-required="true">
                 </div>
                 <div class="form-group text-center btn-payment">
-                    <a href="javascript:void(0)" class="btn-yellow btn-submit" onclick="onLoginSubmit(this)">Sign In</a> 
+                    <a href="javascript:void(0)" class="btn-yellow btn-submit btn-disabled" onclick="onLoginSubmit(this)">Sign In</a> 
                 </div>
                 <div class="text-center">
                     <a href="javascript:void(0)">Forgot your password?</a>
@@ -24,11 +24,19 @@
         </form>
     </div>
 </div>
+<style type="text/css">
+.btn-disabled {
+	pointer-events: none;
+    cursor: default;
+    background: gray;
+}
+</style>
 <script type="text/javascript">
 var loginForm = {
+	bg: document.querySelector('.cart-bg'),
+	form: document.querySelector('#customer_login'),
   	login: document.querySelector('#login'),
-  	form: document.querySelector('#customer_login'),
-  	bg: document.querySelector('.cart-bg')
+  	loginBtn: document.querySelector('.btn-submit'),
 };
 function showLoginPopup(e) {
   	loginForm.login.classList.add('is-show');
@@ -44,7 +52,7 @@ async function onLoginSubmit(e) {
     formData.forEach(function(value, key){
         formDataObject[key] = value;
     });
-    
+
     try {
     	await fetch(window.server.host + `/wp-json/tatoo/action/verify-login`, {
     		method: "POST",
@@ -62,4 +70,36 @@ async function onLoginSubmit(e) {
     	console.log(e);
     }
 }
+window.addEventListener('load', () => {
+	var requiredFields = loginForm.form.querySelectorAll('input[data-required=true]'),
+		isLoginDisabled = {
+			email: true,
+			password: true
+		};
+
+	if (requiredFields) {
+		requiredFields.forEach(e => {
+			e.addEventListener('change', e => {
+				var target = e.target;
+				switch (target.type) {
+					case 'email':
+						isLoginDisabled.email = !target.value.length || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(target.value);
+						break;
+					case 'password':
+						isLoginDisabled.password = !target.value.length;
+						break;
+					default:
+						// statements_def
+						break;
+				}
+
+				if (!isLoginDisabled.email && !isLoginDisabled.password) {
+					loginForm.loginBtn.classList.remove('btn-disabled');
+				} else {
+					loginForm.loginBtn.classList.add('btn-disabled');
+				}
+			})
+		});
+	}
+});
 </script>
