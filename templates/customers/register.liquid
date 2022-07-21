@@ -71,7 +71,7 @@
                                     <label class="custom-control-label" for="show-password"> Show Password</label>
                                 </div>
                             </div>
-                            <div id="registerErr"></div>
+                            <div id="registerErr" style="display: flex; align-items: center;"></div>
                         </div>
                         <div class="shipping__btn row">
                             <div class="col-sm-6">
@@ -216,18 +216,31 @@ async function onSubmit(e) {
                 throw data.code;
             } else {
                 if ('retail' == data.payload.customerType) {
-                    fetch('/account/login', {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json"
-                        },
-                        body: JSON.stringify({
-                            "form_type": "customer_login",
-                            "customer[email]": data.payload.email,
-                            "customer[password]": data.payload.password
-                        })
-                    });
+                    var form = document.createElement('form');
+                    form.setAttribute('method', 'post');
+                    form.setAttribute('action', '/account/login');
+
+                    // create input
+                    var email = document.createElement('input');
+                    email.setAttribute('type', 'email');
+                    email.setAttribute('name', 'customer[email]');
+                    email.setAttribute('value', data.payload.email);
+
+                    var password = document.createElement('input');
+                    password.setAttribute('type', 'password');
+                    password.setAttribute('name', 'customer[password]');
+                    password.setAttribute('value', data.payload.password);
+
+                    var type = document.createElement('input');
+                    type.setAttribute('type', 'hidden');
+                    type.setAttribute('name', 'form_type');
+                    type.setAttribute('value', 'customer_login');
+
+                    form.append(email);
+                    form.append(password);
+                    form.append(type);
+
+                    form.submit();
                 }
             }
         });
