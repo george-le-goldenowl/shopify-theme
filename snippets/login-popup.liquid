@@ -25,6 +25,10 @@
     </div>
 </div>
 <style type="text/css">
+#ErrDiv {
+	display: flex;
+    align-items: center;
+}
 .btn-disabled {
 	pointer-events: none;
     background: gray !important;
@@ -45,7 +49,7 @@ var requiredFields = loginForm.form.querySelectorAll('input[data-required=true]'
 
 if (requiredFields) {
 	requiredFields.forEach(e => {
-		e.addEventListener('change', e => {
+		e.addEventListener('keydown', e => {
 			var target = e.target;
 			switch (target.type) {
 				case 'email':
@@ -94,7 +98,12 @@ async function onLoginSubmit(e) {
     	})
     	.then(res => res.json())
     	.then(data => {
-    		console.log(data);
+    		if (data.err) {
+    			var mes = `<span style="margin-left: 5px; color: red;">${data.message}</span>`;
+    			document.querySelector('#ErrDiv').innerHTML = `{%- render 'icon-warning' -%}` + mes;
+    		} else {
+
+    		}
     	});
     } catch(e) {
     	console.log(e);
