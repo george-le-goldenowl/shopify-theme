@@ -100,7 +100,8 @@ var Register = {
     Form: document.querySelector('#create_customer'),
     Password: Register.Form.querySelectorAll('input[name=password], input[name=passwordConfirm]'),
     Required: Register.Form.querySelectorAll('input[data-required=true]'),
-    WholesaleDetails: Register.Form.querySelector('#forpartner')
+    WholesaleDetails: Register.Form.querySelector('#forpartner'),
+    WrapSubmitButton: Register.Form.querySelector('.btn-submit')
 };
 function openWholesale(e) {
     e.value == 'wholesale'
@@ -176,11 +177,10 @@ function verifyEmail(field) {
         throw 'EmailErr';
     }
 }
-var wrapSubmitBtn = document.querySelector('.btn-submit');
 async function onSubmit(e) {
     var _e = e.parentElement.cloneNode(!0);
     try {
-        wrapSubmitBtn.innerHTML = `{% render 'icon-loading' %}`;
+        Register.WrapSubmitButton.innerHTML = `{% render 'icon-loading' %}`;
         await verifyRequired();
         await verifyPassword();
         await verifyEmail(required[2]);
@@ -216,8 +216,8 @@ async function onSubmit(e) {
         });
     } catch(e) {
         console.log(e);
-        wrapSubmitBtn.innerHTML = '';
-        wrapSubmitBtn.appendChild(_e);
+        Register.WrapSubmitButton.innerHTML = '';
+        Register.WrapSubmitButton.appendChild(_e);
     }
 }
 </script>
