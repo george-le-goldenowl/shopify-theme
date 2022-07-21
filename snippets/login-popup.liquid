@@ -27,8 +27,7 @@
 <style type="text/css">
 .btn-disabled {
 	pointer-events: none;
-    cursor: default;
-    background: gray;
+    background: gray !important;
 }
 </style>
 <script type="text/javascript">
@@ -79,9 +78,10 @@ function closeLoginPopup(e) {
 async function onLoginSubmit(e) {
 	var formData = new FormData(loginForm.form),
         formDataObject = {};
-    formData.forEach(function(value, key){
-        formDataObject[key] = value;
-    });
+
+    	formData.forEach(function(value, key) {
+        	formDataObject[key] = value;
+    	});
 
     try {
     	await fetch(window.server.host + `/wp-json/tatoo/action/verify-login`, {
