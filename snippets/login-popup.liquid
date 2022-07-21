@@ -38,6 +38,36 @@ var loginForm = {
   	login: document.querySelector('#login'),
   	loginBtn: document.querySelector('.btn-submit'),
 };
+var requiredFields = loginForm.form.querySelectorAll('input[data-required=true]'),
+	isLoginDisabled = {
+		email: true,
+		password: true
+	};
+
+if (requiredFields) {
+	requiredFields.forEach(e => {
+		e.addEventListener('change', e => {
+			var target = e.target;
+			switch (target.type) {
+				case 'email':
+					isLoginDisabled.email = !target.value.length || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(target.value);
+					break;
+				case 'password':
+					isLoginDisabled.password = !target.value.length;
+					break;
+				default:
+					// statements_def
+					break;
+			}
+
+			if (!isLoginDisabled.email && !isLoginDisabled.password) {
+				loginForm.loginBtn.classList.remove('btn-disabled');
+			} else {
+				loginForm.loginBtn.classList.add('btn-disabled');
+			}
+		})
+	});
+}
 function showLoginPopup(e) {
   	loginForm.login.classList.add('is-show');
   	loginForm.bg.classList.add('is-show');
@@ -70,36 +100,4 @@ async function onLoginSubmit(e) {
     	console.log(e);
     }
 }
-window.addEventListener('load', () => {
-	var requiredFields = loginForm.form.querySelectorAll('input[data-required=true]'),
-		isLoginDisabled = {
-			email: true,
-			password: true
-		};
-
-	if (requiredFields) {
-		requiredFields.forEach(e => {
-			e.addEventListener('change', e => {
-				var target = e.target;
-				switch (target.type) {
-					case 'email':
-						isLoginDisabled.email = !target.value.length || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(target.value);
-						break;
-					case 'password':
-						isLoginDisabled.password = !target.value.length;
-						break;
-					default:
-						// statements_def
-						break;
-				}
-
-				if (!isLoginDisabled.email && !isLoginDisabled.password) {
-					loginForm.loginBtn.classList.remove('btn-disabled');
-				} else {
-					loginForm.loginBtn.classList.add('btn-disabled');
-				}
-			})
-		});
-	}
-});
 </script>
