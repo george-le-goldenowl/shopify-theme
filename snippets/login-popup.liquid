@@ -1,20 +1,20 @@
 <div class="cart-fixed" id="login">
     <div class="js-close-card" onclick="closeLoginPopup(this)"></div>
     <div class="cart-fixed__wrap">
-        <form id="customer_login" onsubmit="loginSubmit(this)">
+        <form id="customer_login">
             <div class="form-login">
                 <p class="text-center"><strong>Customer Login</strong></p>
                 <p class="text-center">For Registered Customers:</p>
                 <div id="ErrDiv"></div>
                 <input type="hidden" name="form_type" value="customer_login">
                 <div class="form-group">
-                    <input type="email" class="form-control form-control-line" name="customer[email]" placeholder="Email" required>
+                    <input type="email" class="form-control form-control-line" name="customer[email]" placeholder="Email" data-required="true">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control form-control-line" name="customer[password]" placeholder="Password" required>
+                    <input type="password" class="form-control form-control-line" name="customer[password]" placeholder="Password" data-required="true">
                 </div>
                 <div class="form-group text-center btn-payment">
-                    <button type="submit" class="btn-yellow">Sign In</button> 
+                    <a href="javascript:void(0)" class="btn-yellow btn-submit" onclick="onLoginSubmit(this)">Sign In</a> 
                 </div>
                 <div class="text-center">
                     <a href="javascript:void(0)">Forgot your password?</a>
@@ -38,13 +38,13 @@ function closeLoginPopup(e) {
   	loginForm.login.classList.remove('is-show');
   	loginForm.bg.classList.remove('is-show');
 }
-async function loginSubmit(e) {
+async function onLoginSubmit(e) {
 	var formData = new FormData(loginForm.form),
         formDataObject = {};
     formData.forEach(function(value, key){
         formDataObject[key] = value;
     });
-
+    
     try {
     	await fetch(window.server.host + `/wp-json/tatoo/action/verify-login`, {
     		method: "POST",
