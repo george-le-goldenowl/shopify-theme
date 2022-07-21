@@ -96,13 +96,13 @@
 }
 </style>
 <script type="text/javascript">
-var Register = {
-    Form: document.querySelector('#create_customer'),
-    Password: Register.Form.querySelectorAll('input[name=password], input[name=passwordConfirm]'),
-    Required: Register.Form.querySelectorAll('input[data-required=true]'),
-    WholesaleDetails: Register.Form.querySelector('#forpartner'),
-    WrapSubmitButton: Register.Form.querySelector('.btn-submit')
-};
+var Register = {};
+Register.Form = document.querySelector('#create_customer');
+Register.Password = Register.Form.querySelectorAll('input[name=password], input[name=passwordConfirm]');
+Register.Required = Register.Form.querySelectorAll('input[data-required=true]');
+Register.WholesaleDetails = Register.Form.querySelector('#forpartner');
+Register.WrapSubmitButton = Register.Form.querySelector('.btn-submit');
+
 function openWholesale(e) {
     e.value == 'wholesale'
         ? Register.WholesaleDetails.style.display = 'block'
