@@ -71,6 +71,7 @@
                                     <label class="custom-control-label" for="show-password"> Show Password</label>
                                 </div>
                             </div>
+                            <div id="registerErr"></div>
                         </div>
                         <div class="shipping__btn row">
                             <div class="col-sm-6">
@@ -98,6 +99,7 @@
 <script type="text/javascript">
 var Register = {};
 Register.Form = document.querySelector('#create_customer');
+Register.Err = Register.Form.querySelector('#registerErr');
 Register.Password = Register.Form.querySelectorAll('input[name=password], input[name=passwordConfirm]');
 Register.Required = Register.Form.querySelectorAll('input[data-required=true]');
 Register.WholesaleDetails = Register.Form.querySelector('#forpartner');
@@ -180,10 +182,11 @@ function verifyEmail(field) {
 async function onSubmit(e) {
     var _e = e.parentElement.cloneNode(!0);
     try {
+        Register.Err.innerHTML = '';
         Register.WrapSubmitButton.innerHTML = `{% render 'icon-loading' %}`;
         await verifyRequired();
         await verifyPassword();
-        await verifyEmail(required[2]);
+        await verifyEmail(Register.Required[2]);
 
         var formData = new FormData(Register.Form),
             formDataObject = {};
@@ -206,11 +209,25 @@ async function onSubmit(e) {
                     var field = document.querySelector(`input[name=${data.field}]`);
                     field.classList.add('requiredErr');
                     field.insertAdjacentHTML('afterend', `<sub style="color: red;">${data.message}</sub>`);    
+                } else {
+                    var mes = `<span style="margin-left: 5px; color: red; font-size: 12px;">${data.message}</span>`;
+                    Register.Err.innerHTML = `{%- render 'icon-warning' -%}` + mes;
                 }
                 throw data.code;
             } else {
                 if ('retail' == data.payload.customerType) {
-                    console.log(data);
+                    fetch('/account/login', {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+                        body: JSON.stringify({
+                            "form_type": "customer_login",
+                            "customer[email]": data.payload.email,
+                            "customer[password]": data.payload.password
+                        });
+                    });
                 }
             }
         });
