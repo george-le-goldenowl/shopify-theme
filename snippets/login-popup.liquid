@@ -1,10 +1,11 @@
 <div class="cart-fixed" id="login">
     <div class="js-close-card" onclick="closeLoginPopup(this)"></div>
     <div class="cart-fixed__wrap">
-        <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8" onsubmit="event.preventDefault(); loginSubmit(this)">
+        <form id="customer_login" onsubmit="loginSubmit(this)">
             <div class="form-login">
                 <p class="text-center"><strong>Customer Login</strong></p>
                 <p class="text-center">For Registered Customers:</p>
+                <div id="ErrDiv"></div>
                 <input type="hidden" name="form_type" value="customer_login">
                 <div class="form-group">
                     <input type="email" class="form-control form-control-line" name="customer[email]" placeholder="Email" required>
@@ -13,10 +14,10 @@
                     <input type="password" class="form-control form-control-line" name="customer[password]" placeholder="Password" required>
                 </div>
                 <div class="form-group text-center btn-payment">
-                    <button type="submit" class="btn-yellow">Sign In</button>
+                    <a type="submit" class="btn-yellow">Sign In</a>
                 </div>
                 <div class="text-center">
-                    <a href="">Forgot your password?</a>
+                    <a href="javascript:void(0)">Forgot your password?</a>
                 </div>
                 <p class="text-center">New Customer? {{ 'Create an account' | link_to: routes.account_register_url }}</p>
             </div>
@@ -44,13 +45,21 @@ async function loginSubmit(e) {
         formDataObject[key] = value;
     });
 
-    await fetch('/account/login', {
-    	method: "POST",
-    	body: JSON.stringify(formDataObject)
-    })
-    .then(res => res.json())
-    .then(data => {
-    	console.log(data);
-    });
+    try {
+    	await fetch(window.server.host + `/wp-json/tatoo/action/verify-login`, {
+    		method: "POST",
+    		headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(formDataObject)
+    	})
+    	.then(res => res.json())
+    	.then(data => {
+    		console.log(data);
+    	});
+    } catch(e) {
+    	console.log(e);
+    }
 }
 </script>
