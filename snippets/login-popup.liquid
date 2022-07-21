@@ -1,7 +1,7 @@
 <div class="cart-fixed" id="login">
     <div class="js-close-card" onclick="closeLoginPopup(this)"></div>
     <div class="cart-fixed__wrap">
-        <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8">
+        <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8" onsubmit="event.preventDefault(); loginSubmit(this)">
             <div class="form-login">
                 <p class="text-center"><strong>Customer Login</strong></p>
                 <p class="text-center">For Registered Customers:</p>
@@ -13,7 +13,7 @@
                     <input type="password" class="form-control form-control-line" name="customer[password]" placeholder="Password" required>
                 </div>
                 <div class="form-group text-center btn-payment">
-                    <button type="submit" class="btn-yellow" onclick="loginSubmit(this)">Sign In</button>
+                    <button type="submit" class="btn-yellow">Sign In</button>
                 </div>
                 <div class="text-center">
                     <a href="">Forgot your password?</a>
@@ -44,7 +44,7 @@ async function loginSubmit(e) {
         formDataObject[key] = value;
     });
 
-    await fetch('/customer/login', {
+    await fetch('/account/login', {
     	method: "POST",
     	body: JSON.stringify(formDataObject)
     })
