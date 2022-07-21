@@ -5,83 +5,85 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h4 class="ttl-4 text-center">Create New Customer Account</h4>
-                        <div class="shipping__ttl">Personal Information</div>
-                        <div class="shipping__form">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="">First name<span class="txt-error">*</span></label>
-                                        <input type="text" name="firstName" class="form-control form-control-line" data-required="true">
+                        <div id="form-content">
+                            <div class="shipping__ttl">Personal Information</div>
+                            <div class="shipping__form">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">First name<span class="txt-error">*</span></label>
+                                            <input type="text" name="firstName" class="form-control form-control-line" data-required="true">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Last Name<span class="txt-error">*</span></label>
+                                            <input type="text" name="lastName" class="form-control form-control-line" data-required="true">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="newsletter" class="custom-control-input" id="customCheck1">
+                                        <label class="custom-control-label" for="customCheck1"> Sign Up for Newsletter</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="customer-type">Type of Customer<span class="txt-error">*</span></label>
+                                    <select name="customerType" id="customer-type" class="form-control form-control-line" onchange="openWholesale(this)">
+                                        <option value="retail">Retail</option>
+                                        <option value="wholesale">Wholesale</option>
+                                    </select>
+                                </div>
+                                <div id="forpartner" class="forpartner">
                                     <div class="form-group">
-                                        <label for="">Last Name<span class="txt-error">*</span></label>
-                                        <input type="text" name="lastName" class="form-control form-control-line" data-required="true">
+                                        <label for="business-license">Business license<span class="txt-error">*</span></label>
+                                        <input type="text" name="businessLicense" class="form-control form-control-line" id="business-license">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tax">Tax<span class="txt-error">*</span></label>
+                                        <input type="text" name="tax" class="form-control form-control-line" id="tax">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" name="assistance" class="custom-control-input" id="customCheck2">
+                                        <label class="custom-control-label" for="customCheck2"> Allow remote shopping assistance</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" name="newsletter" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1"> Sign Up for Newsletter</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Type of Customer<span class="txt-error">*</span></label>
-                                <select name="customerType" id="myselection" class="form-control form-control-line" onchange="openWholesale(this)">
-                                    <option value="retail">Retail</option>
-                                    <option value="wholesale">Wholesale</option>
-                                </select>
-                            </div>
-                            <div id="forpartner" class="forpartner">
+                            <div class="shipping__ttl">Sign-in Information</div>
+                            <div class="shipping__form">
                                 <div class="form-group">
-                                    <label for="business-license">Business license<span class="txt-error">*</span></label>
-                                    <input type="text" name="businessLicense" class="form-control form-control-line" id="business-license">
+                                    <label for="">Email<span class="txt-error">*</span></label>
+                                    <input type="email" name="email" class="form-control form-control-line" data-required="true">
                                 </div>
                                 <div class="form-group">
-                                    <label for="tax">Tax<span class="txt-error">*</span></label>
-                                    <input type="text" name="tax" class="form-control form-control-line" id="tax">
+                                    <label for="password">Password<span class="txt-error">*</span></label>
+                                    <input type="password" name="password" id="password" class="form-control form-control-line" data-required="true">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" name="assistance" class="custom-control-input" id="customCheck2">
-                                    <label class="custom-control-label" for="customCheck2"> Allow remote shopping assistance</label>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password <span class="txt-error">*</span></label>
+                                    <input type="password" name="passwordConfirm" id="confirmPassword" class="form-control form-control-line" data-required="true">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="shipping__ttl">Sign-in Information</div>
-                        <div class="shipping__form">
-                            <div class="form-group">
-                                <label for="">Email<span class="txt-error">*</span></label>
-                                <input type="email" name="email" class="form-control form-control-line" data-required="true">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password<span class="txt-error">*</span></label>
-                                <input type="password" name="password" id="password" class="form-control form-control-line" data-required="true">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmPassword">Confirm Password <span class="txt-error">*</span></label>
-                                <input type="password" name="passwordConfirm" id="confirmPassword" class="form-control form-control-line" data-required="true">
-                            </div>
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="show-password" onclick="onShow(this)" data-required="true">
-                                    <label class="custom-control-label" for="show-password"> Show Password</label>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="show-password" onclick="onShow(this)" data-required="true">
+                                        <label class="custom-control-label" for="show-password"> Show Password</label>
+                                    </div>
                                 </div>
+                                <div id="registerErr" style="display: flex; align-items: center;"></div>
                             </div>
-                            <div id="registerErr" style="display: flex; align-items: center;"></div>
-                        </div>
-                        <div class="shipping__btn row">
-                            <div class="col-sm-6">
-                                <div class="shipping__btn btn-submit">
-                                    <div class="btn-payment"><a href="javascript:void(0)" onclick="onSubmit(this)">Create an Account</a></div>
+                            <div class="shipping__btn row">
+                                <div class="col-sm-6">
+                                    <div class="shipping__btn btn-submit">
+                                        <div class="btn-payment"><a href="javascript:void(0)" onclick="onSubmit(this)">Create an Account</a></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="shipping__btn">
-                                    <div class="btn-back">{{ 'Back' | link_to: shop.secure_url }}</div>
+                                <div class="col-sm-6">
+                                    <div class="shipping__btn">
+                                        <div class="btn-back">{{ 'Back' | link_to: shop.secure_url }}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -102,13 +104,20 @@ Register.Form = document.querySelector('#create_customer');
 Register.Err = Register.Form.querySelector('#registerErr');
 Register.Password = Register.Form.querySelectorAll('input[name=password], input[name=passwordConfirm]');
 Register.Required = Register.Form.querySelectorAll('input[data-required=true]');
+Register.FormContent = Register.Form.querySelector('#form-content');
 Register.WholesaleDetails = Register.Form.querySelector('#forpartner');
 Register.WrapSubmitButton = Register.Form.querySelector('.btn-submit');
 
 function openWholesale(e) {
-    e.value == 'wholesale'
-        ? Register.WholesaleDetails.style.display = 'block'
-        : Register.WholesaleDetails.style.display = 'none';
+    var required = Register.Required;
+    
+    if (e.value == 'wholesale') {
+        Register.Required = Register.Form.querySelectorAll('input[data-required=true], input[name=businessLicense], input[name=tax]');
+        Register.WholesaleDetails.style.display = 'block'
+    } else {
+        Register.Required = required;
+        Register.WholesaleDetails.style.display = 'none';
+    }
 }
 function onShow(e) {
     if (e.checked) {
@@ -240,7 +249,19 @@ async function onSubmit(e) {
                     form.append(password);
                     form.append(type);
 
+                    document.body.appendChild(form);
                     form.submit();
+                } else {
+                    var html = `
+                    <div class="form-group text-center">
+                        <p>You are registered as a Wholesaler</p>
+                        <p>Please wait for the administrator's approval</p>                                
+                    </div>
+                    <div class="shipping__btn" style="width: 50%; margin: auto;">
+                        <div class="btn-back">{{ 'Back' | link_to: shop.secure_url }}</div>
+                    </div>
+                    `;
+                    Register.FormContent.innerHTML = html;
                 }
             }
         });
