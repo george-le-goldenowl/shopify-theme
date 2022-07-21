@@ -1,7 +1,7 @@
 <div class="cart-fixed" id="login">
     <div class="js-close-card" onclick="closeLoginPopup(this)"></div>
     <div class="cart-fixed__wrap">
-        <form id="customer_login">
+        <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8">
             <div class="form-login">
                 <p class="text-center"><strong>Customer Login</strong></p>
                 <p class="text-center">For Registered Customers:</p>
@@ -103,12 +103,12 @@ async function onLoginSubmit(e) {
     	.then(res => res.json())
     	.then(data => {
     		if (data.err) {
-    			var mes = `<span style="margin-left: 1.5rem; color: red; font-size: 12px;">${data.message}</span>`;
+    			var mes = `<span style="margin-left: 5px; color: red; font-size: 12px;">${data.message}</span>`;
     			document.querySelector('#ErrDiv').innerHTML = `{%- render 'icon-warning' -%}` + mes;
 
     			throw data.code;
     		} else {
-
+    			loginForm.form.submit();
     		}
     	});
     } catch(e) {
