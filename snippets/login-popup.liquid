@@ -41,6 +41,7 @@ var loginForm = {
 	form: document.querySelector('#customer_login'),
   	login: document.querySelector('#login'),
   	loginBtn: document.querySelector('.btn-submit'),
+  	wrapLoginBtn: document.querySelector('.btn-payment'),
 };
 var requiredFields = loginForm.form.querySelectorAll('input[data-required=true]'),
 	isLoginDisabled = {
@@ -89,7 +90,7 @@ async function onLoginSubmit(e) {
     	formData.forEach(function(value, key) {
         	formDataObject[key] = value;
     	});
-    loginForm.loginBtn.innerHTML = `{%- render 'icon-loading' -%}`;
+    loginForm.wrapLoginBtn.innerHTML = `{%- render 'icon-loading' -%}`;
 
     try {
     	await fetch(window.server.host + `/wp-json/tatoo/action/verify-login`, {
@@ -113,7 +114,7 @@ async function onLoginSubmit(e) {
     	});
     } catch(e) {
     	console.log(e);
-    	loginForm.loginBtn.appendChild(_e);
+    	loginForm.wrapLoginBtn.appendChild(_e);
     }
 }
 </script>
