@@ -80,7 +80,7 @@ function closeLoginPopup(e) {
   	loginForm.bg.classList.remove('is-show');
 }
 async function onLoginSubmit(e) {
-	var E = e.parentElement.cloneNode(!0);
+	var _e = e.parentElement.cloneNode(!0);
 
 	var formData = new FormData(loginForm.form),
         formDataObject = {};
@@ -102,9 +102,9 @@ async function onLoginSubmit(e) {
     	.then(res => res.json())
     	.then(data => {
     		if (data.err) {
-    			var mes = `<span style="margin-left: 5px; color: red;">${data.message}</span>`;
+    			var mes = `<span style="margin-left: 1.5rem; color: red; font-size: 12px;">${data.message}</span>`;
     			document.querySelector('#ErrDiv').innerHTML = `{%- render 'icon-warning' -%}` + mes;
-    			
+
     			throw data.code;
     		} else {
 
@@ -112,7 +112,7 @@ async function onLoginSubmit(e) {
     	});
     } catch(e) {
     	console.log(e);
-    	loginForm.loginBtn.appendChild(E);
+    	loginForm.loginBtn.appendChild(_e);
     }
 }
 </script>
