@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <input type="password" class="form-control form-control-line" name="customer[password]" placeholder="Password" data-required="true">
                 </div>
-                <div class="form-group text-center btn-payment">
+                <div class="form-group text-center btn-payment wrap-login-btn">
                     <a href="javascript:void(0)" class="btn-yellow btn-submit btn-disabled" onclick="onLoginSubmit(this)">Sign In</a> 
                 </div>
                 <div class="text-center">
@@ -41,7 +41,7 @@ var loginForm = {
 	form: document.querySelector('#customer_login'),
   	login: document.querySelector('#login'),
   	loginBtn: document.querySelector('.btn-submit'),
-  	wrapLoginBtn: document.querySelector('.btn-payment'),
+  	wrapLoginBtn: document.querySelector('.wrap-login-btn'),
 };
 var requiredFields = loginForm.form.querySelectorAll('input[data-required=true]'),
 	isLoginDisabled = {
