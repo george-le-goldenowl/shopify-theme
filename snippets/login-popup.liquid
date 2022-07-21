@@ -114,6 +114,7 @@ async function onLoginSubmit(e) {
     	});
     } catch(e) {
     	console.log(e);
+    	loginForm.wrapLoginBtn.innerHTML = '';
     	loginForm.wrapLoginBtn.appendChild(_e);
     }
 }

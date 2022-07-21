@@ -96,29 +96,31 @@
 }
 </style>
 <script type="text/javascript">
-var registerForm = document.querySelector('#create_customer'),
-    passwordFields = document.querySelectorAll('input[name=password], input[name=passwordConfirm]'),
-    requiredFields = registerForm.querySelectorAll('input[data-required=true]'),
-    wholesaleDetails = document.querySelector('#forpartner');
+var Register = {
+    Form: document.querySelector('#create_customer'),
+    Password: Register.Form.querySelectorAll('input[name=password], input[name=passwordConfirm]'),
+    Required: Register.Form.querySelectorAll('input[data-required=true]'),
+    WholesaleDetails: Register.Form.querySelector('#forpartner')
+};
 function openWholesale(e) {
     e.value == 'wholesale'
-        ? wholesaleDetails.style.display = 'block'
-        : wholesaleDetails.style.display = 'none';
+        ? Register.WholesaleDetails.style.display = 'block'
+        : Register.WholesaleDetails.style.display = 'none';
 }
 function onShow(e) {
     if (e.checked) {
-        passwordFields.forEach(e => {
+        Register.Password.forEach(e => {
             e.type = 'text';
         })
     } else {
-        passwordFields.forEach(e => {
+        Register.Password.forEach(e => {
             e.type = 'password';
         })
     }
 }
 function verifyRequired() {
     var isErr = false;
-    requiredFields.forEach(e => {
+    Register.Required.forEach(e => {
         if (!e.value) {
             e.classList.add('requiredErr');
             isErr = true;
@@ -132,6 +134,8 @@ function verifyRequired() {
     }
 }
 function verifyPassword() {
+    var passwordFields = Register.Password;
+
     if (passwordFields[0].value.length < 8) {
         passwordFields[0].classList.add('requiredErr');
         if (passwordFields[0].nextElementSibling == null) {
@@ -179,9 +183,9 @@ async function onSubmit(e) {
         wrapSubmitBtn.innerHTML = `{% render 'icon-loading' %}`;
         await verifyRequired();
         await verifyPassword();
-        await verifyEmail(requiredFields[2]);
+        await verifyEmail(required[2]);
 
-        var formData = new FormData(registerForm),
+        var formData = new FormData(Register.Form),
             formDataObject = {};
         formData.forEach(function(value, key){
             formDataObject[key] = value;
