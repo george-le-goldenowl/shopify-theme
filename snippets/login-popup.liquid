@@ -36,86 +36,118 @@
 }
 </style>
 <script type="text/javascript">
-var loginForm = {
-	bg: document.querySelector('.cart-bg'),
-	form: document.querySelector('#customer_login'),
-  	login: document.querySelector('#login'),
-  	loginBtn: document.querySelector('.btn-submit'),
-  	wrapLoginBtn: document.querySelector('.wrap-login-btn'),
+var Login = {};
+var Login.Disabled = {
+	email: true,
+	password: true
 };
-var requiredFields = loginForm.form.querySelectorAll('input[data-required=true]'),
-	isLoginDisabled = {
-		email: true,
-		password: true
-	};
+// var loginForm = {
+// 	bg: document.querySelector('.cart-bg'),
+// 	form: document.querySelector('#customer_login'),
+//   	login: document.querySelector('#login'),
+//   	loginBtn: document.querySelector('.btn-submit'),
+//   	wrapLoginBtn: document.querySelector('.wrap-login-btn'),
+// };
+// var requiredFields = loginForm.form.,
+// 	isLoginDisabled = {
+// 		email: true,
+// 		password: true
+// 	};
 
-if (requiredFields) {
-	requiredFields.forEach(e => {
-		e.addEventListener('keyup', e => {
-			var target = e.target;
-			switch (target.type) {
-				case 'email':
-					isLoginDisabled.email = !target.value.length || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(target.value);
-					break;
-				case 'password':
-					isLoginDisabled.password = !target.value.length;
-					break;
-				default:
-					// statements_def
-					break;
-			}
+// if (requiredFields) {
+// 	requiredFields.forEach(e => {
+// 		e.addEventListener('keyup', e => {
+// 			var target = e.target;
+// 			switch (target.type) {
+// 				case 'email':
+// 					isLoginDisabled.email = !target.value.length || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(target.value);
+// 					break;
+// 				case 'password':
+// 					isLoginDisabled.password = !target.value.length;
+// 					break;
+// 				default:
+// 					// statements_def
+// 					break;
+// 			}
 
-			if (!isLoginDisabled.email && !isLoginDisabled.password) {
-				loginForm.loginBtn.classList.remove('btn-disabled');
-			} else {
-				loginForm.loginBtn.classList.add('btn-disabled');
-			}
-		})
-	});
-}
-function showLoginPopup(e) {
-  	loginForm.login.classList.add('is-show');
-  	loginForm.bg.classList.add('is-show');
-}
-function closeLoginPopup(e) {
-  	loginForm.login.classList.remove('is-show');
-  	loginForm.bg.classList.remove('is-show');
-}
-async function onLoginSubmit(e) {
-	var _e = e.parentElement.cloneNode(!0);
+// 			if (!isLoginDisabled.email && !isLoginDisabled.password) {
+// 				loginForm.loginBtn.classList.remove('btn-disabled');
+// 			} else {
+// 				loginForm.loginBtn.classList.add('btn-disabled');
+// 			}
+// 		})
+// 	});
+// }
+window.addEventListener('load', event => {
+	Login.Form = document.querySelector('#customer_login');
+	Login.Required = Login.Form.querySelectorAll('input[data-required=true]');
+	Login.SubmitButton = Login.Form.querySelector('.btn-submit');
 
-	var formData = new FormData(loginForm.form),
-        formDataObject = {};
+	Login.Required.forEach(e => {
+		var target = e.target,
+			type = target.type;
 
-    	formData.forEach(function(value, key) {
-        	formDataObject[key] = value;
-    	});
-    loginForm.wrapLoginBtn.innerHTML = `{%- render 'icon-loading' -%}`;
+		switch (type) {
+			case 'email':
+				Login.Disabled.email = !target.value.length || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(target.value);
+				break;
+			case 'password':
+				Login.Disabled.password = !target.value.length;
+				break;
+			default:
+				// statements_def
+				break;
+		}
 
-    try {
-    	await fetch(window.server.host + `/wp-json/tatoo/action/verify-login`, {
-    		method: "POST",
-    		headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(formDataObject)
-    	})
-    	.then(res => res.json())
-    	.then(data => {
-    		if (data.err) {
-    			var mes = `<span style="margin-left: 5px; color: red; font-size: 12px;">${data.message}</span>`;
-    			document.querySelector('#ErrDiv').innerHTML = `{%- render 'icon-warning' -%}` + mes;
+		!Login.Disabled.email && !Login.Disabled.password
+			? Login.SubmitButton.classList.remove(btn-disabled)
+			: Login.SubmitButton.classList.add(btn-disabled);
+	});	
+});
 
-    			throw data.code;
-    		} else {
-    			loginForm.form.submit();
-    		}
-    	});
-    } catch(e) {
-    	console.log(e);
-    	loginForm.wrapLoginBtn.innerHTML = '';
-    	loginForm.wrapLoginBtn.appendChild(_e);
-    }
-}
+// function showLoginPopup(e) {
+//   	loginForm.login.classList.add('is-show');
+//   	loginForm.bg.classList.add('is-show');
+// }
+// function closeLoginPopup(e) {
+//   	loginForm.login.classList.remove('is-show');
+//   	loginForm.bg.classList.remove('is-show');
+// }
+// async function onLoginSubmit(e) {
+// 	var _e = e.parentElement.cloneNode(!0);
+
+// 	var formData = new FormData(loginForm.form),
+//         formDataObject = {};
+
+//     	formData.forEach(function(value, key) {
+//         	formDataObject[key] = value;
+//     	});
+//     loginForm.wrapLoginBtn.innerHTML = `{%- render 'icon-loading' -%}`;
+
+//     try {
+//     	await fetch(window.server.host + `/wp-json/tatoo/action/verify-login`, {
+//     		method: "POST",
+//     		headers: {
+//                 "Content-Type": "application/json",
+//                 "Accept": "application/json"
+//             },
+//             body: JSON.stringify(formDataObject)
+//     	})
+//     	.then(res => res.json())
+//     	.then(data => {
+//     		if (data.err) {
+//     			var mes = `<span style="margin-left: 5px; color: red; font-size: 12px;">${data.message}</span>`;
+//     			document.querySelector('#ErrDiv').innerHTML = `{%- render 'icon-warning' -%}` + mes;
+
+//     			throw data.code;
+//     		} else {
+//     			loginForm.form.submit();
+//     		}
+//     	});
+//     } catch(e) {
+//     	console.log(e);
+//     	loginForm.wrapLoginBtn.innerHTML = '';
+//     	loginForm.wrapLoginBtn.appendChild(_e);
+//     }
+// }
 </script>
