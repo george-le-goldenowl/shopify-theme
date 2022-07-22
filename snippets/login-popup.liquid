@@ -1,4 +1,4 @@
-<div class="cart-fixed" id="login">
+<div class="cart-fixed" id="customer-login">
     <div class="js-close-card" onclick="closeLoginPopup(this)"></div>
     <div class="cart-fixed__wrap">
         <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8">
@@ -84,15 +84,14 @@ window.addEventListener('load', event => {
 	Login.SubmitButton = Login.Form.querySelector('.btn-submit');
 
 	Login.Required.forEach(e => {
-		var target = e.target,
-			type = target.type;
+		var type = e.type;
 
 		switch (type) {
 			case 'email':
-				Login.Disabled.email = !target.value.length || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(target.value);
+				Login.Disabled.email = !e.value.length || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.value);
 				break;
 			case 'password':
-				Login.Disabled.password = !target.value.length;
+				Login.Disabled.password = !e.value.length;
 				break;
 			default:
 				// statements_def
@@ -100,15 +99,17 @@ window.addEventListener('load', event => {
 		}
 
 		!Login.Disabled.email && !Login.Disabled.password
-			? Login.SubmitButton.classList.remove(btn-disabled)
-			: Login.SubmitButton.classList.add(btn-disabled);
+			? Login.SubmitButton.classList.remove('btn-disabled')
+			: Login.SubmitButton.classList.add('btn-disabled');
 	});	
 });
 
-// function showLoginPopup(e) {
-//   	loginForm.login.classList.add('is-show');
-//   	loginForm.bg.classList.add('is-show');
-// }
+var WrapLoginFrom = document.querySelector('#customer-login'),
+	Background = document.querySelector('.cart-bg');
+function showLoginPopup(e) {
+  	WrapLoginFrom.classList.add('is-show');
+  	Background.classList.add('is-show');
+}
 // function closeLoginPopup(e) {
 //   	loginForm.login.classList.remove('is-show');
 //   	loginForm.bg.classList.remove('is-show');
