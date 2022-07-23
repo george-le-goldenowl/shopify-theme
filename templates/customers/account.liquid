@@ -112,13 +112,27 @@ window.addEventListener('load', async event => {
     }
 });
 
-const ShowEditForm = (e) => {
+const ShowEditForm = async (e) => {
     var Id = e.parentElement.dataset.addressId,
         Address = e.parentElement.dataset.address;
 
     var Form = GenerateEditForm(JSON.parse(Address));
-    Account.WrapListAddress.insertAdjacentHTML('beforeend', Form);
+    await Account.WrapListAddress.insertAdjacentHTML('beforeend', Form);
     Account.WrapListAddress.firstElementChild.style.display = 'none';
+
+    // selectedIndex
+    var countries = Account.Content.querySelector(`#AddressCountry_${Id}`);
+
+    if (countries) {
+        var default = index.dataset.default;
+        for (var i = 0; i <= countries.options.length; i++) {
+            var This = countries.options[i];
+
+            if (default == This.value || default == This.innerHTML) {
+                return (countries.selectedIndex = i);
+            }
+        }
+    }
 };
 
 const onCancelEditForm = Id => {
@@ -203,35 +217,34 @@ const GenerateEditForm = (address) => {
                                 id="AddressCity_${Id}"
                                 type="text"  
                                 name="address[city]" 
-                                value="${address.city}"
+                                value="${address.address2}"
                                 class="form-control form-control-line address_form"
                             />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="AddressCountry_${Id}">Country</label>
+                            <label for="AddressCountry_${Id}">Country<span class="txt-error">*</span></label>
                             <select 
+                                onloadend
                                 id="AddressCountry_${Id}" 
                                 name="address[country]" 
                                 class="form-control form-control-line address_form" 
-                                data-address-country-select data-default="${address.country}" 
-                                data-address-id="${address.id}" 
+                                data-default="${address.country}" 
+                                data-address-id="${Id}" 
                                 autocomplete="country">
                                 {{ all_country_option_tags }}
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 address-province d-none">
                         <div class="form-group">
-                            <label for="AddressProvinceContainer_${Id}">Province</label>
+                            <label for="AddressProvinceContainer_${Id}">Province<span class="txt-error">*</span></label>
                             <select 
                                 id="AddressProvinceContainer_${Id}" 
                                 name="address[province]" 
                                 class="form-control form-control-line" 
-                                data-default="${address.province}" 
-                                autocomplete="address-level1">
-                                {{ all_country_option_tags }}
+                                data-default="${address.province}">
                             </select>
                         </div>
                     </div>
@@ -268,7 +281,7 @@ const GenerateEditForm = (address) => {
             <div class="shipping__btn row">
                 <div class="col-sm-6">
                     <div class="shipping__btn btn-submit">
-                        <div class="btn-payment"><input class="btn" type="submit" value="Update Address"></div>
+                        <div class="btn-payment"><a href="javascript: document.querySelector('form#form-${address.id}').submit()">Edit</a></div>
                     </div>
                 </div>
                 <div class="col-sm-6">
