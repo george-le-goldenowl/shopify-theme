@@ -22,7 +22,7 @@
                 <div class="profile-content">
                     <h3 class="ttl-4">Account Dashboard</h3>
                     <div class="profile-content-item">
-                        <h3 class="ttl-5">Account Infomation</h3>
+                        <h3 class="ttl-5">Account Infomation</h3>   
                         <div class="row">
                             <div class="col-sm-6">
                                 <p><strong>Contact Infomation</strong></p>
@@ -44,20 +44,21 @@
                     </div>
                     <div class="profile-content-item">
                         <h3 class="ttl-5">Address book</h3>
-                        <div class="row">
-                            <div class="col-sm-6" id="default-address">
-                                <p><strong>Default Address</strong></p>
-                                {%- if customer.default_address != blank -%}
-                                    {{ customer.default_address | format_address }}
-                                {%- else -%}
-                                    <p>You have not set a default billing address.</p>
-                                {%- endif -%}
-                                <div class="btn-text d-flex">
-                                    <a href="javascript:void(0)">Edit Address</a>
+                        <div class="wrap-list-address">
+                            <div class="row">
+                                <div class="col-sm-6" id="default-address">
+                                    <p><strong>Default Address</strong></p>
+                                    {%- if customer.default_address != blank -%}
+                                        {{ customer.default_address | format_address }}
+                                    {%- else -%}
+                                        <p>You have not set a default billing address.</p>
+                                    {%- endif -%}
+                                    <div class="btn-text d-flex">
+                                        <a href="javascript:void(0)">Edit Address</a>
+                                    </div>
                                 </div>
+                                <div class="col-sm-6 list-address"></div>
                             </div>
-                            {%- render 'edit-address-form', customer.default_address -%}
-                            <div class="col-sm-6" id="list-address"></div>
                         </div>
                     </div>
                 </div>
@@ -71,13 +72,14 @@ var Account = {};
 
 window.addEventListener('load', async event => {
     Account.Content = document.querySelector('.profile-content');
-    Account.ListAddress = `{{ customer.addresses | json }}`;
-    Account.WrapListAddress = Account.Content.querySelector('#list-address');
+    Account.Address = `{{ customer.addresses | json }}`;
+    Account.ListAddress = Account.Content.querySelector('.list-address');
+    Account.WrapListAddress = Account.Content.querySelector('.wrap-list-address');
 
-    if (Account.ListAddress) {
+    if (Account.Address) {
         var list = '<p><strong>List Address</strong></p>';
 
-        JSON.parse(Account.ListAddress).forEach(e => {
+        JSON.parse(Account.Address).forEach(e => {
             const address = JSON.stringify(e);
 
             if (!e.default) {
@@ -91,17 +93,17 @@ window.addEventListener('load', async event => {
 
                 list += details.join("<br/>");
                 list += `
-                    <div class="btn-text d-flex" data-address-id="${e.id}" data-address="${address}">
-                        <a href="javascript:void(0)" onclick="ShowEditForm(this)">Edit Address</a>
+                    <div class="btn-text d-flex" data-address-id="${e.id}" data-address='${address}'>
+                        <a href="javascript:void(0)" onclick="ShowEditForm(this)">Edit</a>
                     </div>
                     <hr/>
                 `;
             }
         });
 
-        Account.WrapListAddress.innerHTML = list;
+        Account.ListAddress.innerHTML = list;
     } else {
-        Account.WrapListAddress.innerHTML = `
+        Account.ListAddress.innerHTML = `
             <p>You have not set a default shipping address.</p>
             <div class="btn-text d-flex">
                 <a href="javascript:void(0)">Add new</a>
@@ -114,8 +116,171 @@ const ShowEditForm = (e) => {
     var Id = e.parentElement.dataset.addressId,
         Address = e.parentElement.dataset.address;
 
-    var Form = document.createElement('form');
-    Form.setAttribute('method', 'POST');
-    Form.setAttribute('action', `/account/address/${Id}`);
+    var Form = GenerateEditForm(JSON.parse(Address));
+    Account.WrapListAddress.insertAdjacentHTML('beforeend', Form);
+    Account.WrapListAddress.firstElementChild.style.display = 'none';
 };
+
+const onCancelEditForm = Id => {
+    document.querySelector(`form#address_form_${Id}`)
+        && document.querySelector(`form#address_form_${Id}`).remove();
+    Account.WrapListAddress.firstElementChild.style.display = 'flex';
+}
+
+const GenerateEditForm = (address) => {
+    var Id = address.id;
+    var form = `
+        <form method="post" action="/account/addresses/${Id}" id="address_form_${Id}" accept-charset="UTF-8">
+            <input type="hidden" name="form_type" value="customer_address">
+            <input type="hidden" name="utf8" value="✓">
+
+            <div class="shipping__form">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="AddressFirstName_${Id}">First name</label>
+                            <input 
+                                id="AddressFirstName_${Id}"
+                                type="text"
+                                name="address[first_name]" 
+                                value="${address.first_name}" 
+                                class="form-control form-control-line address_form" 
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="AddressLastName_${Id}">Last Name</label>
+                            <input 
+                                id="AddressLastName_${Id}"
+                                type="text"  
+                                name="address[last_name]" 
+                                value="${address.last_name}" 
+                                class="form-control form-control-line address_form"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="AddressCompany_${Id}">Company</label>
+                            <input 
+                                id="AddressCompany_${Id}"
+                                type="text"  
+                                name="address[company]" 
+                                value="${address.company}"
+                                class="form-control form-control-line address_form"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="AddressAddress1_${Id}">Address</label>
+                            <input 
+                                id="AddressAddress1_${Id}"
+                                type="text"  
+                                name="address[address1]" 
+                                value="${address.address1}"
+                                class="form-control form-control-line address_form"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="AddressAddress2_${Id}">Apartment</label>
+                            <input 
+                                id="AddressAddress2_${Id}"
+                                type="text"  
+                                name="address[address2]" 
+                                value="${address.address2}"
+                                class="form-control form-control-line address_form"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="AddressCity_${Id}">City</label>
+                            <input 
+                                id="AddressCity_${Id}"
+                                type="text"  
+                                name="address[city]" 
+                                value="${address.city}"
+                                class="form-control form-control-line address_form"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="AddressCountry_${Id}">Country</label>
+                            <select 
+                                id="AddressCountry_${Id}" 
+                                name="address[country]" 
+                                class="form-control form-control-line address_form" 
+                                data-address-country-select data-default="${address.country}" 
+                                data-address-id="${address.id}" 
+                                autocomplete="country">
+                                {{ all_country_option_tags }}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="AddressProvinceContainer_${Id}">Province</label>
+                            <select 
+                                id="AddressProvinceContainer_${Id}" 
+                                name="address[province]" 
+                                class="form-control form-control-line" 
+                                data-default="${address.province}" 
+                                autocomplete="address-level1">
+                                {{ all_country_option_tags }}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="AddressZip_${Id}">Postal Code/Zip</label>
+                            <input 
+                                id="AddressZip_${Id}"
+                                type="text"  
+                                name="address[zip]" 
+                                value="${address.zip}"
+                                class="form-control form-control-line"
+                                autocomplete="postal-code" 
+                                data-required="true" 
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="AddressPhone_${Id}">Phone</label>
+                            <input 
+                                id="AddressPhone_${Id}"
+                                type="text"  
+                                name="address[phone]" 
+                                value="${address.phone}"
+                                class="form-control form-control-line"
+                                autocomplete="tel" 
+                                data-required="true" 
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="shipping__btn row">
+                <div class="col-sm-6">
+                    <div class="shipping__btn btn-submit">
+                        <div class="btn-payment"><input class="btn" type="submit" value="Update Address"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="shipping__btn">
+                        <div class="btn-back"><a href="javascript:void(0)" onclick="onCancelEditForm(${Id})">Back</a</div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="_method" value="put"></form>
+        </form>
+    `;
+
+    return form;
+}
 </script>
