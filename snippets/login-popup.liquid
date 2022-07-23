@@ -17,6 +17,7 @@
                     <a href="javascript:void(0)" class="btn-yellow btn-submit btn-disabled" onclick="onLoginSubmit(this)">Sign In</a> 
                 </div>
                 <div class="text-center">
+                	<!-- TODO: forgot password -->
                     <a href="javascript:void(0)">Forgot your password?</a>
                 </div>
                 <p class="text-center">New Customer? {{ 'Create an account' | link_to: routes.account_register_url }}</p>
@@ -115,6 +116,7 @@ async function onLoginSubmit(e) {
     	});
     } catch(e) {
     	console.log(e);
+    	Login.SubmitButton = _e.children[0];
     	Login.WrapSubmitButton.innerHTML = '';
     	Login.WrapSubmitButton.appendChild(_e);
     }

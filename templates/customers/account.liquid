@@ -45,20 +45,19 @@
                     <div class="profile-content-item">
                         <h3 class="ttl-5">Address book</h3>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <p><strong>Default Billing Address</strong></p>
-                                <p>You have not set a default billing address.</p>
+                            <div class="col-sm-6" id="default-address">
+                                <p><strong>Default Address</strong></p>
+                                {%- if customer.default_address != blank -%}
+                                    {{ customer.default_address | format_address }}
+                                {%- else -%}
+                                    <p>You have not set a default billing address.</p>
+                                {%- endif -%}
                                 <div class="btn-text d-flex">
-                                    <a href="">Edit Address</a>
+                                    <a href="javascript:void(0)">Edit Address</a>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <p><strong>Default Shipping Address</strong></p>
-                                <p>You have not set a default shipping address.</p>
-                                <div class="btn-text d-flex">
-                                    <a href="">Edit Address</a>
-                                </div>
-                            </div>
+                            {%- render 'edit-address-form', customer.default_address -%}
+                            <div class="col-sm-6" id="list-address"></div>
                         </div>
                     </div>
                 </div>
@@ -66,3 +65,57 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+'use strict';
+var Account = {};
+
+window.addEventListener('load', async event => {
+    Account.Content = document.querySelector('.profile-content');
+    Account.ListAddress = `{{ customer.addresses | json }}`;
+    Account.WrapListAddress = Account.Content.querySelector('#list-address');
+
+    if (Account.ListAddress) {
+        var list = '<p><strong>List Address</strong></p>';
+
+        JSON.parse(Account.ListAddress).forEach(e => {
+            const address = JSON.stringify(e);
+
+            if (!e.default) {
+                var details = [];
+                details.push(e.name);
+                details.push(e.company);
+                details.push(e.address1);
+                details.push(e.address2);
+                details.push(`${e.city} ${e.province_code} ${e.zip}`);
+                details.push(e.country);
+
+                list += details.join("<br/>");
+                list += `
+                    <div class="btn-text d-flex" data-address-id="${e.id}" data-address="${address}">
+                        <a href="javascript:void(0)" onclick="ShowEditForm(this)">Edit Address</a>
+                    </div>
+                    <hr/>
+                `;
+            }
+        });
+
+        Account.WrapListAddress.innerHTML = list;
+    } else {
+        Account.WrapListAddress.innerHTML = `
+            <p>You have not set a default shipping address.</p>
+            <div class="btn-text d-flex">
+                <a href="javascript:void(0)">Add new</a>
+            </div>
+        `;
+    }
+});
+
+const ShowEditForm = (e) => {
+    var Id = e.parentElement.dataset.addressId,
+        Address = e.parentElement.dataset.address;
+
+    var Form = document.createElement('form');
+    Form.setAttribute('method', 'POST');
+    Form.setAttribute('action', `/account/address/${Id}`);
+};
+</script>
