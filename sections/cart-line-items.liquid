@@ -1,64 +1,64 @@
 {% assign extraItems = '' %}
 <div class="container">
-    <div class="row">
+    <div class="row cart-content">
         <div class="col-lg-8">
             <div class="shopping-content-info">
                 <h4 class="ttl-4 text-center">Shopping Cart</h4>
                 {% if cart.item_count > 0 %}
-                <div class="table-cart">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Items</th>
-                                <th></th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          {% for item in cart.items %}
-                            {% liquid
-                              if item.gift_card == true
-                                assign extraItems = extraItems | append: item.id | append: ','
-                                continue
-                              endif
-                            %}
-                            <tr data-line-id="{{ item.id }}">
-                                <td class="col1">
-                                  {% if item.image != blank %}
-                                    <div class="cart-img">{{ item.image | image_url: width: 100, crop: 'center' | image_tag: loading: 'lazy', alt: item.image.alt }}</div>
-                                  {% endif %}
-                                </td>
-                                <td class="col2">
-                                    <a href="{{ item.url }}" class="ttl">{{ item.title }}</a>
-                                    {% assign options = item.options_with_values %}
-                                    {% if options != empty %}
-                                      {% for option in options %}
-                                        <p><span>{{ option.name }}: </span>{{ option.value }}</p>
-                                      {% endfor %}
-                                    {% endif %}
-                                    <p><small>SKU {{ item.sku | default: 'N/A' }}</small></p>
-                                </td>
-                                <td class="col3">
-                                    <div><p>{{ item.price | money }}</p></div>
-                                </td>
-                                <td class="col4">
-                                    <input type="type" class="qty" value="{{ item.quantity }}">
-                                </td>
-                                <td class="col5">
-                                    <div>
-                                        <p>{{ item.line_price | money }}</p>
-                                        <div class="btn-link-gray">
-                                            <a href="javascript:void(0)" onclick="onDelete(this)" data-id="{{ item.id }}"><i class="fa fa-trash"></i>Delete Product</a>
+                    <div class="table-cart">
+                        <table class="table-cart-items">
+                            <thead>
+                                <tr>
+                                    <th>Items</th>
+                                    <th></th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart.items %}
+                                    {% liquid
+                                        if item.gift_card == true
+                                        assign extraItems = extraItems | append: item.id | append: ','
+                                        continue
+                                    endif
+                                %}
+                                <tr data-line-id="{{ item.id }}">
+                                    <td class="col1">
+                                      {% if item.image != blank %}
+                                        <div class="cart-img">{{ item.image | image_url: width: 100, crop: 'center' | image_tag: loading: 'lazy', alt: item.image.alt }}</div>
+                                      {% endif %}
+                                    </td>
+                                    <td class="col2">
+                                        <a href="{{ item.url }}" class="ttl">{{ item.title }}</a>
+                                        {% assign options = item.options_with_values %}
+                                        {% if options != empty %}
+                                          {% for option in options %}
+                                            <p><span>{{ option.name }}: </span>{{ option.value }}</p>
+                                          {% endfor %}
+                                        {% endif %}
+                                        <p><small>SKU {{ item.sku | default: 'N/A' }}</small></p>
+                                    </td>
+                                    <td class="col3">
+                                        <div><p>{{ item.price | money }}</p></div>
+                                    </td>
+                                    <td class="col4">
+                                        <input type="type" class="qty" value="{{ item.quantity }}">
+                                    </td>
+                                    <td class="col5">
+                                        <div>
+                                            <p>{{ item.line_price | money }}</p>
+                                            <div class="btn-link-gray">
+                                                <a href="javascript:void(0)" onclick="onDelete(this)" data-id="{{ item.id }}"><i class="fa fa-trash"></i>Delete Product</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                          {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+                                    </td>
+                                </tr>
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 {% endif %}
                 <div class="table-cart-btn d-flex btn-link-black">
                     {{ 'Continue Shopping' | link_to: '/collections' }}
@@ -133,6 +133,14 @@ element.countries = document.querySelector('select[name=shipping-country]');
 element.province = document.querySelector('select[name=shipping-province]');
 element.postal = document.querySelector('input[name=shipping-postal]');
 element.note = document.querySelector('p.shipping-note');
+
+const Cart = {};
+
+window.addEventListener('load', async event => {
+    Cart.Items = `{{ cart.items }}`;
+    Cart.Content = document.querySelector('.cart-content');
+    Cart.TableItems = Cart.Content.querySelector('.table-cart-items');
+});
 async function removeItem(data) {
     return await fetch("/cart/change.json", {
         method: "POST",
