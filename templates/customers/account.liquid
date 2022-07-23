@@ -4,16 +4,12 @@
             <div class="col-lg-4">
                 <div class="menu-profile-wrap">
                     <ul class="menu-profile">
-                        <li><a href=""><span class="icon"><i class="fa fa-user"
-                                        aria-hidden="true"></i></span>Account Dashboard</a></li>
-                        <li><a href=""><span class="icon"><i class="fa fa-shopping-cart"
-                                        aria-hidden="true"></i></span>My orders</a></li>
-                        <li><a href=""><span class="icon"><i class="fa fa-heart"
-                                        aria-hidden="true"></i></span>Wish List</a></li>
-                        <li><a href=""><span class="icon"><i class="fa fa-id-card-o"
-                                        aria-hidden="true"></i></span>Store Credit</a></li>
-                        <li><a href=""><span class="icon"><i class="fa fa-credit-card-alt"
-                                        aria-hidden="true"></i></span>Payment Data</a></li>
+                        <li><a href=""><span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>Account Dashboard</a></li>
+                        <!-- TODO -->
+                        <li><a href=""><span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>My orders</a></li> 
+                        <li><a href=""><span class="icon"><i class="fa fa-heart" aria-hidden="true"></i></span>Wish List</a></li>
+                        <li><a href=""><span class="icon"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>Store Credit</a></li>
+                        <li><a href=""><span class="icon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>Payment Data</a></li>
                         <li><a href="{{ routes.account_logout_url }}"><span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>Log Out</a></li>
                     </ul>
                 </div>
@@ -28,12 +24,14 @@
                                 <p><strong>Contact Infomation</strong></p>
                                 <p class="customer-name">{{ customer.name }}</p>
                                 <p class="customer-email">{{ customer.email }}</p>
+                                <!-- TODO -->
                                 <div class="btn-text d-flex">
                                     <a href="">Edit</a>
                                     <a href="">Change Password</a>
                                 </div>
                             </div>
                             <div class="col-sm-6">
+                                <!-- TODO -->
                                 <p><strong>Newsletters</strong></p>
                                 <p>You are subscribed to "General Subscription".</p>
                                 <div class="btn-text d-flex">
@@ -50,12 +48,12 @@
                                     <p><strong>Default Address</strong></p>
                                     {%- if customer.default_address != blank -%}
                                         {{ customer.default_address | format_address }}
+                                        <div class="btn-text d-flex" data-address-id="{{ customer.default_address.id }}" data-address='{{ customer.default_address | json }}'>
+                                            <a href="javascript:void(0)" onclick="ShowEditForm(this)">Edit</a>
+                                        </div>
                                     {%- else -%}
                                         <p>You have not set a default billing address.</p>
                                     {%- endif -%}
-                                    <div class="btn-text d-flex">
-                                        <a href="javascript:void(0)">Edit Address</a>
-                                    </div>
                                 </div>
                                 <div class="col-sm-6 list-address"></div>
                             </div>
@@ -122,24 +120,50 @@ const ShowEditForm = async (e) => {
 
     // selectedIndex
     var countries = Account.Content.querySelector(`#AddressCountry_${Id}`);
-
-    if (countries) {
-        var default = index.dataset.default;
-        for (var i = 0; i <= countries.options.length; i++) {
-            var This = countries.options[i];
-
-            if (default == This.value || default == This.innerHTML) {
-                return (countries.selectedIndex = i);
-            }
-        }
-    }
+    countries && await SelectedCountry(countries, Id);
 };
 
 const onCancelEditForm = Id => {
     document.querySelector(`form#address_form_${Id}`)
         && document.querySelector(`form#address_form_${Id}`).remove();
     Account.WrapListAddress.firstElementChild.style.display = 'flex';
-}
+};
+
+const GenerateProvices = (e, Id) => {
+    var provinces = (e.options[e.selectedIndex]).getAttribute('data-provinces'),
+        Provinces = Account.Content.querySelector(`#AddressProvinceContainer_${Id}`),
+        WrapProvinces = Provinces.closest('.address-province');
+    
+    Provinces.innerHTML = '';
+        
+    if (JSON.parse(provinces).length) {
+        JSON.parse(provinces).forEach(e => {
+            var i = document.createElement('option');
+            i.value = e[0];
+            i.selected = Provinces.dataset.default == e[0];
+            i.innerHTML = e[1];
+            Provinces.appendChild(i);
+        });
+        WrapProvinces.classList.remove('d-none');
+    } else {
+        WrapProvinces.classList.add('d-none');
+    }
+};
+  
+const SelectedCountry = (e, Id) => {
+    var sel = e.dataset.default;
+
+    for (var i = 0; i <= e.options.length; i++) {
+        var This = e.options[i];
+
+        if (sel == This.value || sel == This.innerHTML) {
+            e.selectedIndex = i;
+            break;
+        }
+    }
+
+    GenerateProvices(e, Id);
+};
 
 const GenerateEditForm = (address) => {
     var Id = address.id;
@@ -226,7 +250,7 @@ const GenerateEditForm = (address) => {
                         <div class="form-group">
                             <label for="AddressCountry_${Id}">Country<span class="txt-error">*</span></label>
                             <select 
-                                onloadend
+                                onchange="GenerateProvices(this, ${Id})"
                                 id="AddressCountry_${Id}" 
                                 name="address[country]" 
                                 class="form-control form-control-line address_form" 
@@ -281,7 +305,7 @@ const GenerateEditForm = (address) => {
             <div class="shipping__btn row">
                 <div class="col-sm-6">
                     <div class="shipping__btn btn-submit">
-                        <div class="btn-payment"><a href="javascript: document.querySelector('form#form-${address.id}').submit()">Edit</a></div>
+                        <div class="btn-payment"><a href="javascript: document.querySelector('form#address_form_${address.id}').submit()">Edit</a></div>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -295,5 +319,5 @@ const GenerateEditForm = (address) => {
     `;
 
     return form;
-}
+};
 </script>
