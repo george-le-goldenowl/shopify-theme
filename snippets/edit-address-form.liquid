@@ -1,57 +1,141 @@
-<div class="field">
-    <input type="text" id="AddressFirstName_{{ address.id }}" name="address[first_name]" value="{{ address.first_name }}" autocomplete="given-name" placeholder="{{ 'customer.addresses.first_name' | t }}">
-    <label for="AddressFirstName_{{ address.id }}">{{ 'customer.addresses.first_name' | t }}</label>
-</div>
-<div class="field">
-    <input type="text" id="AddressLastName_{{ address.id }}" name="address[last_name]" value="{{ address.last_name }}" autocomplete="family-name" placeholder="{{ 'customer.addresses.last_name' | t }}">
-    <label for="AddressLastName_{{ address.id }}">{{ 'customer.addresses.last_name' | t }}</label>
-</div>
-<div class="field">
-    <input type="text" id="AddressCompany_{{ address.id }}" name="address[company]" value="{{ address.company }}" autocomplete="organization" placeholder="{{ 'customer.addresses.company' | t }}">
-    <label for="AddressCompany_{{ address.id }}">{{ 'customer.addresses.company' | t }}</label>
-</div>
-<div class="field">
-    <input type="text" id="AddressAddress1_{{ address.id }}" name="address[address1]" value="{{ address.address1 }}" autocomplete="address-line1" placeholder="{{ 'customer.addresses.address1' | t }}">
-    <label for="AddressAddress1_{{ address.id }}">{{ 'customer.addresses.address1' | t }}</label>
-</div>
-<div class="field">
-    <input type="text" id="AddressAddress2_{{ address.id }}" name="address[address2]" value="{{ address.address2 }}" autocomplete="address-line2" placeholder="{{ 'customer.addresses.address2' | t }}">
-    <label for="AddressAddress2_{{ address.id }}">{{ 'customer.addresses.address2' | t }}</label>
-</div>
-<div class="field">
-    <input type="text" id="AddressCity_{{ address.id }}" name="address[city]" value="{{ address.city }}" autocomplete="address-level2" placeholder="{{ 'customer.addresses.city' | t }}">
-    <label for="AddressCity_{{ address.id }}">{{ 'customer.addresses.city' | t }}</label>
-</div>
-<div>
-    <label for="AddressCountry_{{ address.id }}">
-        {{ 'customer.addresses.country' | t }}
-    </label>
-    <div class="select">
-        <select id="AddressCountry_{{ address.id }}" name="address[country]" data-address-country-select data-default="{{ address.country }}" data-address-id="{{ address.id }}" autocomplete="country">
-            {{ all_country_option_tags }}
-        </select>
-        <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
-            <use href="#icon-caret" />
-        </svg>
+<div class="shipping__form">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AddressFirstName_{{ address.id }}">First name</label>
+                <input 
+                    id="AddressFirstName_{{ address.id }}"
+                    type="text"
+                    name="address[first_name]" 
+                    value="{{ address.first_name }}" 
+                    class="form-control form-control-line" 
+                    autocomplete="given-name" 
+                    data-required="true"
+                />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AddressLastName_{{ address.id }}">Last Name</label>
+                <input 
+                    id="AddressFirstName_{{ address.id }}"
+                    type="text"  
+                    name="address[last_name]" 
+                    value="{{ address.last_name }}" 
+                    class="form-control form-control-line"
+                    autocomplete="family-name" 
+                    data-required="true" 
+                />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AddressCompany_{{ address.id }}">Company</label>
+                <input 
+                    id="AddressCompany_{{ address.id }}"
+                    type="text"  
+                    name="address[company]" 
+                    value="{{ address.company }}"
+                    class="form-control form-control-line"
+                    autocomplete="organization" 
+                    data-required="true" 
+                />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AddressAddress1_{{ address.id }}">Address</label>
+                <input 
+                    id="AddressAddress1_{{ address.id }}"
+                    type="text"  
+                    name="address[address1]" 
+                    value="{{ address.address1 }}"
+                    class="form-control form-control-line"
+                    autocomplete="address-line1" 
+                    data-required="true" 
+                />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AddressAddress2_{{ address.id }}">Apartment</label>
+                <input 
+                    id="AddressAddress2_{{ address.id }}"
+                    type="text"  
+                    name="address[address2]" 
+                    value="{{ address.address2 }}"
+                    class="form-control form-control-line"
+                    autocomplete="address-line2" 
+                    data-required="true" 
+                />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AddressCity_{{ address.id }}">City</label>
+                <input 
+                    id="AddressCity_{{ address.id }}"
+                    type="text"  
+                    name="address[city]" 
+                    value="{{ address.address2 }}"
+                    class="form-control form-control-line"
+                    autocomplete="address-level2" 
+                    data-required="true" 
+                />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AddressCountry_{{ address.id }}">Country</label>
+                <select 
+                    id="AddressCountry_{{ address.id }}" 
+                    name="address[country]" 
+                    data-address-country-select data-default="{{ address.country }}" 
+                    data-address-id="{{ address.id }}" 
+                    autocomplete="country">
+                    {{ all_country_option_tags }}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AddressProvinceContainer_{{ address.id }}">Province</label>
+                <select 
+                    id="AddressProvinceContainer_{{ address.id }}" 
+                    name="address[province]" 
+                    data-default="{{ address.province }}" 
+                    autocomplete="address-level1">
+                    {{ all_country_option_tags }}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AddressZip_{{ address.id }}">Postal Code/Zip</label>
+                <input 
+                    id="AddressZip_{{ address.id }}"
+                    type="text"  
+                    name="address[zip]" 
+                    value="{{ address.zip }}"
+                    class="form-control form-control-line"
+                    autocomplete="postal-code" 
+                    data-required="true" 
+                />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AddressPhone_{{ address.id }}">Phone</label>
+                <input 
+                    id="AddressPhone_{{ address.id }}"
+                    type="text"  
+                    name="address[phone]" 
+                    value="{{ address.phone }}"
+                    class="form-control form-control-line"
+                    autocomplete="tel" 
+                    data-required="true" 
+                />
+            </div>
+        </div>
     </div>
-</div>
-<div id="AddressProvinceContainer_{{ address.id }}" style="display:none;">
-    <label for="AddressProvince_{{ address.id }}">
-        {{ 'customer.addresses.province' | t }}
-    </label>
-    <div class="select">
-        <select id="AddressProvince_{{ address.id }}" name="address[province]" data-default="{{ address.province }}" autocomplete="address-level1">
-        </select>
-        <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
-            <use href="#icon-caret" />
-        </svg>
-    </div>
-</div>
-<div class="field">
-    <input type="text" id="AddressZip_{{ address.id }}" name="address[zip]" value="{{ address.zip }}" autocapitalize="characters" autocomplete="postal-code" placeholder="{{ 'customer.addresses.zip' | t }}">
-    <label for="AddressZip_{{ address.id }}">{{ 'customer.addresses.zip' | t }}</label>
-</div>
-<div class="field">
-    <input type="tel" id="AddressPhone_{{ address.id }}" name="address[phone]" value="{{ address.phone }}" autocomplete="tel" placeholder="{{ 'customer.addresses.phone' | t }}">
-    <label for="AddressPhone_{{ address.id }}">{{ 'customer.addresses.phone' | t }}</label>
 </div>
