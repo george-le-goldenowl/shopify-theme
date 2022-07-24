@@ -30,6 +30,13 @@ window.addEventListener('load', async e => {
                 {%- render 'icon-share-twitter', url: url -%}
                 {%- render 'icon-share-fb', url: url -%}
             </div>
+            <div class="shipping__btn row">
+                <div class="col-sm-6">
+                    <div class="shipping__btn btn-submit">
+                        <div class="btn-payment"><a href="javascript:void(0)">Submit Entry</a></div>
+                    </div>
+                </div>
+            </div>
 		`;
 		Topic.Content.innerHTML = i;
 	}
