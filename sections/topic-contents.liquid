@@ -26,8 +26,8 @@ window.addEventListener('load', async e => {
 		Topic.Content.innerHTML = 'No topics at the moment';
 	} else {
         var topic = content.topic,
-            content = topic.post_content.replace(/(?:\r\n|\r|\n)/g, '<br>')
-      
+            content = topic.post_content.replace(/(?:\r\n|\r|\n)/g, '<br>');
+      console.log(topic);
 		var i = `
 			<h2 class="ttl-6">${topic.post_title}</h2>
             <div class="notice__mv">
