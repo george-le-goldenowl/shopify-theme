@@ -23,7 +23,7 @@ window.addEventListener('load', async e => {
 	.then(res => res.json());
 
 	if (content.err) {
-		Contest.Content.innerHTML = 'No Contests at the moment';
+		Contest.Content.innerHTML = 'No contests at the moment';
 	} else {
 		var contest = content.contest;
 		var canSubmitMes = `{{ customer.email }}` ? `This contest is for ${contest.type} only` : 'You need to login first';
@@ -57,7 +57,41 @@ window.addEventListener('load', async e => {
 });
 
 Contest.ShowSubmitForm = e => {
+	var Container = Contest.Content.querySelector('.submit-container'),
+		e2 = Container.innerHTML;
 
+	var forms = `
+		<form method="post" action="/" accept-charset="UTF-8">
+			<div class="shipping__ttl">Post Contest</div>
+			<div class="shipping__form">
+			    <div class="form-group">
+			        <label for="postContestTitle">Title<span class="txt-error">*</span></label>
+			        <input name="title" type="text" id="postContestTitle" class="form-control form-control-line">
+			    </div>
+			    <div class="form-group">
+			        <label for="postContestImage">Image<span class="txt-error">*</span></label>
+			        <input name="attached" type="file" id="postContestImage" class="form-control form-control-line">
+			    </div>
+			    <div class="form-group">
+			        <label for="postContestDesc">Description <span class="txt-error">*</span></label>
+			        <textarea name="description" id="postContestDesc" cols="30" rows="10" class="form-control form-control-line"></textarea>
+			    </div>
+			</div>
+			<div class="shipping__btn row">
+			    <div class="col-sm-6">
+			        <div class="shipping__btn">
+			            <div class="btn-payment"><a href="">Submit</a></div>
+			        </div>
+			    </div>
+			    <div class="col-sm-6">
+			        <div class="shipping__btn">
+			            <div class="btn-back"><a href="">cancel</a></div>
+			        </div>
+			    </div>
+			</div>
+		</form>
+	`;
+	Container.innerHTML = forms;
 };
 </script>
 {% schema %}
