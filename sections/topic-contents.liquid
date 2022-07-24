@@ -27,7 +27,7 @@ window.addEventListener('load', async e => {
             <div class="document">${content}</div>
             <div class="blog__share">
                 <span>Share</span>
-                {%- render 'icon-share-twitter' -%}
+                {%- render 'icon-share-twitter', url: url -%}
                 {%- render 'icon-share-fb', url: url -%}
             </div>
 		`;
