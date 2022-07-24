@@ -10,8 +10,17 @@ var Topic = {};
 window.addEventListener('load', async e => {
 	Topic.Content = document.querySelector('.Topic-content');
 
-	var content = await fetch(window.server.host + `/wp-json/tatoo/action/get-topic`)
-		.then(res => res.json());
+	var content = await fetch(window.server.host + `/wp-json/tatoo/action/get-topic`, {
+		method: "POST",
+		headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+        	email: `{{ customer.email }}`,
+        })
+	})
+	.then(res => res.json());
 
 	if (content.err) {
 		Topic.Content.innerHTML = 'No topics at the moment';
