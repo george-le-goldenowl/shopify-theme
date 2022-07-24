@@ -1,16 +1,16 @@
 {%- assign url = shop.url | append: page.url -%}
 <div class="container">
-    <div class="notice__content Topic-content">
+    <div class="notice__content Contest-content">
     	{%- render 'icon-loading' -%}
     </div>
 </div>
 <script type="text/javascript">
 'use strict';
-var Topic = {};
+var Contest = {};
 window.addEventListener('load', async e => {
-	Topic.Content = document.querySelector('.Topic-content');
+	Contest.Content = document.querySelector('.Contest-content');
 
-	var content = await fetch(window.server.host + `/wp-json/tatoo/action/get-topic`, {
+	var content = await fetch(window.server.host + `/wp-json/tatoo/action/get-contest`, {
 		method: "POST",
 		headers: {
             "Content-Type": "application/json",
@@ -23,18 +23,18 @@ window.addEventListener('load', async e => {
 	.then(res => res.json());
 
 	if (content.err) {
-		Topic.Content.innerHTML = 'No topics at the moment';
+		Contest.Content.innerHTML = 'No Contests at the moment';
 	} else {
-		var topic = content.topic;
-		var canSubmitMes = `{{ customer.email }}` ? `This topic only for ${topic.type}` : 'You need to login first';
+		var contest = content.contest;
+		var canSubmitMes = `{{ customer.email }}` ? `This contest is for ${contest.type} only` : 'You need to login first';
         
-        var action = topic.canSubmit ? `Cart.ShowSubmitForm(this)` : `alert('${canSubmitMes}')`;
-            content = topic.post_content.replace(/(?:\r\n|\r|\n)/g, '<br>');
+        var action = contest.canSubmit ? `Contest.ShowSubmitForm(this)` : `alert('${canSubmitMes}')`,
+            content = contest.post_content.replace(/(?:\r\n|\r|\n)/g, '<br>');
       
 		var i = `
-			<h2 class="ttl-6">${topic.post_title}</h2>
+			<h2 class="ttl-6">${contest.post_title}</h2>
             <div class="notice__mv">
-                <img src="${topic.image}" alt="${topic.post_title}">
+                <img src="${contest.image}" alt="${contest.post_title}">
             </div>
             <div class="document">${content}</div>
             <div class="submit-container" style="margin-top: 30px;">
@@ -52,13 +52,17 @@ window.addEventListener('load', async e => {
                 {%- render 'icon-share-fb', url: url -%}
             </div>
 		`;
-		Topic.Content.innerHTML = i;
+		Contest.Content.innerHTML = i;
 	}
 });
+
+Contest.ShowSubmitForm = e => {
+
+};
 </script>
 {% schema %}
 {
-	"name": "Topic Page",
+	"name": "Contest Page",
 	"tag": "section",
 	"class": "notice-page",
 	"settings": []
