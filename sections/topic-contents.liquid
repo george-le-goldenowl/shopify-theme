@@ -1,3 +1,4 @@
+{%- assign url = shop.url | append: page.url -%}
 <div class="container">
     <div class="notice__content Topic-content">
     	{%- render 'icon-loading' -%}
@@ -27,7 +28,7 @@ window.addEventListener('load', async e => {
             <div class="blog__share">
                 <span>Share</span>
                 {%- render 'icon-share-twitter' -%}
-                {%- render 'icon-share-fb', url: shop.url | append: page.url -%}
+                {%- render 'icon-share-fb', url: url -%}
             </div>
 		`;
 		Topic.Content.innerHTML = i;
