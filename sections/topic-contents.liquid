@@ -8,8 +8,6 @@
 'use strict';
 var Contest = {};
 Contest.Content = document.querySelector('.Contest-content');
-Contest.SubmitContainer = Contest.Content.querySelector('.submit-container');
-Contest.SubmitContainerBtn = Contest.SubmitContainer.innerHTML;
 
 window.addEventListener('load', async e => {
 	var content = await fetch(window.server.host + `/wp-json/tatoo/action/get-contest`, {
@@ -59,6 +57,9 @@ window.addEventListener('load', async e => {
 });
 
 Contest.ShowSubmitForm = e => {
+	Contest.SubmitContainer = Contest.Content.querySelector('.submit-container');
+	Contest.SubmitContainerBtn = Contest.SubmitContainer.innerHTML;
+	
 	var forms = `
 		<form method="post" action="/" accept-charset="UTF-8">
 			<div class="shipping__ttl">Post Contest</div>
