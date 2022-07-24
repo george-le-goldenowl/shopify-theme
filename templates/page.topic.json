@@ -1,1 +1,10 @@
-abc
+{
+	"sections": {
+		"topic": {
+			"type": "topic-contents"
+		}
+	},
+	"order": [
+		"topic"
+	]
+}
