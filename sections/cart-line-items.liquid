@@ -16,54 +16,15 @@
                                     <th>Subtotal</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {% for item in cart.items %}
-                                    {% liquid
-                                        if item.gift_card == true
-                                        assign extraItems = extraItems | append: item.id | append: ','
-                                        continue
-                                    endif
-                                %}
-                                <tr data-line-id="{{ item.id }}">
-                                    <td class="col1">
-                                      {% if item.image != blank %}
-                                        <div class="cart-img">{{ item.image | image_url: width: 100, crop: 'center' | image_tag: loading: 'lazy', alt: item.image.alt }}</div>
-                                      {% endif %}
-                                    </td>
-                                    <td class="col2">
-                                        <a href="{{ item.url }}" class="ttl">{{ item.title }}</a>
-                                        {% assign options = item.options_with_values %}
-                                        {% if options != empty %}
-                                          {% for option in options %}
-                                            <p><span>{{ option.name }}: </span>{{ option.value }}</p>
-                                          {% endfor %}
-                                        {% endif %}
-                                        <p><small>SKU {{ item.sku | default: 'N/A' }}</small></p>
-                                    </td>
-                                    <td class="col3">
-                                        <div><p>{{ item.price | money }}</p></div>
-                                    </td>
-                                    <td class="col4">
-                                        <input type="type" class="qty" value="{{ item.quantity }}">
-                                    </td>
-                                    <td class="col5">
-                                        <div>
-                                            <p>{{ item.line_price | money }}</p>
-                                            <div class="btn-link-gray">
-                                                <a href="javascript:void(0)" onclick="onDelete(this)" data-id="{{ item.id }}"><i class="fa fa-trash"></i>Delete Product</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                              {% endfor %}
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 {% endif %}
                 <div class="table-cart-btn d-flex btn-link-black">
                     {{ 'Continue Shopping' | link_to: '/collections' }}
-                    <!-- TODO -->
-                    <a href=""><i class="fa fa-refresh"></i>Update Shopping Cart</a>
+                    <div class="cart-update">
+                        <a href="javascript:void(0);" onclick="Cart.Update(this);"><i class="fa fa-refresh"></i>Update Shopping Cart</a>    
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,35 +51,20 @@
                         </div>
                     </div>
                     <hr>
-                    {% assign extraFees = all_products['additional-options'] %}
-                    {% if extraFees != empty %}
-                      <div class="shopping__ttl collapsed" data-toggle="collapse" data-target="#extraFees" aria-expanded="true" aria-controls="extraFees">
-                          Additional Options<i class="fa fa-angle-down" aria-hidden="true"></i>
+                      <div 
+                        class="shopping__ttl collapsed" 
+                        data-toggle="collapse" 
+                        data-target="#extraFees" 
+                        aria-expanded="true" 
+                        aria-controls="extraFees">Additional Options<i class="fa fa-angle-down" aria-hidden="true"></i>
                       </div>
                       <div id="extraFees" class="collapse" aria-labelledby="headingOne">
-                          <div class="form-group">
-                              {% assign selectedExtra = extraItems | split: ',' %}
-                              {% for fee in extraFees.variants %}
-                                <div class="custom-control custom-checkbox">
-                                    {% liquid
-                                      assign idToString = fee.id | append: ''
-                                      if selectedExtra contains idToString
-                                        assign checked = 'checked'
-                                      else
-                                        assign checked = ''
-                                      endif
-                                    %}
-                                    <input type="checkbox" class="custom-control-input" id="{{ fee.id }}" onclick="toggleExtra(this)" data-id="{{ fee.id }}" {{ checked }}>
-                                    <label class="custom-control-label" for="{{ fee.id }}"><span>{{ fee.price | money }}</span>{{ fee.title }}</label>
-                                </div>
-                              {% endfor %}
-                          </div>
+                          <div class="form-group add-options"></div>
                       </div>
-                    {% endif %}
                     <hr>
                     <div class="d-flex shopping-content__sum">
                         <span>Order Total</span>
-                        <span>{{ cart.total_price | money }}</span>
+                        <span class="cart-total">{{ cart.total_price | money }}</span>
                     </div>
                 </div>
             </div>
@@ -135,25 +81,182 @@ element.postal = document.querySelector('input[name=shipping-postal]');
 element.note = document.querySelector('p.shipping-note');
 
 const Cart = {};
+Cart.Gift = [];
+Cart.Items = `{{ cart.items | json }}`;
+Cart.Additional = `{{ all_products['additional-options'] | json }}`;
 
 window.addEventListener('load', async event => {
-    Cart.Items = `{{ cart.items }}`;
     Cart.Content = document.querySelector('.cart-content');
+    Cart.TotalPrice = Cart.Content.querySelector('.cart-total');
     Cart.TableItems = Cart.Content.querySelector('.table-cart-items');
+    Cart.AdditionalItems = Cart.Content.querySelector('.add-options');
+
+    // Dump Cart Items
+    const cart = Cart.Items
+        .replace(/[\n\r\u2028\u2029]/g, "")
+        .replace(/(\r\n|\n|\r)/gm, "")
+        .replace(/"product_description":".*?(?=\"variant_title)/gm, "");
+    var i;
+    if ((i = JSON.parse(cart)).length) {
+        i.forEach(e => {
+            if (e.gift_card) {
+                Cart.Gift.push(e);
+                return;
+            }
+            var options = '';
+            if (e.options_with_values.length) {
+                e.options_with_values.forEach(e => {
+                    options += `<p><span>${e.name}: </span>${e.value}</p>`;
+                });
+            }
+            var sku = e.sku || 'N/A';
+            var item = `
+                <tr data-line-id="${e.id}">
+                    <td class="col1">
+                        <div class="cart-img"><img src="${e.image}" alt="${e.title}"/></div>
+                    </td>
+                    <td class="col2">
+                        <a href="${e.url}" class="ttl">${e.title}</a>
+                        ${options}
+                        <p><small>SKU ${sku}</small></p>
+                    </td>
+                    <td class="col3">
+                        <div><p>${Shopify.formatMoney(e.price)}</p></div>
+                    </td>
+                    <td class="col4">
+                        <input type="type" class="qty" value="${e.quantity}">
+                    </td>
+                    <td class="col5">
+                        <div>
+                            <p>${Shopify.formatMoney(e.line_price)}</p>
+                            <div class="btn-link-gray">
+                                <a href="javascript:void(0)" onclick="Cart.Delete(this)" data-id="${e.id}"><i class="fa fa-trash"></i>Delete Product</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            Cart.TableItems.getElementsByTagName('tbody')[0].insertAdjacentHTML('beforeend', item);
+        });
+    }
+
+    // Dump Additional Items
+    const adds = JSON.parse(Cart.Additional);
+    if (adds) {
+        adds.variants.forEach(e => {
+            var checked = Cart.Gift.find(a => a.id === e.id) ? 'checked' : '';
+            var i = `
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="${e.id}" onclick="Cart.ToggleAdds(this)" data-id="${e.id}" ${checked}>
+                    <label class="custom-control-label" for="${e.id}"><span>${Shopify.formatMoney(e.price)}</span>${e.title}</label>
+                </div>
+            `;
+            Cart.AdditionalItems.insertAdjacentHTML('beforeend', i);
+        }); 
+    }
+
+    genCountries();
 });
-async function removeItem(data) {
-    return await fetch("/cart/change.json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
+
+Cart.Update = async e => {
+    var e2 = e.cloneNode(!0),
+        eWrap = e.parentElement;
+    eWrap.innerHTML = `{% render 'icon-loading' %}`;
+    try {
+        var data = {
+            'updates': {}
         },
-        body: JSON.stringify({
-            ...data,
-            quantity: 0
+        CartItems = Cart.Content.querySelectorAll('tr[data-line-id]');
+        CartItems.forEach(e => {
+            var id = parseInt(e.getAttribute('data-line-id')),
+                qty = parseInt(e.querySelector('.qty').value);
+
+            data['updates'][id] = qty;
+        });
+        await fetch("/cart/update.json", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(data)
         })
-    });
-}
+        .then(res => res.json())
+        .then(data => {
+            Cart.RefreshTotal(data);
+        });
+    } catch(e) {
+        console.log(e);
+    }
+
+    eWrap.innerHTML = '';
+    eWrap.appendChild(e2);
+};
+
+Cart.Delete = async e => {
+    try {
+        var id = e.getAttribute('data-id'),
+            e2 = e.cloneNode(!0),
+            eWrap;
+        ((eWrap = e.parentElement), eWrap.innerHTML = `{% render 'icon-loading' %}`);
+
+        await fetch("/cart/change.json", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                id: id,
+                quantity: 0
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            Cart.Content.querySelector(`tr[data-line-id="${id}"]`).remove();
+            Cart.RefreshTotal(data);
+        });
+    } catch(e) {
+        console.log(e);
+        eWrap.innerHTML = '';
+        eWrap.appendChild(e2);
+    }
+};
+
+Cart.ToggleAdds = async e => {
+    var qty = e.checked ? 1 : 0,
+        endpoint = e.checked ? '/cart/add.json' : '/cart/change.json';
+
+    try {
+        await fetch(endpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                id: e.getAttribute('data-id'),
+                quantity: qty
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            Cart.RefreshTotal(data);
+        });
+    } catch(e) {
+        console.log(e);
+        e.checked = !e.checked;
+    }
+};
+
+Cart.RefreshTotal = async data => {
+    if (!data.total_price) {
+        data.total_price = await fetch("/cart.json").then(res => res.json()).then(data => data.total_price);
+    }
+
+    Cart.TotalPrice.innerHTML = Shopify.formatMoney(data.total_price);
+};
+
 async function getPrepareShipping(data) {
     const result = await fetch("/cart/prepare_shipping_rates", {
         method: "POST",
@@ -180,26 +283,6 @@ async function getSyncShippingRate() {
 
     var resultJson = await result.json();
     return resultJson;
-}
-function toggleExtra(e) {
-    var id = e.dataset.id;
-
-    if (e.checked) {
-        addItem(id, 1);
-    } else {
-        removeItem({id: id});
-    }
-}
-function onDelete(e) {
-    // add loading
-    var id = e.dataset.id;
-    e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
-
-    removeItem({id: id}).then(res => {
-        if (res.status == 200) {
-            document.querySelector(`tr[data-line-id="${id}"]`).remove();
-        }    
-    });
 }
 function genCountries() {
     if (typeof Countries != undefined) {
@@ -269,9 +352,6 @@ async function getShippingRates(e) {
 function selectedProvinces() {
     element.postal.focus();
 }
-window.addEventListener('load', () => {
-    genCountries();
-});
 </script>
 {% schema %}
   {
