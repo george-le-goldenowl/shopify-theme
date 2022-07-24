@@ -26,9 +26,8 @@ window.addEventListener('load', async e => {
             <div class="document">${content}</div>
             <div class="blog__share">
                 <span>Share</span>
+                {%- render 'icon-share-twitter' -%}
                 {%- render 'icon-share-fb' -%}
-                <a href=""> <img src="./assets/images/share_02.svg" alt=""></a>
-                <a href=""> <img src="./assets/images/share_03.svg" alt=""></a>
             </div>
 		`;
 		Topic.Content.innerHTML = i;
