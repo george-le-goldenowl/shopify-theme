@@ -1,6 +1,45 @@
+<div class="container">
+    <div class="notice__content Topic-content">
+    	{%- render 'icon-loading' -%}
+    </div>
+</div>
+<script type="text/javascript">
+'use strict';
+var Topic = {};
+window.addEventListener('load', async e => {
+	Topic.Content = document.querySelector('.Topic-content');
+
+	var content = await fetch(window.server.host + `/wp-json/tatoo/action/get-topic`)
+		.then(res => res.json());
+
+	if (content.err) {
+		Topic.Content.innerHTML = 'No topics at the moment';
+	} else {
+        var topic = content.topic,
+            content = topic.post_content.replace(/(?:\r\n|\r|\n)/g, '<br>')
+      
+		var i = `
+			<h2 class="ttl-6">${topic.post_title}</h2>
+            <div class="notice__mv">
+                <img src="${topic.image}" alt="${topic.post_title}">
+            </div>
+            <div class="document">${content}</div>
+            <div class="blog__share">
+                <span>Share</span>
+                {%- render 'icon-share-fb' -%}
+                <a href=""> <img src="./assets/images/share_02.svg" alt=""></a>
+                <a href=""> <img src="./assets/images/share_03.svg" alt=""></a>
+            </div>
+		`;
+		Topic.Content.innerHTML = i;
+	}
+});
+</script>
 {% schema %}
 {
 	"name": "Topic Page",
+	"tag": "section",
+	"class": "notice-page",
 	"settings": []
 }
 {% endschema %}
