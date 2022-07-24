@@ -28,7 +28,7 @@ window.addEventListener('load', async e => {
 		var topic = content.topic;
 		var canSubmitMes = `{{ customer.email }}` ? `This topic only for ${topic.type}` : 'You need to login first';
         
-        var action = topic.canSubmit ? `Cart.ShowSubmitForm(this)` : `alert(${canSubmitMes})`;
+        var action = topic.canSubmit ? `Cart.ShowSubmitForm(this)` : `alert('${canSubmitMes}')`;
             content = topic.post_content.replace(/(?:\r\n|\r|\n)/g, '<br>');
       
 		var i = `
