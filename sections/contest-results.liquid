@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="notice__content notice__content--other">
+        <h2 class="ttl-03">Contest results</h2>
+        <div class="document ContestResults">
+            <p>
+            	<strong>Competiton Name: </strong> to Win $2,000 From the International Illustration Contest International Illustration Contest 2022.
+            	<br>
+            	<strong>Contest results:</strong> 4 account win prizes.
+            </p>
+            <h4>Congratulation 4 account win prizes.</h4>
+            <table>
+                <tr>
+                    <td>Rank</td>
+                    <td>Account Name</td>
+                    <td>Email</td>
+                    <td>Prizes</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Lê Minh Quốc</td>
+                    <td>minh****@awebsite.vn</td>
+                    <td>$2000</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Lê Minh Quốc</td>
+                    <td>minh****@awebsite.vn</td>
+                    <td>$2000</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Lê Minh Quốc</td>
+                    <td>minh****@awebsite.vn</td>
+                    <td>$2000</td>
+                </tr>
+            </table>
+            <div class="note">
+                <h4>*Award Form: </h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+            </div>
+        </div>
+        <div class="blog__share">
+            <span>Share</span>
+            <a href=""> <img src="./assets/images/share_01.svg" alt=""></a>
+            <a href=""> <img src="./assets/images/share_02.svg" alt=""></a>
+            <a href=""> <img src="./assets/images/share_03.svg" alt=""></a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+'use strict';
+var Result = {};
+
+window.addEventListener('load', async e => {
+	Result.Content = document.querySelector('.ContestResults');
+
+	try {
+		var content = await fetch(window.server.host + '/wp-json/tatoo/action/get-contest-result', {
+			method: "POST"
+		})
+		.then(res => res.json());
+
+		if (content.err) {
+			throw content.message;
+		}
+
+		console.log(content);
+	} catch(e) {
+		console.log(e);
+	}
+});
+</script>
+{% schema %}
+{
+	"name": "Contest Result Page",
+	"tag": "section",
+	"class": "notice-page",
+	"settings": []
+}
+{% endschema %}

@@ -1,0 +1,10 @@
+{
+	"sections": {
+		"result": {
+			"type": "contest-results"
+		}
+	},
+	"order": [
+		"result"
+	]
+}
