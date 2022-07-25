@@ -34,7 +34,7 @@ window.addEventListener('load', async e => {
 		var i = `
 			<h2 class="ttl-6">${contest.post_title}</h2>
             <div class="notice__mv">
-                <img src="${contest.image}" alt="${contest.post_title}">
+                <img src="data:image/jpeg;base64, ${contest.image}" alt="${contest.post_title}">
             </div>
             <div class="document">${content}</div>
             <div class="submit-container" style="margin-top: 30px;">
