@@ -1,42 +1,180 @@
+{%- assign url = shop.url | append: page.url -%}
 <div class="container">
-    <div class="notice__content Topic-content">
+    <div class="notice__content Contest-content">
     	{%- render 'icon-loading' -%}
     </div>
 </div>
 <script type="text/javascript">
 'use strict';
-var Topic = {};
-window.addEventListener('load', async e => {
-	Topic.Content = document.querySelector('.Topic-content');
+var Contest = {};
+Contest.Content = document.querySelector('.Contest-content');
 
-	var content = await fetch(window.server.host + `/wp-json/tatoo/action/get-topic`)
-		.then(res => res.json());
+window.addEventListener('load', async e => {
+	var content = await fetch(window.server.host + `/wp-json/tatoo/action/get-contest`, {
+		method: "POST",
+		headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+        	email: `{{ customer.email }}`,
+        })
+	})
+	.then(res => res.json());
 
 	if (content.err) {
-		Topic.Content.innerHTML = 'No topics at the moment';
+		Contest.Content.innerHTML = 'No contests at the moment';
 	} else {
-        var topic = content.topic,
-            content = topic.post_content.replace(/(?:\r\n|\r|\n)/g, '<br>')
+		var contest = content.contest;
+		var canSubmitMes = `{{ customer.email }}` ? `This contest is for ${contest.type} only` : 'You need to login first';
+        
+        var action = contest.canSubmit ? `Contest.ShowSubmitForm(this)` : `alert('${canSubmitMes}')`,
+            content = contest.post_content.replace(/(?:\r\n|\r|\n)/g, '<br>');
       
 		var i = `
-			<h2 class="ttl-6">${topic.post_title}</h2>
+			<h2 class="ttl-6">${contest.post_title}</h2>
             <div class="notice__mv">
-                <img src="${topic.image}" alt="${topic.post_title}">
+                <img src="${contest.image}" alt="${contest.post_title}">
             </div>
             <div class="document">${content}</div>
+            <div class="submit-container" style="margin-top: 30px;">
+            	<div class="shipping__btn row">
+	                <div class="col-sm-6">
+	                    <div class="shipping__btn btn-submit">
+	                        <div class="btn-payment"><a href="javascript:void(0)" onclick="${action}" data-contest-id="${contest.ID}">Submit Entry</a></div>
+	                    </div>
+	                </div>
+	            </div>
+            </div>
             <div class="blog__share">
                 <span>Share</span>
-                {%- render 'icon-share-twitter' -%}
-                {%- render 'icon-share-fb' -%}
+                {%- render 'icon-share-twitter', url: url -%}
+                {%- render 'icon-share-fb', url: url -%}
             </div>
 		`;
-		Topic.Content.innerHTML = i;
+		Contest.Content.innerHTML = i;
 	}
 });
+
+Contest.ShowSubmitForm = e => {
+	Contest.SubmitContainer = Contest.Content.querySelector('.submit-container');
+	Contest.SubmitContainerBtn = Contest.SubmitContainer.innerHTML;
+
+	var forms = `
+		<form method="post" action="/" id="submit-entry" accept-charset="UTF-8">
+			<div class="shipping__ttl">Post Contest</div>
+			<div class="shipping__form">
+				<input type="hidden" name="contestId" value="${e.getAttribute('data-contest-id')}"/>
+			    <div class="form-group">
+			        <label for="postContestTitle">Title<span class="txt-error">*</span></label>
+			        <input name="title" type="text" id="postContestTitle" class="form-control form-control-line" data-required=true>
+			    </div>
+			    <div class="form-group">
+			        <label for="postContestImage">Image<span class="txt-error">*</span></label>
+			        <input name="attached" type="file" id="postContestImage" class="form-control form-control-line" data-required=true>
+			    </div>
+			    <div class="form-group">
+			        <label for="postContestDesc">Description <span class="txt-error">*</span></label>
+			        <textarea name="description" id="postContestDesc" cols="30" rows="10" class="form-control form-control-line" data-required=true></textarea>
+			    </div>
+			</div>
+			<div class="shipping__btn row">
+			    <div class="col-sm-6">
+			        <div class="shipping__btn">
+			            <div class="btn-payment"><a href="javascript:void(0);" onclick="Contest.SubmitEntry(this);">Submit</a></div>
+			        </div>
+			    </div>
+			    <div class="col-sm-6">
+			        <div class="shipping__btn">
+			            <div class="btn-back"><a href="javascript:void(0);" onclick="Contest.HideSubmitForm(this)">cancel</a></div>
+			        </div>
+			    </div>
+			</div>
+		</form>
+	`;
+	Contest.SubmitContainer.innerHTML = forms;
+};
+
+Contest.HideSubmitForm = e => {
+	Contest.SubmitContainer.innerHTML = Contest.SubmitContainerBtn;
+};
+
+Contest.SubmitEntry = async e => {
+	var e2 = e.cloneNode(!0),
+		eWrap = e.parentElement;
+
+	var Form = Contest.Content.querySelector('#submit-entry'),
+		Image = Form.querySelector('#postContestImage'),
+		Required = Form.querySelectorAll('[data-required=true]');
+
+	eWrap.innerHTML = `{%- render 'icon-loading' -%}`;
+
+	const VerifyRequired = Required => {
+		var bool = false;
+		Required.forEach(e => {
+			e.value
+				? (e.style.borderColor = '#ACB1C6')
+				: ((e.style.borderColor = 'red'), bool = true);
+		});
+
+		if (bool) {
+			throw 'ErrRequired';
+		}
+	};
+
+	const VerifyImage = Image => {
+		var part = Image.value.split('.'),
+			type = part[part.length - 1];
+		var Err = [];
+
+		if (!['jpg', 'jpeg', 'png'].includes(type)) {
+			Err.push('only supports: jpg, jpeg, png');
+		}
+
+		if ((Image.files[0].size / 1024 / 1024) > 2) {
+			Err.push('maximun: 2 MiB');
+		}
+
+		if (Err.length > 0) {
+			Image.parentElement.insertAdjacentHTML('beforeend', `<sub style="color: red;">${Err.join(', ')}</sub>`)
+			throw 'ErrImage';
+		}
+	};
+
+	try {
+		VerifyRequired(Required);
+		VerifyImage(Image);
+
+		var data = new FormData();
+		data.append('image', Image.files[0]);
+		data.append('email', `{{ customer.email }}`);
+		data.append('title', Form.querySelector('#postContestTitle').value);
+		data.append('contestId', Form.querySelector('input[name=contestId]').value);
+		data.append('description', Form.querySelector('#postContestDesc').value);
+
+		await fetch(window.server.host + '/wp-json/tatoo/action/submit-entry', {
+			method: "POST",
+	        body: data
+		})
+		.then(res => res.json())
+		.then(data => {
+			if (data.err) {
+				alert(`data.message`);
+				throw 'SubmitFailed';
+			} else {
+				Contest.SubmitContainer.innerHTML = '<p>You have successfully submitted your entry</p>';
+			}
+		});
+	} catch(e) {
+		console.log(e);
+		eWrap.innerHTML = ``;
+		eWrap.appendChild(e2);
+	}
+};
 </script>
 {% schema %}
 {
-	"name": "Topic Page",
+	"name": "Contest Page",
 	"tag": "section",
 	"class": "notice-page",
 	"settings": []
