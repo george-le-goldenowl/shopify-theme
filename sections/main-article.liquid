@@ -1,8 +1,7 @@
 <div class="blog__mv">
     {% if article.image %}
-      {{ article | img_url: 'medium' }}
+      <img src="{{ article | img_url: 'medium' }}" alt="{{ article.title }}"> -->
     {% endif %}
-<!--     <img src="{{ article.image.src }}" alt="{{ article.title }}"> -->
 </div>
 <div class="container">
 
