@@ -1,12 +1,12 @@
 {
   "sections": {
-    "result": {
-      "type": "contest-results",
+    "entries_list": {
+      "type": "entries-list",
       "settings": {
       }
     }
   },
   "order": [
-    "result"
+    "entries_list"
   ]
 }
