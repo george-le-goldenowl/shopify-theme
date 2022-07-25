@@ -55,10 +55,17 @@
           "settings": {
             "post": "tattoo-artists\/the-best-wireless-tattoo-machines-in-2022"
           }
+        },
+        "669a737b-1c05-4a35-8387-084d6e88013a": {
+          "type": "featured_articles",
+          "settings": {
+            "post": "tattoo-artists\/the-best-wireless-tattoo-machines-in-2025"
+          }
         }
       },
       "block_order": [
-        "3110ebe1-704b-4316-a78c-7b01cef6d0ab"
+        "3110ebe1-704b-4316-a78c-7b01cef6d0ab",
+        "669a737b-1c05-4a35-8387-084d6e88013a"
       ],
       "settings": {
       }
