@@ -37,7 +37,7 @@ EntriesList.GetParam = e => {
         }
     }
 
-    return 1;
+    return '';
 }
 
 EntriesList.GetList = async e => {
@@ -48,7 +48,7 @@ EntriesList.GetList = async e => {
             "Accept": "application/json"
         },
         body: JSON.stringify({
-            paged: EntriesList.GetParam('page'),
+            paged: EntriesList.GetParam('page') || 1,
             perPage: EntriesList.PerPage,
             search: EntriesList.GetParam('search'),
         })
@@ -76,7 +76,7 @@ EntriesList.GenPagination = pages => {
             throw 'noPagination';
         }
         
-        var page = parseInt(EntriesList.GetParam('page'));
+        var page = parseInt(EntriesList.GetParam('page') || 1);
         var paginate = `<ul class="pagination">`;
 
         // previous
