@@ -8,55 +8,90 @@
 'use strict';
 var Contest = {};
 Contest.Content = document.querySelector('.Contest-content');
+Contest.Details = {};
 
 window.addEventListener('load', async e => {
-	var content = await fetch(window.server.host + `/wp-json/tatoo/action/get-contest`, {
-		method: "POST",
-		headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-        	email: `{{ customer.email }}`,
-        })
-	})
-	.then(res => res.json());
+	try {
+		var content = await fetch(window.server.host + `/wp-json/tatoo/action/get-contest`, {
+			method: "POST",
+			headers: {
+	            "Content-Type": "application/json",
+	            "Accept": "application/json"
+	        },
+	        body: JSON.stringify({
+	        	email: `{{ customer.email }}`,
+	        })
+		})
+		.then(res => res.json());
 
-	if (content.err) {
-		Contest.Content.innerHTML = 'No contests at the moment';
-	} else {
-		var contest = content.contest;
-		var canSubmitMes = `{{ customer.email }}` ? `This contest is for ${contest.type} only` : 'You need to login first';
-        
-        var action = contest.canSubmit ? `Contest.ShowSubmitForm(this)` : `alert('${canSubmitMes}')`,
-            content = contest.post_content.replace(/(?:\r\n|\r|\n)/g, '<br>');
-      
-		var i = `
-			<h2 class="ttl-6">${contest.post_title}</h2>
-            <div class="notice__mv">
-                <img src="data:image/jpeg;base64, ${contest.image}" alt="${contest.post_title}">
-            </div>
-            <div class="document">${content}</div>
-            <div class="submit-container" style="margin-top: 30px;">
-            	<div class="shipping__btn row">
-	                <div class="col-sm-6">
-	                    <div class="shipping__btn btn-submit">
-	                        <div class="btn-payment"><a href="javascript:void(0)" onclick="${action}" data-contest-id="${contest.ID}">Submit Entry</a></div>
-	                    </div>
-	                </div>
+		if (content.err) {
+			throw 'No contests at the moment';
+		} else {
+			var contest = content.contest;
+			Contest.Details = contest;
+
+	        var content = contest.post_content.replace(/(?:\r\n|\r|\n)/g, '<br>');
+	      
+			var i = `
+				<h2 class="ttl-6">${contest.post_title}</h2>
+	            <div class="notice__mv">
+	                <img src="data:image/jpeg;base64, ${contest.image}" alt="${contest.post_title}">
 	            </div>
-            </div>
-            <div class="blog__share">
-                <span>Share</span>
-                {%- render 'icon-share-twitter', url: url -%}
-                {%- render 'icon-share-fb', url: url -%}
-            </div>
-		`;
-		Contest.Content.innerHTML = i;
+	            <div class="document">${content}</div>
+	            <div class="submit-container" style="margin-top: 30px;">
+	            	<div class="shipping__btn row">
+		                <div class="col-sm-6">
+		                    <div class="shipping__btn btn-submit">
+		                        <div class="btn-payment"><a href="javascript:void(0)" onclick="Contest.Submitable(${contest.ID});">Submit Entry</a></div>
+		                        <sub class="SubmitEntryErr" style="color: red;"></sub>
+		                    </div>
+		                </div>
+		                <div class="col-sm-6">
+                            <div class="shipping__btn">
+                                <div class="btn-back">{{ 'View Entries' | link_to: '/pages/contest-entries' }}</div>
+                            </div>
+                        </div>
+		            </div>
+	            </div>
+	            <div class="blog__share">
+	                <span>Share</span>
+	                {%- render 'icon-share-twitter', url: url -%}
+	                {%- render 'icon-share-fb', url: url -%}
+	            </div>
+			`;
+			Contest.Content.innerHTML = i;
+		}
+	} catch(e) {
+		console.log(e);
 	}
 });
 
-Contest.ShowSubmitForm = e => {
+Contest.Submitable = Id => {
+	var contest = Contest.Details;
+	try {
+		switch (contest.submittable) {
+			case 'ErrUnauthenticated':
+				document.querySelector('#customer-login').classList.add('is-show');
+				document.querySelector('.cart-bg').classList.add('is-show');
+				throw 'To submit entries for this contest, you must first login';
+				break;
+			case 'ErrWrongUserType':
+				throw `This contest is only for ${contest.type}`;
+				break;
+			case 'ErrPoints':
+				throw 'You do not have enough points to enter this contest';
+				break;
+			case 'Success':
+				Contest.ShowSubmitForm(Id);
+				break;
+		}
+	} catch(e) {
+		console.log(e);
+		Contest.Content.querySelector('.SubmitEntryErr').innerHTML = e;
+	}
+};
+
+Contest.ShowSubmitForm = Id => {
 	Contest.SubmitContainer = Contest.Content.querySelector('.submit-container');
 	Contest.SubmitContainerBtn = Contest.SubmitContainer.innerHTML;
 
@@ -64,7 +99,7 @@ Contest.ShowSubmitForm = e => {
 		<form method="post" action="/" id="submit-entry" accept-charset="UTF-8">
 			<div class="shipping__ttl">Post Contest</div>
 			<div class="shipping__form">
-				<input type="hidden" name="contestId" value="${e.getAttribute('data-contest-id')}"/>
+				<input type="hidden" name="contestId" value="${Id}"/>
 			    <div class="form-group">
 			        <label for="postContestTitle">Title<span class="txt-error">*</span></label>
 			        <input name="title" type="text" id="postContestTitle" class="form-control form-control-line" data-required=true>
@@ -95,7 +130,7 @@ Contest.ShowSubmitForm = e => {
 	Contest.SubmitContainer.innerHTML = forms;
 };
 
-Contest.HideSubmitForm = e => {
+Contest.HideSubmitForm = () => {
 	Contest.SubmitContainer.innerHTML = Contest.SubmitContainerBtn;
 };
 
