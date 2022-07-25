@@ -49,8 +49,18 @@
     },
     "blogs_content": {
       "type": "blogs-content",
+      "blocks": {
+        "3110ebe1-704b-4316-a78c-7b01cef6d0ab": {
+          "type": "featured_articles",
+          "settings": {
+            "post": "tattoo-artists\/the-best-wireless-tattoo-machines-in-2022"
+          }
+        }
+      },
+      "block_order": [
+        "3110ebe1-704b-4316-a78c-7b01cef6d0ab"
+      ],
       "settings": {
-        "feature_articles": "tattoo-artists\/totala"
       }
     }
   },
