@@ -1,6 +1,6 @@
 <div class="blog__mv">
     {% if article.image %}
-        {{ article | image_url: with: '1680', crop: 'center' | image_tag: loading: 'lazy', alt: article.title }}
+      <img src="{{ article | img_url: with: 'thumbnail' }}" alt="{{ article.title }}">
     {% endif %}
 </div>
 <div class="container">
