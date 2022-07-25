@@ -1,6 +1,9 @@
-<div class="blog__mv">
-    <img src="./assets/images/blog.png" alt="">
-</div>
+{%- assign banner = section.settings.banner -%}
+{% if  banner != blank %}
+    <div class="blog__mv">
+        <img src="{{ banner | img_url }}" alt="">
+    </div>
+{% endif %}
 <div class="container">
     <div class="blog__content">
         <h2 class="blog__ttl">Danh sách bài dự thi</h2>
