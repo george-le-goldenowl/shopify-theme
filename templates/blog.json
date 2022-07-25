@@ -31,7 +31,7 @@
           }
         },
         "5cff688c-746f-4c9b-bdf0-6ca8c5978542": {
-          "type": "blogs", 
+          "type": "blogs",
           "settings": {
             "blog": "clients",
             "thumbnail": "shopify:\/\/shop_images\/image_88.png"
@@ -50,6 +50,7 @@
     "blogs_content": {
       "type": "blogs-content",
       "settings": {
+        "feature_articles": "tattoo-artists\/totala"
       }
     }
   },
