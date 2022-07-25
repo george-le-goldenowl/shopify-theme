@@ -248,12 +248,19 @@ window.addEventListener('load', e => {
 {% schema %}
   {
     "name": "Articles",
-    "settings": [
-      {
-        "id": "feature_articles",
-        "type": "article",
-        "label": "Feature Articles"
-      }
+    "blocks": [
+        {
+            "type": "featured_articles",
+            "name": "Featured Posts",
+            "limit": 4,
+            "settings": [
+                {
+                    "id": "post",
+                    "type": "article",
+                    "label": "Select article"
+                }
+            ]
+        }
     ]
   }
 {% endschema %}
