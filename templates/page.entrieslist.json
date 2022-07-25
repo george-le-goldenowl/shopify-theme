@@ -3,6 +3,7 @@
     "entries_list": {
       "type": "entries-list",
       "settings": {
+        "banner": "shopify:\/\/shop_images\/blog.png"
       }
     }
   },
