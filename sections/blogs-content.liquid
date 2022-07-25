@@ -15,66 +15,7 @@
             <div class="col-lg-4">
                 <div class="feature">
                     <h2 class="blog__ttl">Tattoo artists post</h2>
-                    <div class="feature__item">
-                        <div class="row">
-                            <div class="col-sm-3 col-6">
-                                <div class="blog__item__img">
-                                    <a href=""><img src="./assets/images/dummy6.png" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-sm-9 col-6">
-                                <div class="blog__item__info">
-                                    <div class="cate">Tattoo artists post</div>
-                                    <a href="" class="ttl">The Best Wireless Tattoo Machines in 2022</a>
-                                    <p>It’s almost here. Our ultimate Black Friday sale event — and we’re going
-                                        harder than we’ve ever gone before. Brace yourself for the steepest
-                                        discounts you’ve ever seen on artist-favorite brands. Now’s the time to
-                                        get your wish list together. As the countdown begins, set an alarm for
-                                        midnight on November 22nd. That’s when our […]</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feature__item">
-                        <div class="row">
-                            <div class="col-sm-3 col-6">
-                                <div class="blog__item__img">
-                                    <a href=""><img src="./assets/images/dummy6.png" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-sm-9 col-6">
-                                <div class="blog__item__info">
-                                    <div class="cate">Tattoo artists post</div>
-                                    <a href="" class="ttl">The Best Wireless Tattoo Machines in 2022</a>
-                                    <p>It’s almost here. Our ultimate Black Friday sale event — and we’re going
-                                        harder than we’ve ever gone before. Brace yourself for the steepest
-                                        discounts you’ve ever seen on artist-favorite brands. Now’s the time to
-                                        get your wish list together. As the countdown begins, set an alarm for
-                                        midnight on November 22nd. That’s when our […]</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="feature__item">
-                        <div class="row">
-                            <div class="col-sm-3 col-6">
-                                <div class="blog__item__img">
-                                    <a href=""><img src="./assets/images/dummy6.png" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-sm-9 col-6">
-                                <div class="blog__item__info">
-                                    <div class="cate">Tattoo artists post</div>
-                                    <a href="" class="ttl">The Best Wireless Tattoo Machines in 2022</a>
-                                    <p>It’s almost here. Our ultimate Black Friday sale event — and we’re going
-                                        harder than we’ve ever gone before. Brace yourself for the steepest
-                                        discounts you’ve ever seen on artist-favorite brands. Now’s the time to
-                                        get your wish list together. As the countdown begins, set an alarm for
-                                        midnight on November 22nd. That’s when our […]</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="BlogsFeatured">{%- render 'icon-loading' -%}</div>
                 </div>
             </div>
         </div>
@@ -93,11 +34,24 @@ assign output as javascript variable
     {%- endcapture -%}
 {%- endpaginate -%}
 
+{%- if section.blocks != blank -%}
+    {%- capture featured -%}
+        {%- for b in section.blocks -%}
+            {%- assign e = b.settings.post -%}
+            {%- assign cate = e.handle | split: '/' -%}
+            {"id": "{{ e.id }}", "url": "{{ e.url | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' }}", "cate": "{{ cate[0] | replace: '-', ' '  }}", "title": "{{ e.title | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' }}", "image": "{{ e.image | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' }}", "author": "{{ e.author }}", "excerpt": "{{ e.excerpt | strip_html | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' | truncatewords: 20 }}", "publishedAt": "{{ e.published_at | date: '%B %d, %Y' }}"} {% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+    {%- endcapture -%}
+{%- else -%}
+    {%- assign featured = '' -%}
+{%- endif -%}
+
 <script type="text/javascript">
 var Blogs = {
     Total: parseInt(`{{ blog.articles_count }}`),
     PerPage: 5,
-    Articles: `[{{ output | strip_newlines }}]`
+    Articles: `[{{ output | strip_newlines }}]`,
+    Featured: `[{{ featured | strip_newlines }}]`
 };
 
 Blogs.GetParam = Type => {
@@ -179,6 +133,41 @@ Blogs.ShowPosts = data => {
     }
 };
 
+Blogs.ShowFeatured = data => {
+    try {
+        var o;
+        if (!(o = JSON.parse(data)).length) {
+            throw 'Ther are no featured posts';
+        }
+
+        var i = ``;
+        o.forEach(e => {
+            i += `
+                <div class="feature__item">
+                    <div class="row">
+                        <div class="col-sm-3 col-6">
+                            <div class="blog__item__img">
+                                <a href="${e.url}"><img src="${e.image}" alt="${e.title}"></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 col-6">
+                            <div class="blog__item__info">
+                                <div class="cate">${e.cate}</div>
+                                <a href="${e.url}" class="ttl">${e.title}</a>
+                                <p>${e.excerpt}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        Blogs.BlogsFeatured.innerHTML = i;
+    } catch(e) {
+        console.log(e);
+        Blogs.BlogsFeatured.innerHTML = e;
+    }
+};
+
 Blogs.GenPagination = pages => {
     try {
         if (pages <= 1) {
@@ -233,8 +222,10 @@ Blogs.GenPagination = pages => {
 window.addEventListener('load', e => {
     Blogs.Content = document.querySelector('.BlogsContent');
     Blogs.PagiContent = document.querySelector('.BlogsContentPaginate');
+    Blogs.BlogsFeatured = document.querySelector('.BlogsFeatured');
 
     Blogs.ShowPosts(Blogs.Articles);
+    Blogs.ShowFeatured(Blogs.Featured);
 
     // Render Pagination
     var pages = Math.ceil(Blogs.Total/Blogs.PerPage);
