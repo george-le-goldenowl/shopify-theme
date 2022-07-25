@@ -1,7 +1,7 @@
 {%- assign banner = section.settings.banner -%}
 {% if  banner != blank %}
     <div class="blog__mv">
-        <img src="{{ banner | img_url: with: 1680 }}" alt="">
+        {{ banner | image_url: width: 1680, crop: 'center' | image_tag: loading: 'lazy', alt: banner.alt  }}
     </div>
 {% endif %}
 <div class="container">
