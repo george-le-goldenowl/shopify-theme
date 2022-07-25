@@ -39,7 +39,7 @@ assign output as javascript variable
         {%- for b in section.blocks -%}
             {%- assign e = b.settings.post -%}
             {%- assign cate = e.handle | split: '/' -%}
-            {"id": "{{ e.id }}", "url": "{{ e.url | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' }}", "cate": "{{ cate[0] | replace: '-', ' '  }}", "title": "{{ e.title | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' }}", "image": "{{ e.image | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' }}", "author": "{{ e.author }}", "excerpt": "{{ e.excerpt | strip_html | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' | truncatewords: 20 }}", "publishedAt": "{{ e.published_at | date: '%B %d, %Y' }}"} {% unless forloop.last %},{% endunless %}
+            {"id": "{{ e.id }}", "url": "{{ e.url | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' }}", "cate": "{{ cate[0] | replace: '-', ' '  }}", "title": "{{ e.title | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' }}", "image": "{{ e.image | img_url: '60x60', crop: 'center', scale: 2 }}", "author": "{{ e.author }}", "excerpt": "{{ e.excerpt | strip_html | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' | truncatewords: 20 }}", "publishedAt": "{{ e.published_at | date: '%B %d, %Y' }}"} {% unless forloop.last %},{% endunless %}
         {%- endfor -%}
     {%- endcapture -%}
 {%- else -%}
