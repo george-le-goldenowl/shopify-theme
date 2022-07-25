@@ -9,46 +9,8 @@
         </div>
         <div class="row">
             <div class="col-lg-8">
-                <div class="wrap-blog-list">
-                    {% if blog.articles_count > 0 %}
-                        {% paginate blog.articles by 5 %}
-                            {% for article in blog.articles %}
-                                <div class="blog__item">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="blog__item__img">
-                                                <a href="{{ article.url }}">
-                                                    {{ article.image | image_url: width: 270, crop: 'center' | image_tag: loading: 'lazy', alt: article.title }}
-                                                </a>
-                                            </div>
-                                        </div>    
-                                        <div class="col-md-7">
-                                            <div class="blog__item__info">
-                                                <div class="cate">{{ blog.title }}</div>
-                                                <a href="{{ article.url }}" class="ttl">{{ article.title }}</a>
-                                                <div class="row author">
-                                                    <div class="col-5">
-                                                        <i class="fa fa-user-o"></i>by {{ article.author }}
-                                                    </div>
-                                                    <!-- TODO: format datetime -->
-                                                    <div class="col-5"> <i class="fa fa-calendar-check-o"></i>{{ article.published_at }}</div>
-                                                    <div class="col-2"> <i class="fa fa-comment-o"></i></div>
-                                                </div>
-                                                {{ article.excerpt }}
-                                                <div class="btn-more">
-                                                    <a href="{{ article.url }}">Read more</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>    
-                            {% endfor %}
-                        {% endpaginate %}
-                    {% else %}
-                        No blog found!
-                    {% endif %}
-                </div>
-                <div id="renderPagination"></div>
+                <div class="wrap-blog-list BlogsContent">{%- render 'icon-loading' -%}</div>
+                <div class="BlogsContentPaginate"></div>
             </div>
             <div class="col-lg-4">
                 <div class="feature">
@@ -118,69 +80,169 @@
         </div>
     </div>
 </div>
+
+{%- comment -%}
+assign output as javascript variable
+{%- endcomment -%}
+
+{%- paginate blog.articles by 5 -%}
+    {%- capture output -%}
+        {%- for b in blog.articles -%}
+            {"id": "{{ b.id }}", "url": "{{ b.url | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' }}", "title": "{{ b.title | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' }}", "image": "{{ b.image | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' }}", "author": "{{ b.author }}", "excerpt": "{{ b.excerpt | strip_html | replace: '\\', '\\\\' | replace: '"', '\\"' | replace:  '/','\\/' | truncatewords: 20 }}", "publishedAt": "{{ b.published_at | date: '%B %d, %Y' }}"} {% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+    {%- endcapture -%}
+{%- endpaginate -%}
+
 <script type="text/javascript">
-var pagination = {
-    page: getPage(),
-    perPage: 5,
-    totalPage: `{{ blog.articles_count }}`
+var Blogs = {
+    Total: parseInt(`{{ blog.articles_count }}`),
+    PerPage: 5,
+    Articles: `[{{ output | strip_newlines }}]`
 };
-function getPage() {
+
+Blogs.GetParam = Type => {
     var queryString = window.location.search;
 
     if (queryString) {
         var urlParams = new URLSearchParams(queryString);
 
-        return parseInt(urlParams.get('page'));
+        switch (Type) {
+            case 'page':
+                return parseInt(urlParams.get(Type)) || 1;
+                break;
+            default:
+                return urlParams.get(Type) || '';
+                break;
+        }
     }
 
-    return 1;
-}
-function renderPagination(pages) {
+    return '';
+};
+
+Blogs.Page = Blogs.GetParam('page');
+
+Blogs.UpdateParam = (key, value) => {
+    var uri = window.location.href;
+    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+
+    if (uri.match(re)) {
+        return uri.replace(re, '$1' + key + "=" + value + '$2');
+    } else {
+        return uri + separator + key + "=" + value;
+    }
+};
+
+Blogs.ShowPosts = data => {
+    var o;
+    try {
+        if (!(o = JSON.parse(data)).length) {
+            throw 'There are no articles';
+        }
+
+        var i = ``;
+        o.forEach(e => {
+            i += `
+                <div class="blog__item" id="Article-${e.id}">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="blog__item__img">
+                                <a href="${e.url}"><img src="${e.image}" alt="${e.title}"></a>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="blog__item__info">
+                                <div class="cate">{{ blog.title }}</div>
+                                <a href="${e.url}" class="ttl">${e.title}</a>
+                                <div class="row author">
+                                    <div class="col-5">
+                                        <i class="fa fa-user-o"></i>by ${e.author}
+                                    </div>
+                                    <div class="col-5"> <i class="fa fa-calendar-check-o"></i>${e.publishedAt}
+                                    </div>
+                                    <div class="col-2"> <i class="fa fa-comment-o"></i></div>
+                                </div>
+                                ${e.excerpt}
+                                <div class="btn-more">
+                                    <a href="${e.url}">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        Blogs.Content.innerHTML = i;
+    } catch(e) {
+        console.log(e);
+        Blogs.Content.innerHTML = e;
+    }
+};
+
+Blogs.GenPagination = pages => {
     try {
         if (pages <= 1) {
             throw 'noPagination';
         }
-        var paginate = `<ul class="pagination">`;
+        
+        var paginate = `<ul class="pagination">`,
+            page = Blogs.GetParam('page') || 1;
+
+        var active, uri;
 
         // previous
-        var active = pagination.page == 1 ? 'style="pointer-events: none;"' : '',
-            previousPage = pagination.page - 1;
-        paginate += `
-        <li class="page-item">
-            <a class="page-link" ${active} href="{{ blog.url }}?page=${previousPage}" aria-label="Previous">
-                <span aria-hidden="true"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-                <span class="sr-only">Previous</span>
-            </a>
-        </li>`;
+        if (page > 1) {
+            uri = Blogs.UpdateParam('page', page - 1);
+            paginate += `
+                <li class="page-item">
+                    <a class="page-link" href="${uri}" aria-label="Previous">
+                        <span aria-hidden="true"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            `;
+        }
 
         for (var i = 1; i <= pages; i++) {
-            active = i == pagination.page ? 'active' : '';
-            paginate += `<li class="page-item ${active}"><a class="page-link" href="{{ blog.url }}?page=${i}">${i}</a></li>`;
+            active = i == page ? 'active' : '';
+            uri = Blogs.UpdateParam('page', i);
+            paginate += `<li class="page-item ${active}"><a class="page-link" href="${uri}">${i}</a></li>`;
         }
 
         // next
-        active = pagination.page == pages ? 'style="pointer-events: none;"' : '';
-        var nextPage = pagination.page + 1;
-        paginate += `
-        <li class="page-item">
-            <a class="page-link" ${active} href="{{ blog.url }}?page=${nextPage}" aria-label="Next">
-                <span aria-hidden="true"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </li>`;
+        if (page < pages) {
+            uri = Blogs.UpdateParam('page', page + 1);
+            paginate += `
+            <li class="page-item">
+                <a class="page-link" href="${uri}" aria-label="Next">
+                    <span aria-hidden="true"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>`;
+        }
 
-        paginate += '</ul>';
+        paginate += '</ul>'; 
 
-        document.querySelector('#renderPagination').innerHTML = paginate;
+        return paginate;       
     } catch(e) {
-        // statements
         console.log(e);
+        return ``;
     }
-}
-window.addEventListener('load', async () => {
-    // paginate
-    pages = Math.ceil(parseInt(pagination.totalPage)/pagination.perPage);
-    renderPagination(pages);
+};
+
+window.addEventListener('load', e => {
+    Blogs.Content = document.querySelector('.BlogsContent');
+    Blogs.PagiContent = document.querySelector('.BlogsContentPaginate');
+
+    Blogs.ShowPosts(Blogs.Articles);
+
+    // Render Pagination
+    var pages = Math.ceil(Blogs.Total/Blogs.PerPage);
+
+    if (pages > 1) {
+        var o = Blogs.GenPagination(pages);
+        Blogs.PagiContent.innerHTML = o;
+    }
 });
 </script>
 {% schema %}
