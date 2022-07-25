@@ -27,10 +27,10 @@
         </div>
         <hr>
         <div class="blog__share">
+            {%- assign url = shop.url | append: article.url -%}
             <span>Share</span>
-            <a href=""> <img src="./assets/images/share_01.svg" alt=""></a>
-            <a href=""> <img src="./assets/images/share_02.svg" alt=""></a>
-            <a href=""> <img src="./assets/images/share_03.svg" alt=""></a>
+            {%- render 'icon-share-twitter', url: url -%}
+            {%- render 'icon-share-fb', url: url -%}
         </div>
     </div> </div>
 </div>
