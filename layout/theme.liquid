@@ -128,7 +128,8 @@
 
     // Slick
     document.addEventListener('Slick', e => {
-        jQuery(`.js-slider-pro`).slick({
+        $(function() {
+            jQuery(`.js-slider-pro`).slick({
             dots: false,
             infinite: false,
             speed: 300,
@@ -158,6 +159,8 @@
                 }
             ]
         });
+        })
+        
     });
     </script>
 </body>
