@@ -1,7 +1,7 @@
 <div class="container">
     <div class="section-content-child product">
         <h2 class="ttl-01">New Product</h2>
-        <div class="top-product js-slider-pro">{%- render 'icon-loading' -%}</div>
+        <div class="top-product js-slider-pro HomepageProducts">{%- render 'icon-loading' -%}</div>
     </div>
 </div>
 
@@ -24,29 +24,54 @@ if (window.HomePage == undefined) {
 }
 
 window.HomePage.Products = `[{{ data }}]`;
+window.HomePage.HomepageProducts = document.querySelector('.HomepageProducts');
 
 document.addEventListener('Sync', e => {
-    console.log(Shopify.User);
+    window.HomePage.IsWholesale = (localStorage.getItem('Customer_Mode') === 'wholesale' && (Shopify.User.caps != undefined && Shopify.User.caps.wholesale));
+    var o;
+    if ((o = JSON.parse(window.HomePage.Products)).length) {
+        var i = [], a;
+        o.forEach(e => {
+            if (
+                window.HomePage.IsWholesale && 
+                e.options.includes('Customer') && 
+                (a = e.variants.find(o => o.options.includes('wholesale') && o.available))
+            ) {
+                e.using_variants = true;
+                e.variants = a;
+            }
+
+            i.push(e);
+        });
+        if (i.length) {
+            window.HomePage.HomepageProducts.innerHTML = '';
+            i.forEach(e => {
+                var id = e.using_variants ? e.variants.id : e.id,
+                    url = `/products/` + e.handle,
+                    name = e.title,
+                    price = e.using_variants ? e.variants.price : e.price,
+                    image = e.using_variants ? (e.variants.featured_image || e.featured_image) : e.featured_image,
+                    action = (e.using_variants ? e.variants.available : e.available) ? 'addToCart(this)' : 'javascript:void(0)';
+
+                var product = `
+                    <div class="top-product__item">
+                        <a href="${url}">
+                            <div class="top-product__item__img">
+                                <img src="${image}" alt="${name}">
+                            </div>
+                            <p class="ttl">${name}</p>
+                            <p class="price">${Shopify.formatMoney(price)}</p>
+                        </a>
+                        <div class="product-nav">
+                            <a href="${action}" data-variant-id="${id}"><i class="icon-cart-01"></i></a>
+                        </div>
+                    </div>
+                    `;
+                window.HomePage.HomepageProducts.insertAdjacentHTML('beforeend', product);
+            });
+        }
+    }
 });
-// window.addEventListener('load', async e => {
-//     window.HomePage.IsWholesale = (localStorage.getItem('Customer_Mode') === 'wholesale' && (Shopify.User.caps != undefined && Shopify.User.caps.wholesale));
-//     var o;
-//     if ((o = JSON.parse(window.HomePage.Products)).length) {
-//         var i = [], a;
-//         o.forEach(e => {
-//             if (
-//                 window.HomePage.IsWholesale && 
-//                 e.options.includes('Customer') && 
-//                 (a = e.variants.find(o => o.options.includes('wholesale') && o.available))
-//             ) {
-//                 i.push(a);
-//             } else {
-//                 i.push(e);
-//             }
-//         });
-//         console.log(i);
-//     }
-// });
 </script>
 {% schema %}
 {
