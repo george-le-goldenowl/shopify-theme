@@ -1,1 +1,9 @@
-jQuery(function() { jQuery(".js-slider-top").slick({ dots: !0, arrows: !1, infinite: !0 }), jQuery(".js-slider-pro").slick({ dots: !1, infinite: !1, speed: 300, slidesToShow: 4, slidesToScroll: 4, responsive: [{ breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 3 } }, { breakpoint: 640, settings: { slidesToShow: 2, slidesToScroll: 2 } }, { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } }] }), jQuery(".js-review").slick({ dots: !1, infinite: !1, speed: 300, slidesToShow: 2, slidesToScroll: 2, responsive: [{ breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1 } }] }), $(".js-product-detail").slick({ slidesToShow: 1, slidesToScroll: 1, arrows: !1, fade: !0, asNavFor: ".js-product-detail-nav" }), $(".js-product-detail-nav").slick({ slidesToShow: 3, slidesToScroll: 1, arrows: !0, asNavFor: ".js-product-detail" }), $(".js-close-menu").click(function(a) { $(".navbar-collapse").removeClass("show") }) })
+jQuery(function () {
+    jQuery(".js-slider-top").slick({ dots: !0, arrows: !1, infinite: !0 }),
+        jQuery(".js-review").slick({ dots: !1, infinite: !1, speed: 300, slidesToShow: 2, slidesToScroll: 2, responsive: [{ breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1 } }] }),
+        $(".js-product-detail").slick({ slidesToShow: 1, slidesToScroll: 1, arrows: !1, fade: !0, asNavFor: ".js-product-detail-nav" }),
+        $(".js-product-detail-nav").slick({ slidesToShow: 3, slidesToScroll: 1, arrows: !0, asNavFor: ".js-product-detail" }),
+        $(".js-close-menu").click(function (a) {
+            $(".navbar-collapse").removeClass("show");
+        });
+});
