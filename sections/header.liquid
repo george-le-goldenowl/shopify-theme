@@ -62,7 +62,7 @@
                             <div class="customer-btn">
                                 <a class="nav-link active" href="javascript:void(0)">Retail</a>
                                 <span style="color: #fff;">/</span>
-                                <a class="nav-link" href="javascript:void(0)">Wholesale</a>
+                                <a class="nav-link WholesaleBtn" href="javascript: TypeBtn.onWholesale();">Wholesale</a>
                             </div>
                         </li>
                         <!-- TODO -->
@@ -99,3 +99,29 @@
         </div>
     </div>
 </header>
+<script type="text/javascript">
+'use strict';
+var TypeBtn = {
+    Wholesale: document.querySelector('.WholesaleBtn')
+};
+
+TypeBtn.onWholesale = () => {
+    try {
+        var e = `{{ customer.email }}`; 
+
+        if (!e) {
+            var i = document.querySelector('.LoginPopup');
+
+            i.classList.add('is-show');
+            i.querySelector('.LoginType').innerHTML = 'Wholesale Login';
+            document.querySelector('.cart-bg').classList.add('is-show');
+
+            throw 'ErrUnauthenticated';
+        }
+
+        
+    } catch(e) {
+        console.log(e);
+    }
+};
+</script>

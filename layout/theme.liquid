@@ -85,49 +85,43 @@
     <script>
     {% assign amount_format = '{{amount}}' %}
     Shopify.money_format = "${{amount_format}}";
-    Shopify.formatMoney = function(cents, format) {
-      if (typeof cents == 'string') { cents = cents.replace('.',''); }
-      var value = '';
-      var placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
-      var formatString = (format || this.money_format);
-    
-      function defaultOption(opt, def) {
-         return (typeof opt == 'undefined' ? def : opt);
-      }
-    
-      function formatWithDelimiters(number, precision, thousands, decimal) {
-        precision = defaultOption(precision, 2);
-        thousands = defaultOption(thousands, ',');
-        decimal   = defaultOption(decimal, '.');
-    
-        if (isNaN(number) || number == null) { return 0; }
-    
-        number = (number/100.0).toFixed(precision);
-    
-        var parts   = number.split('.'),
-            dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
-            cents   = parts[1] ? (decimal + parts[1]) : '';
-    
-        return dollars + cents;
-      }
-    
-      switch(formatString.match(placeholderRegex)[1]) {
-        case 'amount':
-          value = formatWithDelimiters(cents, 2);
-          break;
-        case 'amount_no_decimals':
-          value = formatWithDelimiters(cents, 0);
-          break;
-        case 'amount_with_comma_separator':
-          value = formatWithDelimiters(cents, 2, '.', ',');
-          break;
-        case 'amount_no_decimals_with_comma_separator':
-          value = formatWithDelimiters(cents, 0, '.', ',');
-          break;
-      }
-    
-      return formatString.replace(placeholderRegex, value);
+    Shopify.formatMoney = function (a, f) {
+        "string" == typeof a && (a = a.replace(".", ""));
+        var b = "",
+            d = /\{\{\s*(\w+)\s*\}\}/,
+            e = f || this.money_format;
+        function g(a, b) {
+            return void 0 === a ? b : a;
+        }
+        function c(a, b, c, d) {
+            if (((b = g(b, 2)), (c = g(c, ",")), (d = g(d, ".")), isNaN(a) || null == a)) return 0;
+            var e = (a = (a / 100).toFixed(b)).split("."),
+                f = e[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + c),
+                h = e[1] ? d + e[1] : "";
+            return f + h;
+        }
+        switch (e.match(d)[1]) {
+            case "amount":
+                b = c(a, 2);
+                break;
+            case "amount_no_decimals":
+                b = c(a, 0);
+                break;
+            case "amount_with_comma_separator":
+                b = c(a, 2, ".", ",");
+                break;
+            case "amount_no_decimals_with_comma_separator":
+                b = c(a, 0, ".", ",");
+        }
+        return e.replace(d, b);
     };
+    const SyncUser = async () =>
+        await fetch(window.server.host + "/wp-json/tatoo/action/get-user", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ email: "{{ customer.email  }}" }) })
+            .then((a) => a.json())
+            .then((a) => (a.err ? "" : a.user));
+    (async (a) => {
+        a.User = await SyncUser();
+    })(Shopify);
     </script>
 </body>
 

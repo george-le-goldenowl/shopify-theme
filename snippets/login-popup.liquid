@@ -1,9 +1,9 @@
-<div class="cart-fixed" id="customer-login">
+<div class="cart-fixed LoginPopup" id="customer-login">
     <div class="js-close-card" onclick="closeLoginPopup(this)"></div>
     <div class="cart-fixed__wrap">
         <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8">
             <div class="form-login">
-                <p class="text-center"><strong>Customer Login</strong></p>
+                <p class="text-center"><strong class="LoginType">Customer Login</strong></p>
                 <p class="text-center">For Registered Customers:</p>
                 <div id="ErrDiv"></div>
                 <input type="hidden" name="form_type" value="customer_login">
@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <input type="password" class="form-control form-control-line" name="customer[password]" placeholder="Password" data-required="true">
                 </div>
-                <div class="form-group text-center btn-payment wrap-login-btn">
+                <div class="form-group text-center btn-payment">
                     <a href="javascript:void(0)" class="btn-yellow btn-submit btn-disabled" onclick="onLoginSubmit(this)">Sign In</a> 
                 </div>
                 <div class="text-center">
@@ -38,87 +38,54 @@
 </style>
 <script type="text/javascript">
 var Login = {};
-Login.Disabled = {
-	email: true,
-	password: true
-};
-window.addEventListener('load', event => {
-	Login.Form = document.querySelector('#customer_login');
-	Login.Required = Login.Form.querySelectorAll('input[data-required=true]');
-	Login.SubmitButton = Login.Form.querySelector('.btn-submit');
-	Login.WrapSubmitButton = Login.Form.querySelector('.wrap-login-btn');
-
-	Login.Required.forEach(e => {
-		e.addEventListener('keyup', e => {
-			var target = e.target,
-				type = target.type;
-
-			switch (type) {
-			case 'email':
-				Login.Disabled.email = !target.value.length || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(target.value);
-				break;
-			case 'password':
-				Login.Disabled.password = !target.value.length;
-				break;
-			default:
-				// statements_def
-				break;
-		}
-
-		!Login.Disabled.email && !Login.Disabled.password
-			? Login.SubmitButton.classList.remove('btn-disabled')
-			: Login.SubmitButton.classList.add('btn-disabled');
-		});
-	});
-});
-
-var WrapLoginFrom = document.querySelector('#customer-login'),
-	Background = document.querySelector('.cart-bg');
-function showLoginPopup(e) {
-  	WrapLoginFrom.classList.add('is-show');
-  	Background.classList.add('is-show');
+(Login.Disabled = { email: !0, password: !0 }),
+    window.addEventListener("load", (a) => {
+        (Login.Form = document.querySelector("#customer_login")),
+            (Login.Required = Login.Form.querySelectorAll("input[data-required=true]")),
+            Login.Required.forEach((a) => {
+                a.addEventListener("keyup", (b) => {
+                    var a = b.target,
+                        c = a.type;
+                    switch (c) {
+                        case "email":
+                            Login.Disabled.email = !a.value.length || !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(a.value);
+                            break;
+                        case "password":
+                            Login.Disabled.password = !a.value.length;
+                    }
+                    (Login.SubmitButton = Login.Form.querySelector(".btn-submit")), Login.Disabled.email || Login.Disabled.password ? Login.SubmitButton.classList.add("btn-disabled") : Login.SubmitButton.classList.remove("btn-disabled");
+                });
+            });
+    });
+var WrapLoginFrom = document.querySelector("#customer-login"),
+    Background = document.querySelector(".cart-bg");
+function showLoginPopup(a) {
+    WrapLoginFrom.classList.add("is-show"), Background.classList.add("is-show");
 }
-function closeLoginPopup(e) {
-  	WrapLoginFrom.classList.remove('is-show');
-  	Background.classList.remove('is-show');
+function closeLoginPopup(a) {
+    WrapLoginFrom.classList.remove("is-show"), Background.classList.remove("is-show");
 }
-async function onLoginSubmit(e) {
-	var _e = e.parentElement.cloneNode(!0);
-
-	var formData = new FormData(Login.Form),
-        formDataObject = {};
-
-    	formData.forEach(function(value, key) {
-        	formDataObject[key] = value;
-    	});
-
-    Login.WrapSubmitButton.innerHTML = `{%- render 'icon-loading' -%}`;
-
+async function onLoginSubmit(b) {
+    var c = b.cloneNode(!0),
+        a = b.parentElement,
+        d = new FormData(Login.Form),
+        e = {};
+    d.forEach(function (a, b) {
+        e[b] = a;
+    }),
+        (a.innerHTML = "{%- render 'icon-loading' -%}");
     try {
-    	await fetch(window.server.host + `/wp-json/tatoo/action/verify-login`, {
-    		method: "POST",
-    		headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(formDataObject)
-    	})
-    	.then(res => res.json())
-    	.then(data => {
-    		if (data.err) {
-    			var mes = `<span style="margin-left: 5px; color: red; font-size: 12px;">${data.message}</span>`;
-    			document.querySelector('#ErrDiv').innerHTML = `{%- render 'icon-warning' -%}` + mes;
-
-    			throw data.code;
-    		} else {
-    			Login.Form.submit();
-    		}
-    	});
-    } catch(e) {
-    	console.log(e);
-    	Login.SubmitButton = _e.children[0];
-    	Login.WrapSubmitButton.innerHTML = '';
-    	Login.WrapSubmitButton.appendChild(_e);
+        await fetch(window.server.host + "/wp-json/tatoo/action/verify-login", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(e) })
+            .then((a) => a.json())
+            .then((a) => {
+                if (a.err) {
+                    var b = `<span style="margin-left: 5px; color: red; font-size: 12px;">${a.message}</span>`;
+                    throw ((document.querySelector("#ErrDiv").innerHTML = "{%- render 'icon-warning' -%}" + b), a.code);
+                }
+                Login.Form.submit();
+            });
+    } catch (f) {
+        console.log(f), (a.innerHTML = ""), a.appendChild(c);
     }
 }
 </script>
