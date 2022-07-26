@@ -713,7 +713,7 @@ a {
 .header__menu .nav-item-main .nav-link {
   color: #A5A9AD;
 }
-.header__menu .nav-item-main .nav-link .active {
+.header__menu .nav-item-main .nav-link.active {
   color: #fff;
 }
 .header__menu .nav-item-main .nav-link:after {
