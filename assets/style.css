@@ -705,12 +705,16 @@ a {
     left: 60px;
   }
 }
-.header__menu .nav-item-main .nav-link {
-  color: #fff;
-  padding: 8px 28px;
+.header__menu .nav-item-main .customer-btn {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
 }
-.header__menu .nav-item-main .nav-link span {
+.header__menu .nav-item-main .nav-link {
   color: #A5A9AD;
+}
+.header__menu .nav-item-main .nav-link .active {
+  color: #fff;
 }
 .header__menu .nav-item-main .nav-link:after {
   display: none;
