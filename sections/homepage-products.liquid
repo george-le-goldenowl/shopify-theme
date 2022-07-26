@@ -23,7 +23,7 @@ window.Slick = new Event('Slick');
 void 0 == window.HomePage && (window.HomePage = {}),
     (window.HomePage.Products = `[{{ data }}]`),
     (window.HomePage.HomepageProducts = document.querySelector(".HomepageProducts")),
-    document.addEventListener("Sync", (d) => {
+    document.addEventListener("Sync", async (d) => {
         var a,
             b = localStorage.getItem("Customer_Mode") || "retail";
         if (("wholesale" != b || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail"), (a = JSON.parse(window.HomePage.Products)).length)) {
@@ -51,7 +51,7 @@ void 0 == window.HomePage && (window.HomePage = {}),
                     `;
             }),
                 (window.HomePage.HomepageProducts.innerHTML = ""),
-                window.HomePage.HomepageProducts.insertAdjacentHTML("beforeend", c);
+                await window.HomePage.HomepageProducts.insertAdjacentHTML("beforeend", c);
             document.dispatchEvent(window.Slick);
         }
     });
