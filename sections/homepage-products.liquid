@@ -1,38 +1,47 @@
-{% assign products = section.settings.featured_products %}
-{% if products != blank %}
 <div class="container">
     <div class="section-content-child product">
         <h2 class="ttl-01">New Product</h2>
-        <div class="top-product js-slider-pro">
-            {% for product in products %}
-            <div class="top-product__item">
-                <a href="{{ product.url }}">
-                    {% assign thumbnail = product.featured_image %}
-                    {% if thumbnail %}
-                    <div class="top-product__item__img">
-                        {{ thumbnail
-                        | image_url: width: 268, crop: 'center'
-                        | image_tag: loading: 'lazy', alt: thumbnail.alt
-                        }}
-                    </div>
-                    {% endif %}
-                    <p class="ttl">{{ product.title | escape }}</p>
-                    <p class="price">{{ product.price | money }}</p>
-                </a>
-                <!-- <div class="product-nav">
-                    <a href=""><i class="icon-cart-01"></i></a>
-                    <a href=""><i class="icon-compare"></i></a>
-                    <a href=""><i class="icon-like"></i></a>
-                </div> -->
-            </div>
-            {% endfor %}
-        </div>
+        <div class="top-product js-slider-pro">{%- render 'icon-loading' -%}</div>
     </div>
 </div>
-{% endif %}
 
-<style type="text/css">
-</style>
+{% assign products = section.settings.featured_products %}
+{%- if products != empty -%}
+    {%- capture data -%}
+        {%- for product in products -%}
+            {{ product | json }}{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+    {%- endcapture -%}
+{%- else -%}
+    {%- assign data = '' -%}
+{%- endif -%}
+
+<script type="text/javascript">
+'use strict';
+
+if (window.HomePage == undefined) {
+    window.HomePage = {}
+}
+
+window.HomePage.Products = `[{{ data }}]`;
+window.HomePage.IsWholesale = (localStorage.getItem('Customer_Mode') === 'wholesale' && (Shopify.User.caps != undefined && Shopify.User.caps.wholesale));
+var o;
+if ((o = JSON.parse(window.HomePage.Products)).length) {
+    var i = [], a;
+    o.forEach(e => {
+        if (
+            window.HomePage.IsWholesale && 
+            e.options.includes('Customer') && 
+            (a = e.variants.find(o => o.options.includes('wholesale') && o.available))
+        ) {
+            i.push(a);
+        } else {
+            i.push(e);
+        }
+    });
+    console.log(i);
+}
+</script>
 {% schema %}
 {
 	"name": "New Product",

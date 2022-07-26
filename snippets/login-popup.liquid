@@ -73,14 +73,14 @@ async function onLoginSubmit(b) {
     d.forEach(function (a, b) {
         e[b] = a;
     }),
-        (a.innerHTML = "{%- render 'icon-loading' -%}");
+        (a.innerHTML = `{%- render 'icon-loading' -%}`);
     try {
         await fetch(window.server.host + "/wp-json/tatoo/action/verify-login", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(e) })
             .then((a) => a.json())
             .then((a) => {
                 if (a.err) {
                     var b = `<span style="margin-left: 5px; color: red; font-size: 12px;">${a.message}</span>`;
-                    throw ((document.querySelector("#ErrDiv").innerHTML = "{%- render 'icon-warning' -%}" + b), a.code);
+                    throw ((document.querySelector("#ErrDiv").innerHTML = `{%- render 'icon-warning' -%}` + b), a.code);
                 }
                 Login.Form.submit();
             });

@@ -10,6 +10,7 @@
                         <li><a href=""><span class="icon"><i class="fa fa-heart" aria-hidden="true"></i></span>Wish List</a></li>
                         <li><a href=""><span class="icon"><i class="fa fa-id-card-o" aria-hidden="true"></i></span>Store Credit</a></li>
                         <li><a href=""><span class="icon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>Payment Data</a></li>
+                        <!-- TODO: remove localstorage Customer_Mode -->
                         <li><a href="{{ routes.account_logout_url }}"><span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>Log Out</a></li>
                     </ul>
                 </div>
@@ -68,256 +69,230 @@
 'use strict';
 var Account = {};
 
-window.addEventListener('load', async event => {
-    Account.Content = document.querySelector('.profile-content');
-    Account.Address = `{{ customer.addresses | json }}`;
-    Account.ListAddress = Account.Content.querySelector('.list-address');
-    Account.WrapListAddress = Account.Content.querySelector('.wrap-list-address');
-
-    if (Account.Address) {
-        var list = '<p><strong>List Address</strong></p>';
-
-        JSON.parse(Account.Address).forEach(e => {
-            const address = JSON.stringify(e);
-
-            if (!e.default) {
-                var details = [];
-                details.push(e.name);
-                details.push(e.company);
-                details.push(e.address1);
-                details.push(e.address2);
-                details.push(`${e.city} ${e.province_code} ${e.zip}`);
-                details.push(e.country);
-
-                list += details.join("<br/>");
-                list += `
-                    <div class="btn-text d-flex" data-address-id="${e.id}" data-address='${address}'>
+window.addEventListener("load", async (b) => {
+    if (
+        ((Account.Content = document.querySelector(".profile-content")),
+        (Account.Address = "{{ customer.addresses | json }}"),
+        (Account.ListAddress = Account.Content.querySelector(".list-address")),
+        (Account.WrapListAddress = Account.Content.querySelector(".wrap-list-address")),
+        Account.Address)
+    ) {
+        var a = "<p><strong>List Address</strong></p>";
+        JSON.parse(Account.Address).forEach((b) => {
+            let d = JSON.stringify(b);
+            if (!b.default) {
+                var c = [];
+                c.push(b.name),
+                    c.push(b.company),
+                    c.push(b.address1),
+                    c.push(b.address2),
+                    c.push(`${b.city} ${b.province_code} ${b.zip}`),
+                    c.push(b.country),
+                    (a += c.join("<br/>")),
+                    (a += `
+                    <div class="btn-text d-flex" data-address-id="${b.id}" data-address='${d}'>
                         <a href="javascript:void(0)" onclick="ShowEditForm(this)">Edit</a>
                     </div>
                     <hr/>
-                `;
+                `);
             }
-        });
-
-        Account.ListAddress.innerHTML = list;
-    } else {
+        }),
+            (Account.ListAddress.innerHTML = a);
+    } else
         Account.ListAddress.innerHTML = `
             <p>You have not set a default shipping address.</p>
             <div class="btn-text d-flex">
                 <a href="javascript:void(0)">Add new</a>
             </div>
         `;
-    }
 });
-
-const ShowEditForm = async (e) => {
-    var Id = e.parentElement.dataset.addressId,
-        Address = e.parentElement.dataset.address;
-
-    var Form = GenerateEditForm(JSON.parse(Address));
-    await Account.WrapListAddress.insertAdjacentHTML('beforeend', Form);
-    Account.WrapListAddress.firstElementChild.style.display = 'none';
-
-    // selectedIndex
-    var countries = Account.Content.querySelector(`#AddressCountry_${Id}`);
-    countries && await SelectedCountry(countries, Id);
-};
-
-const onCancelEditForm = Id => {
-    document.querySelector(`form#address_form_${Id}`)
-        && document.querySelector(`form#address_form_${Id}`).remove();
-    Account.WrapListAddress.firstElementChild.style.display = 'flex';
-};
-
-const GenerateProvices = (e, Id) => {
-    var provinces = (e.options[e.selectedIndex]).getAttribute('data-provinces'),
-        Provinces = Account.Content.querySelector(`#AddressProvinceContainer_${Id}`),
-        WrapProvinces = Provinces.closest('.address-province');
-    
-    Provinces.innerHTML = '';
-        
-    if (JSON.parse(provinces).length) {
-        JSON.parse(provinces).forEach(e => {
-            var i = document.createElement('option');
-            i.value = e[0];
-            i.selected = Provinces.dataset.default == e[0];
-            i.innerHTML = e[1];
-            Provinces.appendChild(i);
-        });
-        WrapProvinces.classList.remove('d-none');
-    } else {
-        WrapProvinces.classList.add('d-none');
-    }
-};
-  
-const SelectedCountry = (e, Id) => {
-    var sel = e.dataset.default;
-
-    for (var i = 0; i <= e.options.length; i++) {
-        var This = e.options[i];
-
-        if (sel == This.value || sel == This.innerHTML) {
-            e.selectedIndex = i;
+const ShowEditForm = async (a) => {
+    var d,
+        e,
+        b = a.parentElement.dataset.addressId;
+    await Account.WrapListAddress.insertAdjacentHTML("beforeend", GenerateEditForm(JSON.parse(a.parentElement.dataset.address))), (Account.WrapListAddress.firstElementChild.style.display = "none");
+    var c = Account.Content.querySelector(`#AddressCountry_${b}`);
+    c && (await SelectedCountry(c, b));
+},
+onCancelEditForm = (a) => {
+    document.querySelector(`form#address_form_${a}`) && document.querySelector(`form#address_form_${a}`).remove(), (Account.WrapListAddress.firstElementChild.style.display = "flex");
+},
+GenerateProvices = (a, e) => {
+    var b = a.options[a.selectedIndex].getAttribute("data-provinces"),
+        c = Account.Content.querySelector(`#AddressProvinceContainer_${e}`),
+        d = c.closest(".address-province");
+    (c.innerHTML = ""),
+        JSON.parse(b).length
+            ? (JSON.parse(b).forEach((b) => {
+                  var a = document.createElement("option");
+                  (a.value = b[0]), (a.selected = c.dataset.default == b[0]), (a.innerHTML = b[1]), c.appendChild(a);
+              }),
+              d.classList.remove("d-none"))
+            : d.classList.add("d-none");
+},
+SelectedCountry = (a, e) => {
+    for (var c = a.dataset.default, b = 0; b <= a.options.length; b++) {
+        var d = a.options[b];
+        if (c == d.value || c == d.innerHTML) {
+            a.selectedIndex = b;
             break;
         }
     }
+    GenerateProvices(a, e);
+},
+GenerateEditForm = (b) => {
+    var c,
+        a = b.id;
+    return `
+    <form method="post" action="/account/addresses/${a}" id="address_form_${a}" accept-charset="UTF-8">
+        <input type="hidden" name="form_type" value="customer_address">
+        <input type="hidden" name="utf8" value="✓">
 
-    GenerateProvices(e, Id);
-};
-
-const GenerateEditForm = (address) => {
-    var Id = address.id;
-    var form = `
-        <form method="post" action="/account/addresses/${Id}" id="address_form_${Id}" accept-charset="UTF-8">
-            <input type="hidden" name="form_type" value="customer_address">
-            <input type="hidden" name="utf8" value="✓">
-
-            <div class="shipping__form">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="AddressFirstName_${Id}">First name</label>
-                            <input 
-                                id="AddressFirstName_${Id}"
-                                type="text"
-                                name="address[first_name]" 
-                                value="${address.first_name}" 
-                                class="form-control form-control-line address_form" 
-                            />
-                        </div>
+        <div class="shipping__form">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="AddressFirstName_${a}">First name</label>
+                        <input 
+                            id="AddressFirstName_${a}"
+                            type="text"
+                            name="address[first_name]" 
+                            value="${b.first_name}" 
+                            class="form-control form-control-line address_form" 
+                        />
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="AddressLastName_${Id}">Last Name</label>
-                            <input 
-                                id="AddressLastName_${Id}"
-                                type="text"  
-                                name="address[last_name]" 
-                                value="${address.last_name}" 
-                                class="form-control form-control-line address_form"
-                            />
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="AddressLastName_${a}">Last Name</label>
+                        <input 
+                            id="AddressLastName_${a}"
+                            type="text"  
+                            name="address[last_name]" 
+                            value="${b.last_name}" 
+                            class="form-control form-control-line address_form"
+                        />
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="AddressCompany_${Id}">Company</label>
-                            <input 
-                                id="AddressCompany_${Id}"
-                                type="text"  
-                                name="address[company]" 
-                                value="${address.company}"
-                                class="form-control form-control-line address_form"
-                            />
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="AddressCompany_${a}">Company</label>
+                        <input 
+                            id="AddressCompany_${a}"
+                            type="text"  
+                            name="address[company]" 
+                            value="${b.company}"
+                            class="form-control form-control-line address_form"
+                        />
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="AddressAddress1_${Id}">Address</label>
-                            <input 
-                                id="AddressAddress1_${Id}"
-                                type="text"  
-                                name="address[address1]" 
-                                value="${address.address1}"
-                                class="form-control form-control-line address_form"
-                            />
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="AddressAddress1_${a}">Address</label>
+                        <input 
+                            id="AddressAddress1_${a}"
+                            type="text"  
+                            name="address[address1]" 
+                            value="${b.address1}"
+                            class="form-control form-control-line address_form"
+                        />
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="AddressAddress2_${Id}">Apartment</label>
-                            <input 
-                                id="AddressAddress2_${Id}"
-                                type="text"  
-                                name="address[address2]" 
-                                value="${address.address2}"
-                                class="form-control form-control-line address_form"
-                            />
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="AddressAddress2_${a}">Apartment</label>
+                        <input 
+                            id="AddressAddress2_${a}"
+                            type="text"  
+                            name="address[address2]" 
+                            value="${b.address2}"
+                            class="form-control form-control-line address_form"
+                        />
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="AddressCity_${Id}">City</label>
-                            <input 
-                                id="AddressCity_${Id}"
-                                type="text"  
-                                name="address[city]" 
-                                value="${address.address2}"
-                                class="form-control form-control-line address_form"
-                            />
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="AddressCity_${a}">City</label>
+                        <input 
+                            id="AddressCity_${a}"
+                            type="text"  
+                            name="address[city]" 
+                            value="${b.address2}"
+                            class="form-control form-control-line address_form"
+                        />
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="AddressCountry_${Id}">Country<span class="txt-error">*</span></label>
-                            <select 
-                                onchange="GenerateProvices(this, ${Id})"
-                                id="AddressCountry_${Id}" 
-                                name="address[country]" 
-                                class="form-control form-control-line address_form" 
-                                data-default="${address.country}" 
-                                data-address-id="${Id}" 
-                                autocomplete="country">
-                                {{ all_country_option_tags }}
-                            </select>
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="AddressCountry_${a}">Country<span class="txt-error">*</span></label>
+                        <select 
+                            onchange="GenerateProvices(this, ${a})"
+                            id="AddressCountry_${a}" 
+                            name="address[country]" 
+                            class="form-control form-control-line address_form" 
+                            data-default="${b.country}" 
+                            data-address-id="${a}" 
+                            autocomplete="country">
+                            {{ all_country_option_tags }}
+                        </select>
                     </div>
-                    <div class="col-md-6 address-province d-none">
-                        <div class="form-group">
-                            <label for="AddressProvinceContainer_${Id}">Province<span class="txt-error">*</span></label>
-                            <select 
-                                id="AddressProvinceContainer_${Id}" 
-                                name="address[province]" 
-                                class="form-control form-control-line" 
-                                data-default="${address.province}">
-                            </select>
-                        </div>
+                </div>
+                <div class="col-md-6 address-province d-none">
+                    <div class="form-group">
+                        <label for="AddressProvinceContainer_${a}">Province<span class="txt-error">*</span></label>
+                        <select 
+                            id="AddressProvinceContainer_${a}" 
+                            name="address[province]" 
+                            class="form-control form-control-line" 
+                            data-default="${b.province}">
+                        </select>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="AddressZip_${Id}">Postal Code/Zip</label>
-                            <input 
-                                id="AddressZip_${Id}"
-                                type="text"  
-                                name="address[zip]" 
-                                value="${address.zip}"
-                                class="form-control form-control-line"
-                                autocomplete="postal-code" 
-                                data-required="true" 
-                            />
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="AddressZip_${a}">Postal Code/Zip</label>
+                        <input 
+                            id="AddressZip_${a}"
+                            type="text"  
+                            name="address[zip]" 
+                            value="${b.zip}"
+                            class="form-control form-control-line"
+                            autocomplete="postal-code" 
+                            data-required="true" 
+                        />
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="AddressPhone_${Id}">Phone</label>
-                            <input 
-                                id="AddressPhone_${Id}"
-                                type="text"  
-                                name="address[phone]" 
-                                value="${address.phone}"
-                                class="form-control form-control-line"
-                                autocomplete="tel" 
-                                data-required="true" 
-                            />
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="AddressPhone_${a}">Phone</label>
+                        <input 
+                            id="AddressPhone_${a}"
+                            type="text"  
+                            name="address[phone]" 
+                            value="${b.phone}"
+                            class="form-control form-control-line"
+                            autocomplete="tel" 
+                            data-required="true" 
+                        />
                     </div>
                 </div>
             </div>
-            <div class="shipping__btn row">
-                <div class="col-sm-6">
-                    <div class="shipping__btn btn-submit">
-                        <div class="btn-payment"><a href="javascript: document.querySelector('form#address_form_${address.id}').submit()">Edit</a></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="shipping__btn">
-                        <div class="btn-back"><a href="javascript:void(0)" onclick="onCancelEditForm(${Id})">Back</a</div>
-                    </div>
+        </div>
+        <div class="shipping__btn row">
+            <div class="col-sm-6">
+                <div class="shipping__btn btn-submit">
+                    <div class="btn-payment"><a href="javascript: document.querySelector('form#address_form_${b.id}').submit()">Edit</a></div>
                 </div>
             </div>
-            <input type="hidden" name="_method" value="put"></form>
-        </form>
-    `;
-
-    return form;
+            <div class="col-sm-6">
+                <div class="shipping__btn">
+                    <div class="btn-back"><a href="javascript:void(0)" onclick="onCancelEditForm(${a})">Back</a</div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="_method" value="put"></form>
+    </form>
+`;
 };
+
 </script>

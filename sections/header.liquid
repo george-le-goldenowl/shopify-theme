@@ -59,10 +59,10 @@
                     <button class="js-close-menu d-sm-none"></button>
                     <ul class="navbar-nav">
                         <li class="nav-item nav-item-main">
-                            <div class="customer-btn">
-                                <a class="nav-link active" href="javascript:void(0)">Retail</a>
+                            <div class="customer-btn CustomerSwitch">
+                                <a class="nav-link" data-type="retail" href="javascript: localStorage.setItem('Customer_Mode', 'retail'); location.reload();">Retail</a>
                                 <span style="color: #fff;">/</span>
-                                <a class="nav-link WholesaleBtn" href="javascript: TypeBtn.onWholesale();">Wholesale</a>
+                                <a class="nav-link" data-type="wholesale" href="javascript: TypeBtn.onWholesale();">Wholesale</a>
                             </div>
                         </li>
                         <!-- TODO -->
@@ -101,27 +101,17 @@
 </header>
 <script type="text/javascript">
 'use strict';
-var TypeBtn = {
-    Wholesale: document.querySelector('.WholesaleBtn')
-};
-
-TypeBtn.onWholesale = () => {
+var TypeBtn = { Switch: document.querySelector(".CustomerSwitch"), Type: localStorage.getItem("Customer_Mode") || "retail" };
+TypeBtn.Switch.querySelectorAll("a").forEach((a) => {
+    TypeBtn.Type == a.getAttribute("data-type") && a.classList.add("active");
+}),
+(TypeBtn.onWholesale = () => {
     try {
-        var e = `{{ customer.email }}`; 
-
-        if (!e) {
-            var i = document.querySelector('.LoginPopup');
-
-            i.classList.add('is-show');
-            i.querySelector('.LoginType').innerHTML = 'Wholesale Login';
-            document.querySelector('.cart-bg').classList.add('is-show');
-
-            throw 'ErrUnauthenticated';
-        }
-
-        
-    } catch(e) {
-        console.log(e);
+        var b, c;
+        if (!Shopify.User.caps.wholesale) throw (alert("You need become a wholesaler first."), "ErrCustomerType");
+        localStorage.setItem("Customer_Mode", "wholesale"), location.reload();
+    } catch (a) {
+        console.log(a);
     }
-};
+});
 </script>
