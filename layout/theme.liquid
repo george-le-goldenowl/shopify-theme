@@ -115,12 +115,15 @@
         }
         return e.replace(d, b);
     };
+    window.Events = new Event('Sync');
     const SyncUser = async () =>
         await fetch(window.server.host + "/wp-json/tatoo/action/get-user", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ email: "{{ customer.email  }}" }) })
             .then((a) => a.json())
             .then((a) => (a.err ? "" : a.user));
     (async (a) => {
         a.User = await SyncUser();
+        // send an event
+        document.dispatchEvent(window.Events);
     })(Shopify);
     </script>
 </body>

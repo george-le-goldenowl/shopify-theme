@@ -24,23 +24,29 @@ if (window.HomePage == undefined) {
 }
 
 window.HomePage.Products = `[{{ data }}]`;
-window.HomePage.IsWholesale = (localStorage.getItem('Customer_Mode') === 'wholesale' && (Shopify.User.caps != undefined && Shopify.User.caps.wholesale));
-var o;
-if ((o = JSON.parse(window.HomePage.Products)).length) {
-    var i = [], a;
-    o.forEach(e => {
-        if (
-            window.HomePage.IsWholesale && 
-            e.options.includes('Customer') && 
-            (a = e.variants.find(o => o.options.includes('wholesale') && o.available))
-        ) {
-            i.push(a);
-        } else {
-            i.push(e);
-        }
-    });
-    console.log(i);
-}
+
+document.addEventListener('Sync', e => {
+    console.log(Shopify.User);
+});
+// window.addEventListener('load', async e => {
+//     window.HomePage.IsWholesale = (localStorage.getItem('Customer_Mode') === 'wholesale' && (Shopify.User.caps != undefined && Shopify.User.caps.wholesale));
+//     var o;
+//     if ((o = JSON.parse(window.HomePage.Products)).length) {
+//         var i = [], a;
+//         o.forEach(e => {
+//             if (
+//                 window.HomePage.IsWholesale && 
+//                 e.options.includes('Customer') && 
+//                 (a = e.variants.find(o => o.options.includes('wholesale') && o.available))
+//             ) {
+//                 i.push(a);
+//             } else {
+//                 i.push(e);
+//             }
+//         });
+//         console.log(i);
+//     }
+// });
 </script>
 {% schema %}
 {
