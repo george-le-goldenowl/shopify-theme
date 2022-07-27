@@ -82,9 +82,10 @@ Products.Collection = async handle => {
     Products.Page = 1;
     Products.Perpage = 8;
 
-    var result = await fetch(`/collections/${handle}/products.json`).then(res => res.json());
+    var result = await fetch(`/collections/${handle.value}/products.json`).then(res => res.json());
 
-    console.log(result);
+    Products.Result = result.products;
+    Products.ShowResults();
 };
 
 Products.SwitchNumbers = number => {
@@ -248,6 +249,8 @@ Products.ShowResults = () => {
 
             document.dispatchEvent(window.Effect);
         }
+    } else {
+        Products.List.innerHTML = 'No products found';
     }
 };
 
