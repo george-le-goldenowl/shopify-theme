@@ -34,8 +34,7 @@ void 0 == window.HomePage && (window.HomePage = {}),
                     var d = a.variants.find((a) => a.options.includes(b));
                     d && ((a.id = d.id), (a.price = d.price), (a.available = d.available));
                 }
-                var e = "/products/" + a.handle,
-                    action = a.available ? 'onlick="addToCart(this)"' : "";
+                var e = "/products/" + a.handle;
                 c += `
                     <div class="top-product__item">
                         <a href="${e}">
@@ -44,12 +43,13 @@ void 0 == window.HomePage && (window.HomePage = {}),
                             </div>
                             <p class="ttl">${a.title}</p>
                             <p class="price">${Shopify.formatMoney(a.price)}</p>
-                        </a>
-                        <div class="product-nav">
-                            <a href="javascript:void(0)" ${action} data-variant-id="${a.id}"><i class="icon-cart-01"></i></a>
-                        </div>
-                    </div>
-                    `;
+                        </a>`;
+                        if (a.available) {
+                            c += `<div class="product-nav">
+                                    <a href="javascript:void(0)" onclick="addToCart(this)" data-variant-id="${a.id}"><i class="icon-cart-01"></i></a>
+                                </div>`;
+                        }
+                c += `</div>`;
             }),
                 (window.HomePage.HomepageProducts.innerHTML = ""),
                 await window.HomePage.HomepageProducts.insertAdjacentHTML("beforeend", c);
