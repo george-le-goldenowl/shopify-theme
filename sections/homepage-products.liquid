@@ -18,8 +18,6 @@
 
 <script type="text/javascript">
 'use strict';
-window.Slick = new Event('Slick');
-
 void 0 == window.HomePage && (window.HomePage = {}),
     (window.HomePage.Products = `[{{ data }}]`),
     (window.HomePage.HomepageProducts = document.querySelector(".HomepageProducts")),
@@ -53,7 +51,7 @@ void 0 == window.HomePage && (window.HomePage = {}),
             }),
                 (window.HomePage.HomepageProducts.innerHTML = ""),
                 await window.HomePage.HomepageProducts.insertAdjacentHTML("beforeend", c);
-            document.dispatchEvent(window.Slick);
+            document.dispatchEvent(window.Effect);
         }
     });
 </script>

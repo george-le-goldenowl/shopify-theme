@@ -2,8 +2,7 @@
     <div class="row">
         <div class="col-lg-3 order-ft-02">
             <h3 class="ttl-02">
-                <i class="icon-filter"></i>
-                Filter
+                <i class="icon-filter"></i>Filter
             </h3>
             <!-- Filters -->
             {% assign categories = linklists['categories'].links %}
@@ -49,9 +48,9 @@
                         <div class="dropdown">
                             <button class="dropdown-toggle" type="button" id="numberProductsShow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">10</button>
                             <div class="dropdown-menu" aria-labelledby="numberProductsShow">
-                                <a class="dropdown-item" href="#">5</a>
-                                <a class="dropdown-item" href="#">10</a>
-                                <a class="dropdown-item" href="#">20</a>
+                                <a class="dropdown-item" href="#">8</a>
+                                <a class="dropdown-item" href="#">16</a>
+                                <a class="dropdown-item" href="#">24</a>
                             </div>
                         </div>
                     </div>
@@ -76,229 +75,109 @@
                 </div>
             </div>
 
-            <div class="top-product product-list"></div>
+            <div class="top-product product-list ProductsList">{%- render 'icon-loading' -%}</div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
 'use strict';
-function renderResults(data) {
-    if (data.products) {
-        var html = '<div class="row">';
-        data.products.forEach(e => {
-            var id = e.variants[0].id,
-                url = `/products/${e.handle}`,
-                title = e.title,
-                image = e.images[0] ? e.images[0].src : '',
-                price = Shopify.formatMoney(e.variants[0].price);
-            html += `
-            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-                <div class="top-product__item">
-                    <a href="${url}">
-                        <div class="top-product__item__img lazy" style="max-height: 134px;">
-                            <img src="${image}" alt="${title}">
+var Products = {
+    Result: [],
+    Page: 1,
+    Perpage: 8
+};
+Products.List = document.querySelector('.ProductsList');
+
+Products.Filter = (by, data) => {
+    var b, r = [];
+    "wholesale" != (b = localStorage.getItem("Customer_Mode") || "retail") || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail");
+
+    switch (by) {
+        case 'customer':
+            r = data.filter(i => {
+                var o;
+                if (i.options.find(i => i.name == 'Customer')) {
+                    o = i.variants.find(i => {
+                        if (i.title.localeCompare(b) && i.available) {
+                            return i;
+                        }
+                    });
+                } else {
+                    o = i.variants.find(i => {
+                        i.available && return i;
+                    });
+                }
+
+                if (!o) {
+                    // if there is no available variant, pick the first one
+                    o = i.variants[0];
+                }
+
+                i.id = o.id;
+                i.price = o.price;
+                i.available = o.available;
+
+                return i;
+            });
+            break;
+        default:
+            // statements_def
+            break;
+    }
+
+    return r;
+};
+
+Products.Paginate = page => {
+
+};
+
+Products.ShowResults = () => {
+    if (Products.Result) {
+        var from = (Products.Page - 1) * Products.Perpage,
+            to = Products.Page * Products.Perpage,
+            i;
+        
+        if ((i = Products.Result.slice(from, to)).length) {
+            var o = `<div class="row">`;
+            i.forEach(e => {
+                var image = e.images[0] ? e.images[0].src : '';
+                o += `
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <div class="top-product__item">
+                        <a href="/products/${e.handle}">
+                            <div class="top-product__item__img lazy" style="max-height: 134px;">
+                                <img src="${image}" alt="${e.title}">
+                            </div>
+                            <p class="ttl">${e.title}</p>
+                            <p class="price">${Shopify.formatMoney(e.price)}</p>
+                        </a>
+                        <div class="product-nav">
+                            <a href="javascript:void(0)" onclick="addToCart(this)" data-variant-id="${e.id}"><i class="icon-cart-01"></i></a>
                         </div>
-                        <p class="ttl">${title}</p>
-                        <p class="price">${price}</p>
-                    </a>
-                    <div class="product-nav">
-                        <a href="javascript:void(0)" onclick="addToCart(this)" data-variant-id="${id}"><i class="icon-cart-01"></i></a>
                     </div>
                 </div>
-            </div>
-            `;
-        });
-        html += '</div>';
-        element.target.classList.remove('no-item');
-        element.target.innerHTML = html;
+                `;
+            });
+            o += `</div>`;
+
+            Products.List.innerHTML = o;
+            document.dispatchEvent(window.Effect);
+        }
     }
-}
-function renderPagination(pageNum) {
-  var html = '',
-      current = parseInt(element.filter.page),
-      activePre = 1 == current ? 'pointer-events: none;' : '',
-      activeNext = pageNum == current ? 'pointer-events: none;' : '';
-  html += `
-  <li class="page-item">
-      <a class="page-link" style="${activePre}" href="javascript:void(0)" onclick="getPagination(parseInt(this.closest('.pagination').querySelector('.active > a').innerHTML) - 1)" aria-label="Previous">
-          <span aria-hidden="true"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-          <span class="sr-only">Previous</span>
-      </a>
-  </li>`;
-  for (var i = 1; i <= pageNum; i++) {
-      var active = i == current ? 'active' : '';
-      html += `<li class="page-item ${active}"><a class="page-link" href="javascript:void(0)" onclick="getPagination(this.innerHTML)">${i}</a></li>`;
-  }
-  html += `
-  <li class="page-item">
-      <a class="page-link" style="${activeNext}" href="javascript:void(0)" onclick="getPagination(parseInt(this.closest('.pagination').querySelector('.active > a').innerHTML) + 1)" aria-label="Next">
-          <span aria-hidden="true"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-          <span class="sr-only">Next</span>
-      </a>
-  </li>
-  `;
-  element.pagination.insertAdjacentHTML('beforeend', html);
-}
-function getPagination(page) {
-  element.filter.page = page;
-
-  // dispatch
-  document.dispatchEvent(event);
-}
-function getSubCategory(e) {
-  element.filter.category = e.value;
-  element.filter.totals = e.dataset.totalPost;
-  element.filter.page = 1;
-
-  // dispatch
-  document.dispatchEvent(event);
-}
-function getPostbyHash(e) {
-    var hash = e.getAttribute('href').split('#')[1];
-    element.filter.category = hash;
-
-    document.dispatchEvent(event);
-}
-function ignoreExtraFees(data) {
-  return Array.from(data).filter(e => {
-    return e.handle !== 'additional-options';
-  });  
-}
-function sortBy(data) {
-  var result = ignoreExtraFees(data.products);
-  switch (element.filter.sort) {
-    case 'name':
-        result.sort((a, b) => {
-          var x = a.title.toLowerCase(),
-              y = b.title.toLowerCase();
-          return x < y ? -1 : x > y ? 1 : 0;
-        });
-        break;
-    case 'price':
-        result.sort((a, b) => {
-          var x = parseFloat(a.variants[0].price),
-              y = parseFloat(b.variants[0].price);
-          return x - y;
-        });
-        break;
-    default:
-        // do nothing
-        break;
-  }
-  
-  data.products = result;
-  return data;
-}
-
-var element = {};
-var event = new Event('fetch');
-element.page = document.querySelector('#numberProductsShow');
-element.sort = document.querySelector('#sorting');
-element.filter = {
-    category: undefined,
-    totals: '{{ collections['all'].products_count }}',
-    perPage: 10,
-    page: 1,
-    sort: 'relevance'
 };
-element.target = document.querySelector('.product-list');
-element.category = document.querySelectorAll('ul.fillter-menu a');
-element.pagination = document.querySelector('.pagination');
 
-// action
-element
-  .category.forEach(e => {
-    e.addEventListener('click', e => {
-      e.preventDefault();
-      document.querySelectorAll('ul.fillter-menu .active')
-        && document.querySelectorAll('ul.fillter-menu .active').forEach(e => {
-          e.classList.remove('active');
-        });
-      document.querySelectorAll('input[type=radio]')
-        && document.querySelectorAll('input[type=radio]')
-                   .forEach(e => {
-                     e.checked = false;
-                   });
-      e.target.classList.add('active');
-      if (e.target.classList.contains('js-menu-child')) {
-        e.target.nextElementSibling.classList.add('active');
-      }
-      element.filter.category = e.target.getAttribute('href');
-      element.filter.totals = e.target.dataset.totalPost;
-      element.filter.page = 1;
-      
-      // dispatch
-      document.dispatchEvent(event);
-    });
-  });
-element
-  .page
-  .nextElementSibling
-  .querySelectorAll('a')
-  .forEach(e => {
-    e.addEventListener('click', e => {
-      e.preventDefault();
-      var per = e.target.innerHTML;
-      element.filter.page = 1;
-      element.filter.perPage = per;
-      element.page.innerHTML = per;
+document.addEventListener('Sync', async e => {
+    // get all products
+    var result = await fetch('/products.json').then(res => res.json()),
+        o,
+        i;
 
-      // dispatch
-      document.dispatchEvent(event);
-    });
-  }); 
-element
-  .sort
-  .nextElementSibling
-  .querySelectorAll('a')
-  .forEach(e => {
-    e.addEventListener('click', e => {
-      e.preventDefault();
-      var type = e.target.innerHTML;
-      element.filter.sort = type.toLowerCase();
-      element.sort.innerHTML = type;
-      
-      // dispatch
-      document.dispatchEvent(event);
-    });
-  });
-  
-// loaded
-window.addEventListener('load', async () => {
-    if (window.location.hash) {
-        var hash = window.location.hash.substring(1);
-        element.filter.category = hash;
-        element.filter.totals = document.querySelector(`a[href=${hash}]`).dataset.totalPost;
+    if ((i = (o = result.products).filter(i => 'Gift Cards' != i.product_type)).length) {
+        i = Products.Filter('customer', i);
+        Products.Result = i;
+        Products.ShowResults();
     }
-
-    var pageNum = Math.ceil(element.filter.totals/element.filter.perPage);
-
-    await document.dispatchEvent(event);
-    renderPagination(pageNum);
-});
-  
-// event
-document.addEventListener('fetch', () => {
-  var category = element.filter.category || 'all',
-      totals = element.filter.totals,
-      page = element.filter.page,
-      perPage = element.filter.perPage,
-      pageNum = Math.ceil(totals/perPage);
-  element.target.classList.add('no-item');
-  element.target.innerHTML = `{% render 'icon-tatoo' %}`;
-  fetch('/collections/' + category + '/products.json' + '?limit=' + perPage + '&page=' + page)
-    .then(res => res.json())
-    .then(data => { 
-      // set default value
-      element.pagination.innerHTML = '';
-
-      if (pageNum > 1) {
-        renderPagination(pageNum);
-      }
-      
-      var result = sortBy(data);
-      renderResults(result);
-    });
 });
 </script>
 {% schema %}

@@ -108,6 +108,10 @@ TypeBtn.Switch.querySelectorAll("a").forEach((a) => {
 (TypeBtn.onWholesale = () => {
     try {
         var b, c;
+        if (void 0 == Shopify.User.caps) {
+            showLoginPopup();
+            throw 'ErrUnauthenticated';
+        } 
         if (!Shopify.User.caps.wholesale) throw (alert("You need become a wholesaler first."), "ErrCustomerType");
         localStorage.setItem("Customer_Mode", "wholesale"), location.reload();
     } catch (a) {

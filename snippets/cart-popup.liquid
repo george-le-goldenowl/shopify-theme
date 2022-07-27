@@ -100,7 +100,7 @@ const removeItem = async (a) => await fetch("/cart/change.json", { method: "POST
     addToCart = async (b) => {
         var a = b.parentElement,
             c = a.innerHTML;
-        a.innerHTML = "{% render 'icon-loading' %}";
+        a.innerHTML = `{% render 'icon-loading' %}`;
         var d = { id: b.dataset.variantId, quantity: document.querySelector("input[name=quantity]") ? document.querySelector("input[name=quantity]").value : 1 };
         try {
             await addItem(d), (a.innerHTML = c);
@@ -110,7 +110,7 @@ const removeItem = async (a) => await fetch("/cart/change.json", { method: "POST
     },
     onDelete = async (a) => {
         var b;
-        (a.parentElement.innerHTML = "{% render 'icon-loading' %}"), await removeItem(a.dataset.id), void 0 != CartPopup && CartPopup.Refresh();
+        (a.parentElement.innerHTML = `{% render 'icon-loading' %}`), await removeItem(a.dataset.id), void 0 != CartPopup && CartPopup.Refresh();
     };
 document.addEventListener("Sync", async (e) => {
     var c,
