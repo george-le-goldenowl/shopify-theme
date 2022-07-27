@@ -10,7 +10,7 @@
                 <ul class="fillter-menu">
                     {% for item in Filters %}
                         <li class="has-child">
-                            <a href="{{ item.url }}" onclick="javascript: this.nextElementSibling.classList.toggle('active');" class="js-menu-child">{{ item.title }}</a>
+                            <a href="javascript: void(0);" onclick="javascript: this.nextElementSibling.classList.toggle('active');" class="js-menu-child">{{ item.title }}</a>
                             <div class="has-child-sub">
                                 {% for sub in item.links %}
                                       {%- assign name = sub.title | remove: '[CATEGORY]' | remove: '[BRAND]' -%}
@@ -66,206 +66,132 @@
 </div>
 <script type="text/javascript">
 'use strict';
-var Products = {
-    Result: [],
-    Page: 1,
-    Perpage: 8
-};
-Products.List = document.querySelector('.ProductsList');
-Products.Sorts = document.querySelector('#SortProducts');
-Products.Numers = document.querySelector('#NumberProductsShow');
-Products.Pagination = document.querySelector('.ProductsPagination');
-
-Products.Collection = async handle => {
-    Products.List.innerHTML = `{%- render 'icon-loading' -%}`;
-
-    Products.Page = 1;
-    Products.Perpage = 8;
-
-    var result = await fetch(`/collections/${handle.value}/products.json`).then(res => res.json());
-
-    Products.Result = result.products;
-    Products.ShowResults();
-};
-
-Products.SwitchNumbers = number => {
-    Products.Numers.innerText = number;
-
-    Products.Perpage = number;
-    Products.ShowResults();
-};
-
-Products.SwitchSorts = type => {
-    Products.Sorts.innerText = type;
-    Products.Result = Products.Filter(type.toLowerCase(), Products.Result);
-    Products.ShowResults();
-};
-
-Products.Filter = (by, data) => {
-    var b, r = [];
-    "wholesale" != (b = localStorage.getItem("Customer_Mode") || "retail") || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail");
-
-    switch (by) {
-        case 'customer':
-            r = data.filter(i => {
-                var o;
-                if (i.options.find(i => i.name == 'Customer')) {
-                    o = i.variants.find(i => {
-                        if (i.title.includes(b) && i.available) {
-                            return i;
-                        }
-                    });
-                } else {
-                    o = i.variants.find(i => {
-                        if (i.available) {
-                            return i;
-                        }
-                    });
-                }
-
-                if (!o) {
-                    // if there is no available variant, pick the first one
-                    o = i.variants[0];
-                }
-
-                i.id = o.id;
-                i.price = o.price;
-                i.available = o.available;
-
-                return i;
-            });
-            break;
-        case 'name':
-            r = data.sort((a, b) => {
-                var x = a.title.toLowerCase(),
-                    y = b.title.toLowerCase();
-
-                return x < y ? -1 : x > y ? 1 : 0;
-            });
-            break;
-        case 'price':
-            r = data.sort((a, b) => {
-                var x = parseFloat(a.price),
-                    y = parseFloat(b.price);
-
-                return x - y;
-            });
-            break;
-        default:
-            // statements_def
-            break;
-    }
-
-    return r;
-};
-
-Products.Paginate = () => {
-    try {
-        var pages, page;
-        
-        if (!Products.Result) {
-            throw 'NoResult';
+var Products = { Result: [], Page: 1, Perpage: 8 };
+(Products.List = document.querySelector(".ProductsList")),
+    (Products.Sorts = document.querySelector("#SortProducts")),
+    (Products.Numers = document.querySelector("#NumberProductsShow")),
+    (Products.Pagination = document.querySelector(".ProductsPagination")),
+    (Products.Collection = async (a) => {
+        (Products.List.innerHTML = "{%- render 'icon-loading' -%}"), (Products.Page = 1), (Products.Perpage = 8);
+        var b = await fetch(`/collections/${a.value}/products.json`).then((a) => a.json());
+        (Products.Result = b.products), Products.ShowResults();
+    }),
+    (Products.SwitchNumbers = (a) => {
+        (Products.Numers.innerText = a), (Products.Perpage = a), Products.ShowResults();
+    }),
+    (Products.SwitchSorts = (a) => {
+        (Products.Sorts.innerText = a), (Products.Result = Products.Filter(a.toLowerCase(), Products.Result)), Products.ShowResults();
+    }),
+    (Products.Filter = (d, b) => {
+        var c,
+            a = [];
+        switch (("wholesale" != (c = localStorage.getItem("Customer_Mode") || "retail") || (Shopify.User.caps && Shopify.User.caps.wholesale) || (c = "retail"), d)) {
+            case "customer":
+                a = b.filter((a) => {
+                    var b;
+                    return (
+                        (b = a.options.find((a) => "Customer" == a.name)
+                            ? a.variants.find((a) => {
+                                  if (a.title.includes(c) && a.available) return a;
+                              })
+                            : a.variants.find((a) => {
+                                  if (a.available) return a;
+                              })) || (b = a.variants[0]),
+                        (a.id = b.id),
+                        (a.price = b.price),
+                        (a.available = b.available),
+                        a
+                    );
+                });
+                break;
+            case "name":
+                a = b.sort((c, d) => {
+                    var a = c.title.toLowerCase(),
+                        b = d.title.toLowerCase();
+                    return a < b ? -1 : a > b ? 1 : 0;
+                });
+                break;
+            case "price":
+                a = b.sort((a, b) => {
+                    var c = parseFloat(a.price),
+                        d = parseFloat(b.price);
+                    return c - d;
+                });
         }
-
-        page = Products.Page;
-        pages = Math.ceil(Products.Result.length/Products.Perpage);
-
-        if (pages <= 1) {
-            throw 'noPagination';
-        }
-        
-        var paginate = `<ul class="pagination">`,
-            active, 
-            uri;
-
-        // previous
-        if (page > 1) {
-            paginate += `
+        return a;
+    }),
+    (Products.Paginate = () => {
+        try {
+            if (!Products.Result) throw "NoResult";
+            if (((a = Products.Page), (d = Math.ceil(Products.Result.length / Products.Perpage)) <= 1)) throw "noPagination";
+            var d,
+                a,
+                e,
+                g,
+                c = '<ul class="pagination">';
+            a > 1 &&
+                (c += `
                 <li class="page-item">
-                    <a class="page-link" href="javascript: Products.Page = ${page - 1}; Products.ShowResults();" aria-label="Previous">
+                    <a class="page-link" href="javascript: Products.Page = ${a - 1}; Products.ShowResults();" aria-label="Previous">
                         <span aria-hidden="true"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
-            `;
-        }
-
-        for (var i = 1; i <= pages; i++) {
-            active = i == page ? 'active' : '';
-            paginate += `<li class="page-item ${active}"><a class="page-link" href="javascript: Products.Page = ${i}; Products.ShowResults();">${i}</a></li>`;
-        }
-
-        // next
-        if (page < pages) {
-            paginate += `
+            `);
+            for (var b = 1; b <= d; b++) (e = b == a ? "active" : ""), (c += `<li class="page-item ${e}"><a class="page-link" href="javascript: Products.Page = ${b}; Products.ShowResults();">${b}</a></li>`);
+            return (
+                a < d &&
+                    (c += `
             <li class="page-item">
-                <a class="page-link" href="javascript: Products.Page = ${page + 1}; Products.ShowResults();" aria-label="Next">
+                <a class="page-link" href="javascript: Products.Page = ${a + 1}; Products.ShowResults();" aria-label="Next">
                     <span aria-hidden="true"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                     <span class="sr-only">Next</span>
                 </a>
-            </li>`;
+            </li>`),
+                (c += "</ul>")
+            );
+        } catch (f) {
+            return console.log(f), "";
         }
-
-        paginate += '</ul>'; 
-
-        return paginate;       
-    } catch(e) {
-        console.log(e);
-        return ``;
-    }
-};
-
-Products.ShowResults = () => {
-    if (Products.Result.length) {
-        var from = (Products.Page - 1) * Products.Perpage,
-            to = Products.Page * Products.Perpage,
-            i;
-        
-        if ((i = Products.Result.slice(from, to)).length) {
-            var o = `<div class="row">`;
-            i.forEach(e => {
-                var image = e.images[0] ? e.images[0].src : '';
-                o += `
+    }),
+    (Products.ShowResults = () => {
+        if (Products.Result.length) {
+            var a,
+                c = (Products.Page - 1) * Products.Perpage,
+                d = Products.Page * Products.Perpage;
+            if ((a = Products.Result.slice(c, d)).length) {
+                var b = '<div class="row">';
+                a.forEach((a) => {
+                    var c = a.images[0] ? a.images[0].src : "";
+                    b += `
                 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                     <div class="top-product__item">
-                        <a href="/products/${e.handle}">
+                        <a href="/products/${a.handle}">
                             <div class="top-product__item__img lazy">
-                                <img src="${image}" alt="${e.title}">
+                                <img src="${c}" alt="${a.title}">
                             </div>
-                            <p class="ttl">${e.title}</p>
-                            <p class="price">${Shopify.formatMoney(e.price)}</p>
+                            <p class="ttl">${a.title}</p>
+                            <p class="price">${Shopify.formatMoney(a.price)}</p>
                         </a>
                         <div class="product-nav">
-                            <a href="javascript:void(0)" onclick="addToCart(this)" data-variant-id="${e.id}"><i class="icon-cart-01"></i></a>
+                            <a href="javascript:void(0)" onclick="addToCart(this)" data-variant-id="${a.id}"><i class="icon-cart-01"></i></a>
                         </div>
                     </div>
                 </div>
                 `;
-            });
-            o += `</div>`;
+                }),
+                    (b += "</div>"),
+                    (Products.List.innerHTML = b),
+                    (Products.Pagination.innerHTML = Products.Paginate()),
+                    document.dispatchEvent(window.Effect);
+            }
+        } else Products.List.innerHTML = "No products found";
+    }),
+    document.addEventListener("Sync", async (c) => {
+        var b, a, d;
+        (a = (b = (await fetch("/products.json").then((a) => a.json())).products).filter((a) => "Gift Cards" != a.product_type)).length && ((a = Products.Filter("customer", a)), (Products.Result = a), Products.ShowResults());
+    });
 
-            Products.List.innerHTML = o;
-            Products.Pagination.innerHTML = Products.Paginate();
-
-            document.dispatchEvent(window.Effect);
-        }
-    } else {
-        Products.List.innerHTML = 'No products found';
-    }
-};
-
-document.addEventListener('Sync', async e => {
-    // get all products
-    var result = await fetch('/products.json').then(res => res.json()),
-        o,
-        i;
-
-    if ((i = (o = result.products).filter(i => 'Gift Cards' != i.product_type)).length) {
-        i = Products.Filter('customer', i);
-        Products.Result = i;
-        Products.ShowResults();
-    }
-});
 </script>
 {% schema %}
   {

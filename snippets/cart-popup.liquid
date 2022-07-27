@@ -104,6 +104,7 @@ const removeItem = async (a) => await fetch("/cart/change.json", { method: "POST
         var d = { id: b.dataset.variantId, quantity: document.querySelector("input[name=quantity]") ? document.querySelector("input[name=quantity]").value : 1 };
         try {
             await addItem(d), (a.innerHTML = c);
+            void 0 != CartPopup && CartPopup.Open();
         } catch (e) {
             console.log(e);
         }

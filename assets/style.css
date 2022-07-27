@@ -1018,7 +1018,7 @@ a {
   position: relative;
   padding-bottom: 42px;
   margin-bottom: 45px;
-  background: url(../images/bg_ttl.png) no-repeat bottom center;
+  background: url(./bg_ttl.png) no-repeat bottom center;
   font-family: "SFProDisplay";
 }
 @media (max-width: 767.98px) {
@@ -1768,7 +1768,7 @@ a {
 }
 
 .top-newsletter {
-  background: url(../images/bg_newsleter.png);
+  background: url(./bg_newsleter.png);
   color: #fff;
   padding: 30px 0 75px 0;
   background-size: cover;
@@ -1781,7 +1781,7 @@ a {
 }
 .top-newsletter .ttl-01 {
   color: #fff;
-  background-image: url(../images/bg_ttl_white.png);
+  background-image: url(./bg_ttl_white.png);
   margin-bottom: 31px;
 }
 .top-newsletter .form-newsleter {
