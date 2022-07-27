@@ -1,50 +1,101 @@
 {% if template != 'cart' %}
 <div class="cart-fixed CartContent">
-    <div class="js-close-card"></div>
-    <div class="cart-fixed__wrap">
-        {%liquid
-          if cart.item_count <= 0
-            assign hidden = 'd-none'
-          else
-            assign hidden = ''
-          endif
-        %}
-        <div class="{{ hidden }}">
-            {%- render 'icon-loading' -%}
-        </div>
-        <div class="btn-link-text text-center cart-btn"></div>
+    <div class="js-close-card" onclick="CartPopup.Close(this);"></div>
+    <div class="cart-fixed__wrap CartWrapContent">
+        {%- render 'icon-loading' -%}
     </div>
 </div>
 <div class="cart-bg"></div>
 
 <script type="text/javascript">
-var Cart = {
+void 0 == window.Background && (window.Background = document.querySelector('.cart-bg'));
+var CartPopup = {
     Content: document.querySelector('.CartContent'),
-    
-    // list: document.querySelector('.js-cart'),
-    // items: document.querySelector('.cart-popup-items'),
-    // target: document.querySelector('#cart'),
-    // screen: document.querySelector('.cart-bg'),
-    // closes: document.querySelector('.js-close-card'),
-    // action: document.querySelector('.cart-btn')
-    // actions
 };
-Cart.Lines = Cart.Content.querySelector('.CartLines');
+CartPopup.Lines = CartPopup.Content.querySelector('.CartLines');
+CartPopup.CartWrapContent = CartPopup.Content.querySelector('.CartWrapContent');
 
-Cart.Open = e => {
-    Cart.Content.classList.add('is-show');
+CartPopup.Open = e => {
+    (CartPopup.Content.classList.add('is-show'), window.Background.classList.add('is-show'));
 };
-// cart.list.addEventListener('click', e => {
-//     e.preventDefault();
-//     openCart();
-// });
-// cart.closes.addEventListener('click', () => {
-//     closeCart();
-// });
+
+CartPopup.Close = e => {
+    (CartPopup.Content.classList.remove('is-show'), window.Background.classList.remove('is-show'));
+};
+
+CartPopup.ShowEmpty = () => {
+    CartPopup.CartWrapContent.innerHTML = (`{%- render 'icon-cart-empty' -%} {{ 'Continuing shopping' | link_to: '/collections' }}`);
+};
+
+CartPopup.ShowDetail = e => {
+    e.classList.toggle('is-active');
+    var next = e.parentElement.nextElementSibling;
+
+    if (next.style.display === '' || next.style.display === 'none') {
+        next.style.display = "block";
+    } else {
+        next.style.display = 'none';
+    }
+};
+
+CartPopup.Refresh = async () => {
+    const c = await getItem();
+    console.log(c);
+    if (c.item_count > 0) {
+        var i, o, html = '';
+        html += `
+            <p class="text-center">
+                <strong>Total ${Shopify.formatMoney(c.total_price)}</strong>
+            </p>
+            <div class="btn-payment">
+                <a href="/checkout"><i class="fa fa-lock"></i>Proceed to Payment</a>
+            </div>
+            <p class="text-center">
+                <span class="cart-count">${c.item_count}</span> Products in cart
+            </p>
+            <div class="CartLines">
+        `;
+        if ((o=(i = c.items).filter(i => !i.gift_card)).length) {
+            o.forEach(e => {
+                html += `
+                    <div class="shipping__item" data-line-id="${e.id}">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="cart-img">
+                                    <img src="${e.image}" alt="${e.title}">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="${e.url}" class="ttl">${e.product_title}</a>
+                                <div class="btn-view">
+                                    <a href="javascript:void(0)" onclick="CartPopup.ShowDetail(this);">View Detail</a>
+                                </div>
+                                <div class="view-more">
+                                    <p class="qtybox"><strong>Quantity:</strong><input type="text" class="qty" value="${e.quantity}" readonly></p>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <p class="price">${Shopify.formatMoney(e.price)}</p>
+                                <div class="btn-link-gray">
+                                    <a href="javascript:void(0)" onclick="onDelete(this)" data-id="${e.id}"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        html += `<div class="btn-link-text text-center">{{ 'View and Edit Cart' | link_to: '/cart' }}</div>`;
+        html += `</div>`;
+
+        CartPopup.CartWrapContent.innerHTML = html;
+    }
+};
 </script>
 {% endif %}
+
 <script type="text/javascript">
-const removeItem = async data => {
+const removeItem = async Id => {
     return await fetch("/cart/change.json", {
         method: "POST",
         headers: {
@@ -52,10 +103,10 @@ const removeItem = async data => {
             "Accept": "application/json"
         },
         body: JSON.stringify({
-            ...data,
+            id: Id,
             quantity: 0
         })
-    });
+    }).then(res => res.json());
 };
 const addItem = async data => {
     return await fetch("/cart/add.json", {
@@ -70,7 +121,7 @@ const addItem = async data => {
 const getItem = async () => {
     return await fetch("/cart.json").then(res => res.json());
 };
-const addToCart = e => {
+const addToCart = async e => {
     var parent = e.parentElement,
         self = parent.innerHTML;
 
@@ -80,90 +131,56 @@ const addToCart = e => {
         quantity: document.querySelector('input[name=quantity]') ? document.querySelector('input[name=quantity]').value : 1
     };
     try {
-        addItem(data).then(res => {
-            getItem()
-                .then(data => {
-                    refreshCart(data);
-                    parent.innerHTML = '';
-                    parent.appendChild(self);
-                    openCart();
-                });
-        });
+        await addItem(data);
+        void 0 != CartPopup && CartPopup.Refresh();
+        parent.innerHTML = '';
+        parent.appendChild(self);
+        
     } catch(e) {
         console.log(e);
     }
 };
-const onDelete = e => {
+const onDelete = async e => {
     e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
 
     var id = e.dataset.id;
-    removeItem({id: id}).then(res => {
-        if (res.status == 200) {
-            getItem()
-                .then(data => {
-                    refreshCart(data);
-                });
-        }    
-    });
+    await removeItem(id);
+    void 0 != CartPopup && CartPopup.Refresh();
 };
-function openCart() {
-    cart.target.classList.add('is-show');
-    cart.screen.classList.add('is-show');
-}
-function closeCart() {
-    cart.target.classList.remove('is-show');
-    cart.screen.classList.remove('is-show');
-}
-function refreshCart(data) {
-    if (parseInt(data.item_count) <= 0) {
-        cart.action.innerHTML = `{% render 'icon-cart-empty' %}{{ 'Continuing shopping' | link_to: '/collections' }}`;
-        cart.items.innerHTML = '';
-        document.querySelector('.cart-popup-wrap').classList.add('d-none');
-    } else {
-        cart.action.innerHTML = `{{ 'View and Edit Cart' | link_to: '/cart' }}`;
-        var result = ``;
-        data.items.forEach(e => {
-            var price = Shopify.formatMoney(e.price);
-            result += `
-            <div class="shipping__item">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="cart-img">
-                            <img src="${e.image}" alt="${e.title}">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="${e.url}" class="ttl">${e.title}</a>
-                    </div>
-                    <div class="col-sm-2">
-                        <p class="price">${price}</p>
-                        <div class="btn-link-gray">
-                            <a href="javascript:void(0)" onclick="onDelete(this)" data-id="${e.id}"><i class="fa fa-trash"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            `;
-        });
-        cart.items.innerHTML = result;
-        document.querySelector('.cart-popup-wrap').classList.remove('d-none');
-        document.querySelector('.cart-total-price').innerText = Shopify.formatMoney(data.total_price);
-        document.querySelector('.cart-count').innerText = data.item_count;
-    }
-}
-// function toggleDetail(e) {
-//     e.classList.toggle('is-active');
-//     var next = e.parentElement.nextElementSibling;
-
-//     if (next.style.display === '' || next.style.display === 'none') {
-//         next.style.display = "block";
-//     } else {
-//         next.style.display = 'none';
-//     }
-// }
 
 document.addEventListener('Sync', async e => {
-    var cartItems = await getItem();
-    console.log(cartItems);
+    var cartItems = await getItem(),
+        o,
+        c,
+        b;
+    ((b = localStorage.getItem("Customer_Mode") || "retail"), ("wholesale" != b || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail")));
+  
+    if ((c = (o = cartItems.items).filter(i => !i.gift_card)).length) {
+        c.forEach(async e => {
+            var a;
+            if ((a = e.options_with_values.filter(i => i.name == 'Customer')).length) {
+                if ((a.find(i => i.name == 'Customer')).value != b) {
+                    removeItem(e.id.toString()).then(data => console.log(data));
+                    var getProduct = await fetch(`/products/${e.handle}.json`).then(res => res.json());
+                    var m = ``;
+                    if (e.variant_title) {
+                        m = e.variant_title.split('/');
+                        m[0] = b + ' ';
+                        m = m.join('/');
+                    }
+                    var o;
+                    if ((o = getProduct.product.variants).length) {
+                        var matched = o.find(i => i.title === m);
+                        matched && addItem({
+                            id: matched.id.toString(),
+                            quantity: e.quantity
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    void 0 != CartPopup && CartPopup.Refresh();
 });
 </script>
