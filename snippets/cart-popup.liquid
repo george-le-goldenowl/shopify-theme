@@ -1,5 +1,5 @@
 {% if template != 'cart' %}
-<div class="cart-fixed" id="cart">
+<div class="cart-fixed CartContent">
     <div class="js-close-card"></div>
     <div class="cart-fixed__wrap">
         {%liquid
@@ -9,60 +9,42 @@
             assign hidden = ''
           endif
         %}
-        <div class="cart-popup-wrap {{ hidden }}">
-            <p class="text-center"><strong>Total <span class="cart-total-price">{{ cart.total_price | money }}</span></strong></p>
-            <div class="btn-payment"><a href="/checkout"><i class="fa fa-lock"></i>Proceed to Payment</a></div>
-            <p class="text-center"><span class="cart-count">{{ cart.item_count }}</span> Products in cart</p>
-            <div class="cart-popup-items">
-                <!-- TODO: remove gift card -->
-                {% for item in cart.items %}
-                    <div class="shipping__item" data-line-id="{{ item.id }}">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                {% if item.image != blank %}
-                                  <div class="cart-img">{{ item.image | image_url: width: 143, crop: 'center' | image_tag: loading: 'lazy', alt: item.title  }}</div>
-                                {% else %}
-                                  {% render 'icon-giftcard' %}
-                                {% endif %}
-                            </div>
-                            <div class="col-sm-6">
-                                <a href="{{ item.url }}" class="ttl">{{ item.title }}</a>
-                                <!-- TODO -->
-                                <!-- <div class="btn-view">
-            						<a href="javascript:void(0)" onclick="toggleDetail(this)">View Detail</a>
-                                </div>
-                                <div class="view-more">
-                                    <p><strong>Lenght:</strong>7mm</p>
-                                    <p><strong>Titanium Color:</strong>Yellow - 60-63 Volt</p>
-                                    <p class="qtybox"><strong>Quantity:</strong><input type="text" class="qty" value="{{ item.quantity }}"></p>
-                                </div> -->
-                            </div>
-                            <div class="col-sm-2">
-                                <p class="price">{{ item.price | money }}</p>
-                                <div class="btn-link-gray">
-                                    <a href="javascript:void(0)" onclick="onDelete(this)" data-id="{{ item.id }}"><i class="fa fa-trash"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+        <div class="{{ hidden }}">
+            {%- render 'icon-loading' -%}
         </div>
-        <div class="btn-link-text text-center cart-btn">
-            {% liquid
-            if cart.item_count > 0
-                echo 'View and Edit Cart' | link_to: '/cart'
-            else
-                render 'icon-cart-empty'
-                echo 'Continuing shopping' | link_to: '/collections'
-            endif
-          %}
-        </div>
+        <div class="btn-link-text text-center cart-btn"></div>
     </div>
 </div>
 <div class="cart-bg"></div>
+
 <script type="text/javascript">
-async function removeItem(data) {
+var Cart = {
+    Content: document.querySelector('.CartContent'),
+    
+    // list: document.querySelector('.js-cart'),
+    // items: document.querySelector('.cart-popup-items'),
+    // target: document.querySelector('#cart'),
+    // screen: document.querySelector('.cart-bg'),
+    // closes: document.querySelector('.js-close-card'),
+    // action: document.querySelector('.cart-btn')
+    // actions
+};
+Cart.Lines = Cart.Content.querySelector('.CartLines');
+
+Cart.Open = e => {
+    Cart.Content.classList.add('is-show');
+};
+// cart.list.addEventListener('click', e => {
+//     e.preventDefault();
+//     openCart();
+// });
+// cart.closes.addEventListener('click', () => {
+//     closeCart();
+// });
+</script>
+{% endif %}
+<script type="text/javascript">
+const removeItem = async data => {
     return await fetch("/cart/change.json", {
         method: "POST",
         headers: {
@@ -74,42 +56,56 @@ async function removeItem(data) {
             quantity: 0
         })
     });
-}
-async function getItem() {
-    return await fetch("/cart.json");
-}
-function addToCart(e) {
-    var _e = e.cloneNode(!0),
-        parent = e.parentElement;
+};
+const addItem = async data => {
+    return await fetch("/cart/add.json", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({...data})
+    });
+};
+const getItem = async () => {
+    return await fetch("/cart.json").then(res => res.json());
+};
+const addToCart = e => {
+    var parent = e.parentElement,
+        self = parent.innerHTML;
+
     parent.innerHTML = `{% render 'icon-loading' %}`;
     var data = {
         id: e.dataset.variantId,
         quantity: document.querySelector('input[name=quantity]') ? document.querySelector('input[name=quantity]').value : 1
     };
-    addItem(data.id, data.quantity).then(res => {
-        getItem()
-            .then(res => res.json())
-            .then(data => {
-                refreshCart(data);
-                parent.innerHTML = '';
-                parent.appendChild(_e);
-                openCart();
-            });
-    });
-}
-function onDelete(e){
-    var id = e.dataset.id;
+    try {
+        addItem(data).then(res => {
+            getItem()
+                .then(data => {
+                    refreshCart(data);
+                    parent.innerHTML = '';
+                    parent.appendChild(self);
+                    openCart();
+                });
+        });
+    } catch(e) {
+        console.log(e);
+    }
+};
+const onDelete = e => {
     e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
+
+    var id = e.dataset.id;
     removeItem({id: id}).then(res => {
         if (res.status == 200) {
             getItem()
-                .then(res => res.json())
                 .then(data => {
                     refreshCart(data);
                 });
         }    
     });
-}
+};
 function openCart() {
     cart.target.classList.add('is-show');
     cart.screen.classList.add('is-show');
@@ -155,45 +151,19 @@ function refreshCart(data) {
         document.querySelector('.cart-count').innerText = data.item_count;
     }
 }
-function toggleDetail(e) {
-    e.classList.toggle('is-active');
-    var next = e.parentElement.nextElementSibling;
+// function toggleDetail(e) {
+//     e.classList.toggle('is-active');
+//     var next = e.parentElement.nextElementSibling;
 
-    if (next.style.display === '' || next.style.display === 'none') {
-        next.style.display = "block";
-    } else {
-        next.style.display = 'none';
-    }
-}
-var cart = {
-    list: document.querySelector('.js-cart'),
-    items: document.querySelector('.cart-popup-items'),
-    target: document.querySelector('#cart'),
-    screen: document.querySelector('.cart-bg'),
-    closes: document.querySelector('.js-close-card'),
-    action: document.querySelector('.cart-btn')
-};
-cart.list.addEventListener('click', e => {
-    e.preventDefault();
-    openCart();
+//     if (next.style.display === '' || next.style.display === 'none') {
+//         next.style.display = "block";
+//     } else {
+//         next.style.display = 'none';
+//     }
+// }
+
+document.addEventListener('Sync', async e => {
+    var cartItems = await getItem();
+    console.log(cartItems);
 });
-cart.closes.addEventListener('click', () => {
-    closeCart();
-});
-</script>
-{% endif %}
-<script type="text/javascript">
-async function addItem(variantId, quantity) {
-    return await fetch("/cart/add.json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-            id: variantId,
-            quantity: quantity
-        })
-    })
-}
 </script>
