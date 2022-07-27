@@ -94,87 +94,43 @@ CartPopup.Refresh = async () => {
 {% endif %}
 
 <script type="text/javascript">
-const removeItem = async Id => {
-    return await fetch("/cart/change.json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({
-            id: Id,
-            quantity: 0
-        })
-    }).then(res => res.json());
-};
-const addItem = async data => {
-    return await fetch("/cart/add.json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify({...data})
-    });
-};
-const getItem = async () => {
-    return await fetch("/cart.json").then(res => res.json());
-};
-const addToCart = async e => {
-    var parent = e.parentElement,
-        self = parent.innerHTML;
-
-    parent.innerHTML = `{% render 'icon-loading' %}`;
-    var data = {
-        id: e.dataset.variantId,
-        quantity: document.querySelector('input[name=quantity]') ? document.querySelector('input[name=quantity]').value : 1
+const removeItem = async (a) => await fetch("/cart/change.json", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ id: a, quantity: 0 }) }).then((a) => a.json()),
+    addItem = async (a) => await fetch("/cart/add.json", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ ...a }) }),
+    getItem = async () => await fetch("/cart.json").then((a) => a.json()),
+    addToCart = async (b) => {
+        var a = b.parentElement,
+            c = a.innerHTML;
+        a.innerHTML = "{% render 'icon-loading' %}";
+        var d = { id: b.dataset.variantId, quantity: document.querySelector("input[name=quantity]") ? document.querySelector("input[name=quantity]").value : 1 };
+        try {
+            await addItem(d), (a.innerHTML = c);
+        } catch (e) {
+            console.log(e);
+        }
+    },
+    onDelete = async (a) => {
+        var b;
+        (a.parentElement.innerHTML = "{% render 'icon-loading' %}"), await removeItem(a.dataset.id), void 0 != CartPopup && CartPopup.Refresh();
     };
-    try {
-        await addItem(data);
-        parent.innerHTML = self;
-    } catch(e) {
-        console.log(e);
-    }
-};
-const onDelete = async e => {
-    e.parentElement.innerHTML = `{% render 'icon-loading' %}`;
-
-    var id = e.dataset.id;
-    await removeItem(id);
-    void 0 != CartPopup && CartPopup.Refresh();
-};
-
-document.addEventListener('Sync', async e => {
-    var cartItems = await getItem(),
-        o,
-        c,
-        b;
-    ((b = localStorage.getItem("Customer_Mode") || "retail"), ("wholesale" != b || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail")));
-  
-    if ((c = (o = cartItems.items).filter(i => !i.gift_card)).length) {
-        c.forEach(async e => {
-            var a;
-            if ((a = e.options_with_values.filter(i => i.name == 'Customer')).length) {
-                if ((a.find(i => i.name == 'Customer')).value != b) {
-                    removeItem(e.id.toString()).then(data => console.log(data));
-                    var getProduct = await fetch(`/products/${e.handle}.json`).then(res => res.json());
-                    var m = ``;
-                    if (e.variant_title) {
-                        m = e.variant_title.split('/');
-                        m[0] = b + ' ';
-                        m = m.join('/');
-                    }
-                    var o;
-                    if ((o = getProduct.product.variants).length) {
-                        var matched = o.find(i => i.title === m);
-                        matched && addItem({
-                            id: matched.id.toString(),
-                            quantity: e.quantity
-                        });
+document.addEventListener("Sync", async (e) => {
+    var c,
+        a,
+        b,
+        d = await getItem();
+    "wholesale" != (b = localStorage.getItem("Customer_Mode") || "retail") || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail"),
+        (a = (c = d.items).filter((a) => !a.gift_card)).length &&
+            a.forEach(async (a) => {
+                var d;
+                if ((d = a.options_with_values.filter((a) => "Customer" == a.name)).length && d.find((a) => "Customer" == a.name).value != b) {
+                    removeItem(a.id.toString()).then((a) => console.log(a));
+                    var e,
+                        g = await fetch(`/products/${a.handle}.json`).then((a) => a.json()),
+                        c = "";
+                    if ((a.variant_title && (((c = a.variant_title.split("/"))[0] = b + " "), (c = c.join("/"))), (e = g.product.variants).length)) {
+                        var f = e.find((a) => a.title === c);
+                        f && addItem({ id: f.id.toString(), quantity: a.quantity });
                     }
                 }
-            }
-        });
-    }
+            });
 });
 </script>
