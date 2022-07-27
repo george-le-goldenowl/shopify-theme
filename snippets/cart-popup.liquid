@@ -16,7 +16,7 @@ CartPopup.Lines = CartPopup.Content.querySelector('.CartLines');
 CartPopup.CartWrapContent = CartPopup.Content.querySelector('.CartWrapContent');
 
 CartPopup.Open = e => {
-    (CartPopup.Content.classList.add('is-show'), window.Background.classList.add('is-show'));
+    (CartPopup.Content.classList.add('is-show'), window.Background.classList.add('is-show'), CartPopup.Refresh());
 };
 
 CartPopup.Close = e => {
@@ -40,7 +40,6 @@ CartPopup.ShowDetail = e => {
 
 CartPopup.Refresh = async () => {
     const c = await getItem();
-    console.log(c);
     if (c.item_count > 0) {
         var i, o, html = '';
         html += `
@@ -133,9 +132,7 @@ const addToCart = async e => {
     try {
         await addItem(data);
         void 0 != CartPopup && CartPopup.Refresh();
-        parent.innerHTML = '';
-        parent.appendChild(self);
-        
+        parent.innerHTML = self;
     } catch(e) {
         console.log(e);
     }
@@ -180,7 +177,5 @@ document.addEventListener('Sync', async e => {
             }
         });
     }
-
-    void 0 != CartPopup && CartPopup.Refresh();
 });
 </script>
