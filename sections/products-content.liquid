@@ -10,12 +10,12 @@
                 <ul class="fillter-menu">
                     {% for item in Filters %}
                         <li class="has-child">
-                            <a href="{{ item.url  }}" class="js-menu-child">{{ item.title }}</a>
+                            <a href="{{ item.url }}" onclick="javascript: this.nextElementSibling.classList.toggle('active');" class="js-menu-child">{{ item.title }}</a>
                             <div class="has-child-sub">
                                 {% for sub in item.links %}
                                       {%- assign name = sub.title | remove: '[CATEGORY]' | remove: '[BRAND]' -%}
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="{{ sub.handle }}" class="custom-control-input" value="{{ sub.handle }}" onclick="getSubCategory(this)">
+                                        <input type="radio" id="{{ sub.handle }}" name="collection[]" class="custom-control-input" value="{{ sub.handle }}" onclick="getSubCategory(this)">
                                         <label class="custom-control-label" for="{{ sub.handle }}">{{ name }}</label>
                                     </div>
                                 {% endfor %}
