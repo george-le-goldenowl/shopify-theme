@@ -5,40 +5,25 @@
                 <i class="icon-filter"></i>Filter
             </h3>
             <!-- Filters -->
-            {% assign categories = linklists['categories'].links %}
-            {% if categories != empty %}
-            <ul class="fillter-menu">
-                {% for category in categories %}
-                  {% liquid
-                    assign name = category.title | remove: '[CATEGORY]'
-                    assign childs = category.links
-                    assign totalPost = category.object.products_count
-                  %}
-                  {% if childs != empty %}
-                    <li class="has-child">
-                      <a href="{{ category.handle | remove: 'category' }}" class="js-menu-child" data-total-post="{{ totalPost }}">{{ name }}</a>
-                        <div class="has-child-sub">
-                            {% for child in childs %}
-                              {% liquid
-                                assign cname = child.title | remove: '[CATEGORY]'
-                                assign handle = child.handle
-                                assign totals = child.object.products_count
-                              %}
-                              <div class="custom-control custom-radio">
-                                  <input type="radio" id="{{ handle }}" class="custom-control-input" value="{{ handle }}" data-total-post="{{ totals }}" onclick="getSubCategory(this)">
-                                  <label class="custom-control-label" for="{{ handle }}">{{ cname }}</label>
-                              </div>
-                            {% endfor %}
-                        </div>
-                    </li>
-                  {% else %}
-                    <li><a href="{{ category.handle | remove: 'category' }}" data-total-post="{{ totalPost }}">{{ name }}</a></li>
-                  {% endif %}
-                {% endfor %}
-            </ul>
-            {% else %}
-              No filter categories!
-            {% endif %}
+            {%- assign Filters = linklists['filter'].links -%}
+            {%- if Filters != empty -%}
+                <ul class="fillter-menu">
+                    {% for item in Filters %}
+                        <li class="has-child">
+                            <a href="{{ item.url  }}" class="js-menu-child">{{ item.title }}</a>
+                            <div class="has-child-sub">
+                                {% for sub in item.links %}
+                                      {%- assign name = sub.title | remove: '[CATEGORY]' | remove: '[BRAND]' -%}
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="{{ sub.handle }}" class="custom-control-input" value="{{ sub.handle }}" onclick="getSubCategory(this)">
+                                        <label class="custom-control-label" for="{{ sub.handle }}">{{ name }}</label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {%- endif -%}
         </div>
         <div class="col-lg-9 order-ft-01">
             <div class="row product-action">
@@ -46,8 +31,8 @@
                     <div class="product-dropdown">
                         <span class="product-dropdown-label">Show per page</span>
                         <div class="dropdown">
-                            <button class="dropdown-toggle" type="button" id="numberProductsShow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">8</button>
-                            <div class="dropdown-menu" aria-labelledby="numberProductsShow">
+                            <button class="dropdown-toggle" type="button" id="NumberProductsShow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">8</button>
+                            <div class="dropdown-menu" aria-labelledby="NumberProductsShow">
                                 <a class="dropdown-item" href="javascript: Products.SwitchNumbers(8);">8</a>
                                 <a class="dropdown-item" href="javascript: Products.SwitchNumbers(16);">16</a>
                                 <a class="dropdown-item" href="javascript: Products.SwitchNumbers(24);">24</a>
@@ -60,11 +45,11 @@
                     <div class="product-dropdown">
                         <span class="product-dropdown-label">Sort by</span>
                         <div class="dropdown">
-                            <button class="dropdown-toggle" type="button" id="sorting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relevance</button>
-                            <div class="dropdown-menu" aria-labelledby="sorting">
-                              <a class="dropdown-item" href="#">Relevance</a>
-                              <a class="dropdown-item" href="#">Name</a>
-                              <a class="dropdown-item" href="#">Price</a>
+                            <button class="dropdown-toggle" type="button" id="SortProducts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relevance</button>
+                            <div class="dropdown-menu" aria-labelledby="SortProducts">
+                              <a class="dropdown-item" href="">Relevance</a>
+                              <a class="dropdown-item" href="javascript: Products.SwitchSorts('Name');">Name</a>
+                              <a class="dropdown-item" href="javascript: Products.SwitchSorts('Price');">Price</a>
                             </div>
                         </div>
                     </div>
@@ -87,13 +72,20 @@ var Products = {
     Perpage: 8
 };
 Products.List = document.querySelector('.ProductsList');
-Products.Numers = document.querySelector('#numberProductsShow');
+Products.Sorts = document.querySelector('#SortProducts');
+Products.Numers = document.querySelector('#NumberProductsShow');
 Products.Pagination = document.querySelector('.ProductsPagination');
 
 Products.SwitchNumbers = number => {
     Products.Numers.innerText = number;
 
     Products.Perpage = number;
+    Products.ShowResults();
+};
+
+Products.SwitchSorts = type => {
+    Products.Sorts.innerText = type;
+    Products.Result = Products.Filter(type.toLowerCase(), Products.Result);
     Products.ShowResults();
 };
 
@@ -129,6 +121,22 @@ Products.Filter = (by, data) => {
                 i.available = o.available;
 
                 return i;
+            });
+            break;
+        case 'name':
+            r = data.sort((a, b) => {
+                var x = a.title.toLowerCase(),
+                    y = b.title.toLowerCase();
+
+                return x < y ? -1 : x > y ? 1 : 0;
+            });
+            break;
+        case 'price':
+            r = data.sort((a, b) => {
+                var x = parseFloat(a.price),
+                    y = parseFloat(b.price);
+
+                return x - y;
             });
             break;
         default:
@@ -209,7 +217,7 @@ Products.ShowResults = () => {
                 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                     <div class="top-product__item">
                         <a href="/products/${e.handle}">
-                            <div class="top-product__item__img lazy" style="max-height: 134px;">
+                            <div class="top-product__item__img lazy">
                                 <img src="${image}" alt="${e.title}">
                             </div>
                             <p class="ttl">${e.title}</p>
@@ -226,6 +234,7 @@ Products.ShowResults = () => {
 
             Products.List.innerHTML = o;
             Products.Pagination.innerHTML = Products.Paginate();
+
             document.dispatchEvent(window.Effect);
         }
     }
