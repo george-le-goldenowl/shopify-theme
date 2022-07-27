@@ -131,7 +131,6 @@ const addToCart = async e => {
     };
     try {
         await addItem(data);
-        void 0 != CartPopup && CartPopup.Refresh();
         parent.innerHTML = self;
     } catch(e) {
         console.log(e);
