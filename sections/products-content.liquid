@@ -72,7 +72,7 @@ var Products = { Result: [], Page: 1, Perpage: 8 };
     (Products.Numers = document.querySelector("#NumberProductsShow")),
     (Products.Pagination = document.querySelector(".ProductsPagination")),
     (Products.Collection = async (a) => {
-        (Products.List.innerHTML = "{%- render 'icon-loading' -%}"), (Products.Page = 1), (Products.Perpage = 8);
+        (Products.List.innerHTML = `{%- render 'icon-loading' -%}`), (Products.Page = 1), (Products.Perpage = 8);
         var b = await fetch(`/collections/${a.value}/products.json`).then((a) => a.json());
         (Products.Result = b.products), Products.ShowResults();
     }),
