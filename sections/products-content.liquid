@@ -216,7 +216,7 @@ Products.Paginate = () => {
 };
 
 Products.ShowResults = () => {
-    if (Products.Result) {
+    if (Products.Result.length) {
         var from = (Products.Page - 1) * Products.Perpage,
             to = Products.Page * Products.Perpage,
             i;
