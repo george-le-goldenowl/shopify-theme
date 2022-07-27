@@ -15,7 +15,7 @@
                                 {% for sub in item.links %}
                                       {%- assign name = sub.title | remove: '[CATEGORY]' | remove: '[BRAND]' -%}
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="{{ sub.handle }}" name="collection[]" class="custom-control-input" value="{{ sub.handle }}" onclick="getSubCategory(this)">
+                                        <input type="radio" id="{{ sub.handle }}" name="collection[]" class="custom-control-input" value="{{ sub.handle }}" onclick="Products.Collection(this)">
                                         <label class="custom-control-label" for="{{ sub.handle }}">{{ name }}</label>
                                     </div>
                                 {% endfor %}
@@ -75,6 +75,17 @@ Products.List = document.querySelector('.ProductsList');
 Products.Sorts = document.querySelector('#SortProducts');
 Products.Numers = document.querySelector('#NumberProductsShow');
 Products.Pagination = document.querySelector('.ProductsPagination');
+
+Products.Collection = async handle => {
+    Products.List.innerHTML = `{%- render 'icon-loading' -%}`;
+
+    Products.Page = 1;
+    Products.Perpage = 8;
+
+    var result = await fetch(`/collections/${handle}/products.json`).then(res => res.json());
+
+    console.log(result);
+};
 
 Products.SwitchNumbers = number => {
     Products.Numers.innerText = number;
