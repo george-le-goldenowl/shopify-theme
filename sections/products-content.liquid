@@ -104,7 +104,9 @@ Products.Filter = (by, data) => {
                     });
                 } else {
                     o = i.variants.find(i => {
-                        i.available && return i;
+                        if (i.available) {
+                            return i;
+                        }
                     });
                 }
 
