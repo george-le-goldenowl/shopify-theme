@@ -32,9 +32,10 @@ void 0 == window.HomePage && (window.HomePage = {}),
             a.forEach((a) => {
                 if (a.options.includes("Customer")) {
                     var d = a.variants.find((a) => a.options.includes(b));
-                    d && ((a.id = d.id), (a.price = d.price));
+                    d && ((a.id = d.id), (a.price = d.price), (a.available = d.available));
                 }
-                var e = "/products/" + a.handle;
+                var e = "/products/" + a.handle,
+                    action = a.available ? 'onlick="addToCart(this)"' : "";
                 c += `
                     <div class="top-product__item">
                         <a href="${e}">
@@ -45,7 +46,7 @@ void 0 == window.HomePage && (window.HomePage = {}),
                             <p class="price">${Shopify.formatMoney(a.price)}</p>
                         </a>
                         <div class="product-nav">
-                            <a href="" data-variant-id="${a.id}"><i class="icon-cart-01"></i></a>
+                            <a href="javascript:void(0)" ${action} data-variant-id="${a.id}"><i class="icon-cart-01"></i></a>
                         </div>
                     </div>
                     `;
