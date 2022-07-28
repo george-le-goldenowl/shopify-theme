@@ -98,7 +98,7 @@ var Product = {
 
 document.addEventListener('Sync', () => {
     var i;
-    if ((i = Product.Variants).length) {
+    if ((i = JSON.parse(Product.Variants)).length) {
         i = Shopify.Filter(i);
         console.log(i);
     }
