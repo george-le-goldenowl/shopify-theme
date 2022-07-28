@@ -101,21 +101,25 @@
 </header>
 <script type="text/javascript">
 'use strict';
-var TypeBtn = { Switch: document.querySelector(".CustomerSwitch"), Type: localStorage.getItem("Customer_Mode") || "retail" };
-TypeBtn.Switch.querySelectorAll("a").forEach((a) => {
-    TypeBtn.Type == a.getAttribute("data-type") && a.classList.add("active");
-}),
-(TypeBtn.onWholesale = () => {
-    try {
-        var b, c;
-        if (void 0 == Shopify.User.caps) {
-            showLoginPopup();
-            throw 'ErrUnauthenticated';
-        } 
-        if (!Shopify.User.caps.wholesale) throw (alert("You need become a wholesaler first."), "ErrCustomerType");
-        localStorage.setItem("Customer_Mode", "wholesale"), location.reload();
-    } catch (a) {
-        console.log(a);
-    }
-});
+var TypeBtn = { Switch: document.querySelector(".CustomerSwitch") };
+(TypeBtn.SwitchItems = TypeBtn.Switch.querySelectorAll("a")),
+    (TypeBtn.onWholesale = () => {
+        try {
+            var b, c;
+            if (void 0 == Shopify.User.caps) throw (showLoginPopup(), "ErrUnauthenticated");
+            if (!Shopify.User.caps.wholesale) throw (alert("You need become a wholesaler first."), "ErrCustomerType");
+            localStorage.setItem("Customer_Mode", "wholesale"), location.reload();
+        } catch (a) {
+            console.log(a);
+        }
+    }),
+    document.addEventListener("Sync", (b) => {
+        var a = "retail";
+        void 0 != Shopify.User.caps && Shopify.User.caps.wholesale && (a = "wholesale"),
+            localStorage.setItem("Customer_Mode", a),
+            void 0 != TypeBtn.SwitchItems &&
+                TypeBtn.SwitchItems.forEach((b) => {
+                    b.getAttribute("data-type") == a ? b.classList.add("active") : (b.style.pointerEvents = "none");
+                });
+    });
 </script>
