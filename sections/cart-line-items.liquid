@@ -94,10 +94,11 @@ window.addEventListener('load', async event => {
 
     var i,
         g,
+        a,
         cart = Cart.Items.replace(/[\n\r\u2028\u2029]/g, "").replace(/(\r\n|\n|\r)/gm, "").replace(/"product_description":".*?(?=\"variant_title)/gm, "");
-    i = JSON.parse(cart);
+    g = (i = JSON.parse(cart)).filter(i => !i.gift_card);
 
-    if (i.length) {
+    if (i.length && g.length > 0) {
         i.forEach(e => {
             if (e.gift_card) {
                 Cart.Gift.push(e);
@@ -139,8 +140,8 @@ window.addEventListener('load', async event => {
             Cart.TableItems.getElementsByTagName('tbody')[0].insertAdjacentHTML('beforeend', item);
         });
 
-        if ((g = JSON.parse(Cart.Additional)).length) {
-            g.variants.forEach(e => {
+        if ((a = JSON.parse(Cart.Additional)).length) {
+            a.variants.forEach(e => {
                 var checked = Cart.Gift.find(a => a.id === e.id) ? 'checked' : '',
                     i = `
                     <div class="custom-control custom-checkbox">
