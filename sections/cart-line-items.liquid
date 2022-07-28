@@ -16,7 +16,7 @@
                                     <th>Subtotal</th>
                                 </tr>
                             </thead>
-                            <tbody>{%- render 'icon-loading' -%}</tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 {% endif %}
@@ -59,7 +59,7 @@
                         aria-controls="extraFees">Additional Options<i class="fa fa-angle-down" aria-hidden="true"></i>
                       </div>
                       <div id="extraFees" class="collapse" aria-labelledby="headingOne">
-                          <div class="form-group add-options"></div>
+                          <div class="form-group CartAdditional"></div>
                       </div>
                     <hr>
                     <div class="d-flex shopping-content__sum">
@@ -82,6 +82,7 @@ element.note = document.querySelector('p.shipping-note');
 
 const Cart = {
     Gift: [],
+    Items: `{{ cart.items | json }}`,
     Additional: `{{ all_products['additional-options'] | json }}`
 };
 
@@ -89,26 +90,82 @@ window.addEventListener('load', async event => {
     Cart.Content = document.querySelector('.CartContent');
     Cart.TotalPrice = Cart.Content.querySelector('.cart-total');
     Cart.TableItems = Cart.Content.querySelector('.table-cart-items');
-    Cart.AdditionalItems = Cart.Content.querySelector('.add-options');
+    Cart.AdditionalItems = Cart.Content.querySelector('.CartAdditional');
 
-    await Cart.Refresh();
+    var i,
+        g,
+        cart = Cart.Items.replace(/[\n\r\u2028\u2029]/g, "").replace(/(\r\n|\n|\r)/gm, "").replace(/"product_description":".*?(?=\"variant_title)/gm, "");
+    i = JSON.parse(cart);
 
-    // Dump Additional Items
-    const adds = JSON.parse(Cart.Additional);
-    if (adds) {
-        adds.variants.forEach(e => {
-            var checked = Cart.Gift.find(a => a.id === e.id) ? 'checked' : '';
-            var i = `
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="${e.id}" onclick="Cart.ToggleAdds(this)" data-id="${e.id}" ${checked}>
-                    <label class="custom-control-label" for="${e.id}"><span>${Shopify.formatMoney(e.price)}</span>${e.title}</label>
-                </div>
+    if (i.length) {
+        i.forEach(e => {
+            if (e.gift_card) {
+                Cart.Gift.push(e);
+                return;
+            }
+            var options = '';
+            if (e.options_with_values.length) {
+                e.options_with_values.forEach(e => {
+                    options += `<p><span>${e.name}: </span>${e.value}</p>`;
+                });
+            }
+            var sku = e.sku || 'N/A';
+            var item = `
+                <tr data-line-id="${e.id}">
+                    <td class="col1">
+                        <div class="cart-img"><img src="${e.image}" alt="${e.title}"/></div>
+                    </td>
+                    <td class="col2">
+                        <a href="${e.url}" class="ttl">${e.title}</a>
+                        ${options}
+                        <p><small>SKU ${sku}</small></p>
+                    </td>
+                    <td class="col3">
+                        <div><p>${Shopify.formatMoney(e.price)}</p></div>
+                    </td>
+                    <td class="col4">
+                        <input type="type" class="qty" value="${e.quantity}">
+                    </td>
+                    <td class="col5">
+                        <div>
+                            <p>${Shopify.formatMoney(e.line_price)}</p>
+                            <div class="btn-link-gray">
+                                <a href="javascript:void(0)" onclick="Cart.Delete(this)" data-id="${e.id}"><i class="fa fa-trash"></i>Delete Product</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             `;
-            Cart.AdditionalItems.insertAdjacentHTML('beforeend', i);
-        }); 
-    }
+            Cart.TableItems.getElementsByTagName('tbody')[0].insertAdjacentHTML('beforeend', item);
+        });
 
-    genCountries();
+        if ((g = JSON.parse(Cart.Additional)).length) {
+            g.variants.forEach(e => {
+                var checked = Cart.Gift.find(a => a.id === e.id) ? 'checked' : '',
+                var i = `
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="${e.id}" onclick="Cart.ToggleAdds(this)" data-id="${e.id}" ${checked}>
+                        <label class="custom-control-label" for="${e.id}"><span>${Shopify.formatMoney(e.price)}</span>${e.title}</label>
+                    </div>
+                `;
+                Cart.AdditionalItems.insertAdjacentHTML('beforeend', i);
+            });
+        }
+
+        genCountries();
+    } else {
+        var h = `
+        <div class="col-lg-12">
+            <div class="shopping-content-info">
+                <h4 class="ttl-4 text-center">Your cart is currently empty.</h4>
+                <div class="table-cart-btn d-flex btn-link-black">
+                    <a href="/collections" title="">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+        `;
+        Cart.Content.innerHTML = h;
+    }
 });
 
 Cart.Update = async e => {
@@ -199,8 +256,7 @@ Cart.ToggleAdds = async e => {
 
 Cart.Refresh = async () => {
     var cart = await getItem(),
-        h,
-        i;
+        h;
 
     if (cart.item_count <= 0) {
         h = `
@@ -215,48 +271,6 @@ Cart.Refresh = async () => {
         `;
         Cart.Content.innerHTML = h;
     } else {
-        if ((i = JSON.parse(cart.items)).length) {
-            i.forEach(e => {
-                if (e.gift_card) {
-                    Cart.Gift.push(e);
-                    return;
-                }
-                var options = '';
-                if (e.options_with_values.length) {
-                    e.options_with_values.forEach(e => {
-                        options += `<p><span>${e.name}: </span>${e.value}</p>`;
-                    });
-                }
-                var sku = e.sku || 'N/A';
-                var item = `
-                    <tr data-line-id="${e.id}">
-                        <td class="col1">
-                            <div class="cart-img"><img src="${e.image}" alt="${e.title}"/></div>
-                        </td>
-                        <td class="col2">
-                            <a href="${e.url}" class="ttl">${e.title}</a>
-                            ${options}
-                            <p><small>SKU ${sku}</small></p>
-                        </td>
-                        <td class="col3">
-                            <div><p>${Shopify.formatMoney(e.price)}</p></div>
-                        </td>
-                        <td class="col4">
-                            <input type="type" class="qty" value="${e.quantity}">
-                        </td>
-                        <td class="col5">
-                            <div>
-                                <p>${Shopify.formatMoney(e.line_price)}</p>
-                                <div class="btn-link-gray">
-                                    <a href="javascript:void(0)" onclick="Cart.Delete(this)" data-id="${e.id}"><i class="fa fa-trash"></i>Delete Product</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-                Cart.TableItems.getElementsByTagName('tbody')[0].insertAdjacentHTML('beforeend', item);
-            });
-        }
         Cart.TotalPrice.innerHTML = Shopify.formatMoney(cart.total_price);
     }
 };
