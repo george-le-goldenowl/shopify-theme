@@ -118,9 +118,9 @@
     };
 
     Shopify.Filter = (a) => {
-        var b = localStorage.getItem("Customer_Mode") || "retail";
-        ("wholesale" != b || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail"));
-        
+        var c = localStorage.getItem("Customer_Mode") || "retail";
+        ("wholesale" != c || (Shopify.User.caps && Shopify.User.caps.wholesale) || (c = "retail"));
+
         var i;
         i = a.filter((a) => {
             var b;
