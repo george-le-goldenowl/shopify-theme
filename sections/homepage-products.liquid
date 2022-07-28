@@ -8,8 +8,8 @@
 {% assign products = section.settings.featured_products %}
 {%- if products != empty -%}
     {%- capture data -%}
-        {%- for product in products -%}
-            {{ product | json }}{% unless forloop.last %},{% endunless %}
+        {%- for p in products -%}
+            {"id": "{{ p.id }}", "title": "{{ p.title }}", "image": "{{ p.featured_image | image_url }}", "url": "{{ p.url }}", "options": {{ p.options | json }}, "variants": {{ p.variants | json }}}{% unless forloop.last %},{% endunless %}
         {%- endfor -%}
     {%- endcapture -%}
 {%- else -%}
@@ -19,42 +19,34 @@
 <script type="text/javascript">
 'use strict';
 void 0 == window.HomePage && (window.HomePage = {}),
-    (window.HomePage.Products = `[{{ data }}]`),
+    (window.HomePage.Products = "[{{ data }}]"),
     (window.HomePage.HomepageProducts = document.querySelector(".HomepageProducts")),
-    document.addEventListener("Sync", async (d) => {
-        var a,
-            b = localStorage.getItem("Customer_Mode") || "retail";
-        if (("wholesale" != b || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail"), (a = JSON.parse(window.HomePage.Products)).length)) {
-            var e = [],
-                c = "";
-            a.forEach((a) => {
-                if (a.options.includes("Customer")) {
-                    var d = a.variants.find((a) => a.options.includes(b));
-                    d && ((a.id = d.id), (a.price = d.price), (a.available = d.available));
-                }
-                var e = "/products/" + a.handle;
-                c += `
+    document.addEventListener("Sync", async () => {
+        var b = JSON.parse(window.HomePage.Products),
+            a = Shopify.Filter(b),
+            c = "";
+        a.length &&
+            (a.forEach((a) => {
+                (c += `
                     <div class="top-product__item">
-                        <a href="${e}">
+                        <a href="${a.url}">
                             <div class="top-product__item__img">
-                                <img src="${a.featured_image}" alt="${a.title}">
+                                <img src="${a.image}" alt="${a.title}">
                             </div>
                             <p class="ttl">${a.title}</p>
                             <p class="price">${Shopify.formatMoney(a.price)}</p>
-                        </a>`;
-                        if (a.available) {
-                            c += `<div class="product-nav">
+                        </a>`),
+                    a.available &&
+                        (c += `<div class="product-nav">
                                     <a href="javascript:void(0)" onclick="addToCart(this)" data-variant-id="${a.id}"><i class="icon-cart-01"></i></a>
-                                </div>`;
-                        }
-                c += `</div>`;
+                                </div>`),
+                    (c += "</div>");
             }),
-                (window.HomePage.HomepageProducts.innerHTML = ""),
-                await window.HomePage.HomepageProducts.insertAdjacentHTML("beforeend", c);
-            
-            document.dispatchEvent(window.Effect);
-        }
+            (window.HomePage.HomepageProducts.innerHTML = ""),
+            await window.HomePage.HomepageProducts.insertAdjacentHTML("beforeend", c),
+            document.dispatchEvent(window.Effect));
     });
+
 </script>
 {% schema %}
 {

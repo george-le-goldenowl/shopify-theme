@@ -10,17 +10,12 @@
             <li class="breadcrumb-item active" aria-current="page">Blog</li>
         </ol>
         <div class="blog__content__inner">
-
-       
+            
         <h2 class="blog__ttl02">{{ article.title }}</h2>
         <h3 class="blog__lead">{{ article.excerpt }}</h3>
         <div class="row author">
-            <div class="col-5">
-                <i class="fa fa-user-o"></i>by {{ article.author }}
-            </div>
-            <div class="col-5"> <i class="fa fa-calendar-check-o"></i>{{ article.published_at | date: '%B %d, %Y' }}
-            </div>
-            <div class="col-2"> <i class="fa fa-comment-o"></i></div>
+            <div class="col-5"><i class="fa fa-user-o"></i>by {{ article.author }}</div>
+            <div class="col-5"> <i class="fa fa-calendar-check-o"></i>{{ article.published_at | date: '%B %d, %Y' }}</div>
         </div>
         <div class="document">
             {{ article.content }}
