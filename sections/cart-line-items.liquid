@@ -140,7 +140,7 @@ window.addEventListener('load', async event => {
             Cart.TableItems.getElementsByTagName('tbody')[0].insertAdjacentHTML('beforeend', item);
         });
 
-        if ((a = JSON.parse(Cart.Additional)).length) {
+        if ((a = JSON.parse(Cart.Additional)).variants) {
             a.variants.forEach(e => {
                 var checked = Cart.Gift.find(a => a.id === e.id) ? 'checked' : '',
                     i = `
