@@ -117,15 +117,15 @@
         return e.replace(d, b);
     };
 
-    Shopify.Filter = (a) => {
+    Shopify.Filter = (b) => {
         var c = localStorage.getItem("Customer_Mode") || "retail";
         ("wholesale" != c || (Shopify.User.caps && Shopify.User.caps.wholesale) || (c = "retail"));
 
-        var i;
-        i = a.filter((a) => {
+        var a = [];
+        a = b.filter((a) => {
             var b;
             return (
-                (b = a.options.find((a) => "Customer" == a.name)
+                (b = a.options.includes("Customer")
                     ? a.variants.find((a) => {
                           if (a.title.includes(c) && a.available) return a;
                       })
@@ -139,7 +139,7 @@
             );
         });
 
-        return i;
+        return a;
     };
 
     window.Events = new Event('Sync');
