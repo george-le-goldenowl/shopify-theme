@@ -120,8 +120,9 @@
     Shopify.Filter = (a) => {
         var b = localStorage.getItem("Customer_Mode") || "retail";
         ("wholesale" != b || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail"));
+        
         var i;
-        i = b.filter((a) => {
+        i = a.filter((a) => {
             var b;
             return (
                 (b = a.options.find((a) => "Customer" == a.name)
@@ -142,7 +143,7 @@
     };
 
     window.Events = new Event('Sync');
-    
+
     const SyncUser = async () =>
         await fetch(window.server.host + "/wp-json/tatoo/action/get-user", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ email: "{{ customer.email  }}" }) })
             .then((a) => a.json())
