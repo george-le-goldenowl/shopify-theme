@@ -1,19 +1,4 @@
-{% liquid
-    assign collections_image = product.images
-    assign collections = product.collections
-    assign variant_product = product.first_available_variant
-    assign brands = ''
-
-    if collections != empty
-        for collection in collections
-            if collection.title contains '[BRAND]'
-                assign brands = brands | append: collection.title | append: ','
-            endif
-        endfor
-    endif
-
-    assign brands = brands | split: ','
-%}
+{%- assign images = product.images -%}
 
 <div class="container">
     <div class="row">
@@ -21,8 +6,8 @@
             <div class="product-detail">
                 <div class="js-product-detail">
                     <!-- collections image -->
-                    {% if collections_image != empty %}
-                        {% for image in collections_image %}
+                    {% if images != empty %}
+                        {% for image in images %}
                             <div class="product-detail-item">
                                 {{ image
                                 | image_url: width: 500, crop: 'center'
@@ -34,8 +19,8 @@
                 </div>
                 <div class="js-product-detail-nav thumb-nav">
                     <!-- collections image -->
-                    {% if collections_image != empty %}
-                        {% for image in collections_image %}
+                    {% if images != empty %}
+                        {% for image in images %}
                             <div>
                                 <div class="thumb-nav-item">
                                     {{ image
@@ -78,7 +63,38 @@
 'use strict';
 var Product = {
     Format: `[{{ data }}]`,
-    Detail: document.querySelector('.ProductDetail')
+    Detail: document.querySelector('.ProductDetail'),
+    Collection: `{{ product.collections | json }}`,
+};
+
+Product.Categories = () => {
+    var c = [],
+        b = [];
+    if (Product.Collection) {
+        JSON.parse(Product.Collection).forEach(i => {
+            if (i.handle.includes('category')) {
+                c.push(i.title.replace('[CATEGORY]', ''));
+            }
+
+            if (i.handle.includes('brand')) {
+                b.push(i.title.replace('[BRAND]', ''));
+            }
+        });
+    }
+
+    var h = `<div class="des">`;
+
+    if (c.length) {
+        h += `<p><span class="name">Categories: </span>${c.join(', ')}</p>`;
+    }
+
+    if (b.length) {
+        h += `<p><span class="name">Brands: </span>${b.join(', ')}</p>`;
+    }
+
+    h += `</div>`;
+
+    return h;
 };
 
 document.addEventListener('Sync', () => {
@@ -88,7 +104,8 @@ document.addEventListener('Sync', () => {
             h = '';
         h += `
         <div class="product-detail__info">
-            <div class="txt-sku">SKU: ${a[0].sku || 'n/a'}</div>
+            <div class="txt-sku">SKU: ${a[0].sku || 'N/A'}</div>
+            ${Product.Categories()}
             <div class="price">${Shopify.formatMoney(a[0].price)}</div>
         </div>
         <div class="product-detail__cart d-flex">

@@ -9,7 +9,7 @@
 {%- if products != empty -%}
     {%- capture data -%}
         {%- for product in products -%}
-            {{ product | json }}{% unless forloop.last %},{% endunless %}
+            {"id": "{{ product.id }}", "url": "{{ product.handle }}", "options": {{ product.options | json }}, "variants": {{ product.variants | json }}}
         {%- endfor -%}
     {%- endcapture -%}
 {%- else -%}
@@ -19,29 +19,14 @@
 <script type="text/javascript">
 'use strict';
 var ProductsFeatured = { Container: document.querySelector(".ProductsFeatured") };
-(ProductsFeatured.Products = "[{{ data }}]"),
+(ProductsFeatured.Products = `[{{ data }}]`),
     document.addEventListener("Sync", async () => {
-        var a,
-            b = localStorage.getItem("Customer_Mode") || "retail";
-        if (("wholesale" != b || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail"), (a = JSON.parse(ProductsFeatured.Products)).length)) {
-            var c = [],
-                d = "";
-            (c = a.filter((a) => {
-                var c;
-                return (
-                    (c = a.options.find((a) => "Customer" == a.name)
-                        ? a.variants.find((a) => {
-                              if (a.title.includes(b) && a.available) return a;
-                          })
-                        : a.variants.find((a) => {
-                              if (a.available) return a;
-                          })) || (b = a.variants[0]),
-                    (a.id = c.id),
-                    (a.price = c.price),
-                    (a.available = c.available),
-                    a
-                );
-            })).forEach((a) => {
+        var a = JSON.parse(ProductsFeatured.Products),
+            i = Shopify.Filter(a),
+            d = '';
+
+        if (i.length) {
+            i.forEach(a => {
                 var b = "/products/" + a.handle;
                 (d += `
                     <div class="top-product__item">
@@ -61,6 +46,7 @@ var ProductsFeatured = { Container: document.querySelector(".ProductsFeatured") 
                 (ProductsFeatured.Container.innerHTML = ""),
                 await ProductsFeatured.Container.insertAdjacentHTML("beforeend", d),
                 document.dispatchEvent(window.Effect);
+
         } else ProductsFeatured.Container.closest(".section-content-child").remove();
     });
 

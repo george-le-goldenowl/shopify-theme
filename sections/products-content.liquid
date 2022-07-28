@@ -77,7 +77,7 @@ var Products = { Result: [], Page: 1, Perpage: 8 };
         (Products.Result = Products.Filter("customer", b.products)), Products.ShowResults();
     }),
     (Products.SwitchNumbers = (a) => {
-        (Products.Numers.innerText = a), (Products.Perpage = a), Products.ShowResults();
+        (Products.Numers.innerText = a), (Products.Perpage = a), (Products.Page = 1), Products.ShowResults();
     }),
     (Products.SwitchSorts = (a) => {
         (Products.Sorts.innerText = a), (Products.Result = Products.Filter(a.toLowerCase(), Products.Result)), Products.ShowResults();
