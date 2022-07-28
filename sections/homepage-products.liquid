@@ -19,7 +19,7 @@
 <script type="text/javascript">
 'use strict';
 void 0 == window.HomePage && (window.HomePage = {}),
-    (window.HomePage.Products = "[{{ data }}]"),
+    (window.HomePage.Products = `[{{ data }}]`),
     (window.HomePage.HomepageProducts = document.querySelector(".HomepageProducts")),
     document.addEventListener("Sync", async () => {
         var b = JSON.parse(window.HomePage.Products),

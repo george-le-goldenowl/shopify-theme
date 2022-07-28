@@ -8,8 +8,10 @@
                         <!-- TODO -->
                         <li><a href=""><span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>My orders</a></li> 
                         <li><a href=""><span class="icon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>Payment Data</a></li>
-                        <!-- TODO: remove localstorage Customer_Mode -->
-                        <li><a href="javascript: ((localStorage.removeItem('Customer_Mode')), (window.location.href = '{{ routes.account_logout_url }}'));"><span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>Log Out</a></li>
+                        <li>
+                            <a href="javascript: ((localStorage.removeItem('Customer_Mode')), (window.location.href = '{{ routes.account_logout_url }}'));">
+                            <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>Log Out</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -32,9 +34,8 @@
                             <div class="col-sm-6">
                                 <!-- TODO -->
                                 <p><strong>Newsletters</strong></p>
-                                <p>You are subscribed to "General Subscription".</p>
-                                <div class="btn-text d-flex">
-                                    <a href="">Edit</a>
+                                <div class="ProfileNewsletter">
+                                    {%- render 'icon-loading' -%}    
                                 </div>
                             </div>
                         </div>
@@ -65,7 +66,48 @@
 </section>
 <script type="text/javascript">
 'use strict';
-var Account = {};
+var Account = {
+    Newsletter: document.querySelector('.ProfileNewsletter')
+};
+
+Account.SubscribeNewsletter = async e => {
+    e.parentElement.innerHTML = `{%- render 'icon-loading' -%}`;
+
+    await fetch(window.server.host + '/wp-json/tatoo/action/edit-user', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+            email: `{{ customer.email }}`,
+            field: 'newsletter',
+            value: e.getAttribute('data-action')
+        })
+    });
+
+    location.reload();
+};
+
+document.addEventListener('Sync', () => {
+    var n;
+    void 0 != Shopify.User &&
+        (n = Shopify.User.newsletter 
+            ? `
+                <p>You are subscribed to "General Subscription".</p>
+                <div class="btn-text d-flex">
+                    <a href="javascript: void(0);" onclick="Account.SubscribeNewsletter(this);" data-action="remove">Remove</a>
+                </div>
+            ` 
+            : `
+                <p>You aren't subscribe to "General Subscription".</p>
+                <div class="btn-text d-flex">
+                    <a href="javascript: void(0);" onclick="Account.SubscribeNewsletter(this);" data-action="subscribe">Subscribe</a>
+                </div>
+            `
+        ), Account.Newsletter.innerHTML = n;
+
+});
 
 window.addEventListener("load", async (b) => {
     if (
