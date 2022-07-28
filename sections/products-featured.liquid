@@ -18,48 +18,52 @@
 
 <script type="text/javascript">
 'use strict';
-var ProductsFeatured = {
-    Container: document.querySelector('.ProductsFeatured')
-};
-
-ProductsFeatured.Products = `[{{ data }}]`;
-
-document.addEventListener('Sync', async () => {
-    var a,
-        b = localStorage.getItem("Customer_Mode") || "retail";
-
-    if (("wholesale" != b || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail"), (a = JSON.parse(ProductsFeatured.Products)).length)) {
-        var e = [],
-                c = "";
-            a.forEach((a) => {
-                if (a.options.includes("Customer")) {
-                    var d = a.variants.find((a) => a.options.includes(b));
-                    d && ((a.id = d.id), (a.price = d.price), (a.available = d.available));
-                }
-                var e = "/products/" + a.handle;
-                c += `
+var ProductsFeatured = { Container: document.querySelector(".ProductsFeatured") };
+(ProductsFeatured.Products = "[{{ data }}]"),
+    document.addEventListener("Sync", async () => {
+        var a,
+            b = localStorage.getItem("Customer_Mode") || "retail";
+        if (("wholesale" != b || (Shopify.User.caps && Shopify.User.caps.wholesale) || (b = "retail"), (a = JSON.parse(ProductsFeatured.Products)).length)) {
+            var c = [],
+                d = "";
+            (c = a.filter((a) => {
+                var c;
+                return (
+                    (c = a.options.find((a) => "Customer" == a.name)
+                        ? a.variants.find((a) => {
+                              if (a.title.includes(b) && a.available) return a;
+                          })
+                        : a.variants.find((a) => {
+                              if (a.available) return a;
+                          })) || (b = a.variants[0]),
+                    (a.id = c.id),
+                    (a.price = c.price),
+                    (a.available = c.available),
+                    a
+                );
+            })).forEach((a) => {
+                var b = "/products/" + a.handle;
+                (d += `
                     <div class="top-product__item">
-                        <a href="${e}">
+                        <a href="${b}">
                             <div class="top-product__item__img">
                                 <img src="${a.featured_image}" alt="${a.title}">
                             </div>
                             <p class="ttl">${a.title}</p>
                             <p class="price">${Shopify.formatMoney(a.price)}</p>
-                        </a>`;
-                        if (a.available) {
-                            c += `<div class="product-nav">
+                        </a>`),
+                    a.available &&
+                        (d += `<div class="product-nav">
                                     <a href="javascript:void(0)" onclick="addToCart(this)" data-variant-id="${a.id}"><i class="icon-cart-01"></i></a>
-                                </div>`;
-                        }
-                c += `</div>`;
+                                </div>`),
+                    (d += "</div>");
             }),
                 (ProductsFeatured.Container.innerHTML = ""),
-                await ProductsFeatured.Container.insertAdjacentHTML("beforeend", c);
-            document.dispatchEvent(window.Effect);
-    } else {
+                await ProductsFeatured.Container.insertAdjacentHTML("beforeend", d),
+                document.dispatchEvent(window.Effect);
+        } else ProductsFeatured.Container.closest(".section-content-child").remove();
+    });
 
-    }
-});
 </script>
 {% schema %}
 {
