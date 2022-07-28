@@ -71,7 +71,7 @@
 </div>
 
 {%- capture data -%}
-    {"id": "{{ product.id }}", url": "{{ product.handle }}", "options": {{ product.options | json }}, "variants": {{ product.variants | json }}}
+    {"id": "{{ product.id }}", "url": "{{ product.handle }}", "options": {{ product.options | json }}, "variants": {{ product.variants | json }}}
 {%- endcapture -%}
 
 <script type="text/javascript">
