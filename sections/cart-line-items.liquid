@@ -16,7 +16,7 @@
                                     <th>Subtotal</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>{%- render 'icon-loading' -%}</tbody>
                         </table>
                     </div>
                 {% endif %}
@@ -82,7 +82,6 @@ element.note = document.querySelector('p.shipping-note');
 
 const Cart = {
     Gift: [],
-    Items: `{{ cart.items | json }}`,
     Additional: `{{ all_products['additional-options'] | json }}`
 };
 
@@ -92,54 +91,7 @@ window.addEventListener('load', async event => {
     Cart.TableItems = Cart.Content.querySelector('.table-cart-items');
     Cart.AdditionalItems = Cart.Content.querySelector('.add-options');
 
-    // Dump Cart Items
-    const cart = Cart.Items
-        .replace(/[\n\r\u2028\u2029]/g, "")
-        .replace(/(\r\n|\n|\r)/gm, "")
-        .replace(/"product_description":".*?(?=\"variant_title)/gm, "");
-    var i;
-    if ((i = JSON.parse(cart)).length) {
-        i.forEach(e => {
-            if (e.gift_card) {
-                Cart.Gift.push(e);
-                return;
-            }
-            var options = '';
-            if (e.options_with_values.length) {
-                e.options_with_values.forEach(e => {
-                    options += `<p><span>${e.name}: </span>${e.value}</p>`;
-                });
-            }
-            var sku = e.sku || 'N/A';
-            var item = `
-                <tr data-line-id="${e.id}">
-                    <td class="col1">
-                        <div class="cart-img"><img src="${e.image}" alt="${e.title}"/></div>
-                    </td>
-                    <td class="col2">
-                        <a href="${e.url}" class="ttl">${e.title}</a>
-                        ${options}
-                        <p><small>SKU ${sku}</small></p>
-                    </td>
-                    <td class="col3">
-                        <div><p>${Shopify.formatMoney(e.price)}</p></div>
-                    </td>
-                    <td class="col4">
-                        <input type="type" class="qty" value="${e.quantity}">
-                    </td>
-                    <td class="col5">
-                        <div>
-                            <p>${Shopify.formatMoney(e.line_price)}</p>
-                            <div class="btn-link-gray">
-                                <a href="javascript:void(0)" onclick="Cart.Delete(this)" data-id="${e.id}"><i class="fa fa-trash"></i>Delete Product</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            `;
-            Cart.TableItems.getElementsByTagName('tbody')[0].insertAdjacentHTML('beforeend', item);
-        });
-    }
+    await Cart.Refresh();
 
     // Dump Additional Items
     const adds = JSON.parse(Cart.Additional);
@@ -237,7 +189,7 @@ Cart.ToggleAdds = async e => {
         })
         .then(res => res.json())
         .then(data => {
-            Cart.RefreshTotal(data);
+            Cart.Refresh(data);
         });
     } catch(e) {
         console.log(e);
@@ -247,7 +199,8 @@ Cart.ToggleAdds = async e => {
 
 Cart.Refresh = async () => {
     var cart = await getItem(),
-        h;
+        h,
+        i;
 
     if (cart.item_count <= 0) {
         h = `
@@ -262,6 +215,48 @@ Cart.Refresh = async () => {
         `;
         Cart.Content.innerHTML = h;
     } else {
+        if ((i = JSON.parse(cart.items)).length) {
+            i.forEach(e => {
+                if (e.gift_card) {
+                    Cart.Gift.push(e);
+                    return;
+                }
+                var options = '';
+                if (e.options_with_values.length) {
+                    e.options_with_values.forEach(e => {
+                        options += `<p><span>${e.name}: </span>${e.value}</p>`;
+                    });
+                }
+                var sku = e.sku || 'N/A';
+                var item = `
+                    <tr data-line-id="${e.id}">
+                        <td class="col1">
+                            <div class="cart-img"><img src="${e.image}" alt="${e.title}"/></div>
+                        </td>
+                        <td class="col2">
+                            <a href="${e.url}" class="ttl">${e.title}</a>
+                            ${options}
+                            <p><small>SKU ${sku}</small></p>
+                        </td>
+                        <td class="col3">
+                            <div><p>${Shopify.formatMoney(e.price)}</p></div>
+                        </td>
+                        <td class="col4">
+                            <input type="type" class="qty" value="${e.quantity}">
+                        </td>
+                        <td class="col5">
+                            <div>
+                                <p>${Shopify.formatMoney(e.line_price)}</p>
+                                <div class="btn-link-gray">
+                                    <a href="javascript:void(0)" onclick="Cart.Delete(this)" data-id="${e.id}"><i class="fa fa-trash"></i>Delete Product</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                Cart.TableItems.getElementsByTagName('tbody')[0].insertAdjacentHTML('beforeend', item);
+            });
+        }
         Cart.TotalPrice.innerHTML = Shopify.formatMoney(cart.total_price);
     }
 };

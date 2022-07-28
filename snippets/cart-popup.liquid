@@ -86,9 +86,14 @@ CartPopup.Refresh = async () => {
         }
         html += `<div class="btn-link-text text-center">{{ 'View and Edit Cart' | link_to: '/cart' }}</div>`;
         html += `</div>`;
-
-        CartPopup.CartWrapContent.innerHTML = html;
+    } else {
+        html = `
+            {%- render 'icon-cart-empty' -%}
+            <div class="btn-link-text text-center">{{ 'View and Edit Cart' | link_to: '/cart' }}</div>
+        `;
     }
+
+    CartPopup.CartWrapContent.innerHTML = html;
 };
 </script>
 {% endif %}
