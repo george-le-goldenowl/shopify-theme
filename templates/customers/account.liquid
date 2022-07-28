@@ -23,12 +23,26 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <p><strong>Contact Infomation</strong></p>
-                                <p class="customer-name">{{ customer.name }}</p>
-                                <p class="customer-email">{{ customer.email }}</p>
-                                <!-- TODO -->
+                                <div class="ProfileChangePassword d-none">
+                                    <div class="form-group">
+                                        <label for="password">Password<span class="txt-error">*</span></label>
+                                        <input type="password" name="password" id="password" class="form-control form-control-line" data-required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirmPassword">Confirm Password <span class="txt-error">*</span></label>
+                                        <input type="password" name="passwordConfirm" id="confirmPassword" class="form-control form-control-line" data-required="true">
+                                    </div>
+                                </div>
+                                <div class="ProfileShowData">
+                                    <p class="customer-name">{{ customer.name }}</p>
+                                    <p class="customer-email">{{ customer.email }}</p>    
+                                </div>
                                 <div class="btn-text d-flex">
-                                    <a href="">Edit</a>
-                                    <a href="">Change Password</a>
+                                    <a 
+                                        href="javascript: void(0);" 
+                                        class="ProfileChangePasswordBtn" 
+                                        onclick="Account.ChangePassword(this);" 
+                                        data-type="password">Change Password</a>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -67,9 +81,82 @@
 <script type="text/javascript">
 'use strict';
 var Account = {
-    Newsletter: document.querySelector('.ProfileNewsletter')
+    Newsletter: document.querySelector('.ProfileNewsletter'),
+    ProfileChangeBtn: document.querySelector('.ProfileChangePasswordBtn')
 };
 
+// Password
+Account.ChangePassword = async e => {
+    var type = e.getAttribute('data-type'), 
+        p = document.querySelector('.ProfileChangePassword'), 
+        d = document.querySelector('.ProfileShowData');
+
+    switch (type) {
+        case 'password':
+            p.classList.remove('d-none');
+            d.classList.add('d-none');
+            e.parentElement.insertAdjacentHTML('afterbegin', '<a href="javascript: void(0);" onclick="Account.SubmitChangePassword(this);">Edit</a>');
+            break;
+        case 'data':
+            p.classList.add('d-none');
+            d.classList.remove('d-none');
+            e.parentElement.firstElementChild.remove();
+            break;
+    }
+
+    e.innerText = 'password' == type ? 'Close' : 'Change Password';
+    e.setAttribute('data-type', 'password' == type ? 'data' : 'password');
+};
+Account.SubmitChangePassword = async (e) => {
+    try {
+        var fields = document.querySelectorAll('input[name=password], input[name=passwordConfirm]');
+        fields.forEach(i => {
+            i.style.borderColor = '#ACB1C6';
+
+            if (!i.value) {
+                i.style.borderColor = 'red';
+                throw 'RequiredErr';    
+            }
+        });
+
+        if (fields[0].value.length < 8) {
+            fields[0].style.borderColor = 'red';
+            throw 'pwdAtLeast';
+        }
+
+        if ((fields[1].style.borderColor = '#ACB1C6'), fields[0].value !== fields[1].value) {
+            fields[1].style.borderColor = 'red';
+            throw 'PasswordNotCompare';
+        }
+
+        e.parentElement.innerHTML = `{%- render 'icon-loading' -%}`;
+        var res = await fetch(window.server.host + '/wp-json/tatoo/action/edit-user', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                email: `{{ customer.email }}`,
+                field: 'password',
+                password: fields[0].value,
+                password_confirm: fields[1].value,
+                customer_id: `{{ customer.id }}`
+            })
+        });
+
+        if (res.err) {
+            e.parentElement.innerHTML = '<a href="javascript: void(0);" onclick="Account.SubmitChangePassword(this);">Edit</a>';
+            throw res.message;
+        }
+
+        location.reload();
+    } catch(e) {
+        console.log(e);
+    }
+};
+
+// Newsletter
 Account.SubscribeNewsletter = async e => {
     e.parentElement.innerHTML = `{%- render 'icon-loading' -%}`;
 
