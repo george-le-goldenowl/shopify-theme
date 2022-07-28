@@ -142,7 +142,7 @@ window.addEventListener('load', async event => {
         if ((g = JSON.parse(Cart.Additional)).length) {
             g.variants.forEach(e => {
                 var checked = Cart.Gift.find(a => a.id === e.id) ? 'checked' : '',
-                var i = `
+                    i = `
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="${e.id}" onclick="Cart.ToggleAdds(this)" data-id="${e.id}" ${checked}>
                         <label class="custom-control-label" for="${e.id}"><span>${Shopify.formatMoney(e.price)}</span>${e.title}</label>
