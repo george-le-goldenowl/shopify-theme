@@ -1,6 +1,6 @@
 {% assign extraItems = '' %}
 <div class="container">
-    <div class="row cart-content">
+    <div class="row CartContent">
         <div class="col-lg-8">
             <div class="shopping-content-info">
                 <h4 class="ttl-4 text-center">Shopping Cart</h4>
@@ -80,13 +80,14 @@ element.province = document.querySelector('select[name=shipping-province]');
 element.postal = document.querySelector('input[name=shipping-postal]');
 element.note = document.querySelector('p.shipping-note');
 
-const Cart = {};
-Cart.Gift = [];
-Cart.Items = `{{ cart.items | json }}`;
-Cart.Additional = `{{ all_products['additional-options'] | json }}`;
+const Cart = {
+    Gift: [],
+    Items: `{{ cart.items | json }}`,
+    Additional: `{{ all_products['additional-options'] | json }}`
+};
 
 window.addEventListener('load', async event => {
-    Cart.Content = document.querySelector('.cart-content');
+    Cart.Content = document.querySelector('.CartContent');
     Cart.TotalPrice = Cart.Content.querySelector('.cart-total');
     Cart.TableItems = Cart.Content.querySelector('.table-cart-items');
     Cart.AdditionalItems = Cart.Content.querySelector('.add-options');
@@ -173,18 +174,8 @@ Cart.Update = async e => {
 
             data['updates'][id] = qty;
         });
-        await fetch("/cart/update.json", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-        .then(res => res.json())
-        .then(data => {
-            Cart.RefreshTotal(data);
-        });
+        await updateItems(data);
+        Cart.Refresh();
     } catch(e) {
         console.log(e);
     }
@@ -200,22 +191,27 @@ Cart.Delete = async e => {
             eWrap;
         ((eWrap = e.parentElement), eWrap.innerHTML = `{% render 'icon-loading' %}`);
 
-        await fetch("/cart/change.json", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({
-                id: id,
-                quantity: 0
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-            Cart.Content.querySelector(`tr[data-line-id="${id}"]`).remove();
-            Cart.RefreshTotal(data);
-        });
+        await removeItem(id);
+
+        // remove additional if there are no items in cart
+        var cart = await getItem(),
+            c;
+
+        if (cart.item_count > 0 && (c = cart.items.filter(i => !i.gift_card)).length <= 0) {
+            var d = {
+                'updates': {}
+            };
+
+            cart.items.filter(i => {
+                data['updates'][i.id.toString()] = 0;
+            });
+
+            await updateItems(data);
+        }
+        await Cart.Refresh();
+
+        Cart.Content.querySelector(`tr[data-line-id="${id}"]`).remove();
+        
     } catch(e) {
         console.log(e);
         eWrap.innerHTML = '';
@@ -249,12 +245,25 @@ Cart.ToggleAdds = async e => {
     }
 };
 
-Cart.RefreshTotal = async data => {
-    if (!data.total_price) {
-        data.total_price = await fetch("/cart.json").then(res => res.json()).then(data => data.total_price);
-    }
+Cart.Refresh = async () => {
+    var cart = await getItem(),
+        h;
 
-    Cart.TotalPrice.innerHTML = Shopify.formatMoney(data.total_price);
+    if (cart.item_count <= 0) {
+        h = `
+        <div class="col-lg-12">
+            <div class="shopping-content-info">
+                <h4 class="ttl-4 text-center">Your cart is currently empty.</h4>
+                <div class="table-cart-btn d-flex btn-link-black">
+                    <a href="/collections" title="">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+        `;
+        Cart.Content.innerHTML = h;
+    } else {
+        Cart.TotalPrice.innerHTML = Shopify.formatMoney(cart.total_price);
+    }
 };
 
 async function getPrepareShipping(data) {

@@ -74,7 +74,7 @@ var Products = { Result: [], Page: 1, Perpage: 8 };
     (Products.Collection = async (a) => {
         (Products.List.innerHTML = `{%- render 'icon-loading' -%}`), (Products.Page = 1), (Products.Perpage = 8);
         var b = await fetch(`/collections/${a.value}/products.json`).then((a) => a.json());
-        (Products.Result = b.products), Products.ShowResults();
+        (Products.Result = Products.Filter("customer", b.products)), Products.ShowResults();
     }),
     (Products.SwitchNumbers = (a) => {
         (Products.Numers.innerText = a), (Products.Perpage = a), Products.ShowResults();

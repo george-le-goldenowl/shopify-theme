@@ -97,6 +97,7 @@ CartPopup.Refresh = async () => {
 const removeItem = async (a) => await fetch("/cart/change.json", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ id: a, quantity: 0 }) }).then((a) => a.json()),
     addItem = async (a) => await fetch("/cart/add.json", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ ...a }) }),
     getItem = async () => await fetch("/cart.json").then((a) => a.json()),
+    updateItems = async (a) => await fetch("/cart/update.json", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(a) }).then((a) => a.json()),
     addToCart = async (b) => {
         var a = b.parentElement,
             c = a.innerHTML;
