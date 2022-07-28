@@ -203,10 +203,10 @@ Cart.Delete = async e => {
             };
 
             cart.items.filter(i => {
-                data['updates'][i.id.toString()] = 0;
+                d['updates'][i.id.toString()] = 0;
             });
 
-            await updateItems(data);
+            await updateItems(d);
         }
         await Cart.Refresh();
 
