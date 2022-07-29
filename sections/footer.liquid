@@ -44,6 +44,7 @@
             {% endif %}
             
             {% assign helpful = helpful.settings.help %}
+            {{ helpful | json }}
             {% if helpful != empty %}
             <div class="col-lg-3 col-6 orderft-4">
                 <h3>HELPFUL LINKS</h3>
