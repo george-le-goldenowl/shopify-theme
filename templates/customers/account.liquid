@@ -132,7 +132,7 @@ var Account = {
 Account.SwitchTab = e => {
     var t = e.getAttribute('data-tab');
     Account.Tabs.forEach(i => {
-        if (i.getAttribute('data-tab') == t) (i.classList.remove('d-none'), i.classList.add('active'));
+        if (i.getAttribute('data-tab') == t) i.classList.remove('d-none');
         else i.classList.add('d-none');
     });
 };
