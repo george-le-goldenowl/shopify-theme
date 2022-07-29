@@ -5,6 +5,8 @@
     case block.type
       when 'socials'
         assign socials = block
+      when 'collections'
+        assign collections = block
     endcase
   endfor
 -%}
@@ -27,17 +29,16 @@
                     </tr>
                 </table>
             </div>
+            {% if collections != empty %}
             <div class="col-lg-2 col-6 orderft-3">
                 <h3>SHOP</h3>
                 <ul>
-                    <li><a href="">Body Jewelry</a></li>
-                    <li><a href="">Piercing</a></li>
-                    <li><a href="">Tattoo</a></li>
-                    <li><a href="">Permanent Makeup</a></li>
-                    <li><a href="">Medical</a></li>
-                    <li><a href="">Studio</a></li>
+                    {% for col in collections %}
+                    <li><a href="{{ '/collections' | append: '#' | append: col.handle }}">{{ col.title | remove: '[CATEGORY]' | remove: '[BRAND]' }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
+            {% endif %}
             <div class="col-lg-3 col-6 orderft-4">
                 <h3>HELPFUL LINKS</h3>
                 <ul>
