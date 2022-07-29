@@ -265,7 +265,7 @@ window.addEventListener("load", async (b) => {
                     c.push(b.company),
                     c.push(b.address1),
                     c.push(b.address2),
-                    c.push(`${b.city} ${b.province_code} ${b.zip}`),
+                    c.push(`${b.city || ''} ${b.province_code || ''} ${b.zip || ''}`),
                     c.push(b.country),
                     (a += c.join("<br/>")),
                     (a += `

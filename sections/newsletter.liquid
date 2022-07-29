@@ -23,10 +23,18 @@
 'use strict';
 const SubscribeNewsletter = async e => {
     var i, o, a, h = ``;
-    (i = e.cloneNode(!0)), (o = e.parentElement), o.innerHTML = `{%- render 'icon-loading' -%}`;
+    (i = e.cloneNode(!0)), (o = e.parentElement);
     a = document.querySelector('.form-newsleter');
 
     try {
+        var input = document.querySelector('input[name=newsletter_subscribe]');
+        if (!input.value || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.value)) {
+            input.style.borderColor = 'red';
+            return;
+        }
+
+        o.innerHTML = `{%- render 'icon-loading' -%}`
+        
         var res = await fetch(window.server.host + '/wp-json/tatoo/action/edit-user', {
             method: "POST",
             headers: { "Content-Type": "application/json", "Accept": "application/json" },
