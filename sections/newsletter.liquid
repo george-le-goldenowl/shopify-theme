@@ -28,7 +28,7 @@ const SubscribeNewsletter = async e => {
 
     try {
         var input = document.querySelector('input[name=newsletter_subscribe]');
-        if (!input.value || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.value)) {
+        if ((!input.value) || (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.value))) {
             input.style.borderColor = 'red';
             return;
         }
@@ -38,7 +38,7 @@ const SubscribeNewsletter = async e => {
         var res = await fetch(window.server.host + '/wp-json/tatoo/action/edit-user', {
             method: "POST",
             headers: { "Content-Type": "application/json", "Accept": "application/json" },
-            body: JSON.stringify({ "email": `{{ customer.email }}`, "field": "newsletter", "value": "subscribe" })
+            body: JSON.stringify({ "email": input.value, "field": "newsletter", "value": "subscribe" })
         }).then(res => res.json());
 
         if (!res.err) ((h = `
