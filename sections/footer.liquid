@@ -47,6 +47,7 @@
                 <h3>HELPFUL LINKS</h3>
                 <ul>
                     {% for help in helpful %}
+                    {{ help | json }}
                     <li><a href="">{{ help.title }}</a></li>
                     {% endfor %}
                 </ul>
