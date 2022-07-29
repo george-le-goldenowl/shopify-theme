@@ -17,31 +17,83 @@
                     <a href="javascript:void(0)" class="btn-yellow btn-submit btn-disabled" onclick="onLoginSubmit(this)">Sign In</a> 
                 </div>
                 <div class="text-center">
-                	<!-- TODO: forgot password -->
-                    <a href="{{ routes.account_recover_url }}">Forgot your password?</a>
+                    <a href="javascript:void(0);" onclick="Login.ShowForgot(this);">Forgot your password?</a>
                 </div>
                 <p class="text-center">New Customer? {{ 'Create an account' | link_to: routes.account_register_url }}</p>
+            </div>
+        </form>
+        <form method="post" class="d-none" action="/account/recover" id="forgot_password" accept-charset="UTF-8">
+            <p class="text-center"><strong class="LoginType">Forgot Password</strong></p>
+            <p class="text-center">Please enter a valid email in the field below:</p>
+            <div class="form-group" id="recover_email">
+                <input type="email" class="form-control form-control-line" id="recover-email" name="email" placeholder="Email" data-required="true">
+            </div>
+            <div class="form-group text-center btn-payment">
+                <div class="row">
+                    <div class="col-sm-6"><a href="javascript:void(0)" class="btn-yellow btn-submit" onclick="Login.Forgot.submit();">Send</a> </div>
+                    <div class="col-sm-6 btn-back"><a href="javascript:void(0)" onclick="Login.ShowLogin(this);">Cancel</a> </div>
+                </div>
             </div>
         </form>
     </div>
 </div>
 <style type="text/css">
 #ErrDiv {
-	display: flex;
+    display: flex;
     align-items: center;
     margin-bottom: 0.5rem;
 }
 .btn-disabled {
-	pointer-events: none;
+    pointer-events: none;
     background: gray !important;
 }
 </style>
 <script type="text/javascript">
-var Login = {};
+var Login = {
+    Sign: document.querySelector('form#customer_login'),
+    Forgot: document.querySelector('form#forgot_password')
+};
+
+Login.ShowForgot = e => {
+    Login.Sign.classList.add('d-none');
+    Login.Forgot.classList.remove('d-none');
+};
+
+Login.ShowLogin = e => {
+    Login.Sign.classList.remove('d-none');
+    Login.Forgot.classList.add('d-none');
+};
+
 (Login.Disabled = { email: !0, password: !0 }),
     window.addEventListener("load", (a) => {
+        var i, h = ``;
+        if ((i = window.location.hash)) {
+            var o = i.split('#')[1];
+            switch (o) {
+                case "forgotSuccess":
+                    h = `
+                        <p class="text-center"><strong class="LoginType">Forgot Password</strong></p>
+                        <div class="text-center" style="width: 10%; margin: auto;">
+                            <svg aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 13 13">
+                                <path d="M6.5 12.35C9.73087 12.35 12.35 9.73086 12.35 6.5C12.35 3.26913 9.73087 0.65 6.5 0.65C3.26913 0.65 0.65 3.26913 0.65 6.5C0.65 9.73086 3.26913 12.35 6.5 12.35Z" fill="#428445" stroke="white" stroke-width="0.7"></path>
+                                <path d="M5.53271 8.66357L9.25213 4.68197" stroke="white"></path>
+                                <path d="M4.10645 6.7688L6.13766 8.62553" stroke="white"></path>
+                            </svg>
+                        </div>
+                        <div class="form-group text-center btn-back" style="width: 200px; margin: auto; margin-top: 20px;">
+                            <a href="javascript:void(0)" onclick="Login.ShowLogin(this);">Back</a>
+                        </div>
+                    `;
+                    Login.Forgot.innerHTML = h;
+                    Login.ShowForgot();
+                    showLoginPopup();
+                    break;
+                default:
+                    break;
+            }
+        }
         (Login.Form = document.querySelector("#customer_login")),
-            (Login.Required = Login.Form.querySelectorAll("input[data-required=true]")),
+            (Login.Required = Login.Sign.querySelectorAll("input[data-required=true]")),
             Login.Required.forEach((a) => {
                 a.addEventListener("keyup", (b) => {
                     var a = b.target,

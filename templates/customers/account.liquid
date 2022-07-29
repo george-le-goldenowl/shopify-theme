@@ -199,7 +199,7 @@ document.addEventListener('Sync', () => {
 window.addEventListener("load", async (b) => {
     if (
         ((Account.Content = document.querySelector(".profile-content")),
-        (Account.Address = "{{ customer.addresses | json }}"),
+        (Account.Address = `{{ customer.addresses | json }}`),
         (Account.ListAddress = Account.Content.querySelector(".list-address")),
         (Account.WrapListAddress = Account.Content.querySelector(".wrap-list-address")),
         Account.Address)
