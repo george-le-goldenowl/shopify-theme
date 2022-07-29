@@ -7,8 +7,6 @@
         assign socials = block
       when 'collections'
         assign collections = block
-      when 'helpful'
-        assign helpful = block
     endcase
   endfor
 -%}
@@ -42,7 +40,7 @@
                 </ul>
             </div>
             {% endif %}
-
+            
             {% assign helpful = helpful.settings.help %}
             {% if helpful != empty %}
             <div class="col-lg-3 col-6 orderft-4">
@@ -54,6 +52,7 @@
                 </ul>
             </div>
             {% endif %}
+            
             <div class="col-lg-4 col-6 orderft-2">
                 <h3>FOLLOW US</h3>
                 <div class="share">
