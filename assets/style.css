@@ -2237,7 +2237,8 @@ a {
   top: 3px;
   line-height: 1;
 }
-.menu-profile-wrap ul li a:hover {
+.menu-profile-wrap ul li a:hover,
+.menu-profile-wrap ul li a.active {
   color: #00A8E8;
   text-decoration: none;
 }

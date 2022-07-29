@@ -4,10 +4,9 @@
             <div class="col-lg-4">
                 <div class="menu-profile-wrap">
                     <ul class="menu-profile">
-                        <li><a href=""><span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>Account Dashboard</a></li>
-                        <!-- TODO -->
-                        <li><a href=""><span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>My orders</a></li> 
-                        <li><a href=""><span class="icon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>Payment Data</a></li>
+                        <li><a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="dashboard"><span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>Account Dashboard</a></li>
+                        <li><a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="orders"><span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>My orders</a></li> 
+                        <li><a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="payment"><span class="icon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>Payment Data</a></li>
                         <li>
                             <a href="javascript: ((localStorage.removeItem('Customer_Mode')), (window.location.href = '{{ routes.account_logout_url }}'));">
                             <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>Log Out</a>
@@ -16,7 +15,7 @@
                 </div>
             </div>
             <div class="col-lg-8">
-                <div class="profile-content">
+                <div class="profile-content" data-tab="dashboard">
                     <h3 class="ttl-4">Account Dashboard</h3>
                     <div class="profile-content-item">
                         <h3 class="ttl-5">Account Infomation</h3>   
@@ -25,12 +24,10 @@
                                 <p><strong>Contact Infomation</strong></p>
                                 <div class="ProfileChangePassword d-none">
                                     <div class="form-group">
-                                        <label for="password">Password<span class="txt-error">*</span></label>
-                                        <input type="password" name="password" id="password" class="form-control form-control-line" data-required="true">
+                                        <input type="password" name="password" id="password" class="form-control form-control-line" data-required="true" placeholder="*Password">
                                     </div>
                                     <div class="form-group">
-                                        <label for="confirmPassword">Confirm Password <span class="txt-error">*</span></label>
-                                        <input type="password" name="passwordConfirm" id="confirmPassword" class="form-control form-control-line" data-required="true">
+                                        <input type="password" name="passwordConfirm" id="confirmPassword" class="form-control form-control-line" data-required="true" placeholder="*Comfirm Password">
                                     </div>
                                 </div>
                                 <div class="ProfileShowData">
@@ -74,15 +71,70 @@
                         </div>
                     </div>
                 </div>
+                <div class="profile-content d-none" data-tab="orders">
+                    <h3 class="ttl-4">Account Orders</h3>
+                    <div class="profile-content-item">
+                        {%- if customer.orders_count > 0 -%}
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%- for order in customer.orders -%}
+                                    <tr>
+                                        <td>{{ order.id }}</td>
+                                        <td>{{ order.name }}</td>
+                                        <td>{{ order.total_price | money }}</td>
+                                        <td>{{ order.financial_status_label }}</td>
+                                    </tr>
+                                    {%- endfor -%}
+                                </tbody>
+                            </table>
+                        {%- else -%}
+                            You have not made any orders yet, {{ 'Order now' | link_to: '/collections' }}
+                        {%- endif-%}
+                    </div>
+                </div>
+                <div class="profile-content d-none" data-tab="payment">
+                    <h3 class="ttl-4">Payment Data</h3>
+                    <div class="profile-content-item">
+                        <h3 class="ttl-5">Points</h3>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p>Total: <span class="ProfilePoints"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
+<style type="text/css">
+.table td, .table th {
+    border-top:  none !important;
+}
+</style>
 <script type="text/javascript">
 'use strict';
 var Account = {
+    Tabs: document.querySelectorAll('.profile-content'),
+    Points: document.querySelector('.ProfilePoints'),
     Newsletter: document.querySelector('.ProfileNewsletter'),
-    ProfileChangeBtn: document.querySelector('.ProfileChangePasswordBtn')
+    ProfileChangeBtn: document.querySelector('.ProfileChangePasswordBtn'),
+};
+
+Account.SwitchTab = e => {
+    var t = e.getAttribute('data-tab');
+    Account.Tabs.forEach(i => {
+        if (i.getAttribute('data-tab') == t) (i.classList.remove('d-none'), i.classList.add('active'));
+        else i.classList.add('d-none');
+    });
 };
 
 // Password
@@ -179,7 +231,7 @@ Account.SubscribeNewsletter = async e => {
 document.addEventListener('Sync', () => {
     var n;
     void 0 != Shopify.User &&
-        (n = Shopify.User.newsletter 
+        ((n = Shopify.User.newsletter 
             ? `
                 <p>You are subscribed to "General Subscription".</p>
                 <div class="btn-text d-flex">
@@ -192,7 +244,7 @@ document.addEventListener('Sync', () => {
                     <a href="javascript: void(0);" onclick="Account.SubscribeNewsletter(this);" data-action="subscribe">Subscribe</a>
                 </div>
             `
-        ), Account.Newsletter.innerHTML = n;
+        ), Account.Newsletter.innerHTML = n), Account.Points.innerText = Shopify.User.points.total;
 
 });
 
