@@ -118,6 +118,12 @@
               ]
             }
           },
+          "59f30761-da70-4b9e-82f4-4f9cb0bf2c94": {
+            "type": "helpful",
+            "settings": {
+              "help": ""
+            }
+          },
           "1c454ec7-c3f9-405d-8014-c3c49ab91ae8": {
             "type": "socials",
             "settings": {
@@ -130,6 +136,7 @@
         },
         "block_order": [
           "7fbe6222-8083-4d1e-a98b-9cd6b00e8298",
+          "59f30761-da70-4b9e-82f4-4f9cb0bf2c94",
           "1c454ec7-c3f9-405d-8014-c3c49ab91ae8"
         ],
         "settings": {
