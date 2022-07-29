@@ -7,43 +7,66 @@
         <div class="form-newsleter d-flex align-items-center">
             <div class="col-md-9">
                 <div class="form-group ">
-                    <input type="text" class="form-control" placeholder="Enter your email address...">
+                    <input type="text" name="newsletter_subscribe" class="form-control" placeholder="Enter your email address...">
                     <span class="email"></span>
                 </div>
             </div>
             <div class="btn-link col-md-3">
-                <a class="btn btn-search" href="">Send me</a>
+                <a class="btn btn-search" href="javascript: void(0);" onclick="SubscribeNewsletter(this);">Send me</a>
             </div>
         </div>
     </div>
 </section>
 {% endif %}
 
+<script type="text/javascript">
+'use strict';
+const SubscribeNewsletter = async e => {
+    var i, o, a, h = ``;
+    (i = e.cloneNode(!0)), (o = e.parentElement), o.innerHTML = `{%- render 'icon-loading' -%}`;
+    a = document.querySelector('.form-newsleter');
+
+    try {
+        var res = await fetch(window.server.host + '/wp-json/tatoo/action/edit-user', {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({ "email": `{{ customer.email }}`, "field": "newsletter", "value": "subscribe" })
+        }).then(res => res.json());
+
+        if (!res.err) ((h = `
+            <div class="text-center" style="width: 3rem; margin: auto;">
+                <svg aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 13 13">
+                    <path d="M6.5 12.35C9.73087 12.35 12.35 9.73086 12.35 6.5C12.35 3.26913 9.73087 0.65 6.5 0.65C3.26913 0.65 0.65 3.26913 0.65 6.5C0.65 9.73086 3.26913 12.35 6.5 12.35Z" fill="#428445" stroke="white" stroke-width="0.7"></path>
+                    <path d="M5.53271 8.66357L9.25213 4.68197" stroke="white"></path>
+                    <path d="M4.10645 6.7688L6.13766 8.62553" stroke="white"></path>
+                </svg>
+            </div>`), a.innerHTML = h);
+        else throw res.message;
+    } catch(e) {
+        a.innerHTML = `<sub style="color: red; width: 50%; margin: auto;">*${e}</sub>`;
+    }
+};
+</script>
+
 {% schema %}
-  {
+{
     "name": "Newsletter",
     "settings": [
-      {
-        "id": "title",
-        "type": "text",
-        "label": "Title"
-      },
-      {
-        "id": "paraphrase",
-        "type": "richtext",
-        "label": "Paraphrase"
-      },
-      {
-        "id": "image",
-        "type": "image_picker",
-        "label": "Background Image"
-      }
+        {
+            "id": "title",
+            "type": "text",
+            "label": "Title"
+        },
+        {
+            "id": "paraphrase",
+            "type": "richtext",
+            "label": "Paraphrase"
+        },
+        {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Background Image"
+        }
     ]
-  }
+}
 {% endschema %}
-
-{% stylesheet %}
-{% endstylesheet %}
-
-{% javascript %}
-{% endjavascript %}
