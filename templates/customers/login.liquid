@@ -1,3 +1,15 @@
+{%- form 'recover_customer_password' -%}
+    {%- assign recover_success = form.posted_successfully? -%}
+{%- endform -%}
+
 <script type="text/javascript">
-window.location.href = `{{ routes.root_url }}`;
+'use strict';
+var status = `{{ recover_success }}`;
+status = status ? '#forgotSuccess' : '';
+
+var locale = `{{ request.locale.iso_code }}`;
+if (locale) {
+	status = `/${locale}${status}`;
+}
+window.location.href = `{{ routes.root_url }}${status}`;
 </script>
