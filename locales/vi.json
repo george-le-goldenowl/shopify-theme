@@ -44,10 +44,6 @@
     "search": {
       "search": "Tìm kiếm sản phẩm"
     },
-    "cart": {
-      "view": "Xem giỏ hàng của tôi ({{ count }})",
-      "item_added": "Mặt hàng đã thêm vào giỏ hàng"
-    },
     "share": {
       "copy_to_clipboard": "Sao chép liên kết",
       "share_url": "Liên kết",
@@ -257,9 +253,11 @@
       "caption": "Các mặt hàng trong giỏ hàng",
       "remove_title": "Xóa {{ title }}",
       "subtotal": "Tổng phụ",
+      "view_detail": "Chi tiết",
       "new_subtotal": "Tổng phụ mới",
       "note": "Hướng dẫn đặc biệt của đơn hàng",
       "checkout": "Thanh toán",
+      "stock_in_cart": "sản phẩm trong giỏ hàng",
       "empty": "Giỏ hàng của bạn đang trống",
       "cart_error": "Đã xảy ra lỗi khi cập nhật giỏ hàng. Vui lòng thử lại.",
       "cart_quantity_error_html": "Bạn chỉ có thể thêm {{ quantity }} mặt hàng này vào giỏ hàng.",
@@ -267,6 +265,7 @@
       "taxes_included_but_shipping_at_checkout": "Đã bao gồm thuế và phí vận chuyển được tính khi thanh toán",
       "taxes_included_and_shipping_policy_html": "Đã bao gồm thuế. <a href=\"{{ link }}\">Phí vận chuyển<\/a> được tính khi thanh toán.",
       "taxes_and_shipping_at_checkout": "Thuế và phí vận chuyển được tính khi thanh toán",
+      "view_edit": "Xem và Chỉnh sửa Giỏ hàng",
       "headings": {
         "product": "Sản phẩm",
         "price": "Giá",

@@ -44,10 +44,6 @@
     "search": {
       "search": "Search for products"
     },
-    "cart": {
-      "view": "View my cart ({{ count }})",
-      "item_added": "Item added to your cart"
-    },
     "share": {
       "close": "Close share",
       "copy_to_clipboard": "Copy link",
@@ -257,9 +253,11 @@
       "caption": "Cart items",
       "remove_title": "Remove {{ title }}",
       "subtotal": "Subtotal",
+      "view_detail": "View Detail",
       "new_subtotal": "New subtotal",
       "note": "Order special instructions",
-      "checkout": "Check out",
+      "checkout": "Proceed to Payment",
+      "stock_in_cart": "products in cart",
       "empty": "Your cart is empty",
       "cart_error": "There was an error while updating your cart. Please try again.",
       "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart.",
@@ -267,6 +265,7 @@
       "taxes_included_but_shipping_at_checkout": "Tax included and shipping calculated at checkout",
       "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
       "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout",
+      "view_edit": "View and Edit Cart",
       "headings": {
         "product": "Product",
         "price": "Price",
