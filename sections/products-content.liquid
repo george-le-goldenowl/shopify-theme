@@ -162,7 +162,7 @@ var Products = { Result: [], Page: 1, Perpage: 8 };
             if ((a = Products.Result.slice(c, d)).length) {
                 var b = '<div class="row">';
                 a.forEach((a) => {
-                    var c = a.images[0] ? a.images[0].src : "";
+                    var c = a.image ? a.image : a.images[0] ? a.images[0].src : "";
                     b += `
                 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                     <div class="top-product__item">
@@ -187,11 +187,21 @@ var Products = { Result: [], Page: 1, Perpage: 8 };
             }
         } else Products.List.innerHTML = "No products found";
     }),
-    document.addEventListener("Sync", async (c) => {
-        var b, a, d;
-        (a = (b = (await fetch("/products.json").then((a) => a.json())).products).filter((a) => "Gift Cards" != a.product_type)).length && ((a = Products.Filter("customer", a)), (Products.Result = a), Products.ShowResults());
+    document.addEventListener("Sync", async (d) => {
+        var c,
+            a,
+            e,
+            f,
+            b = GetURLParam("keyword");
+        (a = (c = (void 0 != b && b ? ((SearchFormInput.value = b), await fetch(`/search?type=product&q=${b}`).then((a) => a.json())) : await fetch("/products.json").then((a) => a.json())).products).filter(
+            (a) => "Gift Cards" != a.product_type
+        )).length && ((a = Products.Filter("customer", a)), (Products.Result = a), Products.ShowResults());
     });
 
+
+const GetURLParam = (a) => {
+    return new URL(window.location.href).searchParams.get(a);
+};
 </script>
 {% schema %}
   {

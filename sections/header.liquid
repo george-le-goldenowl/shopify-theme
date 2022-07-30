@@ -23,12 +23,10 @@
                 </div>
                 <div class="col-lg-5 col-md-6 col-sm-12">
                     <div class="form">
-                        <form>
+                        <form id="SearchForm" action="/collections/" method="GET">
                             <div class="form-group">
-                                <!-- TODO -->
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <button class="btn btn-search"></button>
-                                <span class="close"></span>
+                                <input type="text" name="keyword" class="form-control" placeholder="Search for products">
+                                <button class="btn btn-search" onclick="SearchSubmit(this);"></button>
                             </div>
                         </form>
                     </div>
@@ -122,4 +120,31 @@ var TypeBtn = { Switch: document.querySelector(".CustomerSwitch") };
                     b.getAttribute("data-type") == a ? b.classList.add("active") : (b.style.pointerEvents = "none");
                 });
     });
+
+var SearchForm = document.querySelector('form#SearchForm'),
+SearchFormInput = SearchForm.querySelector('input[name=keyword]');
+SearchFormInput.addEventListener('keyup', e => {
+    var a,
+    e = e.target,
+    value = e.value;
+    value.length > 0 ? (a = SearchForm.querySelector("span")) || e.parentElement.insertAdjacentHTML("beforeend", '<span class="close" onclick="ClearSearchInput(this);"></span>') : (a = SearchForm.querySelector("span")) && a.remove();
+});
+
+const SearchSubmit = e => {
+    try {
+        var k = SearchFormInput.value;
+        if (k.length <= 0) throw 'EmptyKeyword';
+
+        var url = `{{ routes.collections_url }}#keyword=k`;
+
+        window.location.href = url;
+    } catch(e) {
+        console.log(e);
+    }
+};
+
+const ClearSearchInput = (e) => {
+    SearchFormInput.value = '';
+    e.remove();
+};
 </script>

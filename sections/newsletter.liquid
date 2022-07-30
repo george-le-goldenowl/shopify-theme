@@ -28,7 +28,7 @@ const SubscribeNewsletter = async e => {
 
     try {
         var input = document.querySelector('input[name=newsletter_subscribe]');
-        if ((!input.value) || (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.value))) {
+        if ((!input.value) || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.value))) {
             input.style.borderColor = 'red';
             return;
         }
