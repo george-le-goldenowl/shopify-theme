@@ -22,7 +22,7 @@
                 <p class="text-center">{{ 'customer.login_page.new' | t }} {{ 'customer.login_page.create_account' | t | link_to: routes.account_register_url }}</p>
             </div>
         </form>
-        <form method="post" class="d-none" action="/account/recover" id="forgot_password" accept-charset="UTF-8">
+        <form method="post" class="d-none" action="{{ request.locale.iso_code }}/account/recover" id="forgot_password" accept-charset="UTF-8">
             <p class="text-center"><strong class="LoginType">{{ 'customer.login_page.forgot_password' | t }}</strong></p>
             <p class="text-center">{{ 'customer.login_page.forgot_password_sub' | t }}:</p>
             <div class="form-group" id="recover_email">
