@@ -80,6 +80,8 @@
   },
   "blogs": {
     "article": {
+      "featured_title": "Featured Posts",
+      "no_articles": "There are no articles",
       "blog": "Blog",
       "read_more_title": "Read more: {{ title }}",
       "comments": {
@@ -283,6 +285,7 @@
       "payment": "Payment methods"
     },
     "featured_blog": {
+      "title": "",
       "view_all": "View all",
       "onboarding_title": "Blog post",
       "onboarding_content": "Give your customers a summary of your blog post"

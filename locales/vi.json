@@ -80,6 +80,8 @@
   },
   "blogs": {
     "article": {
+      "featured_title": "Bài viết nổi bật",
+      "no_articles": "Không có bài viết nào",
       "blog": "Blog",
       "read_more_title": "Đọc thêm: {{ title }}",
       "comments": {
@@ -283,6 +285,7 @@
       "payment": "Phương thức thanh toán"
     },
     "featured_blog": {
+      "title": "",
       "view_all": "Xem tất cả",
       "onboarding_title": "Bài viết blog",
       "onboarding_content": "Cho khách hàng xem tóm tắt bài viết blog"
@@ -472,7 +475,7 @@
       "all_topics": "All topics",
       "by_author": "by {{ author }}",
       "posted_in": "Posted in",
-      "read_more": "Read more",
+      "read_more": "Đọc thêm",
       "back_to_blog": "Back to {{ title }}"
     },
     "comments": {

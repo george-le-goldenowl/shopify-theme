@@ -84,7 +84,7 @@ CartPopup.Refresh = async () => {
                 `;
             });
         }
-        html += `<div class="btn-link-text text-center">{{ 'sections.cart.view_edit' | t | link_to: '/cart' }}</div>`;
+        html += `<div class="btn-link-text text-center">{{ 'sections.cart.view_edit' | t | link_to: routes.cart_url }}</div>`;
         html += `</div>`;
     } else {
         html = (`<div class="btn-link-text text-center">{%- render 'icon-cart-empty' -%} {{ 'general.continue_shopping' | t | link_to: routes.collections_url }}</div>`);

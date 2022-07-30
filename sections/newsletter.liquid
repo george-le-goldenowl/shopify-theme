@@ -1,22 +1,22 @@
 {% if section.settings != blank %}
-{% assign background = section.settings.image %}
-<section class="top-newsletter" style="background: url({{ background | image_url: width: 1200, crop: 'center' }}); background-size: cover;">
-    <div class="container">
-        <h2 class="ttl-01">{{ section.settings.title | escape }}</h2>
-        {{ section.settings.paraphrase }}
-        <div class="form-newsleter d-flex align-items-center">
-            <div class="col-md-9">
-                <div class="form-group ">
-                    <input type="text" name="newsletter_subscribe" class="form-control" placeholder="Enter your email address...">
-                    <span class="email"></span>
+    {% assign background = section.settings.image %}
+    <section class="top-newsletter" style="background: url({{ background | image_url: width: 1200, crop: 'center' }}); background-size: cover;">
+        <div class="container">
+            <h2 class="ttl-01">{{ section.settings.title | escape }}</h2>
+            {{ section.settings.paraphrase }}
+            <div class="form-newsleter d-flex align-items-center">
+                <div class="col-md-9">
+                    <div class="form-group ">
+                        <input type="text" name="newsletter_subscribe" class="form-control" placeholder="Enter your email address...">
+                        <span class="email"></span>
+                    </div>
+                </div>
+                <div class="btn-link col-md-3">
+                    <a class="btn btn-search" href="javascript: void(0);" onclick="SubscribeNewsletter(this);">Send me</a>
                 </div>
             </div>
-            <div class="btn-link col-md-3">
-                <a class="btn btn-search" href="javascript: void(0);" onclick="SubscribeNewsletter(this);">Send me</a>
-            </div>
         </div>
-    </div>
-</section>
+    </section>
 {% endif %}
 
 <script type="text/javascript">
