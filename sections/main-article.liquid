@@ -9,7 +9,7 @@
         {%- assign blogurl = request.locale.root_url | append: 'blogs/' | append: blog[0] -%}
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ shop.secure_url }}">{{ 'blogs.article.home' | t }}</a></li> 
-            <li class="breadcrumb-item" aria-current="page"><a href="{{ blogurl }}">{{ 'blogs.article.blog' | t }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="{{ blogurl }}">{{ 'blogs.article.blog' | t }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ article.title }}</li>
         </ol>
         <div class="blog__content__inner">
