@@ -47,10 +47,10 @@ CartPopup.Refresh = async () => {
                 <strong>Total ${Shopify.formatMoney(c.total_price)}</strong>
             </p>
             <div class="btn-payment">
-                <a href="/checkout"><i class="fa fa-lock"></i>{{ 'cart.checkout' | t }}</a>
+                <a href="/checkout"><i class="fa fa-lock"></i>{{ 'sections.cart.checkout' | t }}</a>
             </div>
             <p class="text-center">
-                <span class="cart-count">${c.item_count}</span> {{ 'cart.stock_in_cart' | t }}
+                <span class="cart-count">${c.item_count}</span> {{ 'sections.cart.stock_in_cart' | t }}
             </p>
             <div class="CartLines">
         `;
@@ -67,10 +67,10 @@ CartPopup.Refresh = async () => {
                             <div class="col-sm-6">
                                 <a href="${e.url}" class="ttl">${e.product_title}</a>
                                 <div class="btn-view">
-                                    <a href="javascript:void(0)" onclick="CartPopup.ShowDetail(this);">{{ 'cart.view_detail' | t }}</a>
+                                    <a href="javascript:void(0)" onclick="CartPopup.ShowDetail(this);">{{ 'sections.cart.view_detail' | t }}</a>
                                 </div>
                                 <div class="view-more">
-                                    <p class="qtybox"><strong>{{ 'cart.headings.quantity' | t }}:</strong><input type="text" class="qty" value="${e.quantity}" readonly></p>
+                                    <p class="qtybox"><strong>{{ 'sections.cart.headings.quantity' | t }}:</strong><input type="text" class="qty" value="${e.quantity}" readonly></p>
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -84,7 +84,7 @@ CartPopup.Refresh = async () => {
                 `;
             });
         }
-        html += `<div class="btn-link-text text-center">{{ 'cart.view_edit' | t | link_to: '/cart' }}</div>`;
+        html += `<div class="btn-link-text text-center">{{ 'sections.cart.view_edit' | t | link_to: '/cart' }}</div>`;
         html += `</div>`;
     } else {
         html = (`<div class="btn-link-text text-center">{%- render 'icon-cart-empty' -%} {{ 'general.continue_shopping' | t | link_to: routes.collections_url }}</div>`);
