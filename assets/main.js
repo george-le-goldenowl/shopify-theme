@@ -6,4 +6,7 @@ jQuery(function () {
         $(".js-close-menu").click(function (a) {
             $(".navbar-collapse").removeClass("show");
         });
+
+    jQuery('.product-review__img').length
+        && jQuery('.product-review__img').matchHeight();
 });
