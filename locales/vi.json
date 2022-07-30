@@ -269,6 +269,7 @@
       "taxes_included_and_shipping_policy_html": "Đã bao gồm thuế. <a href=\"{{ link }}\">Phí vận chuyển<\/a> được tính khi thanh toán.",
       "taxes_and_shipping_at_checkout": "Thuế và phí vận chuyển được tính khi thanh toán",
       "view_edit": "Xem và Chỉnh sửa Giỏ hàng",
+      "additional": "Tùy chọn bổ sung",
       "est": {
         "title": "Ước tính Vận chuyển và Thuế",
         "shipping": "Nhập điểm đến của bạn để nhận ước tính vận chuyển",

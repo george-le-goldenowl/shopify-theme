@@ -37,17 +37,17 @@
                         {{ 'sections.cart.est.title' | t }}<i class="fa fa-angle-down" aria-hidden="true"></i>
                     </div>
                     <div id="shipping-calculator" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <p>{{ 'sections.cart.est.shipping' }}.</p>
+                        <p>{{ 'sections.cart.est.shipping' | t }}.</p>
                         <div class="form-group">
                             <label for="">{{ 'sections.cart.est.country' | t }}</label>
                             <select name="shipping-country" class="custom-select" onchange="genProvinces(this)">
-                                <option value="" selected>{{ 'sections.cart.est.select_country' }}</option>
+                                <option value="" selected>{{ 'sections.cart.est.select_country' | t }}</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">{{ 'sections.cart.est.zip' }}</label>
+                            <label for="">{{ 'sections.cart.est.zip' | t }}</label>
                             <input type="text" name="shipping-postal" class="form-control form-control-line" value="" onblur="getShippingRates(this)">
-                            <p class="shipping-note"><small>{{ 'sections.cart.est.zip_input' }}</small></p>
+                            <p class="shipping-note"><small>{{ 'sections.cart.est.zip_input' | t }}</small></p>
                         </div>
                     </div>
                     <hr>
