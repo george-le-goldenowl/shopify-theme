@@ -328,6 +328,21 @@
     },
     "page": {
       "title": "Tiêu đề trang"
+    },
+    "contest": {
+      "result": {
+        "title": "Kết quả cuộc thi",
+        "prizes": "tài khoản giành giải thưởng",
+        "competition_name": "Tên cuộc thi",
+        "congratulation": "Chúc mừng",
+        "details": {
+          "rank": "Thứ hạng",
+          "account": "Tên tài khoản",
+          "prizes": "Giải thưởng"
+        },
+        "form": "Hình thức giải thưởng"
+      },
+      "share": "Chia sẻ",
     }
   },
   "localization": {

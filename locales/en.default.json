@@ -328,6 +328,21 @@
     },
     "page": {
       "title": "Page title"
+    },
+    "contest": {
+      "result": {
+        "title": "Contest results",
+        "prizes": "account win prizes",
+        "competition_name": "Competition Name",
+        "congratulation": "Congratulation",
+        "details": {
+          "rank": "Rank",
+          "account": "Account Name",
+          "prizes": "Prizes"
+        },
+        "form": "Award Form"
+      },
+      "share": "Share",
     }
   },
   "localization": {

@@ -1,10 +1,10 @@
 {%- assign url = shop.url | append: page.url -%}
 <div class="container">
     <div class="notice__content notice__content--other">
-        <h2 class="ttl-03">Contest results</h2>
+        <h2 class="ttl-03">{{ 'contest.result.title' | t }}</h2>
         <div class="document ContestResults">{%- render 'icon-loading' -%}</div>
         <div class="blog__share">
-            <span>Share</span>
+            <span>{{ 'contest.share' | t }}</span>
             {%- render 'icon-share-twitter', url: url -%}
             {%- render 'icon-share-fb', url: url -%}
         </div>
@@ -52,17 +52,17 @@ window.addEventListener('load', async e => {
 		});
 		var i = `
 			<p>
-            	<strong>Competiton Name: </strong> ${rs.title}
+            	<strong>{{ 'contest.result.competition_name' | t }}: </strong> ${rs.title}
             	<br>
-            	<strong>Contest results:</strong> ${total} account win prizes.
+            	<strong>{{ 'contest.result.title' }}:</strong> ${total} {{ 'contest.result.prizes' | t }}.
             </p>
-            <h4>Congratulation ${total} account win prizes.</h4>
+            <h4>{{ 'contest.result.congratulation' | t }} ${total} {{ 'contest.result.prizes' | t }}.</h4>
             <table>
                 <tr>
-                    <td>Rank</td>
-                    <td>Account Name</td>
+                    <td>{{ 'contest.result.details.rank' | t }}</td>
+                    <td>{{ 'contest.result.details.account' | t }}</td>
                     <td>Email</td>
-                    <td>Prizes</td>
+                    <td>{{ 'contest.result.details.prizes' | t }}</td>
                 </tr>
                 ${o}
             </table>
@@ -71,7 +71,7 @@ window.addEventListener('load', async e => {
 		if (rs.from) {
 			i += `
 				<div class="note">
-	                <h4>*Award Form: </h4>
+	                <h4>*{{ 'contest.result.form' | t }}: </h4>
 	                ${rs.from.replace(/(?:\r\n|\r|\n)/g, '<br>')}
 	            </div>
 			`;
