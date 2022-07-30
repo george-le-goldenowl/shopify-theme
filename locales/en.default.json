@@ -256,6 +256,7 @@
       "remove_title": "Remove {{ title }}",
       "subtotal": "Subtotal",
       "view_detail": "View Detail",
+      "summary": "Summary",
       "new_subtotal": "New subtotal",
       "note": "Order special instructions",
       "checkout": "Proceed to Payment",
@@ -268,6 +269,15 @@
       "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
       "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout",
       "view_edit": "View and Edit Cart",
+      "additional": "Additional Options",
+      "est": {
+        "title": "Estimate Shipping and Tax",
+        "shipping": "Enter your destination to get a shipping estimate",
+        "country": "Country",
+        "select_country": "Select Countries",
+        "zip": "Zip/Postal code",
+        "zip_input": "Fill in your name and address information to see available shipping options"
+      },
       "headings": {
         "product": "Product",
         "price": "Price",

@@ -1,44 +1,45 @@
 {% if section.blocks != blank %}
-<div class="container">
-    <ul class="blog__nav">
-      {% for block in section.blocks %}
-        {% assign blog = block.settings.blog %}
-        <li>
-            <a href="{{ blog.url }}">
-                {% liquid
-                  assign thumbnail = block.settings.thumbnail
-                  if thumbnail != blank
-                    echo thumbnail | image_url: width: 283, crop: 'center' | image_tag: loading: 'lazy', alt: blog.title
-                  endif
-                %}
-                <p>{{ blog.title }}</p>
-            </a>
-        </li>
-      {% endfor %}
-    </ul>
-</div>
+    <div class="container">
+        <ul class="blog__nav">
+          {% for block in section.blocks %}
+            {% assign blog = block.settings.blog %}
+            <li>
+                <a href="{{ blog.url }}">
+                    {% liquid
+                      assign thumbnail = block.settings.thumbnail
+                      if thumbnail != blank
+                        echo thumbnail | image_url: width: 283, crop: 'center' | image_tag: loading: 'lazy', alt: blog.title
+                      endif
+                    %}
+                    <p>{{ blog.title }}</p>
+                </a>
+            </li>
+          {% endfor %}
+        </ul>
+    </div>
 {% endif %}
+
 {% schema %}
-  {
+{
     "name": "Feature Blogs",
     "blocks": [
-      {
-        "type": "blogs",
-        "name": "Feature Blog",
-        "limit": 4,
-        "settings": [
-          {
-            "id": "blog",
-            "type": "blog",
-            "label": "Select blog"
-          },
-          {
-            "id": "thumbnail",
-            "type": "image_picker",
-            "label": "Thumbnail"
-          }
-        ]
-      }
+        {
+            "type": "blogs",
+            "name": "Feature Blog",
+            "limit": 4,
+            "settings": [
+                {
+                    "id": "blog",
+                    "type": "blog",
+                    "label": "Select blog"
+                },
+                {
+                    "id": "thumbnail",
+                    "type": "image_picker",
+                    "label": "Thumbnail"
+                }
+            ]
+        }
     ]
-  }
+}
 {% endschema %}

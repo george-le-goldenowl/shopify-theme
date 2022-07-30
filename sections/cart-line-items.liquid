@@ -3,17 +3,17 @@
     <div class="row CartContent">
         <div class="col-lg-8">
             <div class="shopping-content-info">
-                <h4 class="ttl-4 text-center">Shopping Cart</h4>
+                <h4 class="ttl-4 text-center">{{ 'sections.cart.title' | t }}</h4>
                 {% if cart.item_count > 0 %}
                     <div class="table-cart">
                         <table class="table-cart-items">
                             <thead>
                                 <tr>
-                                    <th>Items</th>
+                                    <th>{{ 'sections.cart.headings.product' | t }}</th>
                                     <th></th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Subtotal</th>
+                                    <th>{{ 'sections.cart.headings.price' | t }}</th>
+                                    <th>{{ 'sections.cart.headings.quantity' | t }}</th>
+                                    <th>{{ 'sections.cart.headings.total' | t }}</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -23,31 +23,31 @@
                 <div class="table-cart-btn d-flex btn-link-black">
                     {{ 'Continue Shopping' | link_to: '/collections' }}
                     <div class="cart-update">
-                        <a href="javascript:void(0);" onclick="Cart.Update(this);"><i class="fa fa-refresh"></i>Update Shopping Cart</a>    
+                        <a href="javascript:void(0);" onclick="Cart.Update(this);"><i class="fa fa-refresh"></i>{{ 'sections.cart.update' | t }}</a>    
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="shopping-list">
-                <div class="btn-payment"><a href="/checkout"><i class="fa fa-lock"></i>Proceed to Payment</a></div>
+                <div class="btn-payment"><a href="/checkout"><i class="fa fa-lock"></i>{{ 'sections.cart.checkout' | t }}</a></div>
                 <div class="shopping-content" id="accordion">
-                    <h3>Summary</h3>
+                    <h3>{{ 'sections.cary.summary' | t }}</h3>
                     <div class="shopping__ttl collapsed" data-toggle="collapse" data-target="#shipping-calculator" aria-expanded="true" aria-controls="shipping-calculator">
-                        Estimate Shipping and Tax<i class="fa fa-angle-down" aria-hidden="true"></i>
+                        {{ 'sections.cart.est.title' | t }}<i class="fa fa-angle-down" aria-hidden="true"></i>
                     </div>
                     <div id="shipping-calculator" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <p>Enter your destination to get a shipping estimate.</p>
+                        <p>{{ 'sections.cart.est.shipping' }}.</p>
                         <div class="form-group">
-                            <label for="">Country</label>
+                            <label for="">{{ 'sections.cart.est.country' | t }}</label>
                             <select name="shipping-country" class="custom-select" onchange="genProvinces(this)">
-                                <option value="" selected>Select Countries</option>
+                                <option value="" selected>{{ 'sections.cart.est.select_country' }}</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="">Zip/Postal Code</label>
+                            <label for="">{{ 'sections.cart.est.zip' }}</label>
                             <input type="text" name="shipping-postal" class="form-control form-control-line" value="" onblur="getShippingRates(this)">
-                            <p class="shipping-note"><small>Fill in your name and address information to see available shipping options</small></p>
+                            <p class="shipping-note"><small>{{ 'sections.cart.est.zip_input' }}</small></p>
                         </div>
                     </div>
                     <hr>
@@ -56,14 +56,14 @@
                         data-toggle="collapse" 
                         data-target="#extraFees" 
                         aria-expanded="true" 
-                        aria-controls="extraFees">Additional Options<i class="fa fa-angle-down" aria-hidden="true"></i>
+                        aria-controls="extraFees">{{ 'sections.cart.additional' | t }}<i class="fa fa-angle-down" aria-hidden="true"></i>
                       </div>
                       <div id="extraFees" class="collapse" aria-labelledby="headingOne">
                           <div class="form-group CartAdditional"></div>
                       </div>
                     <hr>
                     <div class="d-flex shopping-content__sum">
-                        <span>Order Total</span>
+                        <span>{{ 'sections.cart.subtotal' | t }}</span>
                         <span class="cart-total">{{ cart.total_price | money }}</span>
                     </div>
                 </div>
