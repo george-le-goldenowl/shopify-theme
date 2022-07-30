@@ -1,24 +1,24 @@
 {% assign brands = section.settings.featured_brands %}
 {% if brands != blank %}
-<div class="container">
-    <div class="section-content-child d-sm-block d-none">
-        <h2 class="ttl-01">Featured brands</h2>
-        <div class="top-featured">
-            <div class="row">
-                {% for brand in brands %}
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="top-featured__img">
-                        {{ brand.image
-                        | image_url: width: 163, crop: 'center'
-                        | image_tag: loading: 'lazy', alt: brand.title
-                        }}
-                    </div>
+    <div class="container">
+        <div class="section-content-child d-sm-block d-none">
+            <h2 class="ttl-01">{{ 'sections.homepage.brand.title' | t }}</h2>
+            <div class="top-featured">
+                <div class="row">
+                    {% for brand in brands %}
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="top-featured__img">
+                                {{ brand.image
+                                | image_url: width: 163, crop: 'center'
+                                | image_tag: loading: 'lazy', alt: brand.title
+                                }}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
-</div>
 {% endif %}
 
 {% schema %}
@@ -35,9 +35,3 @@
 	]
 }
 {% endschema %}
-
-{% stylesheet %}
-{% endstylesheet %}
-
-{% javascript %}
-{% endjavascript %}

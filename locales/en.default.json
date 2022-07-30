@@ -230,6 +230,18 @@
     "homepage": {
       "category": {
         "title": "SHOP BY CATEGORY"
+      },
+      "gallery": {
+        "title": "Our Gallery"
+      },
+      "product": {
+        "title": "New Product"
+      },
+      "brand": {
+        "title": "FEATURED BRANDS"
+      },
+      "review": {
+        "title": "PRODUCT REVIEW"
       }
     },
     "header": {

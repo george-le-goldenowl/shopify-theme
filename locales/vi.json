@@ -230,6 +230,18 @@
     "homepage": {
       "category": {
         "title": "CỬA HÀNG THEO THỂ LOẠI"
+      },
+      "gallery": {
+        "title": "Phòng trưng bày của chúng tôi"
+      },
+      "product": {
+        "title": "Sản phẩm mới"
+      },
+      "brand": {
+        "title": "Thương hiệu nổi bật"
+      },
+      "review": {
+        "title": "Đánh giá sản phẩm"
       }
     },
     "header": {

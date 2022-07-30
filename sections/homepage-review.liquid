@@ -1,34 +1,35 @@
 {% if section.blocks != empty %}
-<div class="container">
-    <h2 class="ttl-01">Product review</h2>
-    <div class="product-review js-review">
-      {% for block in section.blocks %}
-      {% assign product = block.settings.product %}
-        <div>
-            <div class="product-review__item">
-                <div class="d-flex">
-                    <div class="product-review__img">
-                        {% assign image = product.featured_image %}
-                        <div> <a href="{{ product.url }}">{{ image | image_url: width: 175, crop: 'center' | image_tag: loading: 'lazy', alt: image.alt }} </a></div>
-                        {{ product.title | link_to: product.url }}
-                        <div class="rating">
-                          {% for i in (1..block.settings.rate) %}
-                            <span class="fa fa-star checked"></span>
-                          {% endfor %}
+    <div class="container">
+        <h2 class="ttl-01">{{ 'sections.homepage.review.title' | t }}</h2>
+        <div class="product-review js-review">
+        {% for block in section.blocks %}
+            {% assign product = block.settings.product %}
+            <div>
+                <div class="product-review__item">
+                    <div class="d-flex">
+                        <div class="product-review__img">
+                            {% assign image = product.featured_image %}
+                            <div> <a href="{{ product.url }}">{{ image | image_url: width: 175, crop: 'center' | image_tag: loading: 'lazy', alt: image.alt }} </a></div>
+                            {{ product.title | link_to: product.url }}
+                            <div class="rating">
+                                {% for i in (1..block.settings.rate) %}
+                                    <span class="fa fa-star checked"></span>
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                    <div class="product-review__info">
-                        <h3>{{ block.settings.title }}</h3>
-                        {{ block.settings.content }}
-                        <p class="name">{{ block.settings.author }}</p>
+                        <div class="product-review__info">
+                            <h3>{{ block.settings.title }}</h3>
+                            {{ block.settings.content }}
+                            <p class="name">{{ block.settings.author }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
+        {% endfor %}
         </div>
-      {% endfor %}
     </div>
-</div>
 {% endif %}
+
 {% schema %}
 {
     "name": "Product Reviews",

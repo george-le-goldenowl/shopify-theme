@@ -1,23 +1,23 @@
 {% if section.blocks != empty %}
 <div class="container">
     <div class="section-content-child gallery">
-        <h2 class="ttl-01">Our Gallery</h2>
+        <h2 class="ttl-01">{{ 'sections.homepage.gallery.title' | t }}</h2>
         <div class="top-gallery clearfix">
             {% for block in section.blocks %}
             {% assign index = forloop.index | modulo: 2 %}
-            <div class="top-gallery__item {% if index == 0 %}right{% else %}left{% endif %} effect-hover">
-                <a href="{{ block.settings.cta }}">
-                    {% assign image = block.settings.image %}
-                    {% if image %}
-                    <div class="top-gallery__item__img">
-                        {{ image
-                        | image_url: width: 555, crop: 'center'
-                        | image_tag: loading: 'lazy', alt: image.alt
-                        }}
-                    </div>
-                    {% endif %}
-                </a>
-            </div>
+	            <div class="top-gallery__item {% if index == 0 %}right{% else %}left{% endif %} effect-hover">
+	                <a href="{{ block.settings.cta }}">
+	                    {% assign image = block.settings.image %}
+	                    {% if image %}
+		                    <div class="top-gallery__item__img">
+		                        {{ image
+		                        | image_url: width: 555, crop: 'center'
+		                        | image_tag: loading: 'lazy', alt: image.alt
+		                        }}
+		                    </div>
+	                    {% endif %}
+	                </a>
+	            </div>
             {% endfor %}
         </div>
     </div>
