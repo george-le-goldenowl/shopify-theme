@@ -123,6 +123,10 @@
         "sale_price": "Giá bán",
         "unit_price": "Đơn giá"
       },
+      "variations": {
+        "category": "Thể loại",
+        "brand": "Nhãn hiệu"
+      },
       "share": "Chia sẻ sản phẩm này",
       "sold_out": "Đã bán hết",
       "unavailable": "Không có sẵn",

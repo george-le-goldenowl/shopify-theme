@@ -42,7 +42,7 @@
     <div class="product-detail__content">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{ 'products.product.description' | t }}</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -85,11 +85,11 @@ Product.Categories = () => {
     var h = `<div class="des">`;
 
     if (c.length) {
-        h += `<p><span class="name">Categories: </span>${c.join(', ')}</p>`;
+        h += `<p><span class="name">{{ 'products.product.variants.category' | t }}: </span>${c.join(', ')}</p>`;
     }
 
     if (b.length) {
-        h += `<p><span class="name">Brands: </span>${b.join(', ')}</p>`;
+        h += `<p><span class="name">{{ 'products.product.variants.brand' | t }}: </span>${b.join(', ')}</p>`;
     }
 
     h += `</div>`;
@@ -115,7 +115,7 @@ document.addEventListener('Sync', () => {
                 <a href="javascript:void(0)" class="qty-up" onclick="minusQty(this)"><i class="fa fa-angle-down"></i></a>
             </div>
             <div class="btn-link">
-                <a href="javascript:void(0)" data-variant-id="${a[0].id}" onclick="addToCart(this)">Add to card</a>
+                <a href="javascript:void(0)" data-variant-id="${a[0].id}" onclick="addToCart(this)">{{ 'products.product.add_to_cart' | t }}</a>
             </div>
         </div>
         `;
