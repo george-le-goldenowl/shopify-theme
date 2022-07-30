@@ -131,7 +131,7 @@ window.addEventListener('load', async event => {
                         <div>
                             <p>${Shopify.formatMoney(e.line_price)}</p>
                             <div class="btn-link-gray">
-                                <a href="javascript:void(0)" onclick="Cart.Delete(this)" data-id="${e.id}"><i class="fa fa-trash"></i>Delete Product</a>
+                                <a href="javascript:void(0)" onclick="Cart.Delete(this)" data-id="${e.id}"><i class="fa fa-trash"></i>{{ 'sections.cart.delete' | t }}</a>
                             </div>
                         </div>
                     </td>
@@ -158,9 +158,9 @@ window.addEventListener('load', async event => {
         var h = `
         <div class="col-lg-12">
             <div class="shopping-content-info">
-                <h4 class="ttl-4 text-center">Your cart is currently empty.</h4>
+                <h4 class="ttl-4 text-center">{{ 'sections.cart.empty' | t }}.</h4>
                 <div class="table-cart-btn d-flex btn-link-black">
-                    <a href="/collections" title="">Continue Shopping</a>
+                    <a href="/collections" title="">{{ 'general.continue_shopping' | t }}</a>
                 </div>
             </div>
         </div>
@@ -263,9 +263,9 @@ Cart.Refresh = async () => {
         h = `
         <div class="col-lg-12">
             <div class="shopping-content-info">
-                <h4 class="ttl-4 text-center">Your cart is currently empty.</h4>
+                <h4 class="ttl-4 text-center">{{ 'sections.cart.empty' | t }}.</h4>
                 <div class="table-cart-btn d-flex btn-link-black">
-                    <a href="/collections" title="">Continue Shopping</a>
+                    <a href="/collections" title="">{{ 'general.continue_shopping' | t }}</a>
                 </div>
             </div>
         </div>

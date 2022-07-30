@@ -286,6 +286,7 @@
         "image": "Product image"
       },
       "update": "Update",
+      "delete": "Remove",
       "login": {
         "title": "Have an account?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in<\/a> to check out faster."

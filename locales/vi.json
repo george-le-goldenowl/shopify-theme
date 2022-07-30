@@ -286,6 +286,7 @@
         "image": "Hình ảnh sản phẩm"
       },
       "update": "Cập nhật",
+      "delete": "Xóa",
       "login": {
         "title": "Bạn đã có tài khoản?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Đăng nhập<\/a> để thanh toán nhanh hơn."
