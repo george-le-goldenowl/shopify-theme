@@ -351,10 +351,12 @@
     "log_in_for": "For Registered Customers",
     "log_out": "Log out",
     "login_page": {
+      "back": "Back",
       "cancel": "Cancel",
       "create_account": "Create account",
       "email": "Email",
       "forgot_password": "Forgot your password?",
+      "forgot_password_sub": "Please enter a valid email in the field below",
       "guest_continue": "Continue",
       "guest_title": "Continue as a guest",
       "password": "Password",

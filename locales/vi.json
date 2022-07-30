@@ -351,10 +351,12 @@
     "log_in_for": "Dành cho khách hàng đã đăng ký",
     "log_out": "Đăng xuất",
     "login_page": {
+      "back": "Quay lại",
       "cancel": "Hủy",
       "create_account": "Tạo tài khoản",
       "email": "Email",
       "forgot_password": "Quên mật khẩu?",
+      "forgot_password_sub": "Vui lòng nhập email hợp lệ vào trường bên dưới",
       "guest_continue": "Tiếp tục",
       "guest_title": "Tiếp tục với tư cách khách",
       "password": "Mật khẩu",
