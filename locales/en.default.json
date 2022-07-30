@@ -80,6 +80,7 @@
   },
   "blogs": {
     "article": {
+      "home": "Home",
       "featured_title": "Featured Posts",
       "no_articles": "There are no articles",
       "blog": "Blog",

@@ -80,6 +80,7 @@
   },
   "blogs": {
     "article": {
+      "home": "Trang chủ",
       "featured_title": "Bài viết nổi bật",
       "no_articles": "Không có bài viết nào",
       "blog": "Blog",
