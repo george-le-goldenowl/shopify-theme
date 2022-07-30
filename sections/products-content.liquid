@@ -195,7 +195,8 @@ var Products = { Result: [], Page: 1, Perpage: 8 };
             b = GetURLParam("keyword");
         (a = (c = (void 0 != b && b ? ((SearchFormInput.value = b), await fetch(`/search?type=product&q=${b}`).then((a) => a.json())) : await fetch("/products.json").then((a) => a.json())).products).filter(
             (a) => "Gift Cards" != a.product_type
-        )).length && ((a = Products.Filter("customer", a)), (Products.Result = a), Products.ShowResults());
+        )).length && ((a = Products.Filter("customer", a)), (Products.Result = a));
+        Products.ShowResults();
     });
 
 
