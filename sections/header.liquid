@@ -2,8 +2,8 @@
     <nav class="header__nav d-none d-md-block">
         <div class="container">
             <ul class="header__lang">
-                <li><a href="">{{ 'flag_01.png' | asset_url | img_tag: 'Vietnamese' }} Vietnamese</a></li>
-                <li><a href="">{{ 'flag_02.png' | asset_url | img_tag: 'English' }} English</a></li>
+                <li><a href="{{ shop.url }}/vi">{{ 'flag_01.png' | asset_url | img_tag: 'Vietnamese' }} {{ 'general.lang.vi' | t }}</a></li>
+                <li><a href="{{ shop.url }}">{{ 'flag_02.png' | asset_url | img_tag: 'English' }} {{ 'general.lang.en' | t }}</a></li>
             </ul>
         </div>
     </nav>
@@ -25,7 +25,7 @@
                     <div class="form">
                         <form id="SearchForm" action="/collections/" method="GET">
                             <div class="form-group">
-                                <input type="text" name="keyword" class="form-control" placeholder="Search for products">
+                                <input type="text" name="keyword" class="form-control" placeholder="{{ 'general.search.search' | t }}">
                                 <button class="btn btn-search" onclick="SearchSubmit(this);"></button>
                             </div>
                         </form>
@@ -58,9 +58,9 @@
                     <ul class="navbar-nav">
                         <li class="nav-item nav-item-main">
                             <div class="customer-btn CustomerSwitch">
-                                <a class="nav-link" data-type="retail" href="javascript: localStorage.setItem('Customer_Mode', 'retail'); location.reload();">Retail</a>
+                                <a class="nav-link" data-type="retail" href="javascript: localStorage.setItem('Customer_Mode', 'retail'); location.reload();">{{ 'customer.mode.retail' | t }}</a>
                                 <span style="color: #fff;">/</span>
-                                <a class="nav-link" data-type="wholesale" href="javascript: TypeBtn.onWholesale();">Wholesale</a>
+                                <a class="nav-link" data-type="wholesale" href="javascript: TypeBtn.onWholesale();">{{ 'customer.mode.wholesale' | t }}</a>
                             </div>
                         </li>
                         <!-- TODO -->

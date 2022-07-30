@@ -40,7 +40,7 @@
       "previous": "Previous page"
     },
     "search": {
-      "search": "Search"
+      "search": "Search for products"
     },
     "cart": {
       "view": "View my cart ({{ count }})",
@@ -310,6 +310,10 @@
       "details": "Account details",
       "view_addresses": "View addresses",
       "return": "Return to Account details"
+    },
+    "mode": {
+      "retail": "Retail",
+      "wholesale": "Wholesale"
     },
     "account_fallback": "Account",
     "activate_account": {

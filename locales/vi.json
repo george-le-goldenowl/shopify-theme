@@ -40,7 +40,7 @@
       "previous": "Trang trước"
     },
     "search": {
-      "search": "Tìm kiếm"
+      "search": "Tìm kiếm sản phẩm"
     },
     "cart": {
       "view": "Xem giỏ hàng của tôi ({{ count }})",
@@ -310,6 +310,10 @@
       "details": "Chi tiết tài khoản",
       "view_addresses": "Xem địa chỉ",
       "return": "Quay lại Chi tiết tài khoản"
+    },
+    "mode": {
+      "retail": "Bán lẻ",
+      "wholesale": "Bán sỉ"
     },
     "account_fallback": "Tài khoản",
     "activate_account": {
