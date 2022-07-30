@@ -347,7 +347,8 @@
       "delete": "Xóa",
       "delete_confirm": "Bạn có chắc chắn muốn xóa địa chỉ này không?"
     },
-    "log_in": "Đăng nhập",
+    "log_in": "Đăng nhập khách hàng",
+    "log_in_for": "Dành cho khách hàng đã đăng ký",
     "log_out": "Đăng xuất",
     "login_page": {
       "cancel": "Hủy",
@@ -359,7 +360,8 @@
       "password": "Mật khẩu",
       "title": "Đăng nhập",
       "sign_in": "Đăng nhập",
-      "submit": "Gửi"
+      "submit": "Gửi",
+      "new": "Khách hàng mới?"
     },
     "orders": {
       "title": "Lịch sử đặt hàng",

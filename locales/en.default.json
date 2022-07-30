@@ -347,7 +347,8 @@
       "delete": "Delete",
       "delete_confirm": "Are you sure you wish to delete this address?"
     },
-    "log_in": "Log in",
+    "log_in": "Customer Login",
+    "log_in_for": "For Registered Customers",
     "log_out": "Log out",
     "login_page": {
       "cancel": "Cancel",
@@ -359,7 +360,8 @@
       "password": "Password",
       "title": "Login",
       "sign_in": "Sign in",
-      "submit": "Submit"
+      "submit": "Submit",
+      "new": "New Customer?"
     },
     "order": {
       "title": "Order {{ name }}",

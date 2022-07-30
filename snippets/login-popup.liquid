@@ -3,23 +3,23 @@
     <div class="cart-fixed__wrap">
         <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8">
             <div class="form-login">
-                <p class="text-center"><strong class="LoginType">Customer Login</strong></p>
-                <p class="text-center">For Registered Customers:</p>
+                <p class="text-center"><strong class="LoginType">{{ 'customer.log_in' | t }}</strong></p>
+                <p class="text-center">{{ 'customer.log_in_for' | t }}:</p>
                 <div id="ErrDiv"></div>
                 <input type="hidden" name="form_type" value="customer_login">
                 <div class="form-group">
                     <input type="email" class="form-control form-control-line" name="customer[email]" placeholder="Email" data-required="true">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control form-control-line" name="customer[password]" placeholder="Password" data-required="true">
+                    <input type="password" class="form-control form-control-line" name="customer[password]" placeholder="{{ 'customer.login_page.password' | t }}" data-required="true">
                 </div>
                 <div class="form-group text-center btn-payment">
-                    <a href="javascript:void(0)" class="btn-yellow btn-submit btn-disabled" onclick="onLoginSubmit(this)">Sign In</a> 
+                    <a href="javascript:void(0)" class="btn-yellow btn-submit btn-disabled" onclick="onLoginSubmit(this)">{{ 'customer.login_page.sign_in' | t }}</a> 
                 </div>
                 <div class="text-center">
-                    <a href="javascript:void(0);" onclick="Login.ShowForgot(this);">Forgot your password?</a>
+                    <a href="javascript:void(0);" onclick="Login.ShowForgot(this);">{{ 'customer.login_page.forgot_password' | t }}</a>
                 </div>
-                <p class="text-center">New Customer? {{ 'Create an account' | link_to: routes.account_register_url }}</p>
+                <p class="text-center">{{ 'customer.login_page.new' | t }} {{ 'customer.login_page.create_account' | t | link_to: routes.account_register_url }}</p>
             </div>
         </form>
         <form method="post" class="d-none" action="/account/recover" id="forgot_password" accept-charset="UTF-8">
