@@ -21,7 +21,7 @@
                     </div>
                 {% endif %}
                 <div class="table-cart-btn d-flex btn-link-black">
-                    {{ 'Continue Shopping' | link_to: '/collections' }}
+                    {{ 'general.continue_shopping' | t | link_to: routes.collections_url }}
                     <div class="cart-update">
                         <a href="javascript:void(0);" onclick="Cart.Update(this);"><i class="fa fa-refresh"></i>{{ 'sections.cart.update' | t }}</a>    
                     </div>
