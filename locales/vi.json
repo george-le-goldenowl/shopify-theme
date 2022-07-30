@@ -293,7 +293,11 @@
       }
     },
     "footer": {
-      "payment": "Phương thức thanh toán"
+      "payment": "Phương thức thanh toán",
+      "contact": "LIÊN HỆ CHÚNG TÔI",
+      "shop": "Cửa hàng",
+      "helpful": "LIÊN KẾT HỮU ÍCH",
+      "follow": "THEO DÕI CHÚNG TÔI"
     },
     "featured_blog": {
       "title": "",
@@ -341,6 +345,9 @@
           "prizes": "Giải thưởng"
         },
         "form": "Hình thức giải thưởng"
+      },
+      "list": {
+        "title": "Bài dự thi"
       },
       "share": "Chia sẻ"
     }

@@ -293,7 +293,11 @@
       }
     },
     "footer": {
-      "payment": "Payment methods"
+      "payment": "Payment methods",
+      "contact": "Contact Us",
+      "shop": "Shop",
+      "helpful": "Helpful Links",
+      "follow": "Follow Us"
     },
     "featured_blog": {
       "title": "",
@@ -341,6 +345,9 @@
           "prizes": "Prizes"
         },
         "form": "Award Form"
+      },
+      "list": {
+        "title": "Bài dự thi"
       },
       "share": "Share"
     }

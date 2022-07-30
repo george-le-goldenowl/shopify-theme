@@ -19,7 +19,7 @@
         </div>
         <div class="row">
             <div class="col-lg-3 col-6 orderft-1">
-                <h3>CONTACT US</h3>
+                <h3>{{ 'sections.footer.contact' | t }}</h3>
                 <table>
                     <tr>
                         <td>{{ 'phone.svg' | asset_url | img_tag: shop.name }}</td>
@@ -34,10 +34,10 @@
             {% assign collections = collections.settings.collection %}
             {% if collections != empty %}
             <div class="col-lg-2 col-6 orderft-3">
-                <h3>SHOP</h3>
+                <h3>{{ 'sections.footer.shop' | t }}</h3>
                 <ul>
                     {% for col in collections %}
-                    <li><a href="{{ '/collections' | append: '#' | append: col.handle }}">{{ col.title | remove: '[CATEGORY]' | remove: '[BRAND]' }}</a></li>
+                    <li><a href="{{ routes.collections_url | append: '#' | append: col.handle }}">{{ col.title | remove: '[CATEGORY]' | remove: '[BRAND]' }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -46,7 +46,7 @@
             {% assign helpful = helpful.settings.help %}
             {% if helpful != empty %}
             <div class="col-lg-3 col-6 orderft-4">
-                <h3>HELPFUL LINKS</h3>
+                <h3>{{ 'sections.footer.helpful' | t }}</h3>
                 <ul>
                     {% for help in helpful.links %}
                     <li><a href="{{ help.url }}">{{ help.title }}</a></li>
@@ -56,7 +56,7 @@
             {% endif %}
             
             <div class="col-lg-4 col-6 orderft-2">
-                <h3>FOLLOW US</h3>
+                <h3>{{ 'sections.footer.follow' | t }}</h3>
                 <div class="share">
                     <a href="{{ socials.settings.fb }}" target="_blank">{{ 'facebook.svg' | asset_url | img_tag }}</a>
                     <a href="{{ socials.settings.ins }}" target="_blank">{{ 'instagram.svg' | asset_url | img_tag }}</a>
@@ -64,7 +64,7 @@
                     <a href="{{ socials.settings.yt }}" target="_blank">{{ 'youtube.svg' | asset_url | img_tag }}</a>
                 </div>
                 <div class="d-sm-block d-none">
-                    <h3>payment methods</h3>
+                    <h3>{{ 'sections.footer.payment' | t }}</h3>
                     <div class="paymen">
                         {{ 'paymen_01.svg' | asset_url | img_tag }}
                         {{ 'paymen_02.svg' | asset_url | img_tag }}
@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="d-sm-none mt-30">
-            <h3>payment methods</h3>
+            <h3>{{ 'sections.footer.payment' | t }}</h3>
             <div class="paymen">
                 {{ 'paymen_01.svg' | asset_url | img_tag }}
                 {{ 'paymen_02.svg' | asset_url | img_tag }}
