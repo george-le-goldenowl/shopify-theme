@@ -1,7 +1,7 @@
 <div class="cart-fixed LoginPopup" id="customer-login">
     <div class="js-close-card" onclick="closeLoginPopup(this)"></div>
     <div class="cart-fixed__wrap">
-        <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8">
+        <form method="post" action="/{{ request.locale.iso_code }}/account/login" id="customer_login" accept-charset="UTF-8">
             <div class="form-login">
                 <p class="text-center"><strong class="LoginType">{{ 'customer.log_in' | t }}</strong></p>
                 <p class="text-center">{{ 'customer.log_in_for' | t }}:</p>
@@ -22,7 +22,7 @@
                 <p class="text-center">{{ 'customer.login_page.new' | t }} {{ 'customer.login_page.create_account' | t | link_to: routes.account_register_url }}</p>
             </div>
         </form>
-        <form method="post" class="d-none" action="{{ request.locale.iso_code }}/account/recover" id="forgot_password" accept-charset="UTF-8">
+        <form method="post" class="d-none" action="/{{ request.locale.iso_code }}/account/recover" id="forgot_password" accept-charset="UTF-8">
             <p class="text-center"><strong class="LoginType">{{ 'customer.login_page.forgot_password' | t }}</strong></p>
             <p class="text-center">{{ 'customer.login_page.forgot_password_sub' | t }}:</p>
             <div class="form-group" id="recover_email">

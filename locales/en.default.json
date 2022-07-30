@@ -32,6 +32,8 @@
         "tiktok": "TikTok"
       }
     },
+    "read_more": "Read more",
+    "view_all": "View all",
     "continue_shopping": "Continue shopping",
     "pagination": {
       "label": "Pagination",
@@ -225,6 +227,11 @@
     }
   },
   "sections": {
+    "homepage": {
+      "category": {
+        "title": "SHOP BY CATEGORY"
+      }
+    },
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",

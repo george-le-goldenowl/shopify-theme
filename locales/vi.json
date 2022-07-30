@@ -32,6 +32,8 @@
         "tiktok": "TikTok"
       }
     },
+    "read_more": "Xem thêm",
+    "view_all": "Xem tất cả",
     "continue_shopping": "Tiếp tục mua sắm",
     "pagination": {
       "label": "Phân trang",
@@ -225,6 +227,11 @@
     }
   },
   "sections": {
+    "homepage": {
+      "category": {
+        "title": "CỬA HÀNG THEO THỂ LOẠI"
+      }
+    },
     "header": {
       "announcement": "Thông báo",
       "menu": "Menu",

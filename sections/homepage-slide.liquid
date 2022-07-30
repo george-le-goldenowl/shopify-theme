@@ -1,40 +1,40 @@
 {%- if section.blocks != empty -%}
 <section class="top-banner js-slider-top">
-{%- for b in section.blocks -%}
-  {% assign desktop_thumbnail = b.settings.desktop_thumbnail %}
-  {%- if desktop_thumbnail -%}
-    <div class="top-banner-item">
-        <div class="d-flex align-items-center container">
-            <div class="top-banner-item__info">
-                <h3>{{ b.settings.title | escape }}</h3>
-                <h4>{{ b.settings.subtitle | escape }}</h4>
-                {{ b.settings.paraphrase }}
-    
-                {% assign cta = b.settings.cta %}
-                {% if cta %}
-                <div class="top-banner-item__btn btn-link">
-                    {{ 'Read more' | link_to: cta }}
-                </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="top-banner-item__img">
-        	<!-- Display thumbnail for desktop -->
-            {{ desktop_thumbnail
-            | image_url: width: 1500, crop: 'center'
-            | image_tag: loading: 'lazy', class: 'd-none d-md-block'
-            }}
-            <!-- Display thumbnail for mobile -->
-            {% liquid
-              assign mobile_thumbnail = b.settings.mobile_thumbnail
-              if mobile_thumbnail
-                echo mobile_thumbnail | image_url: width: 1500, crop: 'center' | image_tag: loading: 'lazy', class: 'd-md-none'
-              endif
-            %}
-        </div>
-    </div>
-  {%- endif -%}
-{%- endfor -%}
+	{%- for b in section.blocks -%}
+  		{% assign desktop_thumbnail = b.settings.desktop_thumbnail %}
+  		{%- if desktop_thumbnail -%}
+		    <div class="top-banner-item">
+		        <div class="d-flex align-items-center container">
+		            <div class="top-banner-item__info">
+		                <h3>{{ b.settings.title | escape }}</h3>
+		                <h4>{{ b.settings.subtitle | escape }}</h4>
+		                {{ b.settings.paraphrase }}
+		    
+		                {% assign cta = b.settings.cta %}
+		                {% if cta %}
+		                <div class="top-banner-item__btn btn-link">
+		                    {{ 'general.read_more' | t | link_to: cta }}
+		                </div>
+		                {% endif %}
+		            </div>
+		        </div>
+		        <div class="top-banner-item__img">
+		        	<!-- Display thumbnail for desktop -->
+		            {{ desktop_thumbnail
+		            | image_url: width: 1500, crop: 'center'
+		            | image_tag: loading: 'lazy', class: 'd-none d-md-block'
+		            }}
+		            <!-- Display thumbnail for mobile -->
+		            {% liquid
+		              assign mobile_thumbnail = b.settings.mobile_thumbnail
+		              if mobile_thumbnail
+		                echo mobile_thumbnail | image_url: width: 1500, crop: 'center' | image_tag: loading: 'lazy', class: 'd-md-none'
+		              endif
+		            %}
+		        </div>
+		    </div>
+  		{%- endif -%}
+	{%- endfor -%}
 </section>
 {%- endif -%}
 

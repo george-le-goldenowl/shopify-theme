@@ -7,5 +7,5 @@
 var status = `{{ recover_success }}`;
 status = status ? '#forgotSuccess' : '';
 
-window.location.href = `{{ routes.root_url | append: '/' | append: request.locale.iso_code }}${status}`;
+window.location.href = `{{ routes.root_url }}${status}`;
 </script>

@@ -2,29 +2,30 @@
 {% if categories != blank %}
 <div class="container">
     <div class="section-content-child">
-        <h2 class="ttl-01">Shop by category</h2>
+        <h2 class="ttl-01">{{ 'sections.homepage.category.title' | t }}</h2>
         <div class="top-shop">
             <div class="row">
                 {% for category in categories %}
-                {% assign link = '/collections#' | append: category.handle | remove: 'category' %}
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="top-shop__item">
-                        {% assign thumbnail = category.image %}
-                        {% if thumbnail %}
-                        <div class="top-shop__item__img">
-                            {{ thumbnail
-                            | image_url: width: 150, crop: 'center'
-                            | image_tag: loading: 'lazy', alt: thumbnail.alt
-                            | link_to: link
-                            }}
-                        </div>
-                        {% endif %}
-                        <p>{{ category.title | escape | remove: "[CATEGORY]" | link_to: link }}</p>
-                        <div class="top-shop__item__btn btn-link">
-                            {{ 'View all' | link_to: link }}
+                    {% assign link = request.locale.root_url | append: '/collections#' | append: category.handle %}
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="top-shop__item">
+                            {% assign thumbnail = category.image %}
+                            {% if thumbnail %}
+                            <div class="top-shop__item__img">
+                                <a href="{{ link }}">
+                                {{ thumbnail
+                                | image_url: width: 150, crop: 'center'
+                                | image_tag: loading: 'lazy', alt: thumbnail.alt
+                                }}
+                                </a>
+                            </div>
+                            {% endif %}
+                            <p>{{ category.title | escape | remove: "[CATEGORY]" | link_to: link }}</p>
+                            <div class="top-shop__item__btn btn-link">
+                                {{ 'general.view_all' | t | link_to: link }}
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
         </div>
