@@ -9,7 +9,7 @@
                 <div class="d-flex">
                     <div class="product-review__img">
                         {% assign image = product.featured_image %}
-                        <div> {{ image | image_url: width: 175, crop: 'center' | image_tag: loading: 'lazy', alt: image.alt }} </div>
+                        <div> <a href="{{ product.url }}">{{ image | image_url: width: 175, crop: 'center' | image_tag: loading: 'lazy', alt: image.alt }} </a></div>
                         {{ product.title | link_to: product.url }}
                         <div class="rating">
                           {% for i in (1..block.settings.rate) %}
@@ -30,52 +30,46 @@
 </div>
 {% endif %}
 {% schema %}
-  {
+{
     "name": "Product Reviews",
     "tag": "section",
     "class": "section-content-first review",
     "blocks": [
-      {
-        "type": "reviews",
-        "name": "review",
-        "settings": [
-          {
-            "id": "product",
-            "type": "product",
-            "label": "Product"
-          },
-          {
-            "id": "title",
-            "type": "text",
-            "label": "Title"
-          },
-          {
-            "id": "content",
-            "type": "richtext",
-            "label": "Content"
-          },
-          {
-            "id": "author",
-            "type": "text",
-            "label": "Author"
-          },
-          {
-            "id": "rate",
-            "type": "range",
-            "label": "Stars",
-            "default": 5,
-            "max": 5,
-            "min": 0
-          }
-        ]
-      }      
+        {
+            "type": "reviews",
+            "name": "review",
+            "settings": [
+                {
+                    "id": "product",
+                    "type": "product",
+                    "label": "Product"
+                },
+                {
+                    "id": "title",
+                    "type": "text",
+                    "label": "Title"
+                },
+                {
+                    "id": "content",
+                    "type": "richtext",
+                    "label": "Content"
+                },
+                {
+                    "id": "author",
+                    "type": "text",
+                    "label": "Author"
+                },
+                {
+                    "id": "rate",
+                    "type": "range",
+                    "label": "Stars",
+                    "default": 5,
+                    "max": 5,
+                    "min": 0
+                }
+            ]
+        }      
     ],
     "settings": []
-  }
+}
 {% endschema %}
-
-{% stylesheet %}
-{% endstylesheet %}
-
-{% javascript %}
-{% endjavascript %}
