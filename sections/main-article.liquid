@@ -9,7 +9,7 @@
         {%- assign blogurl = request.locale.root_url | append: 'blogs/' | append: blog[0] -%}
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ shop.secure_url }}">{{ 'blogs.article.home' | t }}</a></li> 
-            <li class="breadcrumb-item"><a href="{{ blogurl }}">{{ 'blogs.article.blog' | t }}</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a href="{{ blogurl }}">{{ 'blogs.article.blog' | t }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ article.title }}</li>
         </ol>
         <div class="blog__content__inner">
@@ -26,7 +26,7 @@
         <hr>
         <div class="blog__share">
             {%- assign url = shop.url | append: article.url -%}
-            <span>{{ 'blogs.article.share' }}</span>
+            <span>{{ 'blogs.article.share' | t }}</span>
             {%- render 'icon-share-twitter', url: url -%}
             {%- render 'icon-share-fb', url: url -%}
         </div>
