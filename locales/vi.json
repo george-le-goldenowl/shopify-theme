@@ -480,7 +480,7 @@
       "payment_status": "Trạng thái thanh toán",
       "fulfillment_status": "Trạng thái thực hiện",
       "total": "Tổng",
-      "none": "Bạn chưa đặt đơn hàng nào.",
+      "none": "Bạn chưa đặt đơn hàng nào",
       "order_now": "Đặt hàng ngay"
     },
     "recover_password": {

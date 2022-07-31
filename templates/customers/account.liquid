@@ -104,7 +104,7 @@
                                 </tbody>
                             </table>
                         {%- else -%}
-                            {{ 'customer.orders.none' | t }}, {{ 'customer.orders.order_now' | link_to: '/collections' }}
+                            {{ 'customer.orders.none' | t }}, {{ 'customer.orders.order_now' | t | link_to: '/collections' }}
                         {%- endif-%}
                     </div>
                 </div>
