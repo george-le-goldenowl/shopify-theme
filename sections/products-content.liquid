@@ -186,18 +186,36 @@ var Products = { Result: [], Page: 1, Perpage: 8 };
             }
         } else Products.List.innerHTML = `{{ 'products.facets.no_results' | t }}`;
     }),
-    document.addEventListener("Sync", async (d) => {
-        var c,
+    document.addEventListener("Sync", async (f) => {
+        var e,
             a,
-            e,
-            f,
+            g,
+            h,
+            d,
             b = GetURLParam("keyword");
-        (a = (c = (void 0 != b && b ? ((SearchFormInput.value = b), await fetch(`/search?type=product&q=${b}`).then((a) => a.json())) : await fetch("/products.json").then((a) => a.json())).products).filter(
-            (a) => "Gift Cards" != a.product_type
-        )).length && ((a = Products.Filter("customer", a)), (Products.Result = a));
-        Products.ShowResults();
+        if ((d = GetHashParam())) {
+            FetchByHash(d);
+        } else
+            (a = (e = (void 0 != b && b ? ((SearchFormInput.value = b), await fetch(`/search?type=product&q=${b}`).then((a) => a.json())) : await fetch("/products.json").then((a) => a.json())).products).filter(
+                (a) => "Gift Cards" != a.product_type
+            )).length && ((a = Products.Filter("customer", a)), (Products.Result = a)),
+                Products.ShowResults();
     });
 
+const FetchByHash = (d) => {
+    if (typeof d == 'string') {
+        d = d;
+    } else {
+        d = d.getAttribute('data-id');
+    }
+    var c = document.querySelector(`input#${d}`);
+    c && (c.checked = true, c.closest('.has-child-sub').classList.toggle('active'), Products.Collection(c));
+};
+
+const GetHashParam = () => {
+    var a = "";
+    return window.location.hash && (a = window.location.hash.substring(1)), a;
+};
 
 const GetURLParam = (a) => {
     return new URL(window.location.href).searchParams.get(a);

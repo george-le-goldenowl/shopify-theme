@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-12">
                     <div class="header__logo">
-                        {{ 'logo.png' | asset_url | img_tag: shop.name | link_to: shop.secure_url }}
+                        {{ 'logo.png' | asset_url | img_tag: shop.name | link_to: routes.root_url }}
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-6 col-sm-12">
@@ -64,21 +64,21 @@
                             </div>
                         </li>
                         <!-- TODO -->
-                        {%liquid
-                            assign menu = linklists['categories'].links 
-                            if template == 'list-collections'
-                                assign action = 'onclick="getPostbyHash(this)"'
-                            else
-                                assign action = ''
-                            endif
-                        %}
-                        {% if menu != empty %}
-                          {% for m in menu %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ '/collections#' | append: m.handle | remove: 'category' }}" {{ action }}>{{ m.title | remove: '[CATEGORY]' }}</a>
-                            </li>
-                          {% endfor %}
-                        {% endif %}
+                        {%- assign menu = linklists['categories'].links -%}
+                        {%- if menu != empty -%}
+                            {% for m in menu %}
+                                {% liquid
+                                    if template == 'list-collections'
+                                        assign action = 'onclick="FetchByHash(this)"'
+                                    else
+                                        assign action = ''
+                                    endif
+                                %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ routes.collections_url | append: '#' | append: m.handle }}" data-id="{{ m.handle }}" {{ action }}>{{ m.title | remove: '[CATEGORY]' }}</a>
+                                </li>
+                            {% endfor %}
+                        {%- endif -%}
                     </ul>
                     <div class="header__quicklink">
                         <ul>
