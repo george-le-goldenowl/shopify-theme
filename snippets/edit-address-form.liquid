@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="AddressFirstName_new">First name</label>
+                    <label for="AddressFirstName_new">{{ 'customer.addresses.first_name' | t }}</label>
                     <input 
                         id="AddressFirstName_new"
                         type="text"
@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="AddressLastName_new">Last Name</label>
+                    <label for="AddressLastName_new">{{ 'customer.addresses.last_name' | t }}</label>
                     <input 
                         id="AddressFirstName_new"
                         type="text"  
@@ -29,7 +29,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="AddressCompany_new">Company</label>
+                    <label for="AddressCompany_new">{{ 'customer.addresses.company' | t }}</label>
                     <input 
                         id="AddressCompany_new"
                         type="text"  
@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="AddressAddress1_new">Address</label>
+                    <label for="AddressAddress1_new">{{ 'customer.addresses.address1' | t }}</label>
                     <input 
                         id="AddressAddress1_new"
                         type="text"  
@@ -55,7 +55,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="AddressAddress2_new">Apartment</label>
+                    <label for="AddressAddress2_new">{{ 'customer.addresses.address2' | t }}</label>
                     <input 
                         id="AddressAddress2_new"
                         type="text"  
@@ -68,7 +68,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="AddressCity_new">City</label>
+                    <label for="AddressCity_new">{{ 'customer.addresses.city' | t }}</label>
                     <input 
                         id="AddressCity_new"
                         type="text"  
@@ -81,13 +81,14 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="AddressCountry_new">Country</label>
+                    <label for="AddressCountry_new">{{ 'customer.addresses.country' | t }}</label>
                     <select 
                         id="AddressCountry_new" 
                         name="address[country]" 
                         class="form-control form-control-line" 
                         data-address-country-select 
                         data-address-id="new" 
+                        data-default="{{ request.locale.name }}" 
                         autocomplete="country">
                         {{ all_country_option_tags }}
                     </select>
@@ -95,7 +96,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="AddressProvinceContainer_new">Province</label>
+                    <label for="AddressProvinceContainer_new">{{ 'customer.addresses.province' | t }}</label>
                     <select 
                         id="AddressProvinceContainer_new" 
                         name="address[province]" 
@@ -107,7 +108,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="AddressZip_new">Postal Code/Zip</label>
+                    <label for="AddressZip_new">{{ 'customer.addresses.zip' | t }}</label>
                     <input 
                         id="AddressZip_new"
                         type="text"  
@@ -120,7 +121,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="AddressPhone_new">Phone</label>
+                    <label for="AddressPhone_new">{{ 'customer.addresses.phone' | t }}</label>
                     <input 
                         id="AddressPhone_new"
                         type="text"  
@@ -132,6 +133,18 @@
                 </div>
             </div>
             {{ form.set_as_default_checkbox }}
+        </div>
+    </div>
+    <div class="shipping__btn row">
+        <div class="col-sm-6">
+            <div class="shipping__btn btn-submit">
+                <div class="btn-payment"><a href="javascript: document.querySelector('form#address_form_${b.id}').submit()">{{ 'customer.addresses.edit' | t }}</a></div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="shipping__btn">
+                <div class="btn-back"><a href="javascript:void(0)" onclick="onCancelEditForm(${a})">{{ 'customer.addresses.cancel' | t }}</a</div>
+            </div>
         </div>
     </div>
 {%- endform -%}

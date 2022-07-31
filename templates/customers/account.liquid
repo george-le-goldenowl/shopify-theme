@@ -296,7 +296,7 @@ window.addEventListener("load", async (b) => {
         Account.ListAddress.innerHTML = `
             <p>{{ 'templates.account.dashboard.no_default' | t }}.</p>
             <div class="btn-text d-flex">
-                <a href="javascript:void(0)">{{ 'templates.account.dashboard.new' | t }}</a>
+                <a href="javascript:void(0)" onclick="ShowAddForm(this);">{{ 'templates.account.dashboard.new' | t }}</a>
             </div>
         `;
 });
@@ -308,9 +308,13 @@ const ShowEditForm = async (a) => {
     var c = Account.Content.querySelector(`#AddressCountry_${b}`);
     c && (await SelectedCountry(c, b));
 },
-const ShowAddForm = async (a) => {
-    var f = `{%- render 'edit-address-form' -%}`;
+ShowAddForm = async (a) => {
+    var b = 'new',
+        f = `{%- render 'edit-address-form' -%}`;
+
     await Account.WrapListAddress.insertAdjacentHTML("beforeend", f), (Account.WrapListAddress.firstElementChild.style.display = "none");
+    var c = Account.Content.querySelector(`#AddressCountry_${b}`);
+    c && (await SelectedCountry(c, b));
 },
 onCancelEditForm = (a) => {
     document.querySelector(`form#address_form_${a}`) && document.querySelector(`form#address_form_${a}`).remove(), (Account.WrapListAddress.firstElementChild.style.display = "flex");
