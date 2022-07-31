@@ -503,12 +503,22 @@
       "success": "Chúng tôi đã gửi cho bạn email chứa liên kết cập nhật mật khẩu."
     },
     "register": {
-      "title": "Tạo tài khoản",
+      "title": "Tạo tài khoản khách hàng mới",
+      "personal": "Thông tin cá nhân",
       "first_name": "Tên",
       "last_name": "Họ",
+      "sign_up_newsletter": "Đăng ký để nhận Bản Tin",
+      "type": "Loại khách hàng",
+      "business": "Giấy phép kinh doanh",
+      "tax": "Thuế",
+      "assistance": "Cho phép hỗ trợ mua sắm từ xa",
+      "sign_in": "Thông tin đăng nhập",
       "email": "Email",
       "password": "Mật khẩu",
-      "submit": "Tạo"
+      "password_confirm": "Xác nhận mật khẩu",
+      "show_password": "Hiển thị mật khẩu",
+      "submit": "Tạo",
+      "cancel": "Hủy"
     },
     "reset_password": {
       "title": "Đặt lại mật khẩu tài khoản",

@@ -4,20 +4,20 @@
             <form method="post" action="/account" id="create_customer" accept-charset="UTF-8">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h4 class="ttl-4 text-center">Create New Customer Account</h4>
+                        <h4 class="ttl-4 text-center">{{ 'customer.register.title' | t }}</h4>
                         <div id="form-content">
-                            <div class="shipping__ttl">Personal Information</div>
+                            <div class="shipping__ttl">{{ 'customer.register.personal' | t }}</div>
                             <div class="shipping__form">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">First name<span class="txt-error">*</span></label>
+                                            <label for="">{{ 'customer.register.first_name' | t }}<span class="txt-error">*</span></label>
                                             <input type="text" name="firstName" class="form-control form-control-line" data-required="true">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">Last Name<span class="txt-error">*</span></label>
+                                            <label for="">{{ 'customer.register.last_name' | t }}<span class="txt-error">*</span></label>
                                             <input type="text" name="lastName" class="form-control form-control-line" data-required="true">
                                         </div>
                                     </div>
@@ -25,51 +25,51 @@
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="newsletter" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1"> Sign Up for Newsletter</label>
+                                        <label class="custom-control-label" for="customCheck1">{{ 'customer.register.sign_up_newsletter' | t }}</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="customer-type">Type of Customer<span class="txt-error">*</span></label>
+                                    <label for="customer-type">{{ 'customer.register.type' | t }}<span class="txt-error">*</span></label>
                                     <select name="customerType" id="customer-type" class="form-control form-control-line" onchange="openWholesale(this)">
-                                        <option value="retail">Retail</option>
-                                        <option value="wholesale">Wholesale</option>
+                                        <option value="retail">{{ 'customer.mode.retail' | t }}</option>
+                                        <option value="wholesale">{{ 'customer.mode.wholesale' | t }}</option>
                                     </select>
                                 </div>
                                 <div id="forpartner" class="forpartner">
                                     <div class="form-group">
-                                        <label for="business-license">Business license<span class="txt-error">*</span></label>
+                                        <label for="business-license">{{ 'customer.register.business' | t }}<span class="txt-error">*</span></label>
                                         <input type="text" name="businessLicense" class="form-control form-control-line" id="business-license">
                                     </div>
                                     <div class="form-group">
-                                        <label for="tax">Tax<span class="txt-error">*</span></label>
+                                        <label for="tax">{{ 'customer.register.tax' | t }}<span class="txt-error">*</span></label>
                                         <input type="text" name="tax" class="form-control form-control-line" id="tax">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="assistance" class="custom-control-input" id="customCheck2">
-                                        <label class="custom-control-label" for="customCheck2"> Allow remote shopping assistance</label>
+                                        <label class="custom-control-label" for="customCheck2">{{ 'customer.register.assistance' | t }}</label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="shipping__ttl">Sign-in Information</div>
+                            <div class="shipping__ttl">{{ 'customer.register.sign_in' | t }}</div>
                             <div class="shipping__form">
                                 <div class="form-group">
                                     <label for="">Email<span class="txt-error">*</span></label>
                                     <input type="email" name="email" class="form-control form-control-line" data-required="true">
                                 </div>
                                 <div class="form-group">
-                                    <label for="password">Password<span class="txt-error">*</span></label>
+                                    <label for="password">{{ 'customer.register.password' | t }}<span class="txt-error">*</span></label>
                                     <input type="password" name="password" id="password" class="form-control form-control-line" data-required="true">
                                 </div>
                                 <div class="form-group">
-                                    <label for="confirmPassword">Confirm Password <span class="txt-error">*</span></label>
+                                    <label for="confirmPassword">{{ 'customer.register.password_confirm' | t }} <span class="txt-error">*</span></label>
                                     <input type="password" name="passwordConfirm" id="confirmPassword" class="form-control form-control-line" data-required="true">
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="show-password" onclick="onShow(this)" data-required="true">
-                                        <label class="custom-control-label" for="show-password"> Show Password</label>
+                                        <label class="custom-control-label" for="show-password"> {{ 'customer.register.show_password' | t }}</label>
                                     </div>
                                 </div>
                                 <div id="registerErr" style="display: flex; align-items: center;"></div>
@@ -77,12 +77,12 @@
                             <div class="shipping__btn row">
                                 <div class="col-sm-6">
                                     <div class="shipping__btn btn-submit">
-                                        <div class="btn-payment"><a href="javascript:void(0)" onclick="onSubmit(this)">Create an Account</a></div>
+                                        <div class="btn-payment"><a href="javascript:void(0)" onclick="onSubmit(this)">{{ 'customer.register.submit' | t }}</a></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="shipping__btn">
-                                        <div class="btn-back">{{ 'Back' | link_to: shop.secure_url }}</div>
+                                        <div class="btn-back">{{ 'customer.register.cancel' | t| link_to: shop.secure_url }}</div>
                                     </div>
                                 </div>
                             </div>

@@ -528,12 +528,22 @@
       "success": "We've sent you an email with a link to update your password."
     },
     "register": {
-      "title": "Create account",
+      "title": "Create New Customer Account",
+      "personal": "Personal Information",
       "first_name": "First name",
       "last_name": "Last name",
+      "sign_up_newsletter": "Sign Up for Newsletter",
+      "type": "Type of Customer",
+      "business": "Business license",
+      "tax": "Tax",
+      "assistance": "Allow remote shopping assistance",
+      "sign_in": "Sign-in Information",
       "email": "Email",
       "password": "Password",
-      "submit": "Create"
+      "password_confirm": "Confirm Password",
+      "show_password": "Show Password",
+      "submit": "Create an Account",
+      "cancel": "Back"
     },
     "reset_password": {
       "title": "Reset account password",
