@@ -284,20 +284,18 @@ window.addEventListener("load", async (b) => {
                     c.push(b.country),
                     (a += c.join("<br/>")),
                     (a += `
-                    <div class="btn-text d-flex" data-address-id="${b.id}" data-address='${d}'>
-                        <a href="javascript:void(0)" onclick="ShowEditForm(this)">{{ 'templates.account.dashboard.edit' | t }}</a>
-                    </div>
-                    <hr/>
-                `);
+                        <div class="btn-text d-flex" data-address-id="${b.id}" data-address='${d}'>
+                            <a href="javascript:void(0)" onclick="ShowEditForm(this)">{{ 'templates.account.dashboard.edit' | t }}</a>
+                            
+                        </div>
+                        <hr/>
+                    `);
             }
         }),
-            (Account.ListAddress.innerHTML = a);
+            ((a += `<a href="javascript:void(0)" onclick="ShowAddForm(this);">{{ 'templates.account.dashboard.new' | t }}</a>`), Account.ListAddress.innerHTML = a);
     } else
         Account.ListAddress.innerHTML = `
             <p>{{ 'templates.account.dashboard.no_default' | t }}.</p>
-            <div class="btn-text d-flex">
-                <a href="javascript:void(0)" onclick="ShowAddForm(this);">{{ 'templates.account.dashboard.new' | t }}</a>
-            </div>
         `;
 });
 const ShowEditForm = async (a) => {

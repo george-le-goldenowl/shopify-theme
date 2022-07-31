@@ -1,4 +1,4 @@
-{%- form 'customer_address', customer.new_address, aria-labelledBy: 'AddressNewHeading' -%}
+{%- form 'customer_address', customer.new_address, aria-labelledBy: 'AddressNewHeading', id: 'address_form_new' -%}
     <div class="shipping__form">
         <div class="row">
             <div class="col-md-6">
@@ -83,18 +83,19 @@
                 <div class="form-group">
                     <label for="AddressCountry_new">{{ 'customer.addresses.country' | t }}</label>
                     <select 
+                        onchange="GenerateProvices(this, 'new')"
                         id="AddressCountry_new" 
                         name="address[country]" 
                         class="form-control form-control-line" 
                         data-address-country-select 
                         data-address-id="new" 
-                        data-default="{{ request.locale.name }}" 
+                        data-default="{{ localization.country }}" 
                         autocomplete="country">
                         {{ all_country_option_tags }}
                     </select>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 address-province d-none">
                 <div class="form-group">
                     <label for="AddressProvinceContainer_new">{{ 'customer.addresses.province' | t }}</label>
                     <select 
@@ -132,18 +133,25 @@
                     />
                 </div>
             </div>
-            {{ form.set_as_default_checkbox }}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="address[default]" class="custom-control-input" id="address_default_address_new" data-required="true">
+                        <label class="custom-control-label" for="address_default_address_new">{{ 'customer.addresses.default' | t }}</label>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="shipping__btn row">
         <div class="col-sm-6">
             <div class="shipping__btn btn-submit">
-                <div class="btn-payment"><a href="javascript: document.querySelector('form#address_form_${b.id}').submit()">{{ 'customer.addresses.edit' | t }}</a></div>
+                <div class="btn-payment"><a href="javascript: document.querySelector('form#address_form_new').submit()">{{ 'customer.addresses.edit' | t }}</a></div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="shipping__btn">
-                <div class="btn-back"><a href="javascript:void(0)" onclick="onCancelEditForm(${a})">{{ 'customer.addresses.cancel' | t }}</a</div>
+                <div class="btn-back"><a href="javascript:void(0)" onclick="onCancelEditForm('new')">{{ 'customer.addresses.cancel' | t }}</a></div>
             </div>
         </div>
     </div>
