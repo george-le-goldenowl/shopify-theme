@@ -4,7 +4,11 @@
             <div class="col-lg-4">
                 <div class="menu-profile-wrap">
                     <ul class="menu-profile">
-                        <li><a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="dashboard"><span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>Account Dashboard</a></li>
+                        <li>
+                            <a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="dashboard">
+                                <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>{{ 'templates.account.dashboard.title' | t }}
+                            </a>
+                        </li>
                         <li><a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="orders"><span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>My orders</a></li> 
                         <li><a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="payment"><span class="icon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>Payment Data</a></li>
                         <li>
@@ -16,18 +20,18 @@
             </div>
             <div class="col-lg-8">
                 <div class="profile-content" data-tab="dashboard">
-                    <h3 class="ttl-4">Account Dashboard</h3>
+                    <h3 class="ttl-4">{{ 'templates.account.dashboard.title' | t }}</h3>
                     <div class="profile-content-item">
-                        <h3 class="ttl-5">Account Infomation</h3>   
+                        <h3 class="ttl-5">{{ 'templates.account.dashboard.information' | t }}</h3>   
                         <div class="row">
                             <div class="col-sm-6">
-                                <p><strong>Contact Infomation</strong></p>
+                                <p><strong>{{ 'templates.account.dashboard.contact_information' | t }}</strong></p>
                                 <div class="ProfileChangePassword d-none">
                                     <div class="form-group">
-                                        <input type="password" name="password" id="password" class="form-control form-control-line" data-required="true" placeholder="*Password">
+                                        <input type="password" name="password" id="password" class="form-control form-control-line" data-required="true" placeholder="*{{ 'templates.account.dashboard.password' | t }}">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="passwordConfirm" id="confirmPassword" class="form-control form-control-line" data-required="true" placeholder="*Comfirm Password">
+                                        <input type="password" name="passwordConfirm" id="confirmPassword" class="form-control form-control-line" data-required="true" placeholder="*{{ 'templates.account.dashboard.password_confirm' | t }}">
                                     </div>
                                 </div>
                                 <div class="ProfileShowData">
@@ -39,7 +43,7 @@
                                         href="javascript: void(0);" 
                                         class="ProfileChangePasswordBtn" 
                                         onclick="Account.ChangePassword(this);" 
-                                        data-type="password">Change Password</a>
+                                        data-type="password">{{ 'templates.account.dashboard.change_passord' | t }}</a>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -52,18 +56,18 @@
                         </div>
                     </div>
                     <div class="profile-content-item">
-                        <h3 class="ttl-5">Address book</h3>
+                        <h3 class="ttl-5">{{ 'templates.account.dashboard.address_book' | t }}</h3>
                         <div class="wrap-list-address">
                             <div class="row">
                                 <div class="col-sm-6" id="default-address">
-                                    <p><strong>Default Address</strong></p>
+                                    <p><strong>{{ 'templates.account.dashboard.address_default' | t }}</strong></p>
                                     {%- if customer.default_address != blank -%}
                                         {{ customer.default_address | format_address }}
                                         <div class="btn-text d-flex" data-address-id="{{ customer.default_address.id }}" data-address='{{ customer.default_address | json }}'>
-                                            <a href="javascript:void(0)" onclick="ShowEditForm(this)">Edit</a>
+                                            <a href="javascript:void(0)" onclick="ShowEditForm(this)">{{ 'templates.account.dashboard.edit' | t }}</a>
                                         </div>
                                     {%- else -%}
-                                        <p>You have not set a default billing address.</p>
+                                        <p>{{ 'templates.account.dashboard.no_defailt' | t }}.</p>
                                     {%- endif -%}
                                 </div>
                                 <div class="col-sm-6 list-address"></div>

@@ -238,6 +238,20 @@
         "error_heading": "Vui lòng điều chỉnh các mục sau:",
         "title": "Biểu mẫu liên hệ"
       }
+    },
+    "account": {
+      "dashboard": {
+        "title": "Tổng quan tài khoản",
+        "information": "Thông tin tài khoản",
+        "contact_information": "Thông tin liên lạc",
+        "password": "Mật khẩu",
+        "password_confirm": "Xác nhận mật khẩu",
+        "change_passord": "Đổi mật khẩu",
+        "address_book": "Sổ địa chỉ",
+        "address_default": "Địa chỉ mặc định",
+        "no_defailt": "Bạn chưa đặt địa chỉ thanh toán mặc định",
+        "edit": "Chỉnh sửa"
+      }
     }
   },
   "sections": {

@@ -238,6 +238,20 @@
         "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
         "error_heading": "Please adjust the following:"
       }
+    },
+    "account": {
+      "dashboard": {
+        "title": "Account Dashboard",
+        "information": "Account Information",
+        "contact_information": "Contact Information",
+        "password": "Password",
+        "password_confirm": "Confirm Password",
+        "change_passord": "Change Password",
+        "address_book": "Address book",
+        "address_default": "Default Address",
+        "no_defailt": "You have not set a default billing address",
+        "edit": "Edit"
+      }
     }
   },
   "sections": {
