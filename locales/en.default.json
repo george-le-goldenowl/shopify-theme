@@ -190,6 +190,11 @@
         "one": "{{ count }} product",
         "other": "{{ count }} products"
       },
+      "sort": {
+        "name": "Name",
+        "price": "Price"
+      },
+      "per_page": "Show per page",
       "reset": "Reset",
       "sort_button": "Sort",
       "sort_by_label": "Sort by:",

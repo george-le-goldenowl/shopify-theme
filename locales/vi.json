@@ -187,6 +187,11 @@
         "one": "{{ count }} sản phẩm",
         "other": "{{ count }} sản phẩm"
       },
+      "sort": {
+        "name": "Tên",
+        "price": "Giá"
+      },
+      "per_page": "Hiển thị trên mỗi trang",
       "reset": "Đặt lại",
       "sort_button": "Sắp xếp",
       "sort_by_label": "Sắp xếp theo:",

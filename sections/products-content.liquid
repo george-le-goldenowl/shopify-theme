@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-3 order-ft-02">
             <h3 class="ttl-02">
-                <i class="icon-filter"></i>Filter
+                <i class="icon-filter"></i>{{ 'products.facets.filter_button' | t }}
             </h3>
             <!-- Filters -->
             {%- assign Filters = linklists['filter'].links -%}
@@ -29,7 +29,7 @@
             <div class="row product-action">
                 <div class="col-md-4 col-6 order-ft-02">
                     <div class="product-dropdown">
-                        <span class="product-dropdown-label">Show per page</span>
+                        <span class="product-dropdown-label">{{ 'products.facets.per_page' | t }}</span>
                         <div class="dropdown">
                             <button class="dropdown-toggle" type="button" id="NumberProductsShow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">8</button>
                             <div class="dropdown-menu" aria-labelledby="NumberProductsShow">
@@ -43,13 +43,12 @@
                 <!-- Sort -->
                 <div class="col-md-4 order-ft-01">
                     <div class="product-dropdown">
-                        <span class="product-dropdown-label">Sort by</span>
+                        <span class="product-dropdown-label">{{ 'products.facets.sort_by_label' | t }}</span>
                         <div class="dropdown">
-                            <button class="dropdown-toggle" type="button" id="SortProducts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Relevance</button>
+                            <button class="dropdown-toggle" type="button" id="SortProducts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                             <div class="dropdown-menu" aria-labelledby="SortProducts">
-                              <a class="dropdown-item" href="">Relevance</a>
-                              <a class="dropdown-item" href="javascript: Products.SwitchSorts('Name');">Name</a>
-                              <a class="dropdown-item" href="javascript: Products.SwitchSorts('Price');">Price</a>
+                              <a class="dropdown-item" href="javascript: Products.SwitchSorts('Name');">{{ 'products.facets.sort.name' | t }}</a>
+                              <a class="dropdown-item" href="javascript: Products.SwitchSorts('Price');">{{ 'products.facets.sort.price' | t }}</a>
                             </div>
                         </div>
                     </div>

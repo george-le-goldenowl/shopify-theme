@@ -10,7 +10,7 @@
         <h2>{{ section.settings.title }}</h2>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{{ request.locale.iso_code }}">{{ 'products.product.banner.home' | t }}</a></li>
+              <li class="breadcrumb-item"><a href="/{{ request.locale.iso_code }}">{{ 'products.product.banner.home' | t }}</a></li>
               <li class="breadcrumb-item">{{ 'products.product.banner.products' | t | link_to: routes.collections_url }}</li>
               <li class="breadcrumb-item active" aria-current="page">{{ product.title | escape }}</li>
             </ol>
