@@ -209,7 +209,7 @@ const FetchByHash = (d) => {
         d = d.getAttribute('data-id');
     }
     var c = document.querySelector(`input#${d}`);
-    c && (c.checked = true, c.closest('.has-child-sub').classList.toggle('active'), Products.Collection(c));
+    c && (c.checked = true, c.closest('.has-child-sub').classList.add('active'), Products.Collection(c));
 };
 
 const GetHashParam = () => {

@@ -37,7 +37,14 @@
                 <h3>{{ 'sections.footer.shop' | t }}</h3>
                 <ul>
                     {% for col in collections %}
-                    <li><a href="{{ routes.collections_url | append: '#' | append: col.handle }}">{{ col.title | remove: '[CATEGORY]' | remove: '[BRAND]' }}</a></li>
+                        {% liquid
+                            if template == 'list-collections'
+                                assign action = 'onclick="FetchByHash(this)"'
+                            else
+                                assign action = ''
+                            endif
+                        %}
+                        <li><a href="{{ routes.collections_url | append: '#' | append: col.handle }}" data-id="{{ col.handle }}" {{ action }}>{{ col.title | remove: '[CATEGORY]' | remove: '[BRAND]' }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
