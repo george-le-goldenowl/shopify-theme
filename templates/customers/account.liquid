@@ -72,10 +72,13 @@
                                     {%- if customer.default_address != blank -%}
                                         {{ customer.default_address | format_address }}
                                         <div class="btn-text d-flex" data-address-id="{{ customer.default_address.id }}" data-address='{{ customer.default_address | json }}'>
-                                            <a href="javascript:void(0)" onclick="ShowEditForm(this)">{{ 'templates.account.dashboard.edit' | t }}</a>
+                                            <a href="javascript:void(0)" onclick="ShowEditForm(this);">{{ 'templates.account.dashboard.edit' | t }}</a>
                                         </div>
                                     {%- else -%}
-                                        <p>{{ 'templates.account.dashboard.no_defailt' | t }}.</p>
+                                        <p>{{ 'templates.account.dashboard.no_default' | t }}.</p>
+                                        <div class="btn-text d-flex">
+                                            <a href="javascript: void(0);" onclick="ShowAddForm(this);">Edit Address</a>
+                                        </div>
                                     {%- endif -%}
                                 </div>
                                 <div class="col-sm-6 list-address"></div>
@@ -304,6 +307,10 @@ const ShowEditForm = async (a) => {
     await Account.WrapListAddress.insertAdjacentHTML("beforeend", GenerateEditForm(JSON.parse(a.parentElement.dataset.address))), (Account.WrapListAddress.firstElementChild.style.display = "none");
     var c = Account.Content.querySelector(`#AddressCountry_${b}`);
     c && (await SelectedCountry(c, b));
+},
+const ShowAddForm = async (a) => {
+    var f = `{%- render 'edit-address-form' -%}`;
+    await Account.WrapListAddress.insertAdjacentHTML("beforeend", f), (Account.WrapListAddress.firstElementChild.style.display = "none");
 },
 onCancelEditForm = (a) => {
     document.querySelector(`form#address_form_${a}`) && document.querySelector(`form#address_form_${a}`).remove(), (Account.WrapListAddress.firstElementChild.style.display = "flex");
