@@ -249,8 +249,11 @@
         "change_passord": "Change Password",
         "address_book": "Address book",
         "address_default": "Default Address",
-        "no_defailt": "You have not set a default billing address",
-        "edit": "Edit"
+        "list_address": "List Address",
+        "no_default": "You have not set a default billing address",
+        "edit": "Edit",
+        "close": "Close",
+        "new": "Add new"
       },
       "order": {
         "title": "My orders",
@@ -260,6 +263,12 @@
         "title": "Payment Data",
         "point": "Points",
         "total": "Total"
+      },
+      "newsletter": {
+        "yes": "You are subscribed to \"General Subscription\"",
+        "no": "You aren't subscribe to \"General Subscription\"",
+        "remove": "Remove",
+        "subscribe": "Subscribe"
       }
     }
   },

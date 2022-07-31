@@ -159,7 +159,7 @@ Account.ChangePassword = async e => {
         case 'password':
             p.classList.remove('d-none');
             d.classList.add('d-none');
-            e.parentElement.insertAdjacentHTML('afterbegin', '<a href="javascript: void(0);" onclick="Account.SubmitChangePassword(this);">Edit</a>');
+            e.parentElement.insertAdjacentHTML('afterbegin', `<a href="javascript: void(0);" onclick="Account.SubmitChangePassword(this);">{{ 'templates.account.dashboard.edit' | t }}</a>`);
             break;
         case 'data':
             p.classList.add('d-none');
@@ -168,7 +168,7 @@ Account.ChangePassword = async e => {
             break;
     }
 
-    e.innerText = 'password' == type ? 'Close' : 'Change Password';
+    e.innerText = 'password' == type ? `{{ 'templates.account.dashboard.close' | t }}` : `{{ 'templates.account.dashboard.change_passord' | t }}`;
     e.setAttribute('data-type', 'password' == type ? 'data' : 'password');
 };
 Account.SubmitChangePassword = async (e) => {
@@ -210,7 +210,7 @@ Account.SubmitChangePassword = async (e) => {
         });
 
         if (res.err) {
-            e.parentElement.innerHTML = '<a href="javascript: void(0);" onclick="Account.SubmitChangePassword(this);">Edit</a>';
+            e.parentElement.innerHTML = `<a href="javascript: void(0);" onclick="Account.SubmitChangePassword(this);">{{ 'templates.account.dashboard.edit' | t }}</a>`;
             throw res.message;
         }
 
@@ -245,15 +245,15 @@ document.addEventListener('Sync', () => {
     void 0 != Shopify.User &&
         ((n = Shopify.User.newsletter 
             ? `
-                <p>You are subscribed to "General Subscription".</p>
+                <p>{{ 'templates.account.newsletter.yes' | t }}.</p>
                 <div class="btn-text d-flex">
-                    <a href="javascript: void(0);" onclick="Account.SubscribeNewsletter(this);" data-action="remove">Remove</a>
+                    <a href="javascript: void(0);" onclick="Account.SubscribeNewsletter(this);" data-action="remove">{{ 'templates.account.newsletter.remove' | t }}</a>
                 </div>
             ` 
             : `
-                <p>You aren't subscribe to "General Subscription".</p>
+                <p>{{ 'templates.account.newsletter.no' | t }}.</p>
                 <div class="btn-text d-flex">
-                    <a href="javascript: void(0);" onclick="Account.SubscribeNewsletter(this);" data-action="subscribe">Subscribe</a>
+                    <a href="javascript: void(0);" onclick="Account.SubscribeNewsletter(this);" data-action="subscribe">{{ 'templates.account.newsletter.subscribe' | t }}</a>
                 </div>
             `
         ), Account.Newsletter.innerHTML = n), Account.Points.innerText = Shopify.User.points.total;
@@ -268,7 +268,7 @@ window.addEventListener("load", async (b) => {
         (Account.WrapListAddress = Account.Content.querySelector(".wrap-list-address")),
         Account.Address)
     ) {
-        var a = "<p><strong>List Address</strong></p>";
+        var a = `<p><strong>{{ 'templates.account.dashboard.list_address' | t }}</strong></p>`;
         JSON.parse(Account.Address).forEach((b) => {
             let d = JSON.stringify(b);
             if (!b.default) {
@@ -282,7 +282,7 @@ window.addEventListener("load", async (b) => {
                     (a += c.join("<br/>")),
                     (a += `
                     <div class="btn-text d-flex" data-address-id="${b.id}" data-address='${d}'>
-                        <a href="javascript:void(0)" onclick="ShowEditForm(this)">Edit</a>
+                        <a href="javascript:void(0)" onclick="ShowEditForm(this)">{{ 'templates.account.dashboard.edit' | t }}</a>
                     </div>
                     <hr/>
                 `);
@@ -291,9 +291,9 @@ window.addEventListener("load", async (b) => {
             (Account.ListAddress.innerHTML = a);
     } else
         Account.ListAddress.innerHTML = `
-            <p>You have not set a default shipping address.</p>
+            <p>{{ 'templates.account.dashboard.no_default' | t }}.</p>
             <div class="btn-text d-flex">
-                <a href="javascript:void(0)">Add new</a>
+                <a href="javascript:void(0)">{{ 'templates.account.dashboard.new' | t }}</a>
             </div>
         `;
 });

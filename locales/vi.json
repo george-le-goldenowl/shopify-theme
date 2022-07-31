@@ -249,8 +249,11 @@
         "change_passord": "Đổi mật khẩu",
         "address_book": "Sổ địa chỉ",
         "address_default": "Địa chỉ mặc định",
-        "no_defailt": "Bạn chưa đặt địa chỉ thanh toán mặc định",
-        "edit": "Chỉnh sửa"
+        "list_address": "Danh sách địa chỉ",
+        "no_default": "Bạn chưa đặt địa chỉ thanh toán mặc định",
+        "edit": "Chỉnh sửa",
+        "close": "Hủy",
+        "new": "Thêm mới"
       },
       "order": {
         "title": "Đơn đặt hàng của tôi",
@@ -260,6 +263,12 @@
         "title": "Dữ liệu thanh toán",
         "point": "Điểm",
         "total": "Tổng cộng"
+      },
+      "newsletter": {
+        "yes": "Bạn đã đăng ký \"Đăng ký Chung\"",
+        "no": "Bạn chưa đăng ký \"Đăng ký Chung\"",
+        "remove": "Hủy đăng ký",
+        "subscribe": "Đăng ký"
       }
     }
   },
