@@ -6,7 +6,7 @@
         <div class="top-shop">
             <div class="row">
                 {% for category in categories %}
-                    {% assign link = request.locale.root_url | append: '/collections#' | append: category.handle %}
+                    {% assign link = routes.root_url | append: '/collections#' | append: category.handle %}
                     <div class="col-6 col-md-4 col-lg-2">
                         <div class="top-shop__item">
                             {% assign thumbnail = category.image %}

@@ -533,7 +533,12 @@
       "subtext": "Nhập mật khẩu mới cho {{ email }}",
       "password": "Mật khẩu",
       "password_confirm": "Xác nhận mật khẩu",
-      "submit": "Đặt lại mật khẩu"
+      "submit": "Đặt lại mật khẩu",
+      "error": {
+        "require": "Các trường bắt buộc",
+        "password_least": "Mật khẩu ít nhất 8 ký tự",
+        "password_not_match": "Mật khẩu và xác nhận mật khẩu không khớp",
+      }
     },
     "order": {
       "title": "Đơn hàng",
