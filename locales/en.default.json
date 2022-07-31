@@ -251,6 +251,10 @@
         "address_default": "Default Address",
         "no_defailt": "You have not set a default billing address",
         "edit": "Edit"
+      },
+      "order": {
+        "title": "My orders",
+        "tab_title": "Account Orders",
       }
     }
   },
@@ -469,7 +473,7 @@
       "new": "New Customer?"
     },
     "order": {
-      "title": "Order {{ name }}",
+      "title": "Order",
       "date_html": "Placed on {{ date }}",
       "cancelled_html": "Order Cancelled on {{ date }}",
       "cancelled_reason": "Reason: {{ reason }}",
@@ -501,7 +505,8 @@
       "payment_status": "Payment status",
       "fulfillment_status": "Fulfillment status",
       "total": "Total",
-      "none": "You haven't placed any orders yet."
+      "none": "You haven't placed any orders yet.",
+      "order_now": "Order now"
     },
     "recover_password": {
       "title": "Reset your password",

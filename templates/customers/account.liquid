@@ -9,7 +9,11 @@
                                 <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>{{ 'templates.account.dashboard.title' | t }}
                             </a>
                         </li>
-                        <li><a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="orders"><span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>My orders</a></li> 
+                        <li>
+                            <a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="orders">
+                                <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>{{ 'templates.account.order.title' | t }}
+                            </a>
+                        </li> 
                         <li><a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="payment"><span class="icon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>Payment Data</a></li>
                         <li>
                             <a href="javascript: ((localStorage.removeItem('Customer_Mode')), (window.location.href = '{{ routes.account_logout_url }}'));">
@@ -76,16 +80,16 @@
                     </div>
                 </div>
                 <div class="profile-content d-none" data-tab="orders">
-                    <h3 class="ttl-4">Account Orders</h3>
+                    <h3 class="ttl-4">{{ 'templates.account.order.tab_title' | t }}</h3>
                     <div class="profile-content-item">
                         {%- if customer.orders_count > 0 -%}
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Total</th>
-                                        <th>Status</th>
+                                        <th>{{ 'customer.order.title' | t }}</th>
+                                        <th>{{ 'customer.order.total' | t }}</th>
+                                        <th>{{ 'customer.order.payment_status' | t }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -100,7 +104,7 @@
                                 </tbody>
                             </table>
                         {%- else -%}
-                            You have not made any orders yet, {{ 'Order now' | link_to: '/collections' }}
+                            {{ 'customer.orders.none' | t }}, {{ 'customer.orders.order_now' | link_to: '/collections' }}
                         {%- endif-%}
                     </div>
                 </div>

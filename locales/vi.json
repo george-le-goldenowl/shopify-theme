@@ -251,6 +251,10 @@
         "address_default": "Địa chỉ mặc định",
         "no_defailt": "Bạn chưa đặt địa chỉ thanh toán mặc định",
         "edit": "Chỉnh sửa"
+      },
+      "order": {
+        "title": "Đơn đặt hàng của tôi",
+        "tab_title": "Đơn đặt hàng tài khoản",
       }
     }
   },
@@ -476,7 +480,8 @@
       "payment_status": "Trạng thái thanh toán",
       "fulfillment_status": "Trạng thái thực hiện",
       "total": "Tổng",
-      "none": "Bạn chưa đặt đơn hàng nào."
+      "none": "Bạn chưa đặt đơn hàng nào.",
+      "order_now": "Đặt hàng ngay"
     },
     "recover_password": {
       "title": "Đặt lại mật khẩu",
@@ -499,7 +504,7 @@
       "submit": "Đặt lại mật khẩu"
     },
     "order": {
-      "title": "Đơn hàng {{ name }}",
+      "title": "Đơn hàng",
       "date_html": "Đặt vào {{ date }}",
       "cancelled_html": "Đơn hàng đã bị hủy vào {{ date }}",
       "cancelled_reason": "Lý do: {{ reason }}",
