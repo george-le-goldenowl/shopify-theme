@@ -167,6 +167,7 @@
       "label": "Media gallery"
     },
     "facets": {
+      "no_results": "No product found",
       "apply": "Apply",
       "clear": "Clear",
       "clear_all": "Remove all",
@@ -200,7 +201,8 @@
       "sort_by_label": "Sort by:",
       "to": "To",
       "clear_filter": "Remove filter"
-    }
+    },
+    "new_product": "New Product"
   },
   "templates": {
     "404": {
@@ -359,6 +361,25 @@
           "prizes": "Prizes"
         },
         "form": "Award Form"
+      },
+      "detail": {
+        "no_found": "No contest found",
+        "submit": "Submit Entry",
+        "view": "View Entries",
+        "error": {
+          "login": "To submit entries for this contest, you must first login",
+          "mode": "This contest is only for",
+          "point": "You do not have enough points to enter this contest"
+        },
+        "form": {
+          "post": "Post Contest",
+          "title": "Title",
+          "image": "Image",
+          "desc": "Description",
+          "submit": "Submit",
+          "cancel": "Cancel",
+          "success": "You have successfully submitted your entry"
+        }
       },
       "list": {
         "title": "Bài dự thi"

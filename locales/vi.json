@@ -167,6 +167,7 @@
       "label": "Thư viện phương tiện"
     },
     "facets": {
+      "no_results": "Không tìm thấy sản phẩm nào",
       "apply": "Áp dụng",
       "clear": "Xóa",
       "clear_all": "Xóa tất cả",
@@ -200,7 +201,8 @@
       "filter_selected_accessibility": "{{ type }} (Đã chọn {{ count }} bộ lọc)",
       "show_more": "Hiển thị thêm",
       "show_less": "Rút gọn"
-    }
+    },
+    "new_product": "Sản phẩm mới"
   },
   "templates": {
     "404": {
@@ -359,6 +361,25 @@
           "prizes": "Giải thưởng"
         },
         "form": "Hình thức giải thưởng"
+      },
+      "detail": {
+        "no_found": "Không tìm thấy cuộc thi",
+        "submit": "Gửi bài dự thi",
+        "view": "Xem các bài dự thi",
+        "error": {
+          "login": "Để gửi bài tham gia cuộc thi này, trước tiên bạn phải đăng nhập",
+          "mode": "Cuộc thi này chỉ dành cho",
+          "point": "Bạn không có đủ điểm để tham gia cuộc thi này"
+        },
+        "form": {
+          "post": "Gửi bài thi",
+          "title": "Tiêu đề",
+          "image": "Hình ảnh",
+          "desc": "Mô tả",
+          "submit": "Gửi",
+          "cancel": "Hủy",
+          "success": "Bạn đã gửi thành công bài dự thi của mình"
+        }
       },
       "list": {
         "title": "Bài dự thi"
