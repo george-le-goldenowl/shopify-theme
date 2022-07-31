@@ -14,10 +14,14 @@
                                 <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>{{ 'templates.account.order.title' | t }}
                             </a>
                         </li> 
-                        <li><a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="payment"><span class="icon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>Payment Data</a></li>
+                        <li>
+                            <a href="javascript: void(0);" onclick="Account.SwitchTab(this);" data-tab="payment">
+                                <span class="icon"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span>{{ 'templates.account.payment.title' | t }}
+                            </a>
+                        </li>
                         <li>
                             <a href="javascript: ((localStorage.removeItem('Customer_Mode')), (window.location.href = '{{ routes.account_logout_url }}'));">
-                            <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>Log Out</a>
+                            <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>{{ 'customer.log_out' | t }}</a>
                         </li>
                     </ul>
                 </div>
@@ -104,17 +108,17 @@
                                 </tbody>
                             </table>
                         {%- else -%}
-                            {{ 'customer.orders.none' | t }}, {{ 'customer.orders.order_now' | t | link_to: '/collections' }}
+                            {{ 'customer.orders.none' | t }}, {{ 'customer.orders.order_now' | t | link_to: routes.collections_url }}
                         {%- endif-%}
                     </div>
                 </div>
                 <div class="profile-content d-none" data-tab="payment">
-                    <h3 class="ttl-4">Payment Data</h3>
+                    <h3 class="ttl-4">{{ 'templates.account.payment.title' | t }}</h3>
                     <div class="profile-content-item">
-                        <h3 class="ttl-5">Points</h3>
+                        <h3 class="ttl-5">{{ 'templates.account.payment.point' | t }}</h3>
                         <div class="row">
                             <div class="col-sm-6">
-                                <p>Total: <span class="ProfilePoints"></span></p>
+                                <p>{{ 'templates.account.payment.total' | t }}: <span class="ProfilePoints"></span></p>
                             </div>
                         </div>
                     </div>

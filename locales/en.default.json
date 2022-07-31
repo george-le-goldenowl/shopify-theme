@@ -255,6 +255,11 @@
       "order": {
         "title": "My orders",
         "tab_title": "Account Orders"
+      },
+      "payment": {
+        "title": "Payment Data",
+        "point": "Points",
+        "total": "Total"
       }
     }
   },

@@ -255,6 +255,11 @@
       "order": {
         "title": "Đơn đặt hàng của tôi",
         "tab_title": "Đơn đặt hàng tài khoản"
+      },
+      "payment": {
+        "title": "Dữ liệu thanh toán",
+        "point": "Điểm",
+        "total": "Tổng cộng"
       }
     }
   },
