@@ -543,7 +543,15 @@
       "password_confirm": "Confirm Password",
       "show_password": "Show Password",
       "submit": "Create an Account",
-      "cancel": "Back"
+      "cancel": "Back",
+      "error": {
+        "password_least": "password at least 8 characters",
+        "password_not_match": "password and confirm password do not match",
+        "invalid_email": "invalid email"
+      },
+      "success": {
+        "desc": "You are registered as a Wholesaler<br\/>Please wait for the administrator's approval"
+      }
     },
     "reset_password": {
       "title": "Reset account password",

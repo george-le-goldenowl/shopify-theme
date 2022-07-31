@@ -518,7 +518,15 @@
       "password_confirm": "Xác nhận mật khẩu",
       "show_password": "Hiển thị mật khẩu",
       "submit": "Tạo",
-      "cancel": "Hủy"
+      "cancel": "Về Trang Chủ",
+      "error": {
+        "password_least": "mật khẩu ít nhất 8 ký tự",
+        "password_not_match": "mật khẩu và xác nhận mật khẩu không khớp",
+        "invalid_email": "email không hợp lệ"
+      },
+      "success": {
+        "desc": "Bạn đã đăng ký với tư cách là Nhà bán buôn <br\/>Vui lòng đợi sự chấp thuận của quản trị viên"
+      }
     },
     "reset_password": {
       "title": "Đặt lại mật khẩu tài khoản",
