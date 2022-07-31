@@ -123,6 +123,10 @@
         "sale_price": "Giá bán",
         "unit_price": "Đơn giá"
       },
+      "banner": {
+        "home": "Trang chủ",
+        "products": "Sản phẩm"
+      },
       "variations": {
         "category": "Thể loại",
         "brand": "Nhãn hiệu"
