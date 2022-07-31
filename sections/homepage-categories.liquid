@@ -6,13 +6,13 @@
         <div class="top-shop">
             <div class="row">
                 {% for category in categories %}
-                    {% assign link = routes.root_url | append: '/collections#' | append: category.handle %}
+                    {% assign link = '/collections#' | append: category.handle %}
                     <div class="col-6 col-md-4 col-lg-2">
                         <div class="top-shop__item">
                             {% assign thumbnail = category.image %}
                             {% if thumbnail %}
                             <div class="top-shop__item__img">
-                                <a href="{{ link }}">
+                                <a href="{{ request.locale.root_url | append: link }}">
                                 {{ thumbnail
                                 | image_url: width: 150, crop: 'center'
                                 | image_tag: loading: 'lazy', alt: thumbnail.alt
@@ -22,7 +22,9 @@
                             {% endif %}
                             <p>{{ category.title | escape | remove: "[CATEGORY]" | link_to: link }}</p>
                             <div class="top-shop__item__btn btn-link">
-                                {{ 'general.view_all' | t | link_to: link }}
+                                <a href="{{ request.locale.root_url | append: link }}">
+                                    {{ 'general.view_all' | t | link_to: link }}
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -35,9 +37,9 @@
 
 {% schema %}
 {
-	"name": "Shop By Category",
-	"tag": "section",
-	"class": "section-content-first",
+    "name": "Shop By Category",
+    "tag": "section",
+    "class": "section-content-first",
     "settings": [
         {
             "id": "featured_categories",
