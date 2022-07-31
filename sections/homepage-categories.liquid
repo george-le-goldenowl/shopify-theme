@@ -6,13 +6,12 @@
         <div class="top-shop">
             <div class="row">
                 {% for category in categories %}
-                    {% assign link = '/collections#' | append: category.handle %}
                     <div class="col-6 col-md-4 col-lg-2">
                         <div class="top-shop__item">
                             {% assign thumbnail = category.image %}
                             {% if thumbnail %}
                             <div class="top-shop__item__img">
-                                <a href="{{ request.locale.root_url | append: link }}">
+                                <a href="{{ routes.collections_url | append: '#' | append: category.handle }}">
                                 {{ thumbnail
                                 | image_url: width: 150, crop: 'center'
                                 | image_tag: loading: 'lazy', alt: thumbnail.alt
@@ -22,7 +21,7 @@
                             {% endif %}
                             <p>{{ category.title | escape | remove: "[CATEGORY]" | link_to: link }}</p>
                             <div class="top-shop__item__btn btn-link">
-                                <a href="{{ request.locale.root_url | append: link }}">
+                                <a href="{{ routes.collections_url | append: '#' | append: category.handle }}">
                                     {{ 'general.view_all' | t }}
                                 </a>
                             </div>

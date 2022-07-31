@@ -1488,6 +1488,8 @@ a {
           transform: scale(1);
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  min-height: 9.688rem;
+  max-height: 9.688rem;
 }
 .top-product__item a {
   text-decoration: none;
