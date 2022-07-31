@@ -23,7 +23,7 @@
                             <p>{{ category.title | escape | remove: "[CATEGORY]" | link_to: link }}</p>
                             <div class="top-shop__item__btn btn-link">
                                 <a href="{{ request.locale.root_url | append: link }}">
-                                    {{ 'general.view_all' | t | link_to: link }}
+                                    {{ 'general.view_all' | t }}
                                 </a>
                             </div>
                         </div>
