@@ -550,7 +550,7 @@
         "invalid_email": "invalid email"
       },
       "success": {
-        "desc": "You are registered as a Wholesaler<br\/>Please wait for the administrator's approval"
+        "desc": "You are registered as a Wholesaler. Please wait for the administrator's approval"
       }
     },
     "reset_password": {
