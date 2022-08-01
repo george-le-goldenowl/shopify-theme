@@ -1,6 +1,6 @@
 <div class="blog__mv">
     {% if article.image %}
-      {{ article.image | image_url: width: 1440, crop: 'center' | image_tag: loading: 'lazy' }}
+      {{ article.image | image_url: width: 2160, height: 855, crop: 'center' | image_tag: loading: 'lazy' }}
     {% endif %}
 </div>
 <div class="container">

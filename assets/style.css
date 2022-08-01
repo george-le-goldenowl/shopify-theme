@@ -824,6 +824,7 @@ a {
   }
   .header .navbar-collapse.collapse.show {
     right: 0;
+    z-index: 9999;
   }
 }
 .header .js-close-menu {
