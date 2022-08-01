@@ -525,7 +525,7 @@
         "invalid_email": "email không hợp lệ"
       },
       "success": {
-        "desc": "Bạn đã đăng ký với tư cách là Nhà bán buôn <br\/>Vui lòng đợi sự chấp thuận của quản trị viên"
+        "desc": "Bạn đã đăng ký với tư cách là Nhà bán buôn. Vui lòng đợi sự chấp thuận của quản trị viên"
       }
     },
     "reset_password": {
