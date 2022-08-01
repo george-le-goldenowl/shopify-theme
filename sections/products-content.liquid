@@ -45,10 +45,10 @@
                     <div class="product-dropdown">
                         <span class="product-dropdown-label">{{ 'products.facets.sort_by_label' | t }}</span>
                         <div class="dropdown">
-                            <button class="dropdown-toggle" type="button" id="SortProducts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <button class="dropdown-toggle" type="button" id="SortProducts" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ 'products.facets.sort.name' | t }}</button>
                             <div class="dropdown-menu" aria-labelledby="SortProducts">
-                              <a class="dropdown-item" href="javascript: Products.SwitchSorts('Name');">{{ 'products.facets.sort.name' | t }}</a>
-                              <a class="dropdown-item" href="javascript: Products.SwitchSorts('Price');">{{ 'products.facets.sort.price' | t }}</a>
+                                <a class="dropdown-item" href="javascript: Products.SwitchSorts('Name');">{{ 'products.facets.sort.name' | t }}</a>
+                                <a class="dropdown-item" href="javascript: Products.SwitchSorts('Price');">{{ 'products.facets.sort.price' | t }}</a>
                             </div>
                         </div>
                     </div>
@@ -70,6 +70,7 @@ var Products = { Result: [], Page: 1, Perpage: 8 };
     (Products.Sorts = document.querySelector("#SortProducts")),
     (Products.Numers = document.querySelector("#NumberProductsShow")),
     (Products.Pagination = document.querySelector(".ProductsPagination")),
+    (Products.FilterAction = document.querySelector(".product-action")),
     (Products.Collection = async (a) => {
         (Products.List.innerHTML = `{%- render 'icon-loading' -%}`), (Products.Page = 1), (Products.Perpage = 8);
         var b = await fetch(`/collections/${a.value}/products.json`).then((a) => a.json());
@@ -155,6 +156,7 @@ var Products = { Result: [], Page: 1, Perpage: 8 };
     }),
     (Products.ShowResults = () => {
         if (Products.Result.length) {
+            Products.FilterAction.classList.remove('d-none');
             var a,
                 c = (Products.Page - 1) * Products.Perpage,
                 d = Products.Page * Products.Perpage;
@@ -184,7 +186,7 @@ var Products = { Result: [], Page: 1, Perpage: 8 };
                     (Products.Pagination.innerHTML = Products.Paginate()),
                     document.dispatchEvent(window.Effect);
             }
-        } else Products.List.innerHTML = `{{ 'products.facets.no_results' | t }}`;
+        } else (Products.FilterAction.classList.add('d-none'), Products.List.innerHTML = `{{ 'products.facets.no_results' | t }}`);
     }),
     document.addEventListener("Sync", async (f) => {
         var e,
