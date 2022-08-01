@@ -323,7 +323,7 @@
         "shipping": "Enter your destination to get a shipping estimate",
         "country": "Country",
         "select_country": "Select Countries",
-        "zip": "Zip/Postal code",
+        "zip": "Zip\/Postal code",
         "zip_input": "Fill in your name and address information to see available shipping options"
       },
       "headings": {
