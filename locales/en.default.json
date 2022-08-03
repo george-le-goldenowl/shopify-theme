@@ -54,6 +54,10 @@
       "of": "of",
       "next_slide": "Slide right",
       "previous_slide": "Slide left"
+    },
+    "login_popup": {
+      "text": "You need to login with your Wholesale account to view this section",
+      "button": "Login now"
     }
   },
   "newsletter": {
