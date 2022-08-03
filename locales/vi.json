@@ -54,6 +54,10 @@
       "of": "trong số",
       "next_slide": "Trượt sang phải",
       "previous_slide": "Trượt sang trái"
+    },
+    "login_popup": {
+      "text": "Bạn cần đăng nhập bằng tài khoản Wholesale để xem phần này",
+      "button": "Đăng nhập ngay"
     }
   },
   "newsletter": {
