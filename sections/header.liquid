@@ -60,9 +60,24 @@
                             <div class="customer-btn CustomerSwitch">
                                 <a class="nav-link" data-type="retail" href="#" style="pointer-events: none;">{{ 'customer.mode.retail' | t }}</a>
                                 <span style="color: #fff;">/</span>
-                                <a class="nav-link" data-type="wholesale" href="javascript: TypeBtn.onWholesale();">{{ 'customer.mode.wholesale' | t }}</a>
+                                <a class="nav-link" data-type="wholesale" data-toggle="modal" data-target="detailModal-wholesale-showup" href="">{{ 'customer.mode.wholesale' | t }}</a>
                             </div>
                         </li>
+
+                        <!-- Wholesale Popup -->
+                        <div class="modal fade" id="detailModal-wholesale-showup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="blog__ttl02">You need to login with your Wholesale account to view this section</h2>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      
                         <!-- TODO -->
                         {%- assign menu = linklists['categories'].links -%}
                         {%- if menu != empty -%}
