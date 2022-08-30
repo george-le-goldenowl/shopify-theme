@@ -49,7 +49,7 @@ window.addEventListener('load', async e => {
 		                <div class="col-sm-6">
                             <div class="shipping__btn">
                                 <div class="btn-back">
-                                    {{ pages.entries-list }}
+                                    {{ pages.entries-list.url }}
                                 	<a href="/{{ request.locale.iso_code | append: '/pages/contest-entries' }}">{{ 'sections.contest.detail.view' | t }}</a>
                                 </div>
                             </div>
