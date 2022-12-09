@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "product_details_banner": {
+      "type": "product-details-banner",
+      "settings": {
+        "title": "Shop",
+        "desktop_thumbnail": "shopify:\/\/shop_images\/unsplash_zeT_i6av9rU.png",
+        "mobile_thumbnail": "shopify:\/\/shop_images\/unsplash_zeT_i6av9rU_1.png"
+      }
+    },
+    "product_details": {
+      "type": "product-details",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "product_details_banner",
+    "product_details"
+  ]
+}
