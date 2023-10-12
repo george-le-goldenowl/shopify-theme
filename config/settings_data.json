@@ -149,14 +149,27 @@
         "type": "newsletter",
         "settings": {
           "title": "Newsletter",
-          "paraphrase": "<p>Sign up for our newsletter to receive exclusive offers and promotions.<\/p>",
-          "image": "shopify:\/\/shop_images\/bg_newsleter.png"
+          "paraphrase": "<p>Sign up for our newsletter to receive exclusive offers and promotions.<\/p>"
         }
       }
     },
     "content_for_index": [
 
-    ]
+    ],
+    "blocks": {
+      "4331184606436760713": {
+        "type": "shopify:\/\/apps\/plastiks\/blocks\/plastiks-footprint-block\/babeafa0-a702-4fb8-94eb-e3bb596b0c8d",
+        "disabled": false,
+        "settings": {
+          "background": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 100%)",
+          "text_color": "#082fb9",
+          "number_color": "#082fb9",
+          "widget_position": "bottom-left",
+          "equivalence": "bottles",
+          "size": "small"
+        }
+      }
+    }
   },
   "presets": {
     "Default": {
