@@ -52,6 +52,10 @@
       "of": "de",
       "next_slide": "Diapositiva a la derecha",
       "previous_slide": "Diapositiva a la izquierda"
+    },
+    "lang": {
+      "vi": "vietnamita",
+      "en": "Inglés"
     }
   },
   "newsletter": {
@@ -474,6 +478,23 @@
       "signup_form_email_label": "Email",
       "signup_form_success": "We will send you an email right before we open!",
       "password_link": "Enter using password"
+    }
+  },
+  "customer_accounts": {
+    "payment_methods": {
+      "default": "Por defecto",
+      "payment_details": {
+        "default_checkbox": "Establecer por defecto",
+        "default_checkbox_accessibility_label": "Establecer este método de pago como predeterminado"
+      },
+      "edit_payment_method": {
+        "generic_error": "Hubo un problema al actualizar. Inténtalo de nuevo."
+      },
+      "add_payment_method": {
+        "billing_address": {
+          "default_checkbox": "Establecer como método de pago predeterminado"
+        }
+      }
     }
   }
 }
