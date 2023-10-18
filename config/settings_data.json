@@ -174,8 +174,8 @@
         "disabled": false,
         "settings": {
           "widget_type": "checkbox",
-          "location_widget": "beforebegin",
-          "selector": "#accordion > div.form-group",
+          "location_widget": "afterend",
+          "selector": "#shopify-section-template--15680791412923__line_items > div > div > div.col-lg-8 > div > div.table-cart",
           "selector_total": "",
           "selector_cart_content": "",
           "style": ""
