@@ -164,7 +164,7 @@
           "background": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 100%)",
           "text_color": "#082fb9",
           "number_color": "#082fb9",
-          "widget_position": "bottom-left",
+          "widget_position": "bottom-right",
           "equivalence": "bottles",
           "size": "small"
         }
