@@ -168,6 +168,18 @@
           "equivalence": "bottles",
           "size": "small"
         }
+      },
+      "4816783682867502917": {
+        "type": "shopify:\/\/apps\/plastiks\/blocks\/plastiks-cart-drawer\/babeafa0-a702-4fb8-94eb-e3bb596b0c8d",
+        "disabled": false,
+        "settings": {
+          "widget_type": "checkbox",
+          "location_widget": "beforebegin",
+          "selector": "#accordion > div.form-group",
+          "selector_total": "",
+          "selector_cart_content": "",
+          "style": ""
+        }
       }
     }
   },
